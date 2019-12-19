@@ -1,0 +1,58 @@
+{
+    "name": "Rockwell Automation",
+    "description": "Our official company page is a space to share your questions and ideas about our company and the manufacturing industry. In return, we'll share compelling, inspiring and humorous content that celebrates manufacturing, engineers and innovation. We hope ...",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/20047-rockwell-automation.jpg",
+    "tags": [
+        "automation",
+        "have api",
+        "industrial",
+        "no api definition"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/rockwell-automation\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Rockwell Automation",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/20047-rockwell-automation.jpg",
+            "humanURL": "http:\/\/www.rockwellautomation.com\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/rockwell-automation-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/rockwell-automation-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.rockwellautomation.com\/global\/news\/blog\/overview.page"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/blog.emea.rockwellautomation.com\/feed\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/rockwell-automation"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/ROKAutomation"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.rockwellautomation.com\/"
+        }
+    ]
+}
