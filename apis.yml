@@ -1,7 +1,11 @@
 aid: rockwell-automation
-url: https://raw.githubusercontent.com/api-evangelist/rockwell-automation/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/rockwell-automation/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.rockwell-automation.com
+description: >-
+  Rockwell Automation is a global provider of industrial automation and digital transformation
+  solutions, helping manufacturers boost productivity, sustainability, and agility.
