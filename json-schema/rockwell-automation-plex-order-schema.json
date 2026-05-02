@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/rockwell-automation/json-schema/rockwell-automation-plex-order-schema.json",
+  "title": "Rockwell Automation Plex Customer Order",
+  "description": "Schema representing a customer order in the Plex Smart Manufacturing Platform ERP API.",
+  "type": "object",
+  "required": ["customerId", "orderDate", "orderLines"],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "description": "Unique order identifier in Plex ERP"
+    },
+    "orderNumber": {
+      "type": "string",
+      "description": "Human-readable order number"
+    },
+    "customerId": {
+      "type": "string",
+      "description": "Customer identifier in Plex"
+    },
+    "customerName": {
+      "type": "string",
+      "description": "Customer name"
+    },
+    "orderDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the order was placed"
+    },
+    "dueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Requested delivery date"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["New", "Confirmed", "In Production", "Shipped", "Delivered", "Cancelled"],
+      "description": "Current order status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Normal", "Rush", "Just-In-Sequence"],
+      "description": "Order fulfillment priority"
+    },
+    "orderLines": {
+      "type": "array",
+      "description": "Line items in the order",
+      "items": {
+        "type": "object",
+        "required": ["partNumber", "quantity"],
+        "properties": {
+          "lineNumber": {
+            "type": "integer",
+            "description": "Sequential line number"
+          },
+          "partNumber": {
+            "type": "string",
+            "description": "Plex part number"
+          },
+          "partDescription": {
+            "type": "string",
+            "description": "Part description"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Ordered quantity"
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Unit of measure (e.g., EA, LB, KG)"
+          },
+          "unitPrice": {
+            "type": "number",
+            "description": "Price per unit"
+          },
+          "totalPrice": {
+            "type": "number",
+            "description": "Total line price"
+          },
+          "quantityShipped": {
+            "type": "number",
+            "description": "Quantity already shipped"
+          }
+        }
+      }
+    },
+    "shippingAddress": {
+      "type": "object",
+      "description": "Delivery address",
+      "properties": {
+        "name": { "type": "string" },
+        "address1": { "type": "string" },
+        "address2": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "postalCode": { "type": "string" },
+        "country": { "type": "string" }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Order notes or special instructions"
+    }
+  },
+  "additionalProperties": false
+}

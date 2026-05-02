@@ -1,0 +1,113 @@
+vocabulary:
+  name: Rockwell Automation Vocabulary
+  description: >-
+    Domain vocabulary for Rockwell Automation, a global provider of industrial
+    automation and digital transformation solutions. Covers manufacturing automation,
+    ERP integration, digital twin, IIoT, and smart manufacturing concepts.
+  version: 1.0.0
+  modified: '2026-05-02'
+
+terms:
+
+  - term: Rockwell Automation
+    definition: >-
+      A global industrial automation company headquartered in Milwaukee, Wisconsin.
+      Provider of Allen-Bradley PLCs, FactoryTalk software, Plex ERP, and integrated
+      industrial automation solutions helping manufacturers with digital transformation.
+    related: [FactoryTalk, Plex, Allen-Bradley, Industrial Automation]
+
+  - term: Allen-Bradley
+    definition: >-
+      Rockwell Automation's brand name for hardware products including programmable
+      logic controllers (ControlLogix, CompactLogix, MicroLogix), drives, I/O modules,
+      and industrial networking equipment.
+    related: [PLC, ControlLogix, CompactLogix, Industrial Automation]
+
+  - term: Plex
+    aliases: [Plex Smart Manufacturing Platform]
+    definition: >-
+      A cloud-based Smart Manufacturing Platform acquired by Rockwell Automation in 2021.
+      Provides ERP, MES, quality management, and production monitoring capabilities
+      through a REST/JSON API for manufacturing operations.
+    related: [ERP, MES, Smart Manufacturing, REST API]
+
+  - term: ERP
+    aliases: [Enterprise Resource Planning]
+    definition: >-
+      Business management software integrating core business processes including
+      production planning, inventory management, order management, and financial
+      management. Plex by Rockwell Automation provides cloud ERP for manufacturers.
+    related: [Plex, MES, Smart Manufacturing]
+
+  - term: MES
+    aliases: [Manufacturing Execution System]
+    definition: >-
+      Software connecting the factory floor to enterprise systems by tracking
+      real-time production data, managing work orders, quality control, and
+      genealogy. FactoryTalk and Plex provide MES capabilities.
+    related: [Plex, SCADA, Production Monitoring]
+
+  - term: Digital Twin
+    definition: >-
+      A virtual replica of a physical system, machine, or process used for
+      simulation, monitoring, and optimization. Rockwell Automation's Emulate3D
+      provides 3D digital twin capabilities via API.
+    related: [Emulate3D, Simulation, Industrial Automation]
+
+  - term: Emulate3D
+    definition: >-
+      Rockwell Automation's 3D simulation and digital twin software for virtual
+      commissioning, conveyor system design, and robot simulation. Provides a
+      Python/C# API for automation and integration with Nvidia Omniverse.
+    related: [Digital Twin, Simulation]
+
+  - term: CI/CD for PLC
+    aliases: [Industrial DevOps, Logix CI/CD]
+    definition: >-
+      Applying software development continuous integration and deployment practices
+      to PLC programming. Rockwell Automation provides tools (ra-logix-cicd) for
+      version control and automated testing of Logix controller programs.
+    related: [Logix Designer, L5X, PLC]
+
+  - term: L5X
+    definition: >-
+      The XML-based export format for Studio 5000 Logix Designer PLC programs.
+      L5X files contain controller tags, routines, logic, and configuration.
+      The ra-logix-designer-vcs-custom-tools repository transforms L5X for Git compatibility.
+    related: [Logix Designer, PLC, CI/CD for PLC]
+
+  - term: FactoryTalk DataMosaix
+    definition: >-
+      Rockwell Automation's Industrial DataOps platform providing REST API access
+      for data management, contextualization, and analytics. Supports machine-to-machine
+      communication and integration with enterprise BI tools.
+    related: [FactoryTalk, IIoT, Industrial Data, REST API]
+
+  - term: Plex Connect
+    definition: >-
+      Rockwell Automation's integration framework for connecting Plex ERP with
+      cloud services, legacy systems, and third-party applications via REST/JSON APIs.
+    related: [Plex, ERP, Integration]
+
+  - term: Industrial Automation
+    definition: >-
+      The use of control systems (PLCs, SCADA, DCS), information technologies, and
+      robotics to handle different processes and machinery in an industry to replace
+      a human being. Rockwell Automation is a leading provider of industrial automation solutions.
+    related: [PLC, SCADA, MES, IIoT]
+
+  - term: OPC-UA
+    aliases: [Open Platform Communications Unified Architecture]
+    definition: >-
+      An industrial interoperability standard for secure and reliable data exchange
+      between industrial systems. FactoryTalk products support OPC-UA for
+      connectivity between PLCs, SCADA, and enterprise systems.
+    related: [IIoT, SCADA, Industrial Automation]
+
+  - term: Historian
+    aliases: [Process Historian, FactoryTalk Historian]
+    definition: >-
+      A time-series database for storing industrial process data (tag values over time).
+      FactoryTalk Historian stores high-frequency production data for analytics,
+      reporting, and troubleshooting.
+    related: [Tag, Time Series, SCADA, Analytics]

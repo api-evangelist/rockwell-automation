@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "ra": "https://api-evangelist.github.io/rockwell-automation/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "ManufacturingOrganization": "schema:Organization",
+    "IndustrialAutomationSystem": "ra:IndustrialAutomationSystem",
+    "PLC": "ra:PLC",
+    "Tag": "ra:Tag",
+    "ERPSystem": "ra:ERPSystem",
+    "ManufacturingProject": "ra:ManufacturingProject",
+    "DigitalTwin": "ra:DigitalTwin",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "version": {
+      "@id": "schema:version",
+      "@type": "xsd:string"
+    },
+    "manufacturer": {
+      "@id": "schema:manufacturer",
+      "@type": "@id"
+    },
+    "environment": {
+      "@id": "ra:environment",
+      "@type": "xsd:string"
+    },
+    "revision": {
+      "@id": "ra:revision",
+      "@type": "xsd:string"
+    },
+    "tagName": {
+      "@id": "ra:tagName",
+      "@type": "xsd:string"
+    },
+    "tagValue": {
+      "@id": "ra:tagValue"
+    },
+    "dataType": {
+      "@id": "schema:additionalType",
+      "@type": "xsd:string"
+    },
+    "engineeringUnit": {
+      "@id": "schema:unitCode",
+      "@type": "xsd:string"
+    },
+    "customer": {
+      "@id": "schema:customer",
+      "@type": "@id"
+    },
+    "orderDate": {
+      "@id": "schema:orderDate",
+      "@type": "xsd:dateTime"
+    },
+    "product": {
+      "@id": "schema:product",
+      "@type": "@id"
+    },
+    "quantity": {
+      "@id": "schema:quantity",
+      "@type": "xsd:integer"
+    }
+  }
+}

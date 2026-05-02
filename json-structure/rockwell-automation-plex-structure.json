@@ -1,0 +1,63 @@
+{
+  "title": "Rockwell Automation Plex ERP Structure",
+  "description": "Hierarchical structure documentation for Plex Smart Manufacturing Platform ERP data entities.",
+  "structure": {
+    "CustomerOrder": {
+      "description": "A customer order in the Plex ERP system",
+      "fields": {
+        "orderId": "string - Unique Plex order identifier",
+        "orderNumber": "string - Human-readable order number",
+        "customerId": "string - Customer ID in Plex",
+        "orderDate": "date - Order placement date",
+        "dueDate": "date - Requested delivery date",
+        "status": "enum - New | Confirmed | In Production | Shipped | Delivered | Cancelled",
+        "priority": "enum - Normal | Rush | Just-In-Sequence"
+      },
+      "children": {
+        "orderLines": "array of OrderLine - Individual part quantities",
+        "shippingAddress": "Address - Delivery location"
+      }
+    },
+    "OrderLine": {
+      "description": "A line item within a customer order",
+      "fields": {
+        "lineNumber": "integer - Sequential line number",
+        "partNumber": "string - Plex part number",
+        "partDescription": "string - Part description",
+        "quantity": "number - Ordered quantity",
+        "unitOfMeasure": "string - Unit (EA, LB, KG, etc.)",
+        "unitPrice": "number - Price per unit",
+        "totalPrice": "number - Total line price",
+        "quantityShipped": "number - Quantity already shipped"
+      }
+    },
+    "CustomerShipment": {
+      "description": "A shipping record for goods dispatched to a customer",
+      "fields": {
+        "shipmentId": "string - Unique shipment ID",
+        "orderId": "string - Associated order ID",
+        "customerId": "string - Customer ID",
+        "shipDate": "datetime - Actual ship date and time",
+        "carrier": "string - Shipping carrier name",
+        "trackingNumber": "string - Carrier tracking number",
+        "shipMethod": "string - Shipping method",
+        "status": "enum - Pending | Shipped | Delivered"
+      },
+      "children": {
+        "shipmentLines": "array of ShipmentLine - Parts included in this shipment"
+      }
+    },
+    "ProductionOrder": {
+      "description": "A manufacturing work order in Plex MES",
+      "fields": {
+        "productionOrderId": "string - Work order ID",
+        "partNumber": "string - Part being produced",
+        "quantity": "number - Planned quantity",
+        "startDate": "datetime - Planned start",
+        "completionDate": "datetime - Planned completion",
+        "status": "enum - Planned | Released | In Progress | Completed | Closed",
+        "workcenter": "string - Manufacturing workcenter"
+      }
+    }
+  }
+}
