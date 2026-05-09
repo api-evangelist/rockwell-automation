@@ -1,0 +1,14 @@
+{
+  "repo": "rockwell-automation",
+  "feeds": [
+    {
+      "source": "https://www.rockwellautomation.com/en-us/company/news/blogs/",
+      "feed_url": "",
+      "title": "",
+      "saved": 0,
+      "error": "no_feed"
+    }
+  ],
+  "fetched": "2026-05-09T20:17:51Z",
+  "post_count": 0
+}
