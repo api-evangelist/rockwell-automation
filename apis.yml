@@ -124,6 +124,8 @@ apis:
         type: GitHubRepository
 
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/rockwell-automation
   - url: https://www.rockwellautomation.com
     type: Website
   - url: https://www.rockwellautomation.com/en-us/support/documentation.html
