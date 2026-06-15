@@ -1,0 +1,1169 @@
+"""
+Rockwell Automation FactoryTalk GraphQL Schema
+Covers PLC data, production metrics, quality management, OEE analytics,
+asset management, batch records, and MES integration for discrete and
+process manufacturing via the Plex ERP and FactoryTalk platform APIs.
+"""
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar UUID
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum AssetStatus {
+  ACTIVE
+  INACTIVE
+  UNDER_MAINTENANCE
+  DECOMMISSIONED
+  PENDING_INSTALLATION
+}
+
+enum AlarmSeverity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFORMATIONAL
+}
+
+enum AlarmState {
+  ACTIVE
+  ACKNOWLEDGED
+  CLEARED
+  SUPPRESSED
+}
+
+enum BatchStatus {
+  PLANNED
+  IN_PROGRESS
+  PAUSED
+  COMPLETED
+  ABORTED
+  ON_HOLD
+}
+
+enum OrderStatus {
+  DRAFT
+  RELEASED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  ON_HOLD
+}
+
+enum QualityDisposition {
+  ACCEPT
+  REJECT
+  CONDITIONAL_ACCEPT
+  PENDING_REVIEW
+  SCRAPPED
+  REWORKED
+}
+
+enum WorkOrderStatus {
+  OPEN
+  RELEASED
+  IN_PROGRESS
+  COMPLETED
+  CLOSED
+  CANCELLED
+}
+
+enum MaintenanceType {
+  PREVENTIVE
+  CORRECTIVE
+  PREDICTIVE
+  CONDITION_BASED
+  EMERGENCY
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  DEFERRED
+  CANCELLED
+}
+
+enum PLCConnectionState {
+  CONNECTED
+  DISCONNECTED
+  FAULTED
+  UNKNOWN
+}
+
+enum TagDataType {
+  BOOL
+  INT
+  DINT
+  REAL
+  STRING
+  TIMER
+  COUNTER
+  DWORD
+}
+
+enum ShiftType {
+  DAY
+  EVENING
+  NIGHT
+  WEEKEND
+}
+
+enum DowntimeCategory {
+  PLANNED
+  UNPLANNED
+  MAINTENANCE
+  QUALITY
+  CHANGEOVER
+  MATERIAL
+  LABOR
+  EQUIPMENT
+}
+
+enum ProductionMetricType {
+  THROUGHPUT
+  YIELD
+  CYCLE_TIME
+  TAKT_TIME
+  SCRAP_RATE
+  FIRST_PASS_YIELD
+}
+
+# ─────────────────────────────────────────────
+# Core Domain Types
+# ─────────────────────────────────────────────
+
+type Site {
+  id: UUID!
+  name: String!
+  code: String!
+  description: String
+  address: Address
+  timezone: String!
+  plants: [Plant!]!
+  assets: [Asset!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Plant {
+  id: UUID!
+  siteId: UUID!
+  site: Site!
+  name: String!
+  code: String!
+  description: String
+  productionLines: [ProductionLine!]!
+  workCenters: [WorkCenter!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Address {
+  street1: String
+  street2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String!
+}
+
+type ProductionLine {
+  id: UUID!
+  plantId: UUID!
+  plant: Plant!
+  name: String!
+  code: String!
+  description: String
+  workCenters: [WorkCenter!]!
+  assets: [Asset!]!
+  currentOEE: OEEMetrics
+  activeWorkOrders: [WorkOrder!]!
+}
+
+type WorkCenter {
+  id: UUID!
+  plantId: UUID!
+  lineId: UUID
+  name: String!
+  code: String!
+  description: String
+  assets: [Asset!]!
+  plcControllers: [PLCController!]!
+  activeAlarms: [Alarm!]!
+  currentShift: Shift
+}
+
+# ─────────────────────────────────────────────
+# Asset Management
+# ─────────────────────────────────────────────
+
+type Asset {
+  id: UUID!
+  siteId: UUID!
+  plantId: UUID
+  lineId: UUID
+  workCenterId: UUID
+  name: String!
+  assetTag: String!
+  serialNumber: String
+  description: String
+  manufacturer: String
+  model: String
+  installDate: DateTime
+  status: AssetStatus!
+  category: AssetCategory
+  location: String
+  plcControllers: [PLCController!]!
+  maintenanceRecords: [MaintenanceRecord!]!
+  alarms: [Alarm!]!
+  sensorReadings: [SensorReading!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AssetCategory {
+  id: UUID!
+  name: String!
+  code: String!
+  description: String
+  parentCategory: AssetCategory
+  childCategories: [AssetCategory!]!
+}
+
+type MaintenanceRecord {
+  id: UUID!
+  assetId: UUID!
+  asset: Asset!
+  maintenanceType: MaintenanceType!
+  status: MaintenanceStatus!
+  scheduledDate: DateTime
+  startDate: DateTime
+  completionDate: DateTime
+  technicianId: String
+  description: String!
+  findings: String
+  partsUsed: [MaintenancePart!]!
+  laborHours: Float
+  cost: Float
+  workOrderId: UUID
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type MaintenancePart {
+  partNumber: String!
+  description: String!
+  quantity: Float!
+  unitCost: Float
+}
+
+# ─────────────────────────────────────────────
+# PLC / Controller Data
+# ─────────────────────────────────────────────
+
+type PLCController {
+  id: UUID!
+  assetId: UUID
+  workCenterId: UUID
+  name: String!
+  ipAddress: String
+  slotNumber: Int
+  firmware: String
+  model: String
+  connectionState: PLCConnectionState!
+  tags: [PLCTag!]!
+  lastCommunication: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PLCTag {
+  id: UUID!
+  controllerId: UUID!
+  controller: PLCController!
+  name: String!
+  address: String!
+  dataType: TagDataType!
+  description: String
+  unit: String
+  currentValue: TagValue
+  historicalValues(
+    startTime: DateTime!
+    endTime: DateTime!
+    limit: Int
+  ): [TagValue!]!
+}
+
+type TagValue {
+  tagId: UUID!
+  value: String!
+  quality: TagQuality!
+  timestamp: DateTime!
+}
+
+type TagQuality {
+  code: Int!
+  description: String!
+  isGood: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Alarms & Events
+# ─────────────────────────────────────────────
+
+type Alarm {
+  id: UUID!
+  assetId: UUID
+  asset: Asset
+  workCenterId: UUID
+  name: String!
+  description: String!
+  severity: AlarmSeverity!
+  state: AlarmState!
+  triggeredAt: DateTime!
+  acknowledgedAt: DateTime
+  clearedAt: DateTime
+  acknowledgedBy: String
+  tagName: String
+  triggerValue: String
+  setpointValue: String
+  priority: Int
+}
+
+type AlarmSummary {
+  totalActive: Int!
+  bySeverity: [AlarmCountBySeverity!]!
+  recentAlarms: [Alarm!]!
+}
+
+type AlarmCountBySeverity {
+  severity: AlarmSeverity!
+  count: Int!
+}
+
+# ─────────────────────────────────────────────
+# Production & Scheduling
+# ─────────────────────────────────────────────
+
+type WorkOrder {
+  id: UUID!
+  workOrderNumber: String!
+  plantId: UUID!
+  lineId: UUID
+  workCenterId: UUID
+  productId: UUID!
+  product: Product!
+  status: WorkOrderStatus!
+  scheduledStartDate: DateTime
+  scheduledEndDate: DateTime
+  actualStartDate: DateTime
+  actualEndDate: DateTime
+  plannedQuantity: Float!
+  completedQuantity: Float
+  scrapQuantity: Float
+  unit: String!
+  routingId: UUID
+  routing: Routing
+  operations: [WorkOrderOperation!]!
+  productionRecords: [ProductionRecord!]!
+  qualityResults: [QualityResult!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type WorkOrderOperation {
+  id: UUID!
+  workOrderId: UUID!
+  operationNumber: Int!
+  name: String!
+  description: String
+  workCenterId: UUID
+  workCenter: WorkCenter
+  plannedDuration: Float
+  actualDuration: Float
+  status: WorkOrderStatus!
+  startDate: DateTime
+  endDate: DateTime
+}
+
+type ProductionRecord {
+  id: UUID!
+  workOrderId: UUID!
+  workCenterId: UUID
+  timestamp: DateTime!
+  quantity: Float!
+  scrapQuantity: Float
+  unit: String!
+  operatorId: String
+  shiftId: UUID
+  notes: String
+}
+
+type Shift {
+  id: UUID!
+  plantId: UUID!
+  shiftType: ShiftType!
+  name: String!
+  startTime: String!
+  endTime: String!
+  isActive: Boolean!
+  supervisorId: String
+}
+
+# ─────────────────────────────────────────────
+# Product & Bill of Materials
+# ─────────────────────────────────────────────
+
+type Product {
+  id: UUID!
+  partNumber: String!
+  name: String!
+  description: String
+  revision: String
+  unit: String!
+  category: String
+  billOfMaterials: BillOfMaterials
+  routings: [Routing!]!
+  specifications: [ProductSpecification!]!
+}
+
+type BillOfMaterials {
+  id: UUID!
+  productId: UUID!
+  revision: String!
+  effectiveDate: DateTime!
+  components: [BOMComponent!]!
+}
+
+type BOMComponent {
+  id: UUID!
+  bomId: UUID!
+  componentProductId: UUID!
+  component: Product!
+  quantity: Float!
+  unit: String!
+  position: Int
+  referenceDesignator: String
+}
+
+type Routing {
+  id: UUID!
+  productId: UUID!
+  name: String!
+  revision: String!
+  effectiveDate: DateTime!
+  operations: [RoutingOperation!]!
+}
+
+type RoutingOperation {
+  id: UUID!
+  routingId: UUID!
+  operationNumber: Int!
+  name: String!
+  workCenterCode: String
+  setupTime: Float
+  runTime: Float
+  teardownTime: Float
+  instructions: String
+}
+
+type ProductSpecification {
+  id: UUID!
+  productId: UUID!
+  name: String!
+  description: String
+  nominalValue: Float
+  lowerLimit: Float
+  upperLimit: Float
+  unit: String
+  isCritical: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Quality Management
+# ─────────────────────────────────────────────
+
+type QualityResult {
+  id: UUID!
+  workOrderId: UUID
+  batchId: UUID
+  productId: UUID!
+  product: Product!
+  inspectionDate: DateTime!
+  inspectorId: String
+  disposition: QualityDisposition!
+  sampleSize: Int
+  defectsFound: Int
+  inspectionResults: [InspectionResult!]!
+  nonConformances: [NonConformance!]!
+  notes: String
+}
+
+type InspectionResult {
+  id: UUID!
+  qualityResultId: UUID!
+  specificationId: UUID!
+  specification: ProductSpecification
+  measuredValue: Float
+  pass: Boolean!
+  notes: String
+}
+
+type NonConformance {
+  id: UUID!
+  qualityResultId: UUID!
+  defectCode: String!
+  defectDescription: String!
+  severity: String
+  quantity: Float
+  dispositionAction: String
+  rootCause: String
+  correctiveAction: String
+}
+
+type SPC {
+  id: UUID!
+  productId: UUID!
+  specificationId: UUID!
+  controlChartType: String!
+  centerLine: Float!
+  upperControlLimit: Float!
+  lowerControlLimit: Float!
+  dataPoints: [SPCDataPoint!]!
+  cpk: Float
+  cp: Float
+}
+
+type SPCDataPoint {
+  timestamp: DateTime!
+  value: Float!
+  subgroupId: String
+  isOutOfControl: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# OEE Analytics
+# ─────────────────────────────────────────────
+
+type OEEMetrics {
+  assetId: UUID
+  lineId: UUID
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  availability: Float!
+  performance: Float!
+  quality: Float!
+  oee: Float!
+  plannedProductionTime: Float!
+  actualProductionTime: Float!
+  downtime: Float!
+  totalPartsProduced: Float!
+  goodPartsProduced: Float!
+  scrapParts: Float!
+  downtimeEvents: [DowntimeEvent!]!
+}
+
+type DowntimeEvent {
+  id: UUID!
+  assetId: UUID
+  lineId: UUID
+  startTime: DateTime!
+  endTime: DateTime
+  duration: Float
+  category: DowntimeCategory!
+  reason: String
+  description: String
+  reportedBy: String
+  isPlanned: Boolean!
+}
+
+type ProductionMetric {
+  id: UUID!
+  workCenterId: UUID
+  lineId: UUID
+  metricType: ProductionMetricType!
+  value: Float!
+  unit: String
+  timestamp: DateTime!
+  shiftId: UUID
+  periodMinutes: Int
+}
+
+# ─────────────────────────────────────────────
+# Batch Records (Process Manufacturing)
+# ─────────────────────────────────────────────
+
+type BatchRecord {
+  id: UUID!
+  batchNumber: String!
+  productId: UUID!
+  product: Product!
+  recipeId: UUID
+  recipe: Recipe
+  status: BatchStatus!
+  plannedQuantity: Float!
+  actualQuantity: Float
+  unit: String!
+  startDate: DateTime
+  endDate: DateTime
+  equipmentUsed: [BatchEquipment!]!
+  materialConsumption: [MaterialConsumption!]!
+  processParameters: [ProcessParameter!]!
+  qualityResults: [QualityResult!]!
+  electronicBatchRecord: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Recipe {
+  id: UUID!
+  productId: UUID!
+  name: String!
+  version: String!
+  effectiveDate: DateTime!
+  phases: [RecipePhase!]!
+  parameters: [RecipeParameter!]!
+}
+
+type RecipePhase {
+  id: UUID!
+  recipeId: UUID!
+  phaseNumber: Int!
+  name: String!
+  description: String
+  steps: [RecipeStep!]!
+}
+
+type RecipeStep {
+  id: UUID!
+  phaseId: UUID!
+  stepNumber: Int!
+  description: String!
+  expectedDuration: Float
+  parameters: [RecipeParameter!]!
+}
+
+type RecipeParameter {
+  id: UUID!
+  name: String!
+  nominalValue: Float
+  lowerLimit: Float
+  upperLimit: Float
+  unit: String
+  isCritical: Boolean!
+}
+
+type BatchEquipment {
+  batchId: UUID!
+  assetId: UUID!
+  asset: Asset!
+  role: String
+  startTime: DateTime
+  endTime: DateTime
+  cleanedAt: DateTime
+}
+
+type MaterialConsumption {
+  id: UUID!
+  batchId: UUID!
+  materialId: UUID!
+  lotNumber: String
+  plannedQuantity: Float!
+  actualQuantity: Float
+  unit: String!
+  consumedAt: DateTime
+}
+
+type ProcessParameter {
+  id: UUID!
+  batchId: UUID!
+  stepId: UUID
+  name: String!
+  targetValue: Float
+  actualValue: Float
+  unit: String
+  timestamp: DateTime!
+  withinLimits: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Sensor & IoT Data
+# ─────────────────────────────────────────────
+
+type SensorReading {
+  id: UUID!
+  assetId: UUID!
+  sensorId: String!
+  sensorType: String!
+  value: Float!
+  unit: String!
+  timestamp: DateTime!
+  quality: String
+}
+
+type SensorConfig {
+  id: UUID!
+  assetId: UUID!
+  sensorId: String!
+  name: String!
+  sensorType: String!
+  unit: String!
+  samplingIntervalSeconds: Int!
+  alarmHighHigh: Float
+  alarmHigh: Float
+  alarmLow: Float
+  alarmLowLow: Float
+  isEnabled: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Inventory & Materials
+# ─────────────────────────────────────────────
+
+type Material {
+  id: UUID!
+  partNumber: String!
+  name: String!
+  description: String
+  category: String
+  unit: String!
+  stockOnHand: Float!
+  reorderPoint: Float
+  preferredSupplier: String
+  lotTracked: Boolean!
+  lots: [MaterialLot!]!
+}
+
+type MaterialLot {
+  id: UUID!
+  materialId: UUID!
+  material: Material!
+  lotNumber: String!
+  quantity: Float!
+  unit: String!
+  receivedDate: DateTime!
+  expirationDate: DateTime
+  supplier: String
+  certificateOfAnalysis: String
+  status: String!
+  location: String
+}
+
+# ─────────────────────────────────────────────
+# Personnel & Operator
+# ─────────────────────────────────────────────
+
+type Operator {
+  id: UUID!
+  employeeId: String!
+  firstName: String!
+  lastName: String!
+  email: String
+  department: String
+  certifications: [OperatorCertification!]!
+  activeShift: Shift
+}
+
+type OperatorCertification {
+  id: UUID!
+  operatorId: UUID!
+  certificationName: String!
+  workCenterCode: String
+  issuedDate: DateTime!
+  expirationDate: DateTime
+  isActive: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Customer & Orders (Plex ERP)
+# ─────────────────────────────────────────────
+
+type Customer {
+  id: UUID!
+  customerNumber: String!
+  name: String!
+  address: Address
+  contacts: [CustomerContact!]!
+  orders: [CustomerOrder!]!
+  activeContracts: [Contract!]!
+}
+
+type CustomerContact {
+  id: UUID!
+  customerId: UUID!
+  firstName: String!
+  lastName: String!
+  email: String
+  phone: String
+  role: String
+}
+
+type CustomerOrder {
+  id: UUID!
+  orderNumber: String!
+  customerId: UUID!
+  customer: Customer!
+  status: OrderStatus!
+  orderDate: DateTime!
+  requiredDate: DateTime
+  shipDate: DateTime
+  lines: [OrderLine!]!
+  totalValue: Float
+  currency: String
+  shippingAddress: Address
+}
+
+type OrderLine {
+  id: UUID!
+  orderId: UUID!
+  lineNumber: Int!
+  productId: UUID!
+  product: Product!
+  quantityOrdered: Float!
+  quantityShipped: Float
+  unit: String!
+  unitPrice: Float
+  requiredDate: DateTime
+  workOrderId: UUID
+}
+
+type Contract {
+  id: UUID!
+  customerId: UUID!
+  contractNumber: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  terms: String
+  isActive: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Shipping & Logistics
+# ─────────────────────────────────────────────
+
+type Shipment {
+  id: UUID!
+  shipmentNumber: String!
+  orderId: UUID
+  order: CustomerOrder
+  carrierName: String
+  trackingNumber: String
+  shipDate: DateTime
+  estimatedDelivery: DateTime
+  actualDelivery: DateTime
+  status: String!
+  lines: [ShipmentLine!]!
+  destinationAddress: Address
+}
+
+type ShipmentLine {
+  id: UUID!
+  shipmentId: UUID!
+  orderLineId: UUID
+  productId: UUID!
+  product: Product!
+  quantity: Float!
+  unit: String!
+  lotNumber: String
+  containerNumber: String
+}
+
+# ─────────────────────────────────────────────
+# Reports & Analytics
+# ─────────────────────────────────────────────
+
+type ProductionReport {
+  lineId: UUID
+  workCenterId: UUID
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  shiftId: UUID
+  totalProduced: Float!
+  totalScrap: Float!
+  firstPassYield: Float!
+  averageCycleTime: Float
+  oeeMetrics: OEEMetrics
+  downtimeEvents: [DowntimeEvent!]!
+  topNonConformances: [NonConformanceSummary!]!
+}
+
+type NonConformanceSummary {
+  defectCode: String!
+  defectDescription: String!
+  count: Int!
+  percentOfTotal: Float!
+}
+
+type EnergyConsumption {
+  assetId: UUID!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  consumptionKwh: Float!
+  peakDemandKw: Float
+  cost: Float
+  currency: String
+}
+
+# ─────────────────────────────────────────────
+# Pagination & Filter Types
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int!
+}
+
+type AssetConnection {
+  nodes: [Asset!]!
+  pageInfo: PageInfo!
+}
+
+type WorkOrderConnection {
+  nodes: [WorkOrder!]!
+  pageInfo: PageInfo!
+}
+
+type AlarmConnection {
+  nodes: [Alarm!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input DateRangeInput {
+  startTime: DateTime!
+  endTime: DateTime!
+}
+
+input AssetFilterInput {
+  siteId: UUID
+  plantId: UUID
+  lineId: UUID
+  status: AssetStatus
+  category: String
+  searchTerm: String
+}
+
+input WorkOrderFilterInput {
+  plantId: UUID
+  lineId: UUID
+  productId: UUID
+  status: WorkOrderStatus
+  scheduledStartAfter: DateTime
+  scheduledStartBefore: DateTime
+}
+
+input AlarmFilterInput {
+  assetId: UUID
+  workCenterId: UUID
+  severity: AlarmSeverity
+  state: AlarmState
+  triggeredAfter: DateTime
+}
+
+input OEEQueryInput {
+  assetId: UUID
+  lineId: UUID
+  period: DateRangeInput!
+  groupBy: String
+}
+
+input CreateWorkOrderInput {
+  plantId: UUID!
+  lineId: UUID
+  workCenterId: UUID
+  productId: UUID!
+  plannedQuantity: Float!
+  unit: String!
+  scheduledStartDate: DateTime
+  scheduledEndDate: DateTime
+  routingId: UUID
+}
+
+input UpdateWorkOrderStatusInput {
+  workOrderId: UUID!
+  status: WorkOrderStatus!
+  notes: String
+}
+
+input AcknowledgeAlarmInput {
+  alarmId: UUID!
+  acknowledgedBy: String!
+  notes: String
+}
+
+input CreateMaintenanceRecordInput {
+  assetId: UUID!
+  maintenanceType: MaintenanceType!
+  scheduledDate: DateTime
+  description: String!
+  technicianId: String
+}
+
+input LogProductionInput {
+  workOrderId: UUID!
+  workCenterId: UUID
+  quantity: Float!
+  scrapQuantity: Float
+  unit: String!
+  operatorId: String
+  timestamp: DateTime
+  notes: String
+}
+
+input RecordQualityResultInput {
+  workOrderId: UUID
+  batchId: UUID
+  productId: UUID!
+  disposition: QualityDisposition!
+  sampleSize: Int
+  defectsFound: Int
+  inspectorId: String
+  inspectionResults: [InspectionResultInput!]
+  notes: String
+}
+
+input InspectionResultInput {
+  specificationId: UUID!
+  measuredValue: Float!
+  notes: String
+}
+
+# ─────────────────────────────────────────────
+# Query Root
+# ─────────────────────────────────────────────
+
+type Query {
+  # Sites & Plants
+  sites: [Site!]!
+  site(id: UUID!): Site
+  plant(id: UUID!): Plant
+  plants(siteId: UUID!): [Plant!]!
+  productionLines(plantId: UUID!): [ProductionLine!]!
+  workCenters(plantId: UUID, lineId: UUID): [WorkCenter!]!
+
+  # Assets
+  asset(id: UUID!): Asset
+  assets(filter: AssetFilterInput, limit: Int, offset: Int): AssetConnection!
+  assetsByWorkCenter(workCenterId: UUID!): [Asset!]!
+
+  # PLC & Tag Data
+  plcController(id: UUID!): PLCController
+  plcControllers(assetId: UUID, workCenterId: UUID): [PLCController!]!
+  plcTag(id: UUID!): PLCTag
+  tagCurrentValue(tagId: UUID!): TagValue
+  tagHistoricalValues(tagId: UUID!, period: DateRangeInput!, limit: Int): [TagValue!]!
+
+  # Alarms
+  alarm(id: UUID!): Alarm
+  alarms(filter: AlarmFilterInput, limit: Int, offset: Int): AlarmConnection!
+  activeAlarms(siteId: UUID, plantId: UUID, severity: AlarmSeverity): [Alarm!]!
+  alarmSummary(siteId: UUID, plantId: UUID): AlarmSummary!
+
+  # Work Orders & Production
+  workOrder(id: UUID!): WorkOrder
+  workOrders(filter: WorkOrderFilterInput, limit: Int, offset: Int): WorkOrderConnection!
+  productionRecords(workOrderId: UUID!, period: DateRangeInput): [ProductionRecord!]!
+  currentShift(plantId: UUID!): Shift
+
+  # OEE & Analytics
+  oeeMetrics(input: OEEQueryInput!): OEEMetrics!
+  downtimeEvents(assetId: UUID, lineId: UUID, period: DateRangeInput!, category: DowntimeCategory): [DowntimeEvent!]!
+  productionMetrics(workCenterId: UUID, lineId: UUID, metricType: ProductionMetricType, period: DateRangeInput!): [ProductionMetric!]!
+  productionReport(lineId: UUID, workCenterId: UUID, period: DateRangeInput!, shiftId: UUID): ProductionReport!
+
+  # Quality
+  qualityResult(id: UUID!): QualityResult
+  qualityResults(workOrderId: UUID, productId: UUID, disposition: QualityDisposition, period: DateRangeInput): [QualityResult!]!
+  spc(productId: UUID!, specificationId: UUID!): SPC
+
+  # Batch Records
+  batchRecord(id: UUID!): BatchRecord
+  batchRecords(productId: UUID, status: BatchStatus, period: DateRangeInput): [BatchRecord!]!
+  recipe(id: UUID!): Recipe
+  recipes(productId: UUID!): [Recipe!]!
+
+  # Products & BOM
+  product(id: UUID!): Product
+  products(category: String, searchTerm: String, limit: Int, offset: Int): [Product!]!
+  billOfMaterials(productId: UUID!, revision: String): BillOfMaterials
+
+  # Inventory
+  material(id: UUID!): Material
+  materials(searchTerm: String, lotTracked: Boolean): [Material!]!
+  materialLot(id: UUID!): MaterialLot
+  materialLots(materialId: UUID!, status: String): [MaterialLot!]!
+
+  # Customers & Orders
+  customer(id: UUID!): Customer
+  customers(searchTerm: String, limit: Int, offset: Int): [Customer!]!
+  customerOrder(id: UUID!): CustomerOrder
+  customerOrders(customerId: UUID, status: OrderStatus, period: DateRangeInput): [CustomerOrder!]!
+
+  # Shipping
+  shipment(id: UUID!): Shipment
+  shipments(orderId: UUID, status: String, period: DateRangeInput): [Shipment!]!
+
+  # Personnel
+  operator(id: UUID!): Operator
+  operators(departmentId: String, workCenterCode: String): [Operator!]!
+
+  # Sensors
+  sensorReadings(assetId: UUID!, sensorId: String, period: DateRangeInput!, limit: Int): [SensorReading!]!
+  sensorConfigs(assetId: UUID!): [SensorConfig!]!
+
+  # Energy
+  energyConsumption(assetId: UUID!, period: DateRangeInput!): EnergyConsumption!
+}
+
+# ─────────────────────────────────────────────
+# Mutation Root
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Work Orders
+  createWorkOrder(input: CreateWorkOrderInput!): WorkOrder!
+  updateWorkOrderStatus(input: UpdateWorkOrderStatusInput!): WorkOrder!
+  logProduction(input: LogProductionInput!): ProductionRecord!
+
+  # Quality
+  recordQualityResult(input: RecordQualityResultInput!): QualityResult!
+
+  # Alarms
+  acknowledgeAlarm(input: AcknowledgeAlarmInput!): Alarm!
+  clearAlarm(alarmId: UUID!, clearedBy: String!): Alarm!
+
+  # Maintenance
+  createMaintenanceRecord(input: CreateMaintenanceRecordInput!): MaintenanceRecord!
+  completeMaintenanceRecord(id: UUID!, findings: String, laborHours: Float, cost: Float): MaintenanceRecord!
+
+  # Downtime
+  logDowntimeEvent(assetId: UUID, lineId: UUID, startTime: DateTime!, category: DowntimeCategory!, reason: String, description: String, isPlanned: Boolean!): DowntimeEvent!
+  closeDowntimeEvent(id: UUID!, endTime: DateTime!): DowntimeEvent!
+}
+
+# ─────────────────────────────────────────────
+# Subscription Root
+# ─────────────────────────────────────────────
+
+type Subscription {
+  alarmTriggered(siteId: UUID, plantId: UUID, severity: AlarmSeverity): Alarm!
+  tagValueChanged(tagId: UUID!): TagValue!
+  workOrderStatusChanged(plantId: UUID): WorkOrder!
+  productionCountUpdated(lineId: UUID!): ProductionRecord!
+  oeeUpdated(lineId: UUID!): OEEMetrics!
+}
