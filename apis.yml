@@ -115,6 +115,8 @@ apis:
   - url: https://github.com/RockwellAutomation/ra-emulate3d-kit-app-template
     type: GitHubRepository
 common:
+- type: DomainSecurity
+  url: security/rockwell-automation-domain-security.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/rockwell-automation
 - url: https://www.rockwellautomation.com
