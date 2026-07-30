@@ -1,4 +1,17 @@
 aid: rockwell-automation
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rockwell-automation.png
 name: Rockwell Automation
 description: Rockwell Automation is a global provider of industrial automation and
   digital transformation solutions, helping manufacturers boost productivity, sustainability,
