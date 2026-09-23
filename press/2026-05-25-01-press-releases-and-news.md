@@ -1,7 +1,9 @@
 ---
 title: Press Releases & News
 url: https://www.rockwellautomation.com/en-us/company/investor-relations/news.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Rockwell Automation" press release artificial intelligence'
 position: 1
 source: serpapi-google

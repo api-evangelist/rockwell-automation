@@ -1,7 +1,9 @@
 ---
 title: Rockwell Automation Showcases AI Orchestrated Factory ...
 url: https://www.rockwellautomation.com/en-dk/company/news/press-releases/ai-orchestrated-factory-design-at-hannover-messe.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Rockwell Automation" press release artificial intelligence'
 position: 4
 source: serpapi-google
