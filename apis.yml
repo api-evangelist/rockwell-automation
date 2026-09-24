@@ -37,8 +37,17 @@ tags:
 - Manufacturing
 - PLC
 - SCADA
+- Industrial IoT
+- Fortune 500
+- Industrial
+tags_raw:
+- Industrial Automation
+- Manufacturing
+- PLC
+- SCADA
 - IIoT
 - Fortune 500
+- Industrial
 created: '2026-03-21'
 modified: '2026-05-02'
 specificationVersion: '0.23'
@@ -64,8 +73,6 @@ apis:
     type: Portal
   - url: https://docs.plex.com/welcome
     type: Documentation
-  - url: graphql/rockwell-automation-graphql.md
-    type: GraphQL
 - aid: rockwell-automation:factorytalk-datamosaix-api
   name: Rockwell Automation FactoryTalk DataMosaix API
   description: FactoryTalk DataMosaix is an Industrial DataOps solution that provides
