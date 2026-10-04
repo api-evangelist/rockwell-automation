@@ -1,14 +1,20 @@
 aid: rockwell-automation
 deliveryModel:
   model: unknown
+  license_evidence:
+    not_product:
+    - rockwellautomation/ra-emulate3d-core-samples
+    - rockwellautomation/ra-emulate3d-kit-app-template
+    - rockwellautomation/ra-logix-cicd
+    - rockwellautomation/ra-logix-designer-vcs-custom-tools
   open_source: unknown
   commercial: false
   callable_host: false
   label: Delivery model not determined — needs a product licence on record
   confidence: low
   source:
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
