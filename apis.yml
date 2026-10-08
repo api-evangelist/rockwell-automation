@@ -152,6 +152,12 @@ apis:
   - url: https://github.com/RockwellAutomation/ra-emulate3d-kit-app-template
     type: GitHubRepository
 common:
+- type: Plans
+  url: plans/rockwell-automation-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/rockwell-automation-rate-limits.yml
+- type: FinOps
+  url: finops/rockwell-automation-finops.yml
 - type: DomainSecurity
   url: security/rockwell-automation-domain-security.yml
 - type: LinkedIn
