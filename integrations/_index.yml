@@ -41,3 +41,36 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: rockwell-automation-bacnet-testing-laboratories-btl-listed
+  label: BACnet Testing Laboratories (BTL Listed)
+  partner_name: BACnet Testing Laboratories (BTL Listed)
+  category: building automation
+  type: register
+  channel: standard-directory
+  evidence: https://www.bacnetinternational.net/btl/?m=101
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: BTL Listing of Tested Products (bacnetinternational.net/btl)
+    spec_file: null
+    standard: BACnet (BTL)
+    role: btl-listed-manufacturer
+    registered_name: Rockwell Automation
+    website: http://www.rockwellautomation.com/en-us/products.html
+    matched_domain: rockwellautomation.com
+    matched_by: domain+name-among-holders
+    btl_manufacturer_ids:
+    - '101'
+    certified_products:
+    - product: BACnet Application Specific Controller (B-ASC)
+      lapsed: false
+      listed_products:
+      - BACnet IP Comm Adapter
+      - FieldBus Communication Option Device
+    signal_note: certified_products = one entry per BACnet DEVICE PROFILE with a BTL-listed product (the product
+      type); product names are context, never a count; current listing only (archives.php superseded listings not
+      read)
+    detected_by: sweep-building-automation.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null

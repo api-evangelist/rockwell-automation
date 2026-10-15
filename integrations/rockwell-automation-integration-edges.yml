@@ -61,15 +61,76 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-industrial-robotics.py
   first_seen: '2026-10-15'
+- partner_name: BACnet Testing Laboratories (BTL Listed)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  evidence: https://www.bacnetinternational.net/btl/?m=101
+  category: building automation
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: BTL Listing of Tested Products (bacnetinternational.net/btl)
+    spec_file: null
+    standard: BACnet (BTL)
+    role: btl-listed-manufacturer
+    registered_name: Rockwell Automation
+    website: http://www.rockwellautomation.com/en-us/products.html
+    matched_domain: rockwellautomation.com
+    matched_by: domain+name-among-holders
+    btl_manufacturer_ids:
+    - '101'
+    certified_products:
+    - product: BACnet Application Specific Controller (B-ASC)
+      lapsed: false
+      listed_products:
+      - BACnet IP Comm Adapter
+      - FieldBus Communication Option Device
+    signal_note: certified_products = one entry per BACnet DEVICE PROFILE with a BTL-listed product (the product
+      type); product names are context, never a count; current listing only (archives.php superseded listings not
+      read)
+    detected_by: sweep-building-automation.py
+    detected: '2026-10-15'
+  detected_by: sweep-building-automation.py
+  first_seen: '2026-10-15'
+- partner_name: BACnet Testing Laboratories (BTL Listed)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  evidence: https://www.bacnetinternational.net/btl/?m=101
+  category: building automation
+  channel: standard-directory
+  relationship: compatible
+  shape: bacnet
+  evidence_kind: conformance-register
+  degree: certified
+  report_only: true
+  contract_reference:
+    register: BTL Listing of Tested Products (bacnetinternational.net/btl)
+    spec_file: null
+    standard: BACnet (BTL)
+    role: btl-listed-bacnet-device
+    registered_name: Rockwell Automation
+    matched_domain: rockwellautomation.com
+    detected_by: sweep-building-automation.py
+    detected: '2026-10-15'
+  detected_by: sweep-building-automation.py
+  first_seen: '2026-10-15'
 generated: '2026-10-15'
 method: searched
 source:
 - https://opcfoundation.org/products/
 - https://marketplace.odva.org/organizations
 checked:
+- https://brickschema.org/consortium/
+- https://marketing.project-haystack.org/about-us
 - https://marketplace.odva.org/organizations
 - https://opcfoundation.org/products/
 - https://repo.ros2.org/rosdistro_cache/humble-cache.yaml.gz
 - https://repo.ros2.org/rosdistro_cache/jazzy-cache.yaml.gz
 - https://repo.ros2.org/rosdistro_cache/kilted-cache.yaml.gz
 - https://repo.ros2.org/rosdistro_cache/rolling-cache.yaml.gz
+- https://www.bacnetinternational.net/btl/
+- https://www.knx.org/community/manufacturers
