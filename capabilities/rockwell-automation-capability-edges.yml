@@ -1,0 +1,321 @@
+slug: rockwell-automation
+provider: Rockwell Automation
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Manufacturing & Industrial
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 31
+edges:
+- tag: Accounts Payable Invoices API
+  spec_file: rockwell-automation-accounts-payable-invoices-api-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.95
+  evidence: POST /accounting/v1/ap-invoices "Create AP Invoice"; schema AccountsPayableInvoiceDto
+  reason: Operations create, list and update supplier invoices and link receipts, which is invoice processing
+    within accounts payable accounting.
+- tag: Accounts Receivable Invoices API
+  spec_file: rockwell-automation-accounts-receivable-invoices-api-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.95
+  evidence: POST /accounting/v1/ar-invoices "Create AR Invoice"; schema AccountsReceivableInvoiceDto
+  reason: Creating and maintaining customer invoices is customer invoicing within accounts receivable
+    management.
+- tag: Journal Entries API
+  spec_file: rockwell-automation-journal-entries-api-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.95
+  evidence: POST /accounting/v2/journal-entries  Create Journal Entry; GET /accounting/v1/journal-entries/{id}/lines  List
+    Journal Entry Lines; schemas JournalEntryDto, JournalLineDto
+  reason: Creating, updating and listing accounting journal entries and their lines is core general ledger
+    journal processing; no other reading fits.
+- tag: BOM API
+  spec_file: rockwell-automation-bom-api-api-openapi.yml
+  capability_id: BC-1070.10
+  capability_id_l1: BC-1070
+  capability_name: Bill of Materials Management
+  confidence: 0.92
+  evidence: POST /engineering/v1/boms createBomComponent — Create BOM Component; schema BomComponentDto
+  reason: Operations create, list, patch and deactivate bill-of-materials components, directly realising
+    Bill of Materials Management.
+- tag: General Ledger Transactions API
+  spec_file: rockwell-automation-general-ledger-transactions-api-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.92
+  evidence: GET /accounting/v1/general-ledger-activity/journal-entries  listGlTransactionLinesForJournals
+  reason: Operations list general ledger transaction lines for journals, AP invoices/payments and AR invoices/deposits,
+    with schemas such as GeneralLedgerActivityJournalDto. This is plainly general ledger / journal accounting.
+- tag: Accounts Payable Payments API
+  spec_file: rockwell-automation-accounts-payable-payments-api-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.9
+  evidence: GET /accounting/v1/ap-payments "List AP Payments"; schema AccountsPayablePaymentDto
+  reason: Retrieval of accounts payable payment records is vendor payment accounting, part of accounts
+    payable management.
+- tag: Chart of Accounts API
+  spec_file: rockwell-automation-chart-of-accounts-api-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.9
+  evidence: POST /mdm/v1/chart-of-accounts "Create Account"; schema ChartOfAccountDto
+  reason: Maintaining and activating/deactivating the chart of accounts is core general ledger management.
+- tag: Purchase Orders API
+  spec_file: rockwell-automation-purchase-orders-api-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.9
+  evidence: GET /purchasing/v1/purchase-orders/{id}  getPurchaseOrder  Get Purchase Order; PurchaseOrderDto,
+    LineItemDto
+  reason: Directly exposes purchase orders, their line items, prices, statuses and types — Purchase Order
+    Management.
+- tag: Accounts Receivable Deposits API
+  spec_file: rockwell-automation-accounts-receivable-deposits-api-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.85
+  evidence: GET /accounting/v1/ar-deposits "List AR Deposits"; schema AccountsReceivableDepositDto
+  reason: AR deposits represent customer cash receipts applied against receivables, i.e. cash application
+    within accounts receivable management.
+- tag: Production Operations Management API
+  spec_file: rockwell-automation-production-operations-management-api-api-openapi.yml
+  capability_id: BC-1010.20
+  capability_id_l1: BC-1010
+  capability_name: Shop Floor Execution Management
+  confidence: 0.85
+  evidence: POST /production/v1/control/workcenters/{workcenterId}/operators/clockin clockInOperator;
+    RecordBatchProductionRequest, ScrapHistory, WorkcenterStatusHistory
+  reason: 'Workcenter-level shop-floor control: loading source inventory, assigning lots, clocking operators
+    in/out, recording batch production, scrap and labour history — classic MES shop-floor execution.'
+- tag: Parts API
+  spec_file: rockwell-automation-parts-api-api-openapi.yml
+  capability_id: BC-610.20
+  capability_id_l1: BC-610
+  capability_name: Master Data Management
+  confidence: 0.82
+  evidence: POST /mdm/v2/parts  Create Part; POST /mdm/v2/parts/sync  Sync Parts; path prefix /mdm/
+  reason: CRUD plus synchronisation of part records under an explicit master-data-management (mdm) namespace
+    is product/material master data management.
+- tag: Purchase Order Releases API
+  spec_file: rockwell-automation-purchase-order-releases-api-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.82
+  evidence: POST /purchasing/v1/releases  createReleaseV1  Create Release; GET /purchasing/v1/release-statuses  listReleaseStatuses
+  reason: Creation, update, cancellation and status tracking of purchase order releases under the purchasing
+    domain is purchase order execution.
+- tag: Trial Balances API
+  spec_file: rockwell-automation-trial-balances-api-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.82
+  evidence: GET /accounting/v1/trial-balance  getTrialBalance  Get Trial Balance; schema TrialBalanceDto
+  reason: A trial balance is a general-ledger construct (account balances for a period); the single operation
+    retrieves it from an accounting module, which is core GL/period-close reporting rather than any manufacturing
+    capability.
+- tag: Job Scheduling API
+  spec_file: rockwell-automation-job-scheduling-api-api-openapi.yml
+  capability_id: BC-1000.30
+  capability_id_l1: BC-1000
+  capability_name: Production Scheduling Management
+  confidence: 0.8
+  evidence: POST /scheduling/v1/jobs/{id}/backwards-schedule  backwardsSchedule; POST /scheduling/v1/jobs/{id}/hold  holdJob;
+    GET /scheduling/v1/jobs/{id}/operations  listJobOperations
+  reason: Production jobs with operations, batches, backward scheduling, hold and cancel — detailed production
+    scheduling/sequencing in an MES. Overlaps with work order management (BC-1010.10) but the /scheduling
+    path and backwards-schedule operation point to scheduling.
+- tag: Process Routings API
+  spec_file: rockwell-automation-process-routings-api-api-openapi.yml
+  capability_id: BC-1020.10
+  capability_id_l1: BC-1020
+  capability_name: Production Process Engineering Management
+  confidence: 0.8
+  evidence: 'POST /mdm/v1/part-operations createPartOperation; GET /mdm/v1/part-operations/{id}/production-details
+    getProductionDetails; schemas: SchedulingDTO, PartOperationDTO'
+  reason: Master-data management of part operations and routings (operation sequence, production and scheduling
+    details, work instructions/notes) — this is routing/process definition, explicitly named in BC-1020.10
+    ('routings, work instructions').
+- tag: Inventory Operations Management API
+  spec_file: rockwell-automation-inventory-operations-management-api-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.78
+  evidence: POST /inventory/v1-beta1/inventory-control/adjust-supply-items  Adjust Supply Items; schemas
+    ContainerAdjustment, ContainerLocationMoves, StageInventoryRequest, Lot, Location
+  reason: Operations create and query inventory receipts, shipments, lots and containers and perform stock
+    adjustments/moves — physical inventory operations. Maps to Inventory Management at L1; evidence spans
+    receiving, shipping, adjustment and staging so no single L2 (stock levels, allocation, accuracy) is
+    clearly named.
+- tag: Purchase Order Releases Batch API
+  spec_file: rockwell-automation-purchase-order-releases-batch-api-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.78
+  evidence: POST /purchasing/v1/release-batch/create  createReleaseBatchV1  Create Release Batch
+  reason: Same purchase-order release lifecycle operations exposed in bulk; the batching is a technical
+    delivery mode over Purchase Order Management.
+- tag: BOM API
+  spec_file: rockwell-automation-bom-api-api-openapi.yml
+  capability_id: BC-820.30
+  capability_id_l1: BC-820
+  capability_name: Product Specification Management
+  confidence: 0.75
+  evidence: POST /engineering/v1/boms "Create BOM Component"; schema BomComponentDto
+  reason: Engineering bill-of-materials component definition and maintenance corresponds to product specification
+    management, which explicitly includes BOM definition.
+- tag: Checksheet API
+  spec_file: rockwell-automation-checksheet-api-api-openapi.yml
+  capability_id: BC-720.30
+  capability_id_l1: BC-720
+  capability_name: Quality Control Management
+  confidence: 0.75
+  evidence: POST /quality/v1/checksheets "Create Checksheet"; schema ChecksheetDto
+  reason: Checksheets under the quality path capture inspection/test results against acceptance criteria,
+    matching quality control management in manufacturing operations.
+- tag: Deviations API
+  spec_file: rockwell-automation-deviations-api-api-openapi.yml
+  capability_id: BC-720.40
+  capability_id_l1: BC-720
+  capability_name: Non-Conformance Management
+  confidence: 0.75
+  evidence: GET /quality/v1/deviations/{id}  getDeviation  Get Deviation
+  reason: Retrieval of manufacturing quality deviations under the quality namespace corresponds directly
+    to non-conformance management (NCR, deviations, CAPA); read-only surface so not higher.
+- tag: Sample Plans API
+  spec_file: rockwell-automation-sample-plans-api-api-openapi.yml
+  capability_id: BC-720.30
+  capability_id_l1: BC-720
+  capability_name: Quality Control Management
+  confidence: 0.75
+  evidence: GET /quality/v1/sample-plans  listSamplePlans  List Sample Plans
+  reason: Sample plans sit under the /quality/ namespace and define inspection sampling regimes — quality
+    control (inspections, testing, acceptance criteria). Single read-only operation keeps confidence moderate.
+- tag: Time Clock Entries API
+  spec_file: rockwell-automation-time-clock-entries-api-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.72
+  evidence: GET /hcm/v1/time-clock-entries  listTimeClockEntries  List Time Clock Entries
+  reason: Served from the human capital management (/hcm/) namespace and returns employee time clock punches,
+    which is time and attendance data feeding payroll/HR operations. Single read operation limits confidence.
+- tag: Approved Suppliers API
+  spec_file: rockwell-automation-approved-suppliers-api-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: GET /purchasing/v1/approved-suppliers "List Approved Suppliers"; "Get EDI Details"; "Get MRP
+    Details"; "List Prices"
+  reason: The surface maintains the register of approved (qualified) suppliers with their EDI, MRP and
+    price details, which is supplier management; the evidence does not pin a single sub-capability between
+    onboarding/qualification and relationship data.
+- tag: Control Plans API
+  spec_file: rockwell-automation-control-plans-api-api-openapi.yml
+  capability_id: BC-720.30
+  capability_id_l1: BC-720
+  capability_name: Quality Control Management
+  confidence: 0.7
+  evidence: GET /quality/v1/control-plans/{id}/control-plan-lines  listControlPlanLines  List Control
+    Plan Lines
+  reason: Control plans with their line items under the quality namespace are the classic APQP artefact
+    specifying what characteristics are inspected and how — quality control/inspection planning. Read-only
+    surface, so not higher than 0.7.
+- tag: Customers API
+  spec_file: rockwell-automation-customers-api-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /mdm/v1/customers  createCustomer ... GET /mdm/v1/customers/{id}/financials  getCustomerFinancials
+  reason: Maintains the customer master record — create/update/deactivate customers, their addresses,
+    EDI details and financial attributes — in the master-data namespace. This is customer data management;
+    some overlap with generic MDM keeps it at 0.7.
+- tag: Digital Work Instructions API
+  spec_file: rockwell-automation-digital-work-instructions-api-api-openapi.yml
+  capability_id: BC-1010.40
+  capability_id_l1: BC-1010
+  capability_name: Operator Guidance Management
+  confidence: 0.7
+  evidence: POST /work-instructions/v1/process-groups/{processGroupId}/process-steps  Create Process Step;
+    schemas ProcessStepChecksheetResponseDto, ToolDeviceProcessStepReportDto
+  reason: Manages digital work instructions as process groups and ordered process steps with install-BOM
+    components, tools and checksheets for the operator at the station — the 'work instructions, digital
+    andon, operator support' capability. Some ambiguity with Production Process Engineering (BC-1020.10)
+    since these are also authored process definitions, hence 0.7.
+- tag: Equipment API
+  spec_file: rockwell-automation-equipment-api-api-openapi.yml
+  capability_id: BC-1040.40
+  capability_id_l1: BC-1040
+  capability_name: Asset Information Management
+  confidence: 0.7
+  evidence: GET /maintenance/v1/equipment  listEquipment; GET /maintenance/v1/equipment-types  List Equipment
+    Types; schemas EquipmentDTO, EquipmentAttributeDTO
+  reason: Maintains equipment records, equipment types and user-defined equipment attributes under the
+    maintenance module — asset master/technical data rather than maintenance work execution. Mapped to
+    Asset Information Management; some chance the intended home is Plant Maintenance (BC-1030), hence
+    0.7.
+- tag: Fiscal Period Statuses API
+  spec_file: rockwell-automation-fiscal-period-statuses-api-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.7
+  evidence: GET /accounting/v1/fiscal-period-statuses  listFiscalPeriodStatuses
+  reason: Accounting-module reference listing of fiscal period statuses, i.e. open/closed accounting periods,
+    which is part of general ledger period-close administration. Thin surface (one read-only operation)
+    so confidence is moderate.
+- tag: Inventory Operations Management API
+  spec_file: rockwell-automation-inventory-operations-management-api-api-openapi.yml
+  capability_id: BC-1070
+  capability_id_l1: BC-1070
+  capability_name: Materials Management
+  confidence: 0.7
+  evidence: 'POST /inventory/v1/inventory-receiving/receipts  createInventoryReceipt; GET /inventory/v1/inventory-tracking/lots/{lotId}  getLot;
+    schemas: ScrapContainerRequest, StageInventoryRequest, ItemAdjustment'
+  reason: Plant-level stock operations — receipts, lots, containers, staging, scrap and adjustments —
+    which is Materials Management. Spans raw material, WIP and finished goods so no single L2 is named
+    by the evidence.
+- tag: Inventory Tracking API
+  spec_file: rockwell-automation-inventory-tracking-api-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.7
+  evidence: GET /inventory-tracking/v1/containers/{serialNumber}  Get Container By Serial Number; PUT
+    /inventory-tracking/v1/containers/{serialNo}/rfid  Update Container RFID
+  reason: Serial- and RFID-based lookup of inventory containers and master units is stock identification/traceability
+    within inventory management. Kept at L1 because no L2 (levels, replenishment, allocation, accuracy)
+    is explicitly exercised by these five read/RFID-update operations.
+- tag: Receipts API
+  spec_file: rockwell-automation-receipts-api-api-openapi.yml
+  capability_id: BC-500.40
+  capability_id_l1: BC-500
+  capability_name: Procure-to-Pay Operations Management
+  confidence: 0.7
+  evidence: 'GET /purchasing/v1/receipts  listReceipts; schemas: ReceiptDto'
+  reason: Goods receipts within the purchasing domain are day-to-day procure-to-pay operations (requisitions,
+    receipts); read-only surface limits certainty on sub-capability.
