@@ -1,0 +1,930 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Customer Trucks API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Customer Trucks API
+  description: The Customer Trucks API is used to manage customer truck data.
+paths:
+  /shipping/v1-beta1/customer-trucks:
+    post:
+      operationId: createCustomerTruck
+      summary: Create Customer Truck
+      tags:
+      - Customer Trucks API
+      description: Create a truck.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTruckDto'
+      responses:
+        '201':
+          description: The truck was added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TruckDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customer-trucks-api/create-customer-truck
+  /shipping/v1/customer-trucks/{id}:
+    get:
+      operationId: getCustomerTruck
+      summary: Get Customer Truck
+      tags:
+      - Customer Trucks API
+      description: Retrieve a customer truck by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the truck record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TruckDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-trucks-api/get-customer-truck
+  /shipping/v1/customer-trucks:
+    get:
+      operationId: listCustomerTrucks
+      summary: List Customer Trucks
+      tags:
+      - Customer Trucks API
+      description: List customer trucks by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the truck. This will be automatically generated if omitted from the request.
+      - name: shipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return truck records with a Ship Date within a specified time frame.
+      - name: shipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The end date used to return truck records with a Ship Date within a specified time frame.
+      - name: shippedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who shipped the truck.
+      - name: carrierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the carrier associated with the truck. (A carrier is a supplier with a supplier type of &quot;Carrier&quot;.)
+      - name: freightTerms
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+      - name: trackingNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The tracking number, often provided by a carrier, related to a specific shipment.
+      - name: trailerNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+      - name: truckCalled
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates if the carrier has been contacted.
+      - name: truckArrivalTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning time used to return truck records with an arrival time within the specified time frame (arrival time can be planned or actual, depending on implementation).
+      - name: truckArrivalTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending time used to return truck records with an arrival time within the specified time frame (arrival time can be planned or actual, depending on implementation).
+      - name: bOLNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The bill of lading number.
+      - name: pool
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that the truck is part of a pool shipment. A pool is a central warehouse that redistributes shippers from one truck to another before shipping to customer locations.
+      - name: poolCustomerAddressId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID of the pool location associated with the truck.
+      - name: trailerCarrierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the supplier with a &quot;Carrier&quot; type used as the trailer carrier.
+      - name: brokeredCarrierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the supplier with a &quot;Carrier&quot; type used as the brokered carrier.
+      - name: scheduledShipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return truck records with a scheduled ship date within the specified time frame.
+      - name: scheduledShipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return truck records with a scheduled ship date within the specified time frame.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return truck records that were created within the specified time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return truck records that were created within the specified time frame.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return truck records that were last modified within the specified time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return truck records that were last modified within the specified time frame.
+      - name: milkRun
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of a route with multiple stops that happens on a recurring basis.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The truck type.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The truck status.
+      - name: truckNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A Plex-generated unique number representing the truck shipment.
+      - name: transMode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The transportation mode associated with the truck.
+      - name: shipFromId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the customer address from which the truck was shipped.
+      - name: iNCOTerms
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: International Commercial (INCO) terms applied to the sales order.
+      - name: customsBrokerSupplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the supplier with a &quot;Customs Broker&quot; type.
+      - name: subBuilding
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The sub-building code indicating the location in the building where the truck will be loaded.
+      - name: dropshipSupplierCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The dropship supplier code associated with the truck.
+      - name: truckRoute
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The route for the truck.
+      - name: truckArrivalTimeOfDayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: time
+          example: string
+        description: The time at which the truck arrived.
+      - name: truckArrivalTimeOfDayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: time
+          example: string
+        description: The time at which the truck arrived.
+      - name: truckArrivalPlexTimeOfDayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The time at which the truck arrived.
+      - name: truckArrivalPlexTimeOfDayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The time at which the truck arrived.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TruckDto'
+      x-source: https://developers.plex.com/api/documentation/customer-trucks-api/list-customer-trucks
+  /shipping/v1-beta1/customer-trucks/{id}/ship:
+    post:
+      operationId: shipTruck
+      summary: Ship Truck
+      tags:
+      - Customer Trucks API
+      description: Ship a truck based on the specified resource identifier.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The resource identifier for the truck to be shipped.
+      responses:
+        '200':
+          description: The truck was shipped successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TruckDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-trucks-api/ship-truck
+  /shipping/v1-beta1/customer-trucks/{id}:
+    put:
+      operationId: updateCustomerTruck
+      summary: Update Customer Truck
+      tags:
+      - Customer Trucks API
+      description: Update a truck.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The resource identifier of truck to be updated.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTruckDto'
+      responses:
+        '200':
+          description: The truck was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TruckDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-trucks-api/update-customer-truck
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateTruckDto:
+      type: object
+      description: The update truck DTO.
+      properties:
+        freightTerms:
+          type: string
+          description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+          example: string
+        trackingNumber:
+          type: string
+          description: The tracking number, often provided by a carrier, related to a specific shipment.
+          example: string
+        trailerNumber:
+          type: string
+          description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+          example: string
+        note:
+          type: string
+          description: A note assigned to the truck.
+          example: string
+        truckCalled:
+          type: boolean
+          description: Indicates if the carrier has been contacted.
+          example: false
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The arrival time of the truck (arrival time can be planned or actual, depending on implementation).
+          example: string
+        bolNumber:
+          type: string
+          description: The bill of lading number.
+          example: string
+        bolNote:
+          type: string
+          description: A note on the bill of lading.
+          example: string
+        pool:
+          type: boolean
+          description: Indicates that the truck is part of a pool shipment. A pool is a central warehouse that redistributes shippers from one truck to another before shipping to customer locations.
+          example: false
+        carrierId:
+          type: string
+          format: uuid
+          description: The ID of the carrier associated with the truck. (A carrier is a supplier with a supplier type of &quot;Carrier&quot;.)
+          example: 00000000-0000-0000-0000-000000000000
+        trailerCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the trailer carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        brokeredCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the brokered carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        truckCalledDate:
+          type: string
+          description: The date the carrier was called regarding the shipment or truck. Use format YYYY-MM-DD.
+          example: string
+        truckConfirmation:
+          type: string
+          description: The confirmation from the carrier regarding the shipment or truck.
+          example: string
+        truckContact:
+          type: string
+          description: A contact person, typically at the carrier, regarding the shipment or truck.
+          example: string
+        scheduledShipDate:
+          type: string
+          description: The date on which the truck is scheduled to ship. Use format YYYY-MM-DD.
+          example: string
+        milkRunDescription:
+          type: string
+          description: The name of a route with multiple stops that happens on a recurring basis.
+          example: string
+        truckType:
+          type: string
+          description: The truck type.
+          example: string
+        truckStatus:
+          type: string
+          description: The truck status.
+          example: string
+        transMode:
+          type: string
+          description: The transportation mode associated with the truck.
+          example: string
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier resource ID associated with the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        incoTerms:
+          type: string
+          description: International Commercial (INCO) terms applied to the sales order.
+          example: string
+        customsBrokerSupplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Customs Broker&quot; type.
+          example: 00000000-0000-0000-0000-000000000000
+        subBuildingCode:
+          type: string
+          description: The sub-building code indicating the location in the building where the truck will be loaded.
+          example: string
+        truckRoute:
+          type: string
+          description: The route for the truck.
+          example: string
+        estimatedArrivalDate:
+          type: string
+          format: date-time
+          description: The estimated arrival date of the truck.
+          example: '2026-10-20T12:03:02Z'
+        truckFreightAmount:
+          type: number
+          format: double
+          description: The amount of the truck freight charge.
+          example: 0.1
+      required:
+      - freightTerms
+      - truckType
+      - truckStatus
+    CreateTruckDto:
+      type: object
+      description: The create truck DTO.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the truck record.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+          example: string
+        trackingNumber:
+          type: string
+          description: The tracking number, often provided by a carrier, related to a specific shipment.
+          example: string
+        trailerNumber:
+          type: string
+          description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+          example: string
+        note:
+          type: string
+          description: A note assigned to the truck.
+          example: string
+        truckCalled:
+          type: boolean
+          description: Indicates if the carrier has been contacted.
+          example: false
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The arrival time of the truck (arrival time can be planned or actual, depending on implementation).
+          example: string
+        bolNumber:
+          type: string
+          description: The bill of lading number.
+          example: string
+        bolNote:
+          type: string
+          description: A note on the bill of lading.
+          example: string
+        pool:
+          type: boolean
+          description: Indicates that the truck is part of a pool shipment. A pool is a central warehouse that redistributes shippers from one truck to another before shipping to customer locations.
+          example: false
+        carrierId:
+          type: string
+          format: uuid
+          description: The ID of the carrier associated with the truck. (A carrier is a supplier with a supplier type of &quot;Carrier&quot;.)
+          example: 00000000-0000-0000-0000-000000000000
+        poolCustomerAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID of the pool location associated with the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        trailerCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the trailer carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        brokeredCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the brokered carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        truckCalledDate:
+          type: string
+          description: The date the carrier was called regarding the shipment or truck. Use format YYYY-MM-DD.
+          example: string
+        truckConfirmation:
+          type: string
+          description: The confirmation from the carrier regarding the shipment or truck.
+          example: string
+        truckContact:
+          type: string
+          description: A contact person, typically at the carrier, regarding the shipment or truck.
+          example: string
+        scheduledShipDate:
+          type: string
+          description: The date on which the truck is scheduled to ship. Use format YYYY-MM-DD.
+          example: string
+        milkRunDescription:
+          type: string
+          description: The name of a route with multiple stops that happens on a recurring basis.
+          example: string
+        truckType:
+          type: string
+          description: The truck type.
+          example: string
+        truckStatus:
+          type: string
+          description: The truck status.
+          example: string
+        transMode:
+          type: string
+          description: The transportation mode associated with the truck.
+          example: string
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ID of the customer address from which the truck was shipped.
+          example: 00000000-0000-0000-0000-000000000000
+        incoTerms:
+          type: string
+          description: International Commercial (INCO) terms applied to the sales order.
+          example: string
+        customsBrokerSupplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Customs Broker&quot; type.
+          example: 00000000-0000-0000-0000-000000000000
+        subBuildingCode:
+          type: string
+          description: The sub-building code indicating the location in the building where the truck will be loaded.
+          example: string
+        truckRoute:
+          type: string
+          description: The route for the truck.
+          example: string
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier resource ID associated with the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        estimatedArrivalDate:
+          type: string
+          format: date-time
+          description: The estimated arrival date of the truck.
+          example: '2026-10-20T12:03:02Z'
+        truckFreightAmount:
+          type: number
+          format: double
+          description: The amount of the truck freight charge.
+          example: 0.1
+      required:
+      - freightTerms
+      - truckType
+      - truckStatus
+    TruckDto:
+      type: object
+      description: The truck model exposed for adding records.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the truck. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        shipDate:
+          type: string
+          format: date-time
+          description: The ship date assigned to the truck.
+          example: '2026-10-20T12:03:02Z'
+        freightTerms:
+          type: string
+          description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+          example: string
+        trackingNumber:
+          type: string
+          description: The tracking number, often provided by a carrier, related to a specific shipment.
+          example: string
+        trailerNumber:
+          type: string
+          description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+          example: string
+        note:
+          type: string
+          description: A note assigned to the truck.
+          example: string
+        truckCalled:
+          type: boolean
+          description: Indicates if the carrier has been contacted.
+          example: false
+        truckArrivalTime:
+          type: string
+          format: date-time
+          description: The arrival time of the truck (arrival time can be planned or actual, depending on implementation).
+          example: '2026-10-20T12:03:02Z'
+        bolNumber:
+          type: string
+          description: The bill of lading number.
+          example: string
+        bolNote:
+          type: string
+          description: A note on the bill of lading.
+          example: string
+        pool:
+          type: boolean
+          description: Indicates that the truck is part of a pool shipment. A pool is a central warehouse that redistributes shippers from one truck to another before shipping to customer locations.
+          example: false
+        carrierId:
+          type: string
+          format: uuid
+          description: The ID of the carrier associated with the truck. (A carrier is a supplier with a supplier type of &quot;Carrier&quot;.)
+          example: 00000000-0000-0000-0000-000000000000
+        poolCustomerAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID of the pool location associated with the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        trailerCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the trailer carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        brokeredCarrierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Carrier&quot; type used as the brokered carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        truckCalledDate:
+          type: string
+          format: date-time
+          description: The date the carrier was called regarding the shipment or truck.
+          example: '2026-10-20T12:03:02Z'
+        truckConfirmation:
+          type: string
+          description: The confirmation from the carrier regarding the shipment or truck.
+          example: string
+        truckContact:
+          type: string
+          description: A contact person, typically at the carrier, regarding the shipment or truck.
+          example: string
+        truckDriverId:
+          type: string
+          format: uuid
+          description: The Plex user ID of the truck driver associated with this Truck (Truck_Drive_Key).
+          example: 00000000-0000-0000-0000-000000000000
+        shippedById:
+          type: string
+          format: uuid
+          description: The ID of the user who shipped the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        scheduledShipDate:
+          type: string
+          format: date-time
+          description: The date on which the truck is scheduled to ship.
+          example: '2026-10-20T12:03:02Z'
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:02Z'
+        milkRun:
+          type: string
+          description: The name of a route with multiple stops that happens on a recurring basis.
+          example: string
+        type:
+          type: string
+          description: The truck type.
+          example: string
+        status:
+          type: string
+          description: The truck status.
+          example: string
+        truckNumber:
+          type: string
+          description: A Plex-generated unique number representing the truck shipment.
+          example: string
+        transMode:
+          type: string
+          description: The transportation mode associated with the truck.
+          example: string
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ID of the customer address from which the truck was shipped.
+          example: 00000000-0000-0000-0000-000000000000
+        incoTerms:
+          type: string
+          description: International Commercial (INCO) terms applied to the sales order.
+          example: string
+        customsBrokerSupplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier with a &quot;Customs Broker&quot; type.
+          example: 00000000-0000-0000-0000-000000000000
+        subBuilding:
+          type: string
+          description: The sub-building code indicating the location in the building where the truck will be loaded.
+          example: string
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier resource ID associated with the truck.
+          example: 00000000-0000-0000-0000-000000000000
+        dropshipSupplierCode:
+          type: string
+          description: The dropship supplier code associated with the truck.
+          example: string
+        truckRoute:
+          type: string
+          description: The route for the truck.
+          example: string
+        estimatedArrivalDate:
+          type: string
+          format: date-time
+          description: The estimated arrival date of the truck.
+          example: '2026-10-20T12:03:02Z'
+        truckFreightAmount:
+          type: number
+          format: double
+          description: The amount of the truck freight charge.
+          example: 0.1
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The time at which the truck arrived.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

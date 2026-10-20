@@ -1,0 +1,859 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Journal Entries API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Journal Entries API
+  description: The Journal Entries API is used to retrieve journal entries and journal entry lines.
+paths:
+  /accounting/v2/journal-entries:
+    post:
+      operationId: createJournalEntry
+      summary: Create Journal Entry
+      tags:
+      - Journal Entries API
+      description: Add a GL journal entry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddJournalEntryDto'
+      responses:
+        '201':
+          description: The record was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntryDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/create-journal-entry
+    get:
+      operationId: listJournalEntriesV2
+      summary: List Journal Entries
+      tags:
+      - Journal Entries API
+      description: List journal entries by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The list of GL journal entry IDs.
+      - name: journalNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The GL journal entry journal number.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The period in which a GL journal entry is recorded.
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A description of the GL journal entry.
+      - name: postDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date used to return GL journal entries posted within a time frame.
+      - name: postDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date used to return GL journal entries posted within a time frame.
+      - name: reversing
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify a GL journal entry has been reversed.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL journal entry status.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The IAM ID with which the GL journal entry was created.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date used to return GL journal entries created within a time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date used to return GL journal entries created within a time frame.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The IAM ID that last modified the GL journal entry.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date used to return GL journal entries modified within a time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date used to return GL journal entries modified within a time frame.
+      - name: booked
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify a GL journal entry has been booked.
+      - name: period13
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify a GL journal entry has a 13th period.
+      - name: periodAdjustmentEntries
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that the period for a GL journal entry has been adjusted.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntryDto'
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/list-journal-entries
+  /accounting/v2/journal-entries/{id}:
+    get:
+      operationId: getJournalEntryV2
+      summary: Get Journal Entry
+      tags:
+      - Journal Entries API
+      description: Retrieve a GL journal entry by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The GL journal entry's ID.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntryDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/get-journal-entry
+    put:
+      operationId: updateJournalEntry
+      summary: Update Journal Entry
+      tags:
+      - Journal Entries API
+      description: Update journal entry.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateJournalEntryDto'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalEntryDto'
+        '404':
+          description: Resource not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/update-journal-entry
+  /accounting/v1/journal-entries/{id}:
+    get:
+      operationId: getJournalEntryV1
+      summary: Get Journal Entry
+      tags:
+      - Journal Entries API
+      description: Retrieve a Journal Entry by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/get-journal-entry
+  /accounting/v1/journal-entries:
+    get:
+      operationId: listJournalEntriesV1
+      summary: List Journal Entries
+      tags:
+      - Journal Entries API
+      description: List Journal Entries by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of Journal Entry Resource IDs.
+      - name: journalNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The accounting period represented with a 2 digit month and 4 digit year format [MM-YYYY].
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: note
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: postDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date the Journal Entry was posted.
+      - name: postDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date the Journal Entry was posted.
+      - name: reversing
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If True, this flag indicates that the Journal Entry was created by reversing another Journal Entry.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The IAM Account ID of the user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date on which the record was created.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The IAM Account ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date on which the record was last modified.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalDto'
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/list-journal-entries
+  /accounting/v1/journal-entries/{id}/lines:
+    get:
+      operationId: listJournalEntryLines
+      summary: List Journal Entry Lines
+      tags:
+      - Journal Entries API
+      description: Retrieve a list of Journal Entry Lines.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalLineDto'
+        '404':
+          description: The Journal Entry resource was not found.
+      x-source: https://developers.plex.com/api/documentation/journal-entries-api/list-journal-entry-lines
+components:
+  schemas:
+    UpdateJournalEntryDto:
+      type: object
+      description: The Update GL Journal Entry model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        period:
+          type: string
+          description: The accounting period represented by a 2 digit month and a 4 digit year format [MM-YYYY].
+          example: string
+        description:
+          type: string
+          description: A description of the GL journal entry line.
+          example: string
+        note:
+          type: string
+          description: The GL journal entry note.
+          example: string
+        period13:
+          type: boolean
+          description: The 13th Period flag.
+          example: false
+        periodAdjustment:
+          type: boolean
+          description: The Period Adjustment flag.
+          example: false
+        status:
+          type: string
+          description: The GL journal entry status.
+          example: string
+        postDate:
+          type: string
+          format: date-time
+          description: The GL journal entry post date.
+          example: '2026-10-20T12:03:13Z'
+        currency:
+          type: string
+          description: The 3 digit alphanumeric currency code designation.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The GL journal entry exchange rate.
+          example: 0.1
+        governmentIssuedNo:
+          type: string
+          description: The GL journal entry government issued number.
+          example: string
+        lines:
+          type: array
+          description: A list of GL journal entry distribution lines.
+          items:
+            type: object
+            description: The query parameters for GL journal entry line resources.
+            properties: {}
+        lineId:
+          type: string
+          format: uuid
+          description: The unique identifier for the GL journal entry line.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNo:
+          type: string
+          description: The unique identifier for the GL journal entry line account.
+          example: string
+        debit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution is calculated as a debit.
+          example: 0.1
+        credit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution is calculated as a credit.
+          example: 0.1
+        expenseProject:
+          type: string
+          description: The GL journal entry line expense project code.
+          example: string
+        accountingJobNo:
+          type: string
+          description: The accounting job number for the GL journal entry line, if applicable.
+          example: string
+        voucherDescription:
+          type: string
+          description: The GL journal entry line voucher description.
+          example: string
+        currencyDebit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution amount is a foreign currency debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution amount is a foreign currency credit.
+          example: 0.1
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    JournalEntryDto:
+      type: object
+      description: The Journal Entry model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The GL journal entry ID.
+          example: 00000000-0000-0000-0000-000000000000
+        journalNumber:
+          type: integer
+          format: int32
+          description: The GL journal entry journal number.
+          example: 0
+        periodDisplay:
+          type: string
+          description: The period in which a GL journal entry is recorded.
+          example: string
+        description:
+          type: string
+          description: A description of the GL journal entry.
+          example: string
+        note:
+          type: string
+          description: A note added to the GL journal entry.
+          example: string
+        postDate:
+          type: string
+          format: date-time
+          description: The date a GL journal entry was posted.
+          example: '2026-10-20T12:03:13Z'
+        reversing:
+          type: boolean
+          description: Specify a GL journal entry has been reversed.
+          example: false
+        currency:
+          type: string
+          description: The GL journal entry currency.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The GL journal entry exchange rate.
+          example: 0.1
+        status:
+          type: string
+          description: The GL journal entry status.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The IAM ID with which the GL journal entry was created.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date the GL journal entry was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM ID that last modified the GL journal entry.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date a GL journal entry was last modified.
+          example: '2026-10-20T12:03:13Z'
+        voucherNumber:
+          type: string
+          description: The GL journal entry voucher number.
+          example: string
+        booked:
+          type: boolean
+          description: Specify if a GL journal entry has been booked.
+          example: false
+        period13:
+          type: boolean
+          description: Specify if a GL journal entry is in the 13th period.
+          example: false
+        governmentIssuedNo:
+          type: string
+          description: The GL journal entry Government Issued No.
+          example: string
+        periodAdjustment:
+          type: boolean
+          description: The GL journal entry period adjustment.
+          example: false
+        lines:
+          type: array
+          description: A list of GL journal lines.
+          items:
+            type: object
+            description: The Journal Line Model.
+            properties: {}
+    JournalLineDto:
+      type: object
+      description: The query parameters for Journal Entry Line resources.
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          example: string
+        debit:
+          type: number
+          format: double
+          description: The debit amount shown in the default currency for the entity.
+          example: 0.1
+        credit:
+          type: number
+          format: double
+          description: The debit amount shown in the default currency for the entity.
+          example: 0.1
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:13Z'
+        currencyDebit:
+          type: number
+          format: double
+          description: Use if the Journal Entry is in a foreign currency.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: Use if the Journal Entry is in a foreign currency.
+          example: 0.1
+    JournalDto:
+      type: object
+      description: The Journal Entry model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 'A unique identifier for the Journal Entry.
+
+            This will be automatically generated if omitted from the request.'
+          example: 00000000-0000-0000-0000-000000000000
+        journalNumber:
+          type: integer
+          format: int32
+          example: 0
+        periodDisplay:
+          type: string
+          description: The accounting period represented with a 2 digit month and 4 digit year format [MM-YYYY].
+          example: string
+        description:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        postDate:
+          type: string
+          format: date-time
+          description: The date the Journal Entry was posted.
+          example: '2026-10-20T12:03:13Z'
+        reversing:
+          type: boolean
+          description: If True, this flag indicates that the Journal Entry was created by reversing another Journal Entry.
+          example: false
+        currency:
+          type: string
+          description: The ISO 4217 three digit alphanumeric currency code designation.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: A Journal Entry that is in foreign currency will have an exchange rate relative to the configured native currency. It will be 1 if no foreign currency is involved.
+          example: 0.1
+        status:
+          type: string
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:13Z'
+    AddJournalEntryDto:
+      type: object
+      description: The Add GL journal entry model.
+      properties:
+        period:
+          type: string
+          description: The accounting period represented with a 2 digit month and 4 digit year format [MM-YYYY].
+          example: string
+        description:
+          type: string
+          description: A description of the GL journal entry line.
+          example: string
+        note:
+          type: string
+          description: The GL journal entry note.
+          example: string
+        period13:
+          type: boolean
+          description: The 13th Period flag.
+          example: false
+        periodAdjustment:
+          type: boolean
+          description: The Period Adjustment flag.
+          example: false
+        status:
+          type: string
+          description: The GL journal entry status.
+          example: string
+        postDate:
+          type: string
+          format: date-time
+          description: The GL journal entry post date.
+          example: '2026-10-20T12:03:13Z'
+        currency:
+          type: string
+          description: The GL journal entry currency.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: A journal entry that is in a foreign currency will have an exchange rate relative to the configured currency.
+          example: 0.1
+        governmentIssuedNo:
+          type: string
+          description: The GL journal entry government issued number.
+          example: string
+        lines:
+          type: array
+          description: A list of GL journal entry distribution lines.
+          items:
+            type: object
+            description: The query parameters for journal entry line resources.
+            properties: {}
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the GL journal entry line item number.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNo:
+          type: string
+          description: The unique identifier for the GL journal entry line account.
+          example: string
+        debit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution is calculated as a debit.
+          example: 0.1
+        credit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution is calculated as a credit.
+          example: 0.1
+        expenseProject:
+          type: string
+          description: The GL journal entry line expense project code.
+          example: string
+        accountingJobNo:
+          type: string
+          description: The accounting job number for the GL journal entry line, if applicable.
+          example: string
+        voucherDescription:
+          type: string
+          description: The GL journal entry line voucher description.
+          example: string
+        currencyDebit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution amount is a foreign currency debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: The GL journal entry line distribution amount is a foreign currency credit.
+          example: 0.1
+      required:
+      - period
+      - description
+      - status
+      - postDate
+      - currency
+      - lines
+      - accountNo
+      - description
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

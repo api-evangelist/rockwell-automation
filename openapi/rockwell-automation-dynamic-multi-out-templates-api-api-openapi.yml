@@ -1,0 +1,229 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Dynamic Multi Out…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Dynamic Multi Out Templates API
+  description: The Dynamic Multi Out Templates API is used to manage dynamic multi out template data.
+paths:
+  /engineering/v1/dynamic-multi-out-templates/{id}/part-operations/{partOperationId}:
+    get:
+      operationId: getDynamicMultiOutTemplatePartOperation
+      summary: Get Dynamic Multi Out Template Part Operation
+      tags:
+      - Dynamic Multi Out Templates API
+      description: Retrieve a Part Operation attached to a Dynamic Multi Out Template.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: partOperationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutTemplatePartOperationDto'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-templates-api/get-dynamic-multi-out-template-part-operation
+  /engineering/v1/dynamic-multi-out-templates/{id}:
+    get:
+      operationId: getDynamicMultiOutTemplate
+      summary: Get Dynamic Multi Out Template
+      tags:
+      - Dynamic Multi Out Templates API
+      description: Retrieve a Dynamic Multi Out Template by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutTemplateDto'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-templates-api/get-dynamic-multi-out-template
+  /engineering/v1/dynamic-multi-out-templates/{id}/part-operations:
+    get:
+      operationId: listDynamicMultiOutTemplatePartOperations
+      summary: List Dynamic Multi Out Template Part Operations
+      tags:
+      - Dynamic Multi Out Templates API
+      description: Retrieve a Dynamic Multi-Out Template with Part Operations by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutTemplatePartOperationDto'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-templates-api/list-dynamic-multi-out-template-part-operations
+  /engineering/v1/dynamic-multi-out-templates:
+    get:
+      operationId: listDynamicMultiOutTemplates
+      summary: List Dynamic Multi Out Templates
+      tags:
+      - Dynamic Multi Out Templates API
+      description: List Dynamic Multi Out Templates by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the Dynamic Multi Out Templates.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: An additional unique field used to identify a Dynamic Multi Out Template.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A flag used to filter on active status.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutTemplateDto'
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-templates-api/list-dynamic-multi-out-templates
+components:
+  schemas:
+    DynamicMultiOutTemplateDto:
+      type: object
+      description: The Dynamic Multi Out Template model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Dynamic Multi Out Template.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The unique code of the Dynamic Multi Out Template.
+          example: string
+        active:
+          type: boolean
+          description: A flag that determines if the Dynamic Multi Out Template is active.
+          example: false
+        valid:
+          type: boolean
+          description: A flag that determines if the Dynamic Multi Out Template is valid to be used in a set.
+          example: false
+    DynamicMultiOutTemplatePartOperationDto:
+      type: object
+      description: The Part Operation model for Dynamic Multi Out Templates.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        templateId:
+          type: string
+          format: uuid
+          description: A unique identifier for the Dynamic Multi Out Template.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the Part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The Part Number of the Part Operation.
+          example: string
+        revision:
+          type: string
+          description: The Revision of the Part.
+          example: string
+        partNumberRevision:
+          type: string
+          description: The Part Operation's Part Number Revision formatted with separator.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The Operation Number of the Part Operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The Operation Code of the Part Operation.
+          example: string
+        workcenters:
+          type: array
+          description: The workcenters that belong to the operation and are valid for Multi Out Template execution.
+          items:
+            type: string
+        multiple:
+          type: number
+          format: double
+          description: The multiple value of the Part Operation.
+          example: 0.1
+        primary:
+          type: boolean
+          description: When true, flags this Part Operation as the primary for this template.
+          example: false
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

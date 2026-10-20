@@ -1,0 +1,1038 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Purchase Orders API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Purchase Orders API
+  description: The Purchase Orders API is used to retrieve purchase order information, including line items. This API exposes endpoints to retrieve purchase orders and their sub-resources in the context of Purchasing. Use a GET request to retrieve the information about purchase orders, line items related to purchase orders, purchase order types, and statuses.
+paths:
+  /purchasing/v1/purchase-orders/{id}/line-items/{lineItemId}:
+    get:
+      operationId: getLineItem
+      summary: Get Line Item
+      tags:
+      - Purchase Orders API
+      description: Retrieve a PO line item by ID. A line item on a purchase order contains information that specifies the purchased item or service along with the low-level details of the order, including the price (depending on configuration) and release schedule. Most of the fields available in a line item are controlled by the PO type. Some fields are also controlled by module settings and setup table configuration.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the purchase order.
+      - name: lineItemId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the line item.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineItemDto'
+        '404':
+          description: The resource was not found.
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/get-line-item
+  /purchasing/v1/purchase-orders/{id}:
+    get:
+      operationId: getPurchaseOrder
+      summary: Get Purchase Order
+      tags:
+      - Purchase Orders API
+      description: Retrieve a purchase order by ID. Purchase orders (POs) are created for single-use "spot buys" or recurring blanket orders of goods from suppliers. Before using POs to order goods (such as parts, materials, and supplies), the goods must be defined in the system. For example, a component part must appear on the Parts screen to order it from a supplier. Once the purchase order is created in the system, Get Purchase Order is used to retrieve the purchase order information.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the purchase order.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderDto'
+        '404':
+          description: The purchase order was not found.
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/get-purchase-order
+  /purchasing/v1/purchase-orders/{poId}/line-items:
+    get:
+      operationId: listLineItems
+      summary: List Line Items
+      tags:
+      - Purchase Orders API
+      description: List PO line items by query parameters. The List Line Items operation retrieves the information associated with the line items. PO line items are used to specify the purchased item or service along with the low-level details of the order, including the price (depending on configuration) and release schedule. Most of the fields available in a line item are controlled by the PO type. Some fields are also controlled by module settings and setup table configuration.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of unique identifiers for line items.
+      - name: lineItemNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The PO line item number.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: PO Line Item Status'
+      - name: manufacturer
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Manufacturers'
+      - name: manufacturerPartNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Manufacturer part number, this may be different than the Plex part number.
+      - name: supplierPartNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Supplier part number, this may be different than the Plex part number.
+      - name: itemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the supply item.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part.
+      - name: building
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Buildings'
+      - name: department
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Department List'
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: poId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the purchase order.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineItemDto'
+        '404':
+          description: The purchase order was not found.
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/list-line-items
+  /purchasing/v1/purchase-orders/{id}/line-items/{lineItemId}/prices:
+    get:
+      operationId: listPurchaseOrderPrices
+      summary: List Purchase Order Prices
+      tags:
+      - Purchase Orders API
+      description: List purchase order prices based on specified query parameters related to the price's effective date and expiration date.
+      parameters:
+      - name: priceByDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Expiration Date on or after this value when it is specified.
+      - name: priceByDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Effective Date on or before this value when it is specified.
+      - name: effectiveDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Effective Date on or after this value when it is specified.
+      - name: effectiveDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Effective Date on or before this value when it is specified.
+      - name: expirationDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Expiration Date on or after this value when it is specified.
+      - name: expirationDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: A date on which to validate if the Price is effective. Only returns records with an Expiration Date on or before this value when it is specified.
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the purchase order.
+      - name: lineItemId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the line item.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PoPriceDto'
+        '404':
+          description: The resource was not found.
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/list-purchase-order-prices
+  /purchasing/v1/purchase-order-statuses:
+    get:
+      operationId: listPurchaseOrderStatuses
+      summary: List Purchase Order Statuses
+      tags:
+      - Purchase Orders API
+      description: List purchase order statuses based on specified PO status properties. Purchase order status can include values such as New, Requested, Review, On order, Approved, Hold, Cancelled, Received, or other custom statuses as configured in the PO Status setup table.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of purchase order status names.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates whether the purchase order status is active or inactive.
+      - name: default
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that this purchase order status is the default for purchase orders.
+      - name: receive
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status allow receiving.
+      - name: includeInMrp
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status are included in MRP (Material Requirements Planning).
+      - name: cancelled
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status are canceled.
+      - name: release
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status are released.
+      - name: onOrder
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status are on order (sent to the supplier).
+      - name: received
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status were fully received.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderStatusDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/list-purchase-order-statuses
+  /purchasing/v1/purchase-order-types:
+    get:
+      operationId: listPurchaseOrderTypes
+      summary: List Purchase Order Types
+      tags:
+      - Purchase Orders API
+      description: List purchase order type records based on specified PO type properties. Purchase order types can include values such as Direct Materials, Purchased Components and Materials, Subcontract, Inventoried MRO / Supply, Indirect Services, Tooling, CapEx, or other custom types as configured on the Purchase Order Types screen.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of purchase order type names.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates whether the purchase order type is active or inactive.
+      - name: default
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that this purchase order type is the default for purchase orders.
+      - name: includeInMRP
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders of this type are included in MRP (Material Requirements Planning).
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderTypeDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/list-purchase-order-types
+  /purchasing/v1/purchase-orders:
+    get:
+      operationId: listPurchaseOrders
+      summary: List Purchase Orders
+      tags:
+      - Purchase Orders API
+      description: List purchase orders by query parameters. Purchase orders (POs) are created for single-use "spot buys" or recurring blanket orders of goods from suppliers. Before using POs to order goods (such as parts, materials, and supplies), the goods must be defined in the system. For example, a component part must appear on the Parts screen before ordering it from a supplier.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of purchase order IDs.
+      - name: pONumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The purchase order number.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: PO Status'
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: This flag will be set to true by default.
+      - name: receive
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates that purchase orders in this status allow receiving.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: PO Type'
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the supplier.
+      - name: shipTo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The destination to which goods and services on the PO will be shipped to. Application: PO Ship To'
+      - name: orderedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the status was set to On Order.
+      - name: orderedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the status was set to On Order.
+      - name: dueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date for the PO, not for individual lines or releases.
+      - name: dueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date for the PO, not for individual lines or releases.
+      - name: building
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Buildings'
+      - name: department
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Department List'
+      - name: blanketOrder
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Determines whether the Purchase Order is a blanket order or discrete order.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-orders-api/list-purchase-orders
+components:
+  schemas:
+    LineItemDto:
+      type: object
+      description: The primary model for a Line Item.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Line Item.
+          example: 00000000-0000-0000-0000-000000000000
+        lineItemNumber:
+          type: integer
+          format: int32
+          description: PO Line Item Number
+          example: 0
+        status:
+          type: string
+          description: 'Setup Table: PO Line Item Status'
+          example: string
+        expirationDate:
+          type: string
+          format: date-time
+          description: The Expiration Date of the Line Item.
+          example: '2026-10-20T12:03:17Z'
+        unit:
+          type: string
+          example: string
+        orderUnit:
+          type: string
+          description: The unit of measure for the part on the PO.
+          example: string
+        description:
+          type: string
+          description: The description of the product or service being ordered.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: Price per unit.
+          example: 0.1
+        estimatedPrice:
+          type: boolean
+          description: If the unit price is estimated.
+          example: false
+        accountId:
+          type: string
+          format: uuid
+          description: The ID of the General Ledger account associated with the PO Line.
+          example: 00000000-0000-0000-0000-000000000000
+        manufacturer:
+          type: string
+          description: 'Application: Manufacturers'
+          example: string
+        manufacturerPartNumber:
+          type: string
+          description: Manufacturer Part Number, this may be different than the Plex part number.
+          example: string
+        supplierPartNumber:
+          type: string
+          description: Supplier Part Number, this may be different than the Plex part number.
+          example: string
+        itemId:
+          type: string
+          format: uuid
+          description: A unique identifier for the supply item.
+          example: 00000000-0000-0000-0000-000000000000
+        taxCode:
+          type: string
+          description: 'Application: Tax Codes'
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: 'Application: Operation List'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        routeToEmployeeId:
+          type: string
+          format: uuid
+          description: The Employee ID to which the request is routed.
+          example: 00000000-0000-0000-0000-000000000000
+        requestedById:
+          type: string
+          format: uuid
+          description: The ID of the user who requested the record.
+          example: 00000000-0000-0000-0000-000000000000
+        weightUnit:
+          type: string
+          example: string
+        weightConversion:
+          type: number
+          format: double
+          example: 0.1
+        internalNote:
+          type: string
+          description: A note that can only be viewed on the Line Item Detail form.
+          example: string
+        note:
+          type: string
+          description: A note for the line item that is displayed in grid records.
+          example: string
+        building:
+          type: string
+          description: 'Application: Buildings'
+          example: string
+        department:
+          type: string
+          description: 'Application: Department List'
+          example: string
+        blanketQuantity:
+          type: number
+          format: double
+          description: The blanket order quantity for the line item.
+          example: 0.1
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:17Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:17Z'
+    PurchaseOrderStatusDto:
+      type: object
+      description: The primary model for a PO Status.
+      properties:
+        name:
+          type: string
+          description: The name of the purchase order status.
+          example: string
+        receive:
+          type: boolean
+          description: Indicates that purchase orders in this status allow receiving.
+          example: false
+        active:
+          type: boolean
+          description: Indicates whether the purchase order status is active or inactive.
+          example: false
+        default:
+          type: boolean
+          description: Indicates that this purchase order status is the default for purchase orders.
+          example: false
+        includeInMrp:
+          type: boolean
+          description: Indicates that purchase orders in this status are included in MRP (Material Requirements Planning).
+          example: false
+        cancelled:
+          type: boolean
+          description: Indicates that purchase orders in this status are canceled.
+          example: false
+        release:
+          type: boolean
+          description: Indicates that purchase orders in this status are released.
+          example: false
+        onOrder:
+          type: boolean
+          description: Indicates that purchase orders in this status are on order (sent to the supplier).
+          example: false
+        received:
+          type: boolean
+          description: Indicates that purchase orders in this status were fully received.
+          example: false
+    PoPriceDto:
+      type: object
+      description: The primary model for a Price.
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+          description: The effective date of the price.
+          example: '2026-10-20T12:03:17Z'
+        expirationDate:
+          type: string
+          format: date-time
+          description: The expiration date of the price.
+          example: '2026-10-20T12:03:17Z'
+        unitPrice:
+          type: number
+          format: double
+          description: Price per unit.
+          example: 0.1
+        note:
+          type: string
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:17Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:17Z'
+    PurchaseOrderDto:
+      type: object
+      description: The primary model for a Purchase Order.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the purchase order.
+          example: 00000000-0000-0000-0000-000000000000
+        poNumber:
+          type: string
+          description: The purchase order number.
+          example: string
+        currencyCode:
+          type: string
+          description: The ISO 4217 three digit alphanumeric currency code designation.
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: PO Status'
+          example: string
+        active:
+          type: boolean
+          description: This flag will be set to true by default.
+          example: false
+        receive:
+          type: boolean
+          description: Indicates that purchase orders in this status allow receiving.
+          example: false
+        type:
+          type: string
+          description: 'Application: PO Type'
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierAddressId:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier address.
+          example: 00000000-0000-0000-0000-000000000000
+        issuedById:
+          type: string
+          format: uuid
+          description: The ID of the user who issued the PO.
+          example: 00000000-0000-0000-0000-000000000000
+        poDate:
+          type: string
+          format: date-time
+          description: The date the PO was created.
+          example: '2026-10-20T12:03:17Z'
+        terms:
+          type: string
+          description: 'The payment terms associated with the purchase order.
+
+            Setup Table: Terms'
+          example: string
+        freightTerms:
+          type: string
+          description: 'Setup Table: PO Freight Terms'
+          example: string
+        lineItemCount:
+          type: integer
+          format: int32
+          description: The number of line items on the PO.
+          example: 0
+        lineItemTotal:
+          type: number
+          format: double
+          description: The total value of all line items on the PO.
+          example: 0.1
+        shipTo:
+          type: string
+          description: 'The destination to which goods and services on the PO will be shipped to.
+
+            Application: PO Ship To'
+          example: string
+        shipVia:
+          type: string
+          description: 'The method by which the order will be shipped.
+
+            Setup Table: PO Ship Via'
+          example: string
+        orderedById:
+          type: string
+          format: uuid
+          description: The ID of the user who ordered the PO.
+          example: 00000000-0000-0000-0000-000000000000
+        orderedDate:
+          type: string
+          format: date-time
+          description: The date on which the status was set to On Order.
+          example: '2026-10-20T12:03:17Z'
+        fob:
+          type: string
+          description: 'Freight on Board.
+
+            Setup Table: PO FOB'
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date for the PO, not for individual lines or releases.
+          example: '2026-10-20T12:03:17Z'
+        contactId:
+          type: string
+          format: uuid
+          description: A unique identifier for the contact.
+          example: 00000000-0000-0000-0000-000000000000
+        scheduledReceiptDate:
+          type: string
+          format: date-time
+          description: The date on which receipt of the PO is scheduled.
+          example: '2026-10-20T12:03:17Z'
+        approvedById:
+          type: string
+          format: uuid
+          description: The ID of the user who approved the PO.
+          example: 00000000-0000-0000-0000-000000000000
+        approvedDate:
+          type: string
+          format: date-time
+          description: The date on which the PO was approved.
+          example: '2026-10-20T12:03:17Z'
+        internalNote:
+          type: string
+          description: A note that can only be viewed on the Purchase Order Detail form.
+          example: string
+        note:
+          type: string
+          description: A note for the purchase order that is displayed in grid records.
+          example: string
+        consignment:
+          type: boolean
+          description: Indicates that the purchase order is a supplier consignment order and will not be invoiced until the goods are used.
+          example: false
+        carrierId:
+          type: string
+          format: uuid
+          description: The ID of the Carrier associated with this PO. A Carrier is a Supplier with a Type of 'Carrier'.
+          example: 00000000-0000-0000-0000-000000000000
+        building:
+          type: string
+          description: 'Application: Buildings'
+          example: string
+        department:
+          type: string
+          description: 'Application: Department List'
+          example: string
+        routeToEmployeeId:
+          type: string
+          format: uuid
+          description: The ID of the employee to which the PO should sent upon receipt.
+          example: 00000000-0000-0000-0000-000000000000
+        incoTerms:
+          type: string
+          description: 'International Commercial (INCO) Terms applied to the sales order.
+
+            Setup Table: INCO Terms'
+          example: string
+        weightQuantityTotal:
+          type: number
+          format: double
+          example: 0.1
+        blanketOrder:
+          type: boolean
+          description: Determines whether the Purchase Order is a blanket order or discrete order.
+          example: false
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:17Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:17Z'
+    PurchaseOrderTypeDto:
+      type: object
+      description: The Purchase Order Type model.
+      properties:
+        name:
+          type: string
+          description: The name of the purchase order type.
+          example: string
+        note:
+          type: string
+          description: A note associated with the purchase order type.
+          example: string
+        active:
+          type: boolean
+          description: Indicates whether the purchase order type is active or inactive.
+          example: false
+        default:
+          type: boolean
+          description: Indicates that this purchase order type is the default for purchase orders.
+          example: false
+        includeInMRP:
+          type: boolean
+          description: Indicates that purchase orders of this type are included in MRP (Material Requirements Planning).
+          example: false
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

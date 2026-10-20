@@ -1,0 +1,1380 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Job Scheduling API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Job Scheduling API
+  description: Manage and schedule production jobs.
+paths:
+  /scheduling/v1/jobs:
+    post:
+      operationId: addJob
+      summary: Add Job
+      tags:
+      - Job Scheduling API
+      description: Creates new production job. Both the job header and job operations are created, but job operations are not scheduled (not assigned to workcenter, run records not created). Scheduling job operations requires a subsequent API call with the Backwards Schedule endpoint. Job Status and Job Priority configured as the "default" are assigned to the job.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddJobInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/add-job
+    get:
+      operationId: listJobs
+      summary: List Jobs
+      tags:
+      - Job Scheduling API
+      description: Retrieve production jobs by query parameters.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the part.
+      - name: externalJobCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A code or number assigned to the production job in an external scheduling system.
+      - name: jobNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Job number, including prefix and suffix, assigned to a production job.
+      - name: jobStatuses
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Status of the job. More than one status can be specified. Setup Table &quot;Job Status&quot; (part.dbo.Job_Status).
+      - name: dueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: Start of the date range for the job due date.
+      - name: dueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: End of the date range for the job due date.
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the building in which the job is completed.
+      - name: completedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: Start of the date range for the job completed date. If completedDate range parameters are specified, only jobs that have a completed date within the date/time range will be returned.
+      - name: completedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: End of the date range for the job completed date. If completedDate range parameters are specified, only jobs that have a completed date within the date/time range will be returned.
+      - name: beginEarliestStartDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: Beginning of the date range for the earliest date the job can be started.
+      - name: endEarliestStartDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: End of the date range for the earliest date the job can be started.
+      - name: priority
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The priority of the job. Setup Table &quot;Priority (Part)&quot; (part.dbo.Priority). If not provided the default priority will be used.
+      - name: createdDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date used to return jobs created within a time frame. If specified, only jobs created on or after this date/time will be returned.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date used to return jobs created within a time frame. If specified, only jobs created on or before this date/time will be returned.
+      - name: modifiedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date used to return jobs modified within a time frame. If specified, only jobs modified on or after this date/time will be returned. Jobs that have never been modified are evaluated using their created date.
+      - name: modifiedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date used to return jobs modified within a time frame. If specified, only jobs modified on or before this date/time will be returned. Jobs that have never been modified are evaluated using their created date.
+      - name: endUnitNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The End Unit Number for a job.
+      - name: bomSubstitutionAllow
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The flag that checks if Bom Substitution is Allowed.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobListItem'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/list-jobs
+  /scheduling/v1/jobs/{id}/bom-components:
+    post:
+      operationId: addUpdateJobBom
+      summary: Add Update Job Bom
+      tags:
+      - Job Scheduling API
+      description: Add update job bom.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobBomComponentCommand'
+      responses:
+        '200':
+          description: The job bom was added/updated successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/add-update-job-bom
+  /scheduling/v1/jobs/{id}/backwards-schedule:
+    post:
+      operationId: backwardsSchedule
+      summary: Backwards Schedule
+      tags:
+      - Job Scheduling API
+      description: Schedule job operations or reschedule job operations after quantity or due date on the job have been changed. Job Operation due dates are backwards scheduled based on rates specified in process routing.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the production job.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackwardSchedule'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOperation'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/backwards-schedule
+  /scheduling/v1/jobs/{id}/cancel:
+    post:
+      operationId: cancelJob
+      summary: Cancel Job
+      tags:
+      - Job Scheduling API
+      description: Cancel a production job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the production job.
+      responses:
+        '200':
+          description: The query executed successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/cancel-job
+  /scheduling/v1/jobs/{id}/operations/{jobOperationId}/batches/{batchId}:
+    get:
+      operationId: getJobOperationBatch
+      summary: Get Job Operation Batch
+      tags:
+      - Job Scheduling API
+      description: Retrieves a batch for a job operation by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the production job.
+      - name: jobOperationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the job operation.
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the batch.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/get-job-operation-batch
+  /scheduling/v1/jobs/{id}/operations/{jobOperationId}:
+    get:
+      operationId: getJobOperation
+      summary: Get Job Operation
+      tags:
+      - Job Scheduling API
+      description: Retrieves a job's operation by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the production job.
+      - name: jobOperationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the job operation.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOperation'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/get-job-operation
+  /scheduling/v1/jobs/{id}:
+    get:
+      operationId: getJob
+      summary: Get Job
+      tags:
+      - Job Scheduling API
+      description: Retrieve job details by its Resource Id.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the production job.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/get-job
+    put:
+      operationId: updateJob
+      summary: Update Job
+      tags:
+      - Job Scheduling API
+      description: Update details of a production job. If the job due date or quantity was changed, requires that job operations are also updated with a subsequent API call to the Backwards Schedule endpoint.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateJob'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/update-job
+  /scheduling/v1/jobs/{id}/hold:
+    post:
+      operationId: holdJob
+      summary: Hold Job
+      tags:
+      - Job Scheduling API
+      description: Holds a production job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the production job.
+      responses:
+        '204':
+          description: Request succeeded without response content.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/hold-job
+  /scheduling/v1/jobs/{id}/operations/{jobOperationId}/batches:
+    get:
+      operationId: listJobOperationBatches
+      summary: List Job Operation Batches
+      tags:
+      - Job Scheduling API
+      description: Retrieves a list of batches for a job operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the production job.
+      - name: jobOperationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the job operation.
+      - name: workcenterID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the workcenter.
+      - name: batchStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The status of a batch.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/list-job-operation-batches
+  /scheduling/v1/jobs/{id}/operations:
+    get:
+      operationId: listJobOperations
+      summary: List Job Operations
+      tags:
+      - Job Scheduling API
+      description: Retrieve job operation details by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the production job.
+      - name: partOperationType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Identifies the part operation type. Max 50 characters.
+      - name: jobOperationStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Status of the job. More than one status can be specified. Setup Table &quot;Job Status&quot; (part.dbo.Job_Status). Maximum 50 characters.
+      - name: operationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Name of the operation.
+      - name: jobOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the job operation.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the assigned workcenter.
+      - name: beginScheduledStartDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: Start of the date range for the job start date. If ScheduledStartDate range parameters are specified, only job operations with an ScheduledStartDate value that is within the date/time range will be returned.
+      - name: endScheduledStartDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: End of the date range for the job start date. If ScheduledStartDate range parameters are specified, only job operations with an ScheduledStartDate value that is within the date/time range will be returned.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOperation'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/list-job-operations
+  /scheduling/v1/job-definitions/types:
+    get:
+      operationId: listJobTypes
+      summary: List Job Types
+      tags:
+      - Job Scheduling API
+      description: Retrieve list of Job Types.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobType'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/list-job-types
+  /scheduling/v1/jobs/{id}/release-hold:
+    post:
+      operationId: releaseJobHold
+      summary: Release Job Hold
+      tags:
+      - Job Scheduling API
+      description: Releases a job on hold.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the production job.
+      responses:
+        '204':
+          description: Request succeeded without response content.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/release-job-hold
+  /scheduling/v1/jobs/{id}/operations-schedule:
+    post:
+      operationId: scheduleJobOperations
+      summary: Schedule Job Operations
+      tags:
+      - Job Scheduling API
+      description: This end point is used to add and update the job operations schedule details in Plex systems when job ops are already scheduled in client's system. This end point does not support updating schedule information for batch and preprocess operations. If backwards schedule end point is used for scheduling, then this end point should not be used.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the production job.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobOpScheduleRequest'
+      responses:
+        '200':
+          description: The query executed successfully.
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/job-scheduling-api/schedule-job-operations
+components:
+  schemas:
+    JobType:
+      type: object
+      description: The Job Type
+      properties:
+        type:
+          type: string
+          description: An umbrella category used to group similar jobs for ease of reporting. Setup Table &quot;Job Type&quot; (part.dbo.Job_Type). Maximum 50 characters.
+          example: string
+        default:
+          type: boolean
+          description: Job Type that will default to on job entry if no other Job Type is specified.
+          example: false
+        drType:
+          type: boolean
+          description: Indicates if a DR type.
+          example: false
+        overageType:
+          type: boolean
+          description: Indicates if a Overage type.
+          example: false
+        faType:
+          type: boolean
+          description: Indicates if a FA type.
+          example: false
+        returnType:
+          type: boolean
+          description: Indicates if a Return type.
+          example: false
+        rejectionType:
+          type: boolean
+          description: Indicates if a Rejection type.
+          example: false
+        serviceType:
+          type: boolean
+          description: Indicates if a Service type.
+          example: false
+        reworkType:
+          type: boolean
+          description: Indicates if a Rework type.
+          example: false
+        stockInventoryType:
+          type: boolean
+          description: Indicates if a Stock Inventory type.
+          example: false
+        inventoryType:
+          type: boolean
+          description: Indicates if a Inventory type.
+          example: false
+        packagingType:
+          type: boolean
+          description: Indicates if a Packaging type.
+          example: false
+        planningType:
+          type: boolean
+          description: Indicates if a Planning type.
+          example: false
+        scrapType:
+          type: boolean
+          description: Indicates if a Scrap type.
+          example: false
+        subcontract:
+          type: boolean
+          description: Indicates if a Subcontract type.
+          example: false
+        includeInMRP:
+          type: boolean
+          description: Indicates if an Include in MRP type.
+          example: false
+        jobNumberPrefix:
+          type: string
+          description: A prefix to be added before the job number. Maximum 4 characters.
+          example: string
+        jobNumberSuffix:
+          type: string
+          description: A suffix to be added after the job number. Maximum 4 characters.
+          example: string
+    JobOperation:
+      type: object
+      properties:
+        jobId:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: Job number, including prefix and suffix, associated to jobId.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part associated to the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part Number associated to partId.
+          example: string
+        partRevision:
+          type: string
+          description: Part Revision associated to partId.
+          example: string
+        partNumberRevision:
+          type: string
+          description: Combination of Part Number and Revision associated to partId, separated with the value from the Part Rev Separator configuration setting.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier of the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        jobOperationNumber:
+          type: integer
+          format: int32
+          description: Operation Number associated to jobOperationId.
+          example: 0
+        operationCode:
+          type: string
+          description: Operation Code associated to jobOperationId.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter where the operation is scheduled to be performed.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: Operation Code associated to workcenterId.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The quantity of parts that must be produced in order to complete the job operation.
+          example: 0.1
+        quantityCompleted:
+          type: number
+          format: double
+          description: The quantity of parts produced at job operation.
+          example: 0.1
+        dueDate:
+          type: string
+          format: date-time
+          description: Date by which the entire job operation must be completed.
+          example: '2026-10-20T12:03:12Z'
+        scheduledStartDate:
+          type: string
+          format: date-time
+          description: Date on which the job operation is scheduled to start.
+          example: '2026-10-20T12:03:12Z'
+        completedDate:
+          type: string
+          format: date-time
+          description: Date on which the job operation was completed.
+          example: '2026-10-20T12:03:12Z'
+        jobOperationStatus:
+          type: string
+          description: Status of the job operation. Setup Table &quot;Job_Op_Status&quot; (part.dbo.Job_Op_Status).
+          example: string
+        setupTime:
+          type: number
+          format: double
+          description: Time required to setup workcenter for job operation. Time returned is in hours.
+          example: 0.1
+        rate:
+          type: number
+          format: double
+          description: Standard rate of goods that can be produced at this operation during a given time period.
+          example: 0.1
+        unitOfMeasure:
+          type: string
+          description: Unit of measure of the rate. Determined in setting &quot;Job Op Rate Unit&quot;. Possible values are &quot;hrs&quot;, &quot;hrs/pc&quot;, or &quot;pcs/hr&quot;.
+          example: string
+        runTime:
+          type: number
+          format: double
+          description: Time required to complete job operation. Time returned is in hours.
+          example: 0.1
+        batchCriteria:
+          type: string
+          description: Batch ID or code established by external software. Used to specify a batch ID that, if shared among two operations, could result in the operations being run in parallel on a common approved workcenter.
+          example: string
+        partOperationType:
+          type: string
+          description: The part operation type.
+          example: string
+        batchOperation:
+          type: boolean
+          description: A flag indicating whether the job operation is a variable BOM batch operation.
+          example: false
+        preProcessOperation:
+          type: boolean
+          description: A flag indicating whether the job operation is a pre-process operation.
+          example: false
+    BackwardSchedule:
+      type: object
+      properties:
+        useFirstApprovedWorkcenter:
+          type: boolean
+          description: Indicates whether operations will be scheduled to first approved workcenter (True) or to all scheduled workcenters (False).
+          example: false
+    JobBomComponentCommand:
+      type: object
+      properties:
+        jobOpId:
+          type: string
+          format: uuid
+          description: The ID of the Job Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        componentPartId:
+          type: string
+          format: uuid
+          description: The ID of the Part used as a component.
+          example: 00000000-0000-0000-0000-000000000000
+        purchasingItemId:
+          type: string
+          format: uuid
+          description: The ID of the Supply Item used as a component.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: Required quantity of the component to produce the end product.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: Minimum quantity required.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: Maximum quantity allowed.
+          example: 0.1
+        quantityFixed:
+          type: boolean
+          description: If true, the quantity is fixed regardless of production volume.
+          example: false
+        depletionUnitOfMeasure:
+          type: string
+          description: Consumption unit of the component for readability.
+          example: string
+        depletionConversionFact:
+          type: number
+          format: double
+          description: Conversion factor if depletion unit of measure is set.
+          example: 0.1
+        sortOrder:
+          type: number
+          format: double
+          description: Display order of BOM components.
+          example: 0.1
+        position:
+          type: string
+          description: Physical position of the component at the workcenter.
+          example: string
+        side:
+          type: string
+          description: Used for multi-out jobs to indicate which output this component feeds.
+          example: string
+        scaling:
+          type: boolean
+          description: If true, the quantity scales with production quantity.
+          example: false
+        validate:
+          type: boolean
+          description: If true, material presence is required before production can run.
+          example: false
+        autoDeplete:
+          type: boolean
+          description: If true, the component is automatically depleted during production.
+          example: false
+        transferHeat:
+          type: boolean
+          description: If true, heat number is transferred from component to output container.
+          example: false
+        note:
+          type: string
+          description: Free text note about the component.
+          example: string
+      required:
+      - jobOpId
+      - quantity
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        externalJobCode:
+          type: string
+          description: A code or number assigned to the production job in an external scheduling system.
+          example: string
+        jobNumber:
+          type: string
+          description: Job number, including prefix and suffix, associated to jobId.
+          example: string
+        createdDate:
+          type: string
+          format: date-time
+          description: Date on which the job was created.
+          example: '2026-10-20T12:03:12Z'
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part Number associated to partId.
+          example: string
+        partRevision:
+          type: string
+          description: Part Revision associated to partId.
+          example: string
+        partNumberRevision:
+          type: string
+          description: Combination of Part Number and Revision associated to partId, separated with the value from the Part Rev Separator configuration setting.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: Date by which the entire job quantity must be completed.
+          example: '2026-10-20T12:03:12Z'
+        completedDate:
+          type: string
+          format: date-time
+          description: Date on which the job was completed.
+          example: '2026-10-20T12:03:12Z'
+        quantity:
+          type: number
+          format: double
+          description: The quantity of parts that must be produced in order to complete the job.
+          example: 0.1
+        quantityCompleted:
+          type: number
+          format: double
+          description: The quantity of parts produced.
+          example: 0.1
+        jobStatus:
+          type: string
+          description: Status of the job. Setup Table &quot;Job Status&quot; (part.dbo.Job_Status).
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: A unique identifier of the building in which the job is completed.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: Building Code associated to buidlingId.
+          example: string
+        jobType:
+          type: string
+          description: The job type associated to job. Setup Table &quot;Job Type&quot; (part.dbo.Job_Type).
+          example: string
+        earliestStartDateTime:
+          type: string
+          format: date-time
+          description: The earliest date the job can be started on.
+          example: '2026-10-20T12:03:12Z'
+        priority:
+          type: string
+          description: The priority assigned to the job.
+          example: string
+        endUnitNumber:
+          type: string
+          description: The End Unit Number for a job.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: The flag that checks if Bom Substitution is Allowed.
+          example: false
+    UpdateJob:
+      type: object
+      properties:
+        dueDate:
+          type: string
+          format: date-time
+          description: Date by which the entire job operation quantity must be completed.
+          example: '2026-10-20T12:03:13Z'
+        quantity:
+          type: number
+          format: double
+          description: The quantity of parts that must be produced in order to complete the job operation.
+          example: 0.1
+        buildingId:
+          type: string
+          format: uuid
+          description: A unique identifier of the building in which the job is completed.
+          example: 00000000-0000-0000-0000-000000000000
+        jobType:
+          type: string
+          description: The job type associated to job. Setup Table &quot;Job Type&quot; (part.dbo.Job_Type).
+          example: string
+        priority:
+          type: string
+          description: The priority of the job. Setup Table &quot;Priority (Part)&quot; (part.dbo.Priority). If not provided the default priority will be used.
+          example: string
+        earliestStartDateTime:
+          type: string
+          format: date-time
+          description: The earliest scheduled start time for a job.
+          example: '2026-10-20T12:03:13Z'
+        endUnitNumber:
+          type: string
+          description: The End Unit Number for a job.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: The flag that checks if Bom Substitution is Allowed.
+          example: false
+      required:
+      - dueDate
+      - quantity
+      - jobType
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    JobOpScheduleRequest:
+      type: object
+      description: 'Data structure to represent input request which contains job operations ID and list of schedule details which include workcenter ID
+
+        and other related information for scheduling the job operations for given workcenters'
+      properties:
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier of the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        jobOperationStatus:
+          type: string
+          description: Status of the job operation. Setup Table &quot;Job_Op_Status&quot; (part.dbo.Job_Op_Status).
+          example: string
+        scheduleDetails:
+          type: array
+          description: List of scheduling details refres to model &quot;ScheduleDetails&quot;.
+          items:
+            type: object
+            properties: {}
+        workcenterId:
+          type: string
+          format: uuid
+          description: A unique identifier for the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the date range for the job op scheduling.
+          example: '2026-10-20T12:03:13Z'
+        runLength:
+          type: integer
+          format: int32
+          description: Run length of scheduled operation in minutes.
+          example: 0
+      required:
+      - jobOperationId
+      - scheduleDetails
+      - workcenterId
+      - startDateTime
+      - runLength
+    Batch:
+      type: object
+      description: A job operation batch.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the batch.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: integer
+          format: int32
+          description: The identifier for the batch for the current job operation.
+          example: 0
+        batchStatus:
+          type: string
+          description: The status of the batch.
+          example: string
+        size:
+          type: number
+          format: double
+          description: The quantity to be produced in the batch.
+          example: 0.1
+        workcenterId:
+          type: string
+          format: uuid
+          description: A unique identifier for the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated with the workcenter ID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters maximum.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the batch.
+          example: '2026-10-20T12:03:13Z'
+        startDateTime:
+          type: string
+          format: date-time
+          description: The scheduled start date of the batch.
+          example: '2026-10-20T12:03:13Z'
+    JobListItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        externalJobCode:
+          type: string
+          description: A code or number assigned to the production job in an external scheduling system.
+          example: string
+        jobNumber:
+          type: string
+          description: Job number, including prefix and suffix, associated to jobId.
+          example: string
+        createdDate:
+          type: string
+          format: date-time
+          description: Date on which the job was created.
+          example: '2026-10-20T12:03:13Z'
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part Number associated to partId.
+          example: string
+        partRevision:
+          type: string
+          description: Part Revision associated to partId.
+          example: string
+        partNumberRevision:
+          type: string
+          description: Combination of Part Number and Revision associated to partId, separated with the value from the Part Rev Separator configuration setting.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: Date by which the entire job quantity must be completed.
+          example: '2026-10-20T12:03:13Z'
+        completedDate:
+          type: string
+          format: date-time
+          description: Date on which the job was completed.
+          example: '2026-10-20T12:03:13Z'
+        quantity:
+          type: number
+          format: double
+          description: The quantity of parts that must be produced in order to complete the job.
+          example: 0.1
+        quantityCompleted:
+          type: number
+          format: double
+          description: The quantity of parts produced.
+          example: 0.1
+        jobStatus:
+          type: string
+          description: Status of the job. Setup Table &quot;Job Status&quot; (part.dbo.Job_Status).
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: A unique identifier of the building in which the job is completed.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: Building Code associated to buidlingId.
+          example: string
+        jobType:
+          type: string
+          description: The job type associated to job. Setup Table &quot;Job Type&quot; (part.dbo.Job_Type).
+          example: string
+        earliestStartDateTime:
+          type: string
+          format: date-time
+          description: The earliest date the job can be started on.
+          example: '2026-10-20T12:03:13Z'
+        priority:
+          type: string
+          description: The priority assigned to the job.
+          example: string
+        unit:
+          type: string
+          description: The Unit of measurement for the Part Produced.
+          example: string
+        endUnitNumber:
+          type: string
+          description: The End Unit Number for a job.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: The flag that checks if Bom Substitution is Allowed.
+          example: false
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the job was last modified. If the job has never been modified, this matches the created date.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: A unique identifier of the user who last modified the job. If the job has never been modified, this reflects the user who created it.
+          example: 00000000-0000-0000-0000-000000000000
+    AddJobInput:
+      type: object
+      description: Data structure to represent input request for AddJob endpoint.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        dueDate:
+          type: string
+          format: date-time
+          description: Date by which the entire job quantity must be completed.
+          example: '2026-10-20T12:03:12Z'
+        quantity:
+          type: number
+          format: double
+          description: The quantity of parts that must be produced in order to complete the job.
+          example: 0.1
+        externalJobCode:
+          type: string
+          description: A code or number assigned to the production job in an external scheduling system. Must be unique.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: A unique identifier of the building in which the job is completed.
+          example: 00000000-0000-0000-0000-000000000000
+        jobType:
+          type: string
+          description: The job type associated to job. If no value submitted, the Job Type configured as &quot;default&quot; is assigned to the job. Setup Table &quot;Job Type&quot; (part.dbo.Job_Type).
+          example: string
+        jobNumberPrefix:
+          type: string
+          description: A prefix to be added before the job number.
+          example: string
+        jobNumberSuffix:
+          type: string
+          description: A suffix to be added after the job number.
+          example: string
+        jobNumber:
+          type: string
+          description: The job number identifying the job.
+          example: string
+        priority:
+          type: string
+          description: The priority of the job. Setup Table &quot;Priority (Part)&quot; (part.dbo.Priority). If not provided the default priority will be used.
+          example: string
+        earliestStartDateTime:
+          type: string
+          format: date-time
+          description: The earliest scheduled start time for a job.
+          example: '2026-10-20T12:03:12Z'
+        endUnitNumber:
+          type: string
+          description: The End Unit Number for a job.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: The flag that checks if Bom Substitution is Allowed.
+          example: false
+      required:
+      - partId
+      - dueDate
+      - quantity
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

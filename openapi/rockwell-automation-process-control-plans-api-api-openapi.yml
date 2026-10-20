@@ -1,0 +1,360 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Process Control Plans API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Process Control Plans API
+  description: The Process Control Plans API is used to manage process control recipe control plans data.
+paths:
+  /quality/v1/process-control-plans/{id}/control-plan-lines/{lineId}:
+    get:
+      operationId: getProcessControlRecipePlanLine
+      summary: Get Process Control Recipe Plan Line
+      tags:
+      - Process Control Plans API
+      description: Retrieve a control plan line.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProcessControlPlanLineResponseDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/process-control-plans-api/get-process-control-recipe-plan-line
+  /quality/v1/process-control-plans/{id}:
+    get:
+      operationId: getProcessControlRecipePlan
+      summary: Get Process Control Recipe Plan
+      tags:
+      - Process Control Plans API
+      description: Retrieve a control plan.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProcessControlPlanResponseDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/process-control-plans-api/get-process-control-recipe-plan
+  /quality/v1/process-control-plans/{id}/control-plan-lines:
+    get:
+      operationId: listProcessControlRecipePlanLines
+      summary: List Process Control Recipe Plan Lines
+      tags:
+      - Process Control Plans API
+      description: Retrieve a list of control plan lines.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of IDs representing the Process Control Plan Line.
+      - name: inspectionMode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The inspection mode.
+      - name: processControlRecipeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing the process control recipe.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProcessControlPlanLineResponseDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/process-control-plans-api/list-process-control-recipe-plan-lines
+  /quality/v1/process-control-plans:
+    get:
+      operationId: listProcessControlRecipePlans
+      summary: List Process Control Recipe Plans
+      tags:
+      - Process Control Plans API
+      description: Retrieve a list of active control plans.
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of IDs representing the Control Plan.
+      - name: controlPlanNo
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+          example: 0.1
+        description: The Control Plan No.
+      - name: controlPlanTypes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A list of Control Plan types.
+      - name: primary
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The primary flag.
+      - name: processControlRecipeFamilyId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Process Control Recipe Family ID.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProcessControlPlanResponseDto'
+      x-source: https://developers.plex.com/api/documentation/process-control-plans-api/list-process-control-recipe-plans
+components:
+  schemas:
+    GetProcessControlPlanLineResponseDto:
+      type: object
+      description: The data structure representing a control plan line.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID representing the Control Plan Line.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPlanId:
+          type: string
+          format: uuid
+          description: ID representing the control plan.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPlanLineStatus:
+          type: string
+          description: The status of the control plan line.
+          example: string
+        inspectionMode:
+          type: string
+          description: The inspection mode.
+          example: string
+        processControlRecipeId:
+          type: string
+          format: uuid
+          description: ID representing the process control recipe.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: ID representing the operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: The operation code.
+          example: string
+        specificationId:
+          type: string
+          format: uuid
+          description: ID representing the specification.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: The description of the control plan line.
+          example: string
+        passAnswer:
+          type: string
+          description: The pass answer.
+          example: string
+        failAnswer:
+          type: string
+          description: The fail answer.
+          example: string
+        note:
+          type: string
+          description: The note on the control plan line.
+          example: string
+        gageType:
+          type: string
+          description: The gage type of the control plan line.
+          example: string
+        gageNote:
+          type: string
+          description: The gage note of the control plan line.
+          example: string
+        partSpecificGages:
+          type: array
+          description: A list of part-specific gages.
+          items:
+            type: object
+            properties: {}
+        samplePlan:
+          type: string
+          description: The sample plan.
+          example: string
+        customChecksheetDataCollectionType:
+          type: string
+          description: The custom checksheet data collection type.
+          example: string
+        reactionPlan:
+          type: string
+          description: The reaction plan.
+          example: string
+        reactionPlanOwner:
+          type: string
+          description: The reaction plan owner.
+          example: string
+        defaultAttributeAnswerPass:
+          type: boolean
+          description: The designation if the attribute answer defaults to the pass value.
+          example: false
+        sortOrder:
+          type: number
+          format: double
+          description: The sort order.
+          example: 0.1
+        checksheetSortOrder:
+          type: number
+          format: double
+          description: The checksheet sort order.
+          example: 0.1
+        symbol:
+          type: string
+          description: The special symbol association with the specification.
+          example: string
+        symbolAbbreviation:
+          type: string
+          description: The special symbol abbreviation.
+          example: string
+        trackFailureModes:
+          type: boolean
+          description: The designation if failure modes are tracked. Requires the Control Plan setting &quot;Specification Tool Linking Use&quot; be enabled.
+          example: false
+    GetProcessControlPlanResponseDto:
+      type: object
+      description: The data structure representing a control plan.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID representing the Control Plan.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: The Control Plan building code.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: ID representing the Control Plan building.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPlanNo:
+          type: number
+          format: double
+          description: The Control Plan number.
+          example: 0.1
+        controlPlanStatus:
+          type: string
+          description: The Control Plan status.
+          example: string
+        controlPlanType:
+          type: string
+          description: The Control Plan type.
+          example: string
+        description:
+          type: string
+          description: The Control Plan description.
+          example: string
+        externalDocumentId:
+          type: string
+          description: The Control Plan external document ID.
+          example: string
+        externalDocumentRevisionLevel:
+          type: string
+          description: The revision level of the external document.
+          example: string
+        originalDate:
+          type: string
+          format: date-time
+          description: The original date of the Control Plan.
+          example: '2026-10-20T12:03:14Z'
+        primary:
+          type: boolean
+          description: The primary flag.
+          example: false
+        revisionDate:
+          type: string
+          format: date-time
+          description: The Control Plan revision date.
+          example: '2026-10-20T12:03:14Z'
+        processControlRecipeFamilyId:
+          type: string
+          format: uuid
+          description: The Process Control Recipe Family ID.
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

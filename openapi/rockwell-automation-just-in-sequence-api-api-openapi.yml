@@ -1,0 +1,1456 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Just In Sequence API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Just In Sequence API
+  description: The Just In Sequence API is used to manage sequenced shipping data.
+paths:
+  /shipping/v1/jis/releases/{id}/confirm:
+    post:
+      operationId: auditJisRelease
+      summary: Audit JIS Release
+      tags:
+      - Just In Sequence API
+      description: Audit and confirm an individual sequenced release.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced release.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditReleaseDto'
+      responses:
+        '200':
+          description: The request executed successfully.
+        '400':
+          description: Validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/audit-jis-release
+  /shipping/v1/jis/kits:
+    post:
+      operationId: createJisKit
+      summary: Create JIS Kit
+      tags:
+      - Just In Sequence API
+      description: Create a sequenced kit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateKitDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/create-jis-kit
+    get:
+      operationId: listJisKits
+      summary: List JIS Kits
+      tags:
+      - Just In Sequence API
+      description: List sequenced kits by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced kit.
+      - name: jisKitStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The sequenced kit's status.
+      - name: kitName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The sequenced kit's name.
+      - name: isReprintNeeded
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Determines whether the kit requires its paperwork to be reprinted.
+      - name: addDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date and time on which the kit was created.
+      - name: addDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The ending date and time on which the kit was created.
+      - name: rackSequenceNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The kit's rack number.
+      - name: labelPrintedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The beginning date and time on which the kit label was last printed.
+      - name: labelPrintedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The ending date and time on which the kit label was last printed.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitDto'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/list-jis-kits
+  /shipping/v1/jis/racks:
+    post:
+      operationId: createJisRack
+      summary: Create JIS Rack
+      tags:
+      - Just In Sequence API
+      description: Create a sequenced rack.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRackDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RackDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/create-jis-rack
+    get:
+      operationId: listJisRacks
+      summary: List JIS Racks
+      tags:
+      - Just In Sequence API
+      description: List sequenced rack records based on specified properties.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the sales order. This will be automatically generated if omitted from the request.
+      - name: rackStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The status of the rack.
+      - name: rackSequenceNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The rack sequence number.
+      - name: masterUnitNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The master unit number associated with the rack.
+      - name: lineSequenceSetupName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The rack's line sequence setup name.
+      - name: createdDateTimeStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The start date and time on which the rack was added.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date and time on which the rack was added.
+      - name: reprintNeeded
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Determines whether the rack requires its paperwork to be reprinted.
+      - name: printedDateTimeStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The start date and time on which the rack paperwork was last printed.
+      - name: printedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date and time on which the rack paperwork was last printed.
+      - name: truckID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique ID of the truck associated with the rack.
+      - name: truckNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The truck number associated with the rack.
+      - name: trailerNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The trailer number of the rack's associated truck.
+      - name: labelPrintedDateTimeStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The start date and time on which the rack label was last printed.
+      - name: labelPrintedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The end date and time on which the rack label was last printed.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RackDto'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/list-jis-racks
+  /shipping/v1/jis/releases:
+    post:
+      operationId: createJisRelease
+      summary: Create JIS Release
+      tags:
+      - Just In Sequence API
+      description: Create a sequenced release.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReleaseDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/create-jis-release
+    get:
+      operationId: listJisReleases
+      summary: List JIS Releases
+      tags:
+      - Just In Sequence API
+      description: List sequenced release records based on specified properties.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the sequenced release.
+      - name: salesReleaseNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The release number.
+      - name: releaseStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The status assigned to the sequenced release.
+      - name: salesReleaseId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the sales release.
+      - name: kitId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the kit.
+      - name: kitName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The kit name.
+      - name: createdDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date and time on which the release was created.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The date and time on which the release was created.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/list-jis-releases
+  /shipping/v1/jis/create-planned-rack:
+    post:
+      operationId: createPlannedJisRack
+      summary: Create Planned JIS Rack
+      tags:
+      - Just In Sequence API
+      description: Create a sequenced rack and its associated kits and releases, each in a Planned status.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlannedRackDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlannedRackDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/create-planned-jis-rack
+  /shipping/v1/jis/kits/{id}:
+    get:
+      operationId: getJisKit
+      summary: Get JIS Kit
+      tags:
+      - Just In Sequence API
+      description: Retrieve a sequenced kit by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Kit ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/get-jis-kit
+  /shipping/v1/jis/racks/{id}:
+    get:
+      operationId: getJisRack
+      summary: Get JIS Rack
+      tags:
+      - Just In Sequence API
+      description: Retrieve a sequenced rack by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Rack ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RackDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/get-jis-rack
+  /shipping/v1/jis/releases/{id}:
+    get:
+      operationId: getJisRelease
+      summary: Get JIS Release
+      tags:
+      - Just In Sequence API
+      description: Retrieve a sequenced release by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release's resource id.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/get-jis-release
+  /shipping/v1/jis/racks/{id}/load-to-truck:
+    post:
+      operationId: loadJisRack
+      summary: Load JIS Rack
+      tags:
+      - Just In Sequence API
+      description: Load a sequenced rack to a truck.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the sequenced rack.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RackScheduleAndLoadDto'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiSTruckDto'
+        '400':
+          description: Bad Request
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/load-jis-rack
+  /shipping/v1/jis/kits/{id}/pack-by-module:
+    post:
+      operationId: packJisKitByModule
+      summary: Pack JIS Kit By Module
+      tags:
+      - Just In Sequence API
+      description: Pack a sequenced kit by specifying a container.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Kit ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitPackingResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/pack-jis-kit-by-module
+  /shipping/v1/jis/racks/{id}/pack-by-fifo:
+    post:
+      operationId: packJisRackByFifo
+      summary: Pack JIS Rack By FIFO
+      tags:
+      - Just In Sequence API
+      description: Pack an entire rack in a single operation in FIFO order.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced rack.
+      responses:
+        '200':
+          description: The request executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackingResponseDto'
+        '400':
+          description: Validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/pack-jis-rack-by-fifo
+  /shipping/v1/jis/racks/{id}/pack-by-master-unit:
+    post:
+      operationId: packJisRackByMasterUnit
+      summary: Pack JIS Rack By Master Unit
+      tags:
+      - Just In Sequence API
+      description: Pack an entire rack in a single operation by specifying a master unit.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced rack.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterUnitDto'
+      responses:
+        '200':
+          description: The request executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackingResponseDto'
+        '400':
+          description: Validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/pack-jis-rack-by-master-unit
+  /shipping/v1/jis/releases/{id}/pack-by-container:
+    post:
+      operationId: packJisReleaseByContainer
+      summary: Pack JIS Release By Container
+      tags:
+      - Just In Sequence API
+      description: Pack an individual sequenced release by specifying a container.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced release.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerDto'
+      responses:
+        '200':
+          description: The request executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackingResponseDto'
+        '400':
+          description: Validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/pack-jis-release-by-container
+  /shipping/v1/jis/releases/{id}/pack-by-fifo:
+    post:
+      operationId: packJisReleaseByFifo
+      summary: Pack JIS Release By FIFO
+      tags:
+      - Just In Sequence API
+      description: Pack an individual release by specifying the part number to be packed in FIFO order.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sequenced release.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackingResponseDto'
+        '400':
+          description: Validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/just-in-sequence-api/pack-jis-release-by-fifo
+components:
+  schemas:
+    CreateReleaseDto:
+      type: object
+      description: The Sequenced Release model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - salesReleaseId
+      - kitId
+    ContainerDto:
+      type: object
+      description: The Container model.
+      properties:
+        serialNumber:
+          type: string
+          description: The serial number of the container. 25 characters max.
+          example: string
+        status:
+          type: string
+          description: The container's status.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part that was produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated to the &quot;partId&quot; that was produced. Acceptable part number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Part numbers cannot use question marks (?) or ampersands. Other characters may cause issues.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision of the &quot;partId&quot;. A revision represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'The part number and revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long. Format: {partNumber}{part rev separator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code associated to the &quot;partOperationId&quot;. 30 characters max.
+          example: string
+        location:
+          type: string
+          description: The container's location.
+          example: string
+        jobNumber:
+          type: string
+          description: The unique job number. 20 characters max.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: The ID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as Kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The container type of the container's.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The container's part quantity.
+          example: 0.1
+        active:
+          type: boolean
+          description: The container's active status (active or inactive).
+          example: false
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the container record was added.
+          example: '2026-10-20T12:03:12Z'
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the container record was updated.
+          example: '2026-10-20T12:03:12Z'
+        quantityUnit:
+          type: string
+          description: The unit used for the container quantity, as defined on the operation.
+          example: string
+        grossWeight:
+          type: number
+          format: double
+          description: The container's gross weight.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The container's net weight.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The container's tare weight.
+          example: 0.1
+        trackingNumber:
+          type: string
+          description: The tracking number of the container. 50 characters max.
+          example: string
+        heatNumber:
+          type: string
+          description: The heat number of the heat. 30 characters max.
+          example: string
+        lotNumber:
+          type: string
+          description: The unique lot number. 25 characters max.
+          example: string
+        masterUnitNo:
+          type: string
+          description: The master unit number of the master unit. 10 characters max.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        lotId:
+          type: string
+          format: uuid
+          description: The lot resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        heatCode:
+          type: string
+          description: The heat code of the heat. 50 characters max.
+          example: string
+        heatId:
+          type: string
+          format: uuid
+          description: The material heat resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        shelfDateTime:
+          type: string
+          format: date-time
+          description: The shelf life date of the container.
+          example: '2026-10-20T12:03:12Z'
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: The date a lot was manufactured, either in Plex or by a supplier or subcontractor.
+          example: '2026-10-20T12:03:12Z'
+        bestByDateTime:
+          type: string
+          format: date-time
+          description: The best-by date which represents the last date for consumption of products in a lot by consumers.
+          example: '2026-10-20T12:03:12Z'
+        useByDateTime:
+          type: string
+          format: date-time
+          description: The last date to use a lot for production.
+          example: '2026-10-20T12:03:12Z'
+        sellByDateTime:
+          type: string
+          format: date-time
+          description: The last date for the sale of a product in a lot to consumers.
+          example: '2026-10-20T12:03:12Z'
+        rfid:
+          type: string
+          description: The RFID of the container. Maximum length is 64 characters.
+          example: string
+    CreatePlannedRackDto:
+      type: object
+      description: The planned rack dto.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        rackSequenceNumber:
+          type: string
+          description: The rack sequence number.
+          example: string
+        lineSequenceSetupName:
+          type: string
+          description: The rack's line sequence setup name.
+          example: string
+        kits:
+          type: array
+          description: The list of planned kits in the rack.
+          items:
+            type: object
+            description: The planned kit dto.
+            properties: {}
+        packOrder:
+          type: integer
+          format: int32
+          description: The kit's pack order.
+          example: 0
+        kitName:
+          type: string
+          description: The sequenced kit's name.
+          example: string
+        rackCellName:
+          type: string
+          description: The cell name on the rack (if a physical rack structure is defined).
+          example: string
+        releases:
+          type: array
+          description: The list of planned releases in the kit.
+          items:
+            type: object
+            description: The planned release dto.
+            properties: {}
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - rackSequenceNumber
+      - lineSequenceSetupName
+      - kitName
+      - salesReleaseId
+    PackingResponseDto:
+      type: object
+      description: Data model representing the output of a packing operation.
+      properties:
+        rackId:
+          type: string
+          format: uuid
+          description: The unique identifier for the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        rackStatus:
+          type: string
+          description: The status assigned to the sequenced rack.
+          example: string
+        releaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release
+          example: 00000000-0000-0000-0000-000000000000
+        releaseStatus:
+          type: string
+          description: The status assigned to the sequenced release.
+          example: string
+        masterUnitNumber:
+          type: string
+          description: The master unit number associated with the rack.
+          example: string
+        serialNumber:
+          type: string
+          description: The container's serial number.
+          example: string
+    CreateKitDto:
+      type: object
+      description: Create a sequenced kit.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the sequenced kit.
+          example: 00000000-0000-0000-0000-000000000000
+        rackId:
+          type: string
+          format: uuid
+          description: The ID of the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        packOrder:
+          type: integer
+          format: int32
+          description: The kit's pack order.
+          example: 0
+        rackCellName:
+          type: string
+          description: The cell name on the rack (if a physical rack structure is defined).
+          example: string
+        kitName:
+          type: string
+          description: The sequenced kit's name.
+          example: string
+      required:
+      - rackId
+      - kitName
+    RackScheduleAndLoadDto:
+      type: object
+      description: The service model used to load a rack to a truck.
+      properties:
+        truckId:
+          type: string
+          format: uuid
+          description: The ID of the truck to which sequenced racks will be loaded.
+          example: 00000000-0000-0000-0000-000000000000
+        trailerNumber:
+          type: string
+          description: 'The trailer number to which a rack can be assigned. If a truck with the trailer number already exists,
+
+            the rack will be loaded to that truck; otherwise, a new truck will be created with the specified trailer number.'
+          example: string
+    KitDto:
+      type: object
+      description: The kit model exposed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the sequenced kit.
+          example: 00000000-0000-0000-0000-000000000000
+        rackId:
+          type: string
+          format: uuid
+          description: The ID of the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        jiSKitStatus:
+          type: string
+          description: The sequenced kit's status.
+          example: string
+        packOrder:
+          type: integer
+          format: int32
+          description: The kit's pack order.
+          example: 0
+        kitName:
+          type: string
+          description: The sequenced kit's name.
+          example: string
+        isReprintNeeded:
+          type: boolean
+          description: Determines whether the kit requires its paperwork to be reprinted.
+          example: false
+        createdById:
+          type: string
+          format: uuid
+          description: The account ID of the user who created the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who last modified the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit was modified.
+          example: '2026-10-20T12:03:13Z'
+        printedById:
+          type: string
+          format: uuid
+          description: The accound ID of the user who printed the kit paperwork.
+          example: 00000000-0000-0000-0000-000000000000
+        printedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit paperwork was printed.
+          example: '2026-10-20T12:03:13Z'
+        packedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who packed the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        packedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit was packed.
+          example: '2026-10-20T12:03:13Z'
+        unpackedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who unpacked the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        unpackedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit was unpacked.
+          example: '2026-10-20T12:03:13Z'
+        rackSequenceNumber:
+          type: string
+          description: The kit's rack number.
+          example: string
+        labelPrintedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who last printed the kit label.
+          example: 00000000-0000-0000-0000-000000000000
+        labelPrintedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the kit label was last printed.
+          example: '2026-10-20T12:03:13Z'
+        rackCellName:
+          type: string
+          description: The cell name on the rack (if a physical rack structure is defined).
+          example: string
+    ReleaseDto:
+      type: object
+      description: The Sequenced Release model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseNumber:
+          type: string
+          description: The sales release number.
+          example: string
+        releaseStatus:
+          type: string
+          description: The status assigned to the sequenced release.
+          example: string
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        kitName:
+          type: string
+          description: The kit name.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The user account ID that created the release.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The user account ID that last modified the release record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release record was modified.
+          example: '2026-10-20T12:03:13Z'
+        packedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who packed the release.
+          example: 00000000-0000-0000-0000-000000000000
+        packedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was packed.
+          example: '2026-10-20T12:03:13Z'
+        unPackedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who unpacked the release.
+          example: 00000000-0000-0000-0000-000000000000
+        unPackedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was unpacked.
+          example: '2026-10-20T12:03:13Z'
+    MasterUnitDto:
+      type: object
+      description: The master unit for packing a rack.
+      properties:
+        masterUnitNumber:
+          type: string
+          description: The master unit number associated with the rack.
+          example: string
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    PlannedRackDto:
+      type: object
+      description: The planned rack dto.
+      properties:
+        rackId:
+          type: string
+          format: uuid
+          description: The ID of the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        rackSequenceNumber:
+          type: string
+          description: The rack sequence number.
+          example: string
+        rackStatus:
+          type: string
+          description: The rack status.
+          example: string
+        masterUnitNumber:
+          type: string
+          description: The master unit number.
+          example: string
+        lineSequenceSetupName:
+          type: string
+          description: The line sequence setup name.
+          example: string
+        kits:
+          type: array
+          description: The kits associated with the sequenced rack.
+          items:
+            type: object
+            description: The kit model for created planned racks.
+            properties: {}
+    CreateRackDto:
+      type: object
+      description: The parameters to create a Rack.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the rack. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        rackSequenceNumber:
+          type: string
+          description: The rack sequence number.
+          example: string
+        lineSequenceSetupName:
+          type: string
+          description: The rack's line sequence setup name.
+          example: string
+      required:
+      - rackSequenceNumber
+      - lineSequenceSetupName
+    AuditReleaseDto:
+      type: object
+      description: Data model used when auditing a release.
+      properties:
+        serialNumber:
+          type: string
+          description: The container's serial number.
+          example: string
+      required:
+      - serialNumber
+    RackDto:
+      type: object
+      description: The rack dto.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        rackSequenceNumber:
+          type: string
+          description: The rack sequence number.
+          example: string
+        rackStatus:
+          type: string
+          description: The status of the rack.
+          example: string
+        masterUnitNumber:
+          type: string
+          description: The master unit number associated with the rack.
+          example: string
+        lineSequenceSetupName:
+          type: string
+          description: The rack's line sequence setup name.
+          example: string
+        createdByAccountId:
+          type: string
+          format: uuid
+          description: The account ID of the user who added the rack.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the rack was added.
+          example: '2026-10-20T12:03:13Z'
+        modifiedByAccountId:
+          type: string
+          format: uuid
+          description: The account ID of the user who last modified the rack.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the rack was last modified.
+          example: '2026-10-20T12:03:13Z'
+        reprintNeeded:
+          type: boolean
+          description: Determines whether the rack requires its paperwork to be reprinted.
+          example: false
+        printedByAccountId:
+          type: string
+          format: uuid
+          description: The account ID of the user who last printed the rack paperwork.
+          example: 00000000-0000-0000-0000-000000000000
+        printedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the rack paperwork was last printed.
+          example: '2026-10-20T12:03:13Z'
+        truckId:
+          type: string
+          format: uuid
+          description: The unique ID of the truck associated with the rack.
+          example: 00000000-0000-0000-0000-000000000000
+        truckNumber:
+          type: string
+          description: The truck number associated with the rack.
+          example: string
+        trailerNumber:
+          type: string
+          description: The trailer number of the rack's associated truck.
+          example: string
+        labelPrintedByAccountId:
+          type: string
+          format: uuid
+          description: The account ID of the user who last printed the rack label.
+          example: 00000000-0000-0000-0000-000000000000
+        labelPrintedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the rack label was last printed.
+          example: '2026-10-20T12:03:13Z'
+    KitPackingResponseDto:
+      type: object
+      description: Data model representing the output of a kit packing operation.
+      properties:
+        rackId:
+          type: string
+          format: uuid
+          description: The unique identifier for the sequenced rack.
+          example: 00000000-0000-0000-0000-000000000000
+        rackStatus:
+          type: string
+          description: The status assigned to the sequenced rack.
+          example: string
+        masterUnitNumber:
+          type: string
+          description: The master unit number associated with the rack.
+          example: string
+        sourceSerialNumber:
+          type: string
+          description: The source container's serial number.
+          example: string
+        kitId:
+          type: string
+          format: uuid
+          description: The unique identifier for the sequenced kit.
+          example: 00000000-0000-0000-0000-000000000000
+        kitStatus:
+          type: string
+          description: The status assigned to the sequenced kit.
+          example: string
+        releases:
+          type: array
+          description: The releases related to the packed kit.
+          items:
+            type: object
+            description: Data model representing the release output of a kit packing operation.
+            properties: {}
+    JiSTruckDto:
+      type: object
+      description: The Truck model returned from the rack schedule and load process.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the truck to which sequenced racks will be loaded.
+          example: 00000000-0000-0000-0000-000000000000
+        trailerNumber:
+          type: string
+          description: 'The trailer number to which a rack can be assigned. If a truck with the trailer number already exists,
+
+            the rack will be loaded to that truck; otherwise, a new truck will be created with the specified trailer number.'
+          example: string
+        status:
+          type: string
+          description: Truck Status.
+          example: string
+        truckNumber:
+          type: string
+          description: A Plex-generated unique number representing the Truck shipment.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Dynamic Multi Out Sets…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Dynamic Multi Out Sets API
+  description: The Dynamic Multi Out Sets API is used to manage dynamic multi out set data.
+paths:
+  /production-tracking/v1/dynamic-multi-out-sets:
+    post:
+      operationId: createDynamicMultiOutSet
+      summary: Create Dynamic Multi Out Set
+      tags:
+      - Dynamic Multi Out Sets API
+      description: Create a new Dynamic Multi Out Set.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDynamicMultiOutSetDto'
+      responses:
+        '201':
+          description: The Dynamic Multi Out Set resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutSetDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-sets-api/create-dynamic-multi-out-set
+    get:
+      operationId: listDynamicMultiOutSets
+      summary: List Dynamic Multi Out Sets
+      tags:
+      - Dynamic Multi Out Sets API
+      description: List Dynamic Multi Out Sets by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Unique identifiers for the Dynamic Multi Out Sets.
+      - name: plannedCalendarStartDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Planned Start Date for the Dynamic Multi Out Set.
+      - name: plannedCalendarStartDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Planned Start Date for the Dynamic Multi Out Set.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutSetDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-sets-api/list-dynamic-multi-out-sets
+  /production-tracking/v1/dynamic-multi-out-sets/{dynamicMultiOutSetId}:
+    get:
+      operationId: getDynamicMultiOutSet
+      summary: Get Dynamic Multi Out Set
+      tags:
+      - Dynamic Multi Out Sets API
+      description: Retrieve a Dynamic Multi Out Set by ID.
+      parameters:
+      - name: dynamicMultiOutSetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Dynamic Multi Out Set ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicMultiOutSetDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/dynamic-multi-out-sets-api/get-dynamic-multi-out-set
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    CreateDynamicMultiOutSetDto:
+      type: object
+      description: The Dynamic Multi Out Set model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Dynamic Multi Out Set. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The unique code for the Dynamic Multi Out Set.
+          example: string
+        description:
+          type: string
+          description: The description for the Dynamic Multi Out Set.
+          example: string
+        plannedCalendarStartDate:
+          type: string
+          description: 'The planned start date for the Dynamic Multi Out Set. Format expected: uuuu-MM-dd.'
+          example: string
+        jobOperationIds:
+          type: array
+          description: The Job Operation IDs tied to this Set.
+          items:
+            type: string
+            format: uuid
+      required:
+      - code
+    DynamicMultiOutSetDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Dynamic Multi Out Set.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The unique code for the Dynamic Multi Out Set.
+          example: string
+        description:
+          type: string
+          description: The description for the Dynamic Multi Out Set.
+          example: string
+        plannedCalendarStartDate:
+          type: string
+          description: The planned start date for the Dynamic Multi Out Set.
+          example: string
+        jobOperationIds:
+          type: array
+          description: The Job Operation IDs tied to this Set.
+          items:
+            type: string
+            format: uuid
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

@@ -1,0 +1,488 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect BOM API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: BOM API
+  description: The BOM API is used to manage BOM Data.
+paths:
+  /engineering/v1/boms:
+    post:
+      operationId: createBomComponent
+      summary: Create BOM Component
+      tags:
+      - BOM API
+      description: Create a new BOM Component.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBomComponentDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BomComponentDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/bom-api/create-bom-component
+    get:
+      operationId: listBomComponents
+      summary: List BOM Components
+      tags:
+      - BOM API
+      description: List BOM Components by query parameters.
+      parameters:
+      - name: partId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part resource.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part operation identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BomComponentDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/bom-api/list-bom-components
+  /engineering/v1/boms/{id}/deactivate:
+    post:
+      operationId: deactivateBomComponent
+      summary: Deactivate BOM Component
+      tags:
+      - BOM API
+      description: Deactivate a BOM Component.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the BOM Component.
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/bom-api/deactivate-bom-component
+  /engineering/v1/boms/{id}:
+    get:
+      operationId: getBomComponent
+      summary: Get BOM Component
+      tags:
+      - BOM API
+      description: Retrieve a BOM Component by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the BOM Component.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BomComponentDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/bom-api/get-bom-component
+    patch:
+      operationId: patchBomComponent
+      summary: Patch BOM Component
+      tags:
+      - BOM API
+      description: Patch a BOM Component.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the BOM Component.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBomComponentDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BomComponentDto'
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/bom-api/patch-bom-component
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateBomComponentDto:
+      type: object
+      description: 'A class to represent the Update Bom Request Model.
+
+        The implementation of System.ComponentModel.INotifyPropertyChanged is done to support partial updates.
+
+        https://confluence.plex.com/display/EPS/Handling+Partial+Updates+in+API+requests?src=contextnavpagetreemode'
+      properties:
+        quantity:
+          type: number
+          format: double
+          description: The quantity being consumed.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: For variable Boms where the consumption and batch size can vary, this is the minimum required quantity.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: For variable Boms where the consumption and batch size can vary, this is the maximum required quantity.
+          example: 0.1
+        quantityFixed:
+          type: boolean
+          description: For variable Boms where the consumption and batch size can vary, this indicates that the component quantity is a fixed required amount regardless of the amount being produced.
+          example: false
+        depletionUnitOfMeasure:
+          type: string
+          description: For variable Boms where the consumption unit is very different than the Boms material's inventory unit (eg. grams vs kg), this value defines the unit of measure for a variable bom.
+          example: string
+        depletionConversionFactor:
+          type: number
+          format: double
+          description: The conversion factor to use if the DepletionUnitOfMeasure field is set.
+          example: 0.1
+        sortOrder:
+          type: number
+          format: double
+          description: The sort order of this Bom resource.
+          example: 0.1
+        position:
+          type: string
+          description: Position of the Bom resource.
+          example: string
+        side:
+          type: string
+          description: Side related to the Bom resource.
+          example: string
+        scaling:
+          type: boolean
+          description: A flag that determines if the Bom is scaling.
+          example: false
+        validate:
+          type: boolean
+          description: A flag that determines if the Bom is validate.
+          example: false
+        autoDeplete:
+          type: boolean
+          description: A flag that determines if the Bom is set for auto depletion.
+          example: false
+        transferHeat:
+          type: boolean
+          description: A flag that determines the value for transfer heat.
+          example: false
+        note:
+          type: string
+          description: A note about the Bom Component.
+          example: string
+    BomComponentDto:
+      type: object
+      description: The Bill Of Material (Bom) component model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a Bom component.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for a Part resource.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part number associated to a part.
+          example: string
+        partRevision:
+          type: string
+          description: Part revision associated to a part.
+          example: string
+        partNumberRevision:
+          type: string
+          description: Combination of PartNumber and PartRevision separated by the PCN specific separator.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for a PartOperation resource.
+          example: 00000000-0000-0000-0000-000000000000
+        partOperationCode:
+          type: string
+          description: Part operation code associated with the PartOperation.
+          example: string
+        partOperationNumber:
+          type: integer
+          format: int32
+          description: Part operation number associated with the PartOperation.
+          example: 0
+        partOperationType:
+          type: string
+          description: Part operation type associated with the PartOperation.
+          example: string
+        componentPartId:
+          type: string
+          format: uuid
+          description: ID of the component part against which this Bom component is related. Will be null if the ComponentSupplyItemId is present.
+          example: 00000000-0000-0000-0000-000000000000
+        componentPartNumber:
+          type: string
+          description: Part number associated to the component part.
+          example: string
+        componentPartRevision:
+          type: string
+          description: Part revision associated to the component part.
+          example: string
+        componentPartNumberRevision:
+          type: string
+          description: Combination of ComponentPartNumber and ComponentPartRevision separated by the PCN specific separator.
+          example: string
+        componentSupplyItemId:
+          type: string
+          format: uuid
+          description: ID of the component supply-item against which this Bom component is related. Will be null if the ComponentPartId is present.
+          example: 00000000-0000-0000-0000-000000000000
+        componentSupplyItemNumber:
+          type: string
+          description: Supply item number associated with the component supply item.
+          example: string
+        componentUnitOfMeasure:
+          type: string
+          description: The unit of measure for the component part or supply item.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The quantity being consumed.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: For variable Boms where the consumption and batch size can vary, this is the minimum required quantity.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: For variable Boms where the consumption and batch size can vary, this is the maximum required quantity.
+          example: 0.1
+        quantityFixed:
+          type: boolean
+          description: For variable Boms where the consumption and batch size can vary, this indicates that the component quantity is a fixed required amount regardless of the amount being produced.
+          example: false
+        depletionUnitOfMeasure:
+          type: string
+          description: For variable Boms where the consumption unit is very different than the Boms material's inventory unit (eg. grams vs kg), this value defines the unit of measure for a variable bom.
+          example: string
+        depletionConversionFactor:
+          type: number
+          format: double
+          description: The conversion factor to use if the DepletionUnitOfMeasure field is set.
+          example: 0.1
+        sortOrder:
+          type: number
+          format: double
+          description: The sort order of this Bom resource.
+          example: 0.1
+        active:
+          type: boolean
+          description: A flag that determines if the Bom is active.
+          example: false
+        position:
+          type: string
+          description: Position of the Bom resource.
+          example: string
+        side:
+          type: string
+          description: Side related to the Bom resource.
+          example: string
+        scaling:
+          type: boolean
+          description: A flag that determines if the Bom is scaling.
+          example: false
+        validate:
+          type: boolean
+          description: A flag that determines if the Bom is validate.
+          example: false
+        autoDeplete:
+          type: boolean
+          description: A flag that determines if the Bom is set for auto depletion.
+          example: false
+        transferHeat:
+          type: boolean
+          description: A flag that determines the value for transfer heat.
+          example: false
+        note:
+          type: string
+          description: A note about the Bom Component.
+          example: string
+    AddBomComponentDto:
+      type: object
+      description: Datastructure to represent the input model to add a BOM component.
+      properties:
+        partOperationId:
+          type: string
+          format: uuid
+          description: ID of the Part Operation for which the BOM component is being created.
+          example: 00000000-0000-0000-0000-000000000000
+        componentId:
+          type: string
+          format: uuid
+          description: ID of the Part or the Supply Item for which the BOM component is being created.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: Required quantity of the component to produce the end product.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: Minimum quantity required to produce the end product.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: Maximum quantity required to produce the end product.
+          example: 0.1
+        quantityFixed:
+          type: boolean
+          description: Boolean flag to identify that regardless of the amount being produced, the quantity is a fixed required amount.
+          example: false
+        depletionUnitOfMeasure:
+          type: string
+          description: Consumption unit of the BOM component to aid readability.
+          example: string
+        depletionConversionFactor:
+          type: number
+          format: double
+          description: Conversion factor to be used if DepletionUnitOfMeasure is set.
+          example: 0.1
+        sortOrder:
+          type: number
+          format: double
+          description: The order to display BOM Components.
+          example: 0.1
+        position:
+          type: string
+          description: Position to describe something physically present at the workcenter during production.
+          example: string
+        side:
+          type: string
+          description: Side to determine relationships between BOM source components and multi-out parts.
+          example: string
+        scaling:
+          type: boolean
+          description: Boolean flag to set scaling.
+          example: false
+        validate:
+          type: boolean
+          description: Boolean flag to ensure that BOM material is present and loaded before allowing production to run.
+          example: false
+        autoDeplete:
+          type: boolean
+          description: Boolean flag to determine if the BOM material should be auto depleted as production is recorded.
+          example: false
+        transferHeat:
+          type: boolean
+          description: Boolean flag to indicate the heat number should be transferred from the BOM material to an output container.
+          example: false
+        note:
+          type: string
+          description: Any note about the BOM Component.
+          example: string
+      required:
+      - partOperationId
+      - componentId
+      - quantity
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

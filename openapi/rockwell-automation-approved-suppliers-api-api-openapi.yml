@@ -1,0 +1,372 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Approved Suppliers API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Approved Suppliers API
+  description: The Approved Suppliers API is used to retrieve approved suppliers and pricing information.
+paths:
+  /purchasing/v1/approved-suppliers/{id}:
+    get:
+      operationId: getApprovedSupplier
+      summary: Get Approved Supplier
+      tags:
+      - Approved Suppliers API
+      description: Retrieve an Approved Supplier by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplierDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/approved-suppliers-api/get-approved-supplier
+  /purchasing/v1/approved-suppliers/{id}/edi-details:
+    get:
+      operationId: getEdiDetails
+      summary: Get EDI Details
+      tags:
+      - Approved Suppliers API
+      description: Gets EDI information related to the approved supplier.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The resource ID of the approved supplier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplierEdiDto'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/approved-suppliers-api/get-edi-details
+  /purchasing/v1/approved-suppliers/{id}/mrp-details:
+    get:
+      operationId: getMrpDetails
+      summary: Get MRP Details
+      tags:
+      - Approved Suppliers API
+      description: Gets MRP information related to the approved supplier.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The resource ID of the approved supplier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplierMrpDto'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/approved-suppliers-api/get-mrp-details
+  /purchasing/v1/approved-suppliers:
+    get:
+      operationId: listApprovedSuppliers
+      summary: List Approved Suppliers
+      tags:
+      - Approved Suppliers API
+      description: List Approved Suppliers by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of approved supplier IDs.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The part ID.
+      - name: operationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Application: Operation List'
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The supplier ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplierDto'
+      x-source: https://developers.plex.com/api/documentation/approved-suppliers-api/list-approved-suppliers
+  /purchasing/v1/approved-suppliers/{id}/prices:
+    get:
+      operationId: listPrices
+      summary: List Prices
+      tags:
+      - Approved Suppliers API
+      description: List Prices by query parameters.
+      parameters:
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+      - name: effectiveDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the price is effective.
+      - name: effectiveDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the price is effective.
+      - name: expirationDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the price expires.
+      - name: expirationDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the price expires.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the last person to modify the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The date on which the record was last modified.
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDto'
+        '404':
+          description: The Approved Supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/approved-suppliers-api/list-prices
+components:
+  schemas:
+    PriceDto:
+      type: object
+      description: The Price model.
+      properties:
+        price:
+          type: number
+          format: double
+          example: 0.1
+        priceUnit:
+          type: string
+          description: The unit of measure of the part, such as pcs.
+          example: string
+        estimatedPrice:
+          type: boolean
+          description: If the price is an estimated price.
+          example: false
+        currencyCode:
+          type: string
+          description: The ISO 4217 three digit alphanumeric currency code designation.
+          example: string
+        active:
+          type: boolean
+          example: false
+        effectiveDate:
+          type: string
+          format: date-time
+          description: The date on which the price is effective.
+          example: '2026-10-20T12:03:01Z'
+        expirationDate:
+          type: string
+          format: date-time
+          description: The date on which the price expires.
+          example: '2026-10-20T12:03:01Z'
+        priceConversion:
+          type: number
+          format: double
+          example: 0.1
+        breakpoint:
+          type: integer
+          format: int32
+          example: 0
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the last person to modify the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:01Z'
+    ApprovedSupplierDto:
+      type: object
+      description: The Approved Supplier model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Approved Supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: The part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: 'Application: Operation List'
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        leadTime:
+          type: number
+          format: double
+          description: Estimated lead time
+          example: 0.1
+        supplierPartNumber:
+          type: string
+          description: The part number used by the Supplier.
+          example: string
+        businessPercentage:
+          type: number
+          format: double
+          description: The business percentage for the approved supplier.
+          example: 0.1
+        transitTime:
+          type: number
+          format: double
+          description: Estimated transit time.
+          example: 0.1
+        note:
+          type: string
+          description: The approved supplier note.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The part operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+    ApprovedSupplierEdiDto:
+      type: object
+      description: The approved supplier EDI data transfer object.
+      properties:
+        fabricationReleaseDays:
+          type: integer
+          format: int32
+          description: The number of fabrication release days.
+          example: 0
+        rawReleaseDays:
+          type: integer
+          format: int32
+          description: The number of raw release days.
+          example: 0
+    ApprovedSupplierMrpDto:
+      type: object
+      description: The approved supplier MRP data transfer object.
+      properties:
+        mrpFirmDays:
+          type: integer
+          format: int32
+          description: The number of MRP Firm Days.
+          example: 0
+        mrpPlanDays:
+          type: integer
+          format: int32
+          description: The number of MRP Plan Days.
+          example: 0
+        mrpForecastDays:
+          type: integer
+          format: int32
+          description: The number of MRP Forecast Days.
+          example: 0
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

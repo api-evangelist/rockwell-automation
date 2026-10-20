@@ -1,0 +1,479 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Shipping Inventory API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Shipping Inventory API
+  description: The Shipping Inventory API is used to manage shipping inventory data.
+paths:
+  /shipping/v1/inventory/containers/{serialNo}/shipping-details:
+    get:
+      operationId: getContainerShippingDetails
+      summary: Get Container Shipping Details
+      tags:
+      - Shipping Inventory API
+      description: Retrieve shipping details for a container.
+      parameters:
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The serial number of the container.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerShippingDetailsDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/shipping-inventory-api/get-container-shipping-details
+  /shipping/v1/inventory/master-units/{masterUnitId}:
+    get:
+      operationId: getMasterUnit_shippingInventoryApi
+      summary: Get Master Unit
+      tags:
+      - Shipping Inventory API
+      description: Retrieve master unit details based on the master unit ID.
+      parameters:
+      - name: masterUnitId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique master unit identifier.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterUnitDetailsDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/shipping-inventory-api/get-master-unit
+  /shipping/v1/inventory/parts/{partId}/shipping-details:
+    get:
+      operationId: getPartShippingDetails
+      summary: Get Part Shipping Details
+      tags:
+      - Shipping Inventory API
+      description: Retrieve shipping details for a Part by ID.
+      parameters:
+      - name: partId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartShippingDetailsDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/shipping-inventory-api/get-part-shipping-details
+  /shipping/v1/inventory/customer-shippers/{shipperId}/shippable-containers:
+    get:
+      operationId: listShippableContainers
+      summary: List Shippable Containers
+      tags:
+      - Shipping Inventory API
+      description: List shippable containers by query parameters.
+      parameters:
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The shipper ID associated with the container.
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the building associated with the shippable container.
+      - name: location
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The location associated with the shippable container.
+      - name: locationGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The location group associated with the shippable container.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the part associated with the shippable container.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippableContainerDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/shipping-inventory-api/list-shippable-containers
+components:
+  schemas:
+    MasterUnitDetailsDto:
+      type: object
+      description: The MasterUnit model.
+      properties:
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit ID.
+          example: 00000000-0000-0000-0000-000000000000
+        masterUnitNo:
+          type: string
+          description: The master unit number.
+          example: string
+        masterUnitType:
+          type: string
+          description: The master unit type.
+          example: string
+        description:
+          type: string
+          description: The master unit type description.
+          example: string
+        active:
+          type: boolean
+          description: The master unit's active status.
+          example: false
+        location:
+          type: string
+          description: The master unit location.
+          example: string
+        containerCount:
+          type: integer
+          format: int32
+          description: The number of containers on the master unit.
+          example: 0
+        tareWeight:
+          type: number
+          format: double
+          description: The master unit type's tare weight.
+          example: 0.1
+        height:
+          type: number
+          format: double
+          description: The master unit type's height.
+          example: 0.1
+        length:
+          type: number
+          format: double
+          description: The master unit type's length.
+          example: 0.1
+        width:
+          type: number
+          format: double
+          description: The master unit type's width.
+          example: 0.1
+        returnable:
+          type: boolean
+          description: The master unit type's returnable status.
+          example: false
+    PartShippingDetailsDto:
+      type: object
+      description: The part model exposed for retrieving details.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part's number.
+          example: string
+        partRevision:
+          type: string
+          description: The part's revision.
+          example: string
+        partNumberRevision:
+          type: string
+          description: The part's number and revision number, including the revision separator.
+          example: string
+        containerType:
+          type: string
+          description: The container type.
+          example: string
+        partPieceWeight:
+          type: number
+          format: double
+          description: The piece weight of the part.
+          example: 0.1
+        weightUnit:
+          type: string
+          description: The weight unit of the container.
+          example: string
+        cubeHeight:
+          type: number
+          format: double
+          description: The cube height of the container.
+          example: 0.1
+        cubeLength:
+          type: number
+          format: double
+          description: The cube length of the container.
+          example: 0.1
+        cubeWidth:
+          type: number
+          format: double
+          description: The cube width of the container.
+          example: 0.1
+        commodityCode:
+          type: string
+          description: The commodity code associated with the container.
+          example: string
+        harmonizedTariffCode:
+          type: string
+          description: The harmonized tariff code associated with the container.
+          example: string
+        hazardous:
+          type: boolean
+          description: Indicates whether the container contents are hazardous or not.
+          example: false
+        freightClassification:
+          type: string
+          description: The freight classification associated with the container.
+          example: string
+        weightClassification:
+          type: string
+          description: The weight classification associated with the container.
+          example: string
+    ShippableContainerDto:
+      type: object
+      description: The shippable container model.
+      properties:
+        shipperNo:
+          type: string
+          description: The shipper number associated with the container.
+          example: string
+        shipperId:
+          type: string
+          format: uuid
+          description: The shipper ID associated with the container.
+          example: 00000000-0000-0000-0000-000000000000
+        serialNo:
+          type: string
+          description: The container's serial number.
+          example: string
+        partNumber:
+          type: string
+          description: The part number associated with the shippable container.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision associated with the shippable container.
+          example: string
+        partNumberRevision:
+          type: string
+          description: The part's number and revision number, including the revision separator.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part associated with the shippable container.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: The building code associated with the shippable container.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: The ID of the building associated with the shippable container.
+          example: 00000000-0000-0000-0000-000000000000
+        location:
+          type: string
+          description: The location associated with the shippable container.
+          example: string
+        locationGroup:
+          type: string
+          description: The location group associated with the shippable container.
+          example: string
+        addDateTime:
+          type: string
+          format: date-time
+          description: The date and time the container was created.
+          example: '2026-10-20T12:03:18Z'
+        shelfDateTime:
+          type: string
+          format: date-time
+          description: The shelf date and time of the container.
+          example: '2026-10-20T12:03:18Z'
+        quantity:
+          type: number
+          format: double
+          description: The quantity associated with the container.
+          example: 0.1
+        containerStatus:
+          type: string
+          description: The status of the container.
+          example: string
+        containerType:
+          type: string
+          description: The type of the container.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The ID of the master unit associated with the container.
+          example: 00000000-0000-0000-0000-000000000000
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the container.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the container.
+          example: 0.1
+        weightUnit:
+          type: string
+          description: The weight unit of the container.
+          example: string
+        heatCode:
+          type: string
+          description: The heat code associated with the container.
+          example: string
+        heatNo:
+          type: string
+          description: The heat number associated with the container.
+          example: string
+        trackingNo:
+          type: string
+          description: The tracking number of the container.
+          example: string
+        lotNo:
+          type: string
+          description: The lot number associated with the container.
+          example: string
+        lotId:
+          type: string
+          format: uuid
+          description: The ID of the lot associated with the container.
+          example: 00000000-0000-0000-0000-000000000000
+    ContainerShippingDetailsDto:
+      type: object
+      description: The container shipping details model.
+      properties:
+        serialNo:
+          type: string
+          description: The container's serial number.
+          example: string
+        containerType:
+          type: string
+          description: The type of container.
+          example: string
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the container.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the container.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The tare weight of the container.
+          example: 0.1
+        weightUnit:
+          type: string
+          description: The weight unit of the container.
+          example: string
+        cubeHeight:
+          type: number
+          format: double
+          description: The cube height of the container.
+          example: 0.1
+        cubeLength:
+          type: number
+          format: double
+          description: The cube length of the container.
+          example: 0.1
+        cubeWidth:
+          type: number
+          format: double
+          description: The cube width of the container.
+          example: 0.1
+        dimensionUnit:
+          type: string
+          description: The dimension unit used for the container.
+          example: string
+        commodityCode:
+          type: string
+          description: The commodity code associated with the container.
+          example: string
+        harmonizedTariffCode:
+          type: string
+          description: The harmonized tariff code associated with the container.
+          example: string
+        hazardous:
+          type: boolean
+          description: Indicates whether the container contents are hazardous or not.
+          example: false
+        freightClassification:
+          type: string
+          description: The freight classification associated with the container.
+          example: string
+        weightClassification:
+          type: string
+          description: The weight classification associated with the container.
+          example: string
+        masterUnitNo:
+          type: string
+          description: The master unit number associated with the container.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit ID.
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

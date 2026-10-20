@@ -1,0 +1,1692 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Suppliers API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Suppliers API
+  description: The Suppliers API is used to manage supplier master data, including financial information, addresses, and purchasing information.
+paths:
+  /mdm/v1/suppliers/{supplierId}/addresses:
+    post:
+      operationId: createSupplierAddress
+      summary: Create Supplier Address
+      tags:
+      - Suppliers API
+      description: Create an address for a supplier.
+      parameters:
+      - name: supplierId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAddressDTO'
+      responses:
+        '201':
+          description: The supplier address was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/create-supplier-address
+    get:
+      operationId: listSupplierAddresses
+      summary: List Supplier Addresses
+      tags:
+      - Suppliers API
+      description: List supplier addresses by query parameters.
+      parameters:
+      - name: supplierId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of supplier address IDs.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: This must be unique in the context of a supplier.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: IAM Account ID
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: IAM Account ID
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDTO'
+        '404':
+          description: The supplier was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/list-supplier-addresses
+  /mdm/v1/suppliers:
+    post:
+      operationId: createSupplier
+      summary: Create Supplier
+      tags:
+      - Suppliers API
+      description: Create a new supplier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSupplierDTO'
+      responses:
+        '201':
+          description: The supplier was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/create-supplier
+    get:
+      operationId: listSuppliers
+      summary: List Suppliers
+      tags:
+      - Suppliers API
+      description: List suppliers by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of supplier IDs.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Supplier Code used in Plex to identify the supplier. This must be unique in the context of a tenant.
+      - name: oldCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supplier_Category'
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supplier_Status'
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supplier_Type'
+      - name: parentSupplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of a parent supplier.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: IAM Account ID
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: IAM Account ID
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierDTO'
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/list-suppliers
+  /mdm/v1/suppliers/{id}/deactivate:
+    post:
+      operationId: deactivateSupplier
+      summary: Deactivate Supplier
+      tags:
+      - Suppliers API
+      description: Deactivate a supplier.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeactivateSupplierCommand'
+      responses:
+        '202':
+          description: The supplier was successfully deactivated.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier does not exist.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/deactivate-supplier
+  /mdm/v1/suppliers/{supplierId}/addresses/{addressId}:
+    delete:
+      operationId: deleteSupplierAddress
+      summary: Delete Supplier Address
+      tags:
+      - Suppliers API
+      description: Delete a supplier address.
+      parameters:
+      - name: supplierId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The supplier address was successfully deleted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier or supplier address was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/delete-supplier-address
+    get:
+      operationId: getSupplierAddress
+      summary: Get Supplier Address
+      tags:
+      - Suppliers API
+      description: Retrieve an address for a supplier by ID.
+      parameters:
+      - name: supplierId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDTO'
+        '404':
+          description: The supplier was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/get-supplier-address
+    put:
+      operationId: updateSupplierAddress
+      summary: Update Supplier Address
+      tags:
+      - Suppliers API
+      description: Update an address for a supplier.
+      parameters:
+      - name: supplierId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAddressDTO'
+      responses:
+        '200':
+          description: The supplier address was successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier or supplier address was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/update-supplier-address
+  /mdm/v1/suppliers/{id}/financials:
+    get:
+      operationId: getSupplierFinancials
+      summary: Get Supplier Financials
+      tags:
+      - Suppliers API
+      description: Retrieve a supplier's financial information by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialsDTO'
+        '404':
+          description: The supplier was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/get-supplier-financials
+    put:
+      operationId: updateSupplierFinancialsV1
+      summary: Update Supplier Financials
+      tags:
+      - Suppliers API
+      description: Update a supplier's financial information.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFinancialsDTO'
+      responses:
+        '200':
+          description: The supplier's financial details were successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialsDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/update-supplier-financials
+  /mdm/v1/suppliers/{id}/purchasing-defaults:
+    get:
+      operationId: getSupplierPurchasingDefaults
+      summary: Get Supplier Purchasing Defaults
+      tags:
+      - Suppliers API
+      description: Retrieve a supplier's default purchasing information by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchasingDefaultsDTO'
+        '404':
+          description: The supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/get-supplier-purchasing-defaults
+    put:
+      operationId: updateSupplierPurchasingDefaults
+      summary: Update Supplier Purchasing Defaults
+      tags:
+      - Suppliers API
+      description: Update a supplier's default purchasing information.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePurchasingDefaultsDTO'
+      responses:
+        '200':
+          description: The supplier purchasing defaults were successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchasingDefaultsDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/update-supplier-purchasing-defaults
+  /mdm/v1/suppliers/{id}:
+    get:
+      operationId: getSupplier
+      summary: Get Supplier
+      tags:
+      - Suppliers API
+      description: Retrieve a supplier by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierDTO'
+        '404':
+          description: The supplier was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/get-supplier
+    put:
+      operationId: updateSupplier
+      summary: Update Supplier
+      tags:
+      - Suppliers API
+      description: Update a supplier.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSupplierDTO'
+      responses:
+        '200':
+          description: The supplier was successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/update-supplier
+  /mdm/v1/suppliers/sync:
+    post:
+      operationId: syncSuppliers
+      summary: Sync Suppliers
+      tags:
+      - Suppliers API
+      description: Sync a set of suppliers from another system. This operation creates suppliers that do not exist in Plex and updates existing suppliers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncSupplierDTO'
+      responses:
+        '202':
+          description: The suppliers were successfully synchronized.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/sync-suppliers
+  /mdm/v2/suppliers/{id}/financials:
+    put:
+      operationId: updateSupplierFinancialsV2
+      summary: Update Supplier Financials
+      tags:
+      - Suppliers API
+      description: Update a supplier's financial information.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFinancialsDto'
+      responses:
+        '200':
+          description: The supplier's financial details were successfully updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialsDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The supplier resource was not found.
+      x-source: https://developers.plex.com/api/documentation/suppliers-api/update-supplier-financials
+components:
+  schemas:
+    AddressDTO:
+      type: object
+      description: The model for supplier address.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: This must be unique in the context of a supplier.
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Address_Type.'
+          example: string
+        country:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        main:
+          type: boolean
+          description: A supplier may have only one address designated as their Main address.
+          example: false
+        remit:
+          type: boolean
+          description: A supplier may have only one address designated as their Remit payment address.
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        alternateSupplierName:
+          type: string
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+    UpdateSupplierDTO:
+      type: object
+      description: The supplier model exposed for updating.
+      properties:
+        code:
+          type: string
+          description: The Supplier Code used in Plex to identify the supplier. This must be unique in the context of a tenant.
+          example: string
+        oldCode:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        language:
+          type: string
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Supplier_Category'
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Supplier_Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Type'
+          example: string
+        parentSupplierId:
+          type: string
+          format: uuid
+          description: The ID of a parent supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        webAddress:
+          type: string
+          example: string
+        contactNote:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+      required:
+      - code
+      - language
+      - status
+    UpdateFinancialsDto:
+      type: object
+      description: The model for Supplier Financials.
+      properties:
+        dunsNo:
+          type: string
+          description: Free text field for DUNS Number.
+          example: string
+        paymentStatus:
+          type: string
+          description: Values come from the Payment_Status setup table.
+          example: string
+        paymentType:
+          type: string
+          description: Values come from the Payment Type screen.
+          example: string
+        bankRemittanceCode:
+          type: string
+          description: Values come from the Bank Remittance Codes on the Bank Account Detail form.
+          example: string
+        paymentSupplierId:
+          type: string
+          format: uuid
+          description: The default value is the ID of the current supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        taxId:
+          type: string
+          description: Free text field for the Tax ID.
+          example: string
+        taxIdType:
+          type: string
+          description: The Tax ID Type (i.e., EIN, SSN, QI-EIN, Undetermined).
+          example: string
+        bankId:
+          type: string
+          description: Free text field for the Bank ID.
+          example: string
+        bankRoutingNo:
+          type: string
+          description: Free text field for the Bank Routing Number.
+          example: string
+        bankAccountNo:
+          type: string
+          description: Free text field for the Bank Account Number.
+          example: string
+        bankName:
+          type: string
+          description: Free text field for the Bank Name.
+          example: string
+        bankAddress:
+          type: string
+          description: Free text field for the Bank Street Address.
+          example: string
+        bankCity:
+          type: string
+          description: Free text field for the Bank City.
+          example: string
+        bankState:
+          type: string
+          description: State the bank resides in.
+          example: string
+        bankCountry:
+          type: string
+          description: Country the bank resides in.
+          example: string
+        bankZipCode:
+          type: string
+          description: Zip Code of the bank.
+          example: string
+        swiftNo:
+          type: string
+          description: Free text field for SWIFT Number.
+          example: string
+        ibanNo:
+          type: string
+          description: Free text field for IBAN Number.
+          example: string
+        misc1099:
+          type: boolean
+          description: Defines the supplier as 1099. This displays the 1099 check box on supplier invoices. When enabled, supplier invoices are flagged as 1099 by default.
+          example: false
+        bankAccountNoBankRemittanceCode:
+          type: string
+          description: The Bank Account Number associated with the Bank Remittance Code.
+          example: string
+        bankAccountCurrencyCode:
+          type: string
+          description: The bank account's Currency Code.
+          example: string
+    SyncSupplierDTO:
+      type: object
+      description: The full Supplier resource structure to be added or updated.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: This must be unique in the context of a supplier.
+          example: string
+        oldCode:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        language:
+          type: string
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Supplier_Category'
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Supplier_Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Address_Type.'
+          example: string
+        parentSupplierId:
+          type: string
+          format: uuid
+          description: The ID of a parent supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        webAddress:
+          type: string
+          example: string
+        contactNote:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        financials:
+          $ref: '#/components/schemas/UpdateFinancialsDTO'
+        purchasingDefaults:
+          $ref: '#/components/schemas/UpdatePurchasingDefaultsDTO'
+        addresses:
+          type: array
+          description: A list of supplier addresses.
+          items:
+            type: object
+            description: The supplier address model exposed for adding.
+            properties: {}
+        dunsNo:
+          type: string
+          description: Free text field for DUNS Number.
+          example: string
+        paymentStatus:
+          type: string
+          description: Values come from the Payment_Status setup table.
+          example: string
+        paymentType:
+          type: string
+          description: Values come from the Payment Type screen.
+          example: string
+        bankRemittanceCode:
+          type: string
+          description: Values come from the Bank Remittance Codes on the Bank Account Detail form.
+          example: string
+        paymentSupplierId:
+          type: string
+          format: uuid
+          description: The default value is the ID of the current supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        taxId:
+          type: string
+          description: Free text field for the Tax ID.
+          example: string
+        taxIdType:
+          type: string
+          description: The Tax ID Type (i.e., EIN, SSN, QI-EIN, Undetermined).
+          example: string
+        bankId:
+          type: string
+          description: Free text field for the Bank ID.
+          example: string
+        bankRoutingNo:
+          type: string
+          description: Free text field for the Bank Routing Number.
+          example: string
+        bankAccountNo:
+          type: string
+          description: Free text field for the Bank Account Number.
+          example: string
+        bankName:
+          type: string
+          description: Free text field for the Bank Name.
+          example: string
+        bankAddress:
+          type: string
+          description: Free text field for the Bank Street Address.
+          example: string
+        bankCity:
+          type: string
+          description: Free text field for the Bank City.
+          example: string
+        bankState:
+          type: string
+          description: State the bank resides in.
+          example: string
+        bankCountry:
+          type: string
+          description: Country the bank resides in.
+          example: string
+        bankZipCode:
+          type: string
+          description: Zip Code of the bank.
+          example: string
+        swiftNo:
+          type: string
+          description: Free text field for SWIFT Number.
+          example: string
+        ibanNo:
+          type: string
+          description: Free text field for IBAN Number.
+          example: string
+        misc1099:
+          type: boolean
+          description: Defines the supplier as 1099. This displays the 1099 check box on supplier invoices. When enabled, supplier invoices are flagged as 1099 by default.
+          example: false
+        defaultCarrierId:
+          type: string
+          format: uuid
+          description: This is the ID of another supplier that has their supplier type flagged as a Carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        customs:
+          type: string
+          description: 'Setup Table: Customs'
+          example: string
+        defaultShipTo:
+          type: string
+          description: 'Screen: PO Ship To'
+          example: string
+        defaultShipVia:
+          type: string
+          description: 'Setup Table: PO_Ship_Via'
+          example: string
+        defaultFreightTerms:
+          type: string
+          description: 'Setup Table: PO_Freight_Terms'
+          example: string
+        defaultINCOTerms:
+          type: string
+          description: 'Setup Table: INCO_Terms'
+          example: string
+        defaultFOB:
+          type: string
+          description: 'Setup Table: PO_FOB'
+          example: string
+        defaultPaymentTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        defaultCurrencyCode:
+          type: string
+          example: string
+        defaultTaxCode:
+          type: string
+          description: 'Screen: Tax Codes'
+          example: string
+        defaultPOType:
+          type: string
+          description: 'Screen: PO Type'
+          example: string
+        defaultExpenseAccount:
+          type: string
+          description: 'Screen: Chart of Accounts'
+          example: string
+        country:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        main:
+          type: boolean
+          description: A supplier may have only one address designated as their Main address.
+          example: false
+        remit:
+          type: boolean
+          description: A supplier may have only one address designated as their Remit payment address.
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        alternateSupplierName:
+          type: string
+          example: string
+      required:
+      - code
+      - language
+      - status
+      - code
+      - type
+      - country
+    CreateSupplierDTO:
+      type: object
+      description: The supplier model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Supplier. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The Supplier Code used in Plex to identify the supplier. This must be unique in the context of a tenant.
+          example: string
+        oldCode:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        language:
+          type: string
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Supplier_Category'
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Supplier_Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Type'
+          example: string
+        parentSupplierId:
+          type: string
+          format: uuid
+          description: The ID of a parent supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        webAddress:
+          type: string
+          example: string
+        contactNote:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+      required:
+      - code
+      - language
+      - status
+    DeactivateSupplierCommand:
+      type: object
+      description: Properties related to deactivating a Supplier.
+      properties:
+        status:
+          type: string
+          description: A supplier status that is not flagged as active.
+          example: string
+      required:
+      - status
+    FinancialsDto:
+      type: object
+      description: The model for Supplier Financials.
+      properties:
+        dunsNo:
+          type: string
+          description: Free text field for DUNS Number.
+          example: string
+        paymentStatus:
+          type: string
+          description: Values come from the Payment_Status setup table.
+          example: string
+        paymentType:
+          type: string
+          description: Values come from the Payment Type screen.
+          example: string
+        bankRemittanceCode:
+          type: string
+          description: Values come from the Bank Remittance Codes on the Bank Account Detail form.
+          example: string
+        paymentSupplierId:
+          type: string
+          format: uuid
+          description: The default value is the ID of the current supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        taxId:
+          type: string
+          description: Free text field for the Tax ID.
+          example: string
+        taxIdType:
+          type: string
+          description: The Tax ID Type.
+          example: string
+        bankId:
+          type: string
+          description: Free text field for the Bank ID.
+          example: string
+        bankRoutingNo:
+          type: string
+          description: Free text field for the Bank Routing Number.
+          example: string
+        bankAccountNo:
+          type: string
+          description: Free text field for the Bank Account Number.
+          example: string
+        bankName:
+          type: string
+          description: Free text field for the Bank Name.
+          example: string
+        bankAddress:
+          type: string
+          description: Free text field for the Bank Street Address.
+          example: string
+        bankCity:
+          type: string
+          description: Free text field for the Bank City.
+          example: string
+        bankState:
+          type: string
+          description: State the bank resides in.
+          example: string
+        bankCountry:
+          type: string
+          description: Country the bank resides in.
+          example: string
+        bankZipCode:
+          type: string
+          description: Zip Code for the bank.
+          example: string
+        swiftNo:
+          type: string
+          description: Free text field for SWIFT Number.
+          example: string
+        ibanNo:
+          type: string
+          description: Free text field for IBAN Number.
+          example: string
+        misc1099:
+          type: boolean
+          description: Defines the supplier as 1099. This displays the 1099 check box on supplier invoices. When enabled, supplier invoices are flagged as 1099 by default.
+          example: false
+    FinancialsDTO:
+      type: object
+      description: The model for Supplier Financials.
+      properties:
+        dunsNo:
+          type: string
+          example: string
+        paymentStatus:
+          type: string
+          description: 'Setup Table: Payment_Status'
+          example: string
+        paymentType:
+          type: string
+          description: 'Screen: Payment Type'
+          example: string
+        bankRemittanceCode:
+          type: string
+          description: 'Setup Table: Supplier_Bank_Remittance'
+          example: string
+        paymentSupplierId:
+          type: string
+          format: uuid
+          description: The default value is the ID of the current Supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        taxId:
+          type: string
+          example: string
+        taxIdType:
+          type: string
+          example: string
+        bankId:
+          type: string
+          example: string
+        bankRoutingNo:
+          type: string
+          example: string
+        bankAccountNo:
+          type: string
+          example: string
+        bankName:
+          type: string
+          example: string
+        bankAddress:
+          type: string
+          example: string
+        bankCity:
+          type: string
+          example: string
+        bankState:
+          type: string
+          example: string
+        bankCountry:
+          type: string
+          example: string
+        bankZipCode:
+          type: string
+          example: string
+        swiftNo:
+          type: string
+          example: string
+        ibanNo:
+          type: string
+          example: string
+        misc1099:
+          type: boolean
+          description: Defines the supplier as 1099. This displays the 1099 check box on supplier invoices. When enabled, supplier invoices are flagged as 1099 by default.
+          example: false
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdatePurchasingDefaultsDTO:
+      type: object
+      description: The model for Supplier Purchasing Defaults.
+      properties:
+        defaultCarrierId:
+          type: string
+          format: uuid
+          description: This is the ID of another supplier that has their supplier type flagged as a Carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        customs:
+          type: string
+          description: 'Setup Table: Customs'
+          example: string
+        defaultShipTo:
+          type: string
+          description: 'Screen: PO Ship To'
+          example: string
+        defaultShipVia:
+          type: string
+          description: 'Setup Table: PO_Ship_Via'
+          example: string
+        defaultFreightTerms:
+          type: string
+          description: 'Setup Table: PO_Freight_Terms'
+          example: string
+        defaultINCOTerms:
+          type: string
+          description: 'Setup Table: INCO_Terms'
+          example: string
+        defaultFOB:
+          type: string
+          description: 'Setup Table: PO_FOB'
+          example: string
+        defaultPaymentTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        defaultCurrencyCode:
+          type: string
+          example: string
+        defaultTaxCode:
+          type: string
+          description: 'Screen: Tax Codes'
+          example: string
+        defaultPOType:
+          type: string
+          description: 'Screen: PO Type'
+          example: string
+        defaultExpenseAccount:
+          type: string
+          description: 'Screen: Chart of Accounts'
+          example: string
+    UpdateAddressDTO:
+      type: object
+      description: The supplier address model exposed for updating.
+      properties:
+        code:
+          type: string
+          description: This must be unique in the context of a supplier.
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Address_Type'
+          example: string
+        country:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        main:
+          type: boolean
+          description: A supplier may have only one address designated as their Main address.
+          example: false
+        remit:
+          type: boolean
+          description: A supplier may have only one address designated as their Remit payment address.
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        alternateSupplierName:
+          type: string
+          example: string
+      required:
+      - code
+      - type
+      - country
+    UpdateFinancialsDTO:
+      type: object
+      description: The model for Supplier Financials.
+      properties:
+        dunsNo:
+          type: string
+          description: Free text field for DUNS Number.
+          example: string
+        paymentStatus:
+          type: string
+          description: Values come from the Payment_Status setup table.
+          example: string
+        paymentType:
+          type: string
+          description: Values come from the Payment Type screen.
+          example: string
+        bankRemittanceCode:
+          type: string
+          description: Values come from the Bank Remittance Codes on the Bank Account Detail form.
+          example: string
+        paymentSupplierId:
+          type: string
+          format: uuid
+          description: The default value is the ID of the current supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        taxId:
+          type: string
+          description: Free text field for the Tax ID.
+          example: string
+        taxIdType:
+          type: string
+          description: The Tax ID Type (i.e., EIN, SSN, QI-EIN, Undetermined).
+          example: string
+        bankId:
+          type: string
+          description: Free text field for the Bank ID.
+          example: string
+        bankRoutingNo:
+          type: string
+          description: Free text field for the Bank Routing Number.
+          example: string
+        bankAccountNo:
+          type: string
+          description: Free text field for the Bank Account Number.
+          example: string
+        bankName:
+          type: string
+          description: Free text field for the Bank Name.
+          example: string
+        bankAddress:
+          type: string
+          description: Free text field for the Bank Street Address.
+          example: string
+        bankCity:
+          type: string
+          description: Free text field for the Bank City.
+          example: string
+        bankState:
+          type: string
+          description: State the bank resides in.
+          example: string
+        bankCountry:
+          type: string
+          description: Country the bank resides in.
+          example: string
+        bankZipCode:
+          type: string
+          description: Zip Code of the bank.
+          example: string
+        swiftNo:
+          type: string
+          description: Free text field for SWIFT Number.
+          example: string
+        ibanNo:
+          type: string
+          description: Free text field for IBAN Number.
+          example: string
+        misc1099:
+          type: boolean
+          description: Defines the supplier as 1099. This displays the 1099 check box on supplier invoices. When enabled, supplier invoices are flagged as 1099 by default.
+          example: false
+    PurchasingDefaultsDTO:
+      type: object
+      description: The model for Supplier Purchasing Defaults.
+      properties:
+        defaultCarrierId:
+          type: string
+          format: uuid
+          description: This is the ID of another supplier that has their supplier type flagged as a Carrier.
+          example: 00000000-0000-0000-0000-000000000000
+        customs:
+          type: string
+          description: 'Setup Table: Customs'
+          example: string
+        defaultShipTo:
+          type: string
+          description: 'Screen: PO Ship To'
+          example: string
+        defaultShipVia:
+          type: string
+          description: 'Setup Table: PO_Ship_Via'
+          example: string
+        defaultFreightTerms:
+          type: string
+          description: 'Setup Table: PO_Freight_Terms'
+          example: string
+        defaultINCOTerms:
+          type: string
+          description: 'Setup Table: INCO_Terms'
+          example: string
+        defaultFOB:
+          type: string
+          description: 'Setup Table: PO_FOB'
+          example: string
+        defaultPaymentTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        defaultCurrencyCode:
+          type: string
+          example: string
+        defaultTaxCode:
+          type: string
+          description: 'Screen: Tax Codes'
+          example: string
+        defaultPOType:
+          type: string
+          description: 'Screen: PO Type'
+          example: string
+        defaultExpenseAccount:
+          type: string
+          description: 'Screen: Chart of Accounts'
+          example: string
+    CreateAddressDTO:
+      type: object
+      description: The supplier address model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: This must be unique in the context of a supplier.
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Address_Type.'
+          example: string
+        country:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        main:
+          type: boolean
+          description: A supplier may have only one address designated as their Main address.
+          example: false
+        remit:
+          type: boolean
+          description: A supplier may have only one address designated as their Remit payment address.
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        alternateSupplierName:
+          type: string
+          example: string
+      required:
+      - code
+      - type
+      - country
+    SupplierDTO:
+      type: object
+      description: The primary model for a Supplier.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Supplier. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The Supplier Code used in Plex to identify the supplier. This must be unique in the context of a tenant.
+          example: string
+        oldCode:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        language:
+          type: string
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Supplier_Category'
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Supplier_Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier_Type'
+          example: string
+        parentSupplierId:
+          type: string
+          format: uuid
+          description: The ID of a parent supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        webAddress:
+          type: string
+          example: string
+        contactNote:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

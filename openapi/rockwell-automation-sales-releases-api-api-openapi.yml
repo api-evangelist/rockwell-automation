@@ -1,0 +1,713 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Sales Releases API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Sales Releases API
+  description: The Sales Releases API is used to manage sales release data.
+paths:
+  /sales/v1/releases:
+    post:
+      operationId: createRelease
+      summary: Create Release
+      tags:
+      - Sales Releases API
+      description: Create a sales release.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReleaseDto'
+      responses:
+        '201':
+          description: The release was added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/create-release
+    get:
+      operationId: listReleases
+      summary: List Releases
+      tags:
+      - Sales Releases API
+      description: List sales release records based on sales release properties.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the sales release.
+      - name: releaseNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The release number, typically dictated by the customer, for a specific sales release.
+      - name: orderLineIds
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the purchase order line.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The release type for a specific sales release.
+      - name: shipToAddressId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the customer address to which the release will ship.
+      - name: shipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which a sales release must be shipped to satisfy the release's due date.
+      - name: shipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which a sales release must be shipped to satisfy the release's due date.
+      - name: dueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which a sales release is expected to be fulfilled.
+      - name: dueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which a sales release is expected to be fulfilled.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The sales release's current status.
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Identifies the source of the sales release, such as EDI or email.
+      - name: scheduleDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The schedule date relates multiple releases, which may span various parts and/or purchase orders, to a customer's schedule. This is typically populated via EDI.
+      - name: scheduleDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The schedule date relates multiple releases, which may span various parts and/or purchase orders, to a customer's schedule. This is typically populated via EDI.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Plex user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Plex user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: partNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The part number for the sales release.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/list-releases
+  /sales/v1/releases/{id}/edi-details:
+    get:
+      operationId: getReleaseEdiDetails
+      summary: Get Release EDI Details
+      tags:
+      - Sales Releases API
+      description: Retrieve a sales release's EDI details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The release ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseEdiDto'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/get-release-edi-details
+    put:
+      operationId: updateReleaseEdiDetails
+      summary: Update Release EDI Details
+      tags:
+      - Sales Releases API
+      description: Update a sales release's EDI details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The release ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReleaseEdiDto'
+      responses:
+        '200':
+          description: The release EDI details were updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseEdiDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/update-release-edi-details
+  /sales/v1/releases/{id}:
+    get:
+      operationId: getRelease
+      summary: Get Release
+      tags:
+      - Sales Releases API
+      description: Retrieve a sales release record by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The release ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/get-release
+    put:
+      operationId: updateRelease
+      summary: Update Release
+      tags:
+      - Sales Releases API
+      description: Update a sales release.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReleaseDto'
+      responses:
+        '200':
+          description: The release was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/sales-releases-api/update-release
+components:
+  schemas:
+    UpdateReleaseDto:
+      type: object
+      description: The Release model exposed for updating.
+      properties:
+        status:
+          type: string
+          description: The status of the release. If no value is provided for the status, it will be determined based on the firm and planned days by the values provided in this request or in the Approved Supplier record associated with the PO line item.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date of the Release.
+          example: '2026-10-20T12:03:17Z'
+        quantity:
+          type: number
+          format: double
+          description: Release Quantity.
+          example: 0.1
+        type:
+          type: string
+          description: Release Type.
+          example: string
+        note:
+          type: string
+          description: Release Note.
+          example: string
+        poShipTo:
+          type: string
+          description: Purchase Order Ship To.
+          example: string
+        firmDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a firm status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        planDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a planned status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        forecastDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a forecast status.
+
+            Provide a value in this parameter to limit the created releases (the Approved Supplier record is not used to limit the number of Forecast Days for releases).'
+          example: 0
+      required:
+      - dueDate
+      - quantity
+    CreateReleaseDto:
+      type: object
+      description: The Sequenced Release model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - salesReleaseId
+      - kitId
+    ReleaseEdiDto:
+      type: object
+      description: The Release EDI model exposed for adding.
+      properties:
+        line11:
+          type: string
+          description: A line 11 value sent from EDI, typically for label usage.
+          example: string
+        line12:
+          type: string
+          description: A line 12 value sent from EDI, typically for label usage.
+          example: string
+        line13:
+          type: string
+          description: A line 13 value sent from EDI, typically for label usage.
+          example: string
+        line14:
+          type: string
+          description: A line 14 value sent from EDI, typically for label usage.
+          example: string
+        line15:
+          type: string
+          description: A line 15 value sent from EDI, typically for label usage.
+          example: string
+        line16:
+          type: string
+          description: A line 16 value sent from EDI, typically for label usage.
+          example: string
+        line17:
+          type: string
+          description: A line 17 value sent from EDI, typically for label usage.
+          example: string
+        lineCode:
+          type: string
+          description: The EDI line code associated with the release.
+          example: string
+        pickupTime:
+          type: string
+          format: date-time
+          description: The time at which the sales release will be picked up.
+          example: '2026-10-20T12:03:17Z'
+        batch:
+          type: string
+          description: The sales release's batch number.
+          example: string
+        dockCode:
+          type: string
+          description: The dock to which the sales release is being sent.
+          example: string
+        document:
+          type: string
+          description: A document number that's associated with the sales release.
+          example: string
+        rCode:
+          type: string
+          description: A line feed location sent from EDI that's associated with the sales release.
+          example: string
+        referenceNumber:
+          type: string
+          description: A reference number sent from EDI that's associated with the sales release.
+          example: string
+        kanbanNumber:
+          type: string
+          description: The kanban number associated with the sales release.
+          example: string
+        intermediateConsignee:
+          type: string
+          description: The intermediate consignee associated with the release.
+          example: string
+        loadSequenceNumber:
+          type: string
+          description: The loading sequence number associated with the sales release.
+          example: string
+        lotNumber:
+          type: string
+          description: The lot number associated with the sales release.
+          example: string
+        materialHandlingCode:
+          type: string
+          description: The material handling code associated with the sales release.
+          example: string
+        timeFrameCode:
+          type: string
+          description: The time frame code, typically from EDI, for the sales release.
+          example: string
+        usepoint:
+          type: string
+          description: The use point associated with the sales release.
+          example: string
+        vehicleId:
+          type: string
+          description: The vehicle ID on the sales release.
+          example: string
+        logId:
+          type: string
+          format: uuid
+          description: The ID of the EDI log entry.
+          example: 00000000-0000-0000-0000-000000000000
+        orderNumber:
+          type: string
+          description: The EDI order number associated with the sales release.
+          example: string
+    ReleaseDto:
+      type: object
+      description: The Sequenced Release model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseNumber:
+          type: string
+          description: The sales release number.
+          example: string
+        releaseStatus:
+          type: string
+          description: The status assigned to the sequenced release.
+          example: string
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        kitName:
+          type: string
+          description: The kit name.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The user account ID that created the release.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The user account ID that last modified the release record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release record was modified.
+          example: '2026-10-20T12:03:13Z'
+        packedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who packed the release.
+          example: 00000000-0000-0000-0000-000000000000
+        packedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was packed.
+          example: '2026-10-20T12:03:13Z'
+        unPackedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who unpacked the release.
+          example: 00000000-0000-0000-0000-000000000000
+        unPackedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was unpacked.
+          example: '2026-10-20T12:03:13Z'
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateReleaseEdiDto:
+      type: object
+      description: The Release EDI model exposed for updating.
+      properties:
+        line11:
+          type: string
+          description: A line 11 value sent from EDI, typically for label usage.
+          example: string
+        line12:
+          type: string
+          description: A line 12 value sent from EDI, typically for label usage.
+          example: string
+        line13:
+          type: string
+          description: A line 13 value sent from EDI, typically for label usage.
+          example: string
+        line14:
+          type: string
+          description: A line 14 value sent from EDI, typically for label usage.
+          example: string
+        line15:
+          type: string
+          description: A line 15 value sent from EDI, typically for label usage.
+          example: string
+        line16:
+          type: string
+          description: A line 16 value sent from EDI, typically for label usage.
+          example: string
+        line17:
+          type: string
+          description: A line 17value sent from EDI, typically for label usage.
+          example: string
+        lineCode:
+          type: string
+          description: The EDI line code associated with the release.
+          example: string
+        pickupTime:
+          type: string
+          format: date-time
+          description: The time at which the sales release will be picked up.
+          example: '2026-10-20T12:03:17Z'
+        batch:
+          type: string
+          description: The sales release's batch number.
+          example: string
+        dockCode:
+          type: string
+          description: The dock to which the sales release is being sent.
+          example: string
+        document:
+          type: string
+          description: A document number that's associated with the sales release.
+          example: string
+        rCode:
+          type: string
+          description: A line feed location sent from EDI that's associated with the sales release.
+          example: string
+        referenceNumber:
+          type: string
+          description: A reference number sent from EDI that's associated with the sales release.
+          example: string
+        kanbanNumber:
+          type: string
+          description: The kanban number associated with the sales release.
+          example: string
+        intermediateConsignee:
+          type: string
+          description: The intermediate consignee associated with the release.
+          example: string
+        loadSequenceNumber:
+          type: string
+          description: The loading sequence number associated with the sales release.
+          example: string
+        lotNumber:
+          type: string
+          description: The lot number associated with the sales release.
+          example: string
+        materialHandlingCode:
+          type: string
+          description: The material handling code associated with the sales release.
+          example: string
+        timeFrameCode:
+          type: string
+          description: The time frame code, typically from EDI, for the sales release.
+          example: string
+        usepoint:
+          type: string
+          description: The use point associated with the sales release.
+          example: string
+        vehicleId:
+          type: string
+          description: The vehicle ID on the sales release.
+          example: string
+        logId:
+          type: string
+          format: uuid
+          description: The ID of the EDI log entry.
+          example: 00000000-0000-0000-0000-000000000000
+        orderNumber:
+          type: string
+          description: The EDI order number associated with the sales release.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

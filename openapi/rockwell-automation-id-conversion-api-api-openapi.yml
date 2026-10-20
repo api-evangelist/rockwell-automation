@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Id Conversion API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Id Conversion API
+  description: The Identity Mappings API is used to retrieve a list of IDs for a specified standard object by searching against keys or retrieves a list of identity keys and their values that uniquely identify a standard object record.
+paths:
+  /platform/identity-mappings/v1/keys-to-ids:
+    post:
+      operationId: listIds
+      summary: List Ids
+      tags:
+      - Id Conversion API
+      description: Retrieves a list of IDs of the specified standard object by searching against keys. This operation returns a maximum of 5000 records.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSearchBody'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityMappingsResponse'
+        '400':
+          description: Validation error.
+      x-source: https://developers.plex.com/api/documentation/id-conversion-api/list-ids
+  /platform/identity-mappings/v1/ids-to-keys:
+    post:
+      operationId: listKeys
+      summary: List Keys
+      tags:
+      - Id Conversion API
+      description: Retrieves a list of keys for the specified standard object by searching against IDs. This operation returns a maximum of 5000 records.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeySearchBody'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityMappingsResponse'
+        '400':
+          description: Validation error.
+      x-source: https://developers.plex.com/api/documentation/id-conversion-api/list-keys
+components:
+  schemas:
+    IdentityMappingsResponse:
+      type: object
+      properties:
+        standardObject:
+          $ref: '#/components/schemas/StandardObject'
+        recordIdentifiers:
+          type: array
+          description: A list of identity keys, IDs and their corresponding values that uniquely identify a standard object record.
+          items:
+            type: object
+      required:
+      - standardObject
+      - recordIdentifiers
+    StandardObjectRecordIdentifiers:
+      type: object
+      description: The data model that describes the fields necessary to uniquely identify a record of a standard object.
+      properties:
+        keyCount:
+          type: integer
+          format: int32
+          description: The number of fields necessary to uniquely identify a resource of a standard object.
+          example: 2
+        keys:
+          type: array
+          description: A list of identity keys and their data type.
+          items:
+            type: object
+      required:
+      - keyCount
+      - keys
+    StandardObject:
+      type: object
+      description: The data model that describes the structure of a standard object. This includes the name used internally, the label that is displayed on Plex forms, and the properties that are used to uniquely identify a record of the standard object.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: string
+        standardObjectLabel:
+          type: string
+          description: The display name of the standard object that is used as a label on forms within Plex and on printed documents.
+          example: string
+        tableName:
+          type: string
+          description: The name of the table that a standard object represents.
+          example: string
+        recordIdentifiers:
+          $ref: '#/components/schemas/StandardObjectRecordIdentifiers'
+      required:
+      - standardObjectName
+      - standardObjectLabel
+      - tableName
+      - recordIdentifiers
+    KeySearchBody:
+      type: object
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: GLJournalDist
+        ids:
+          type: array
+          description: A list of unique identifiers for the standard object record.
+          items:
+            type: string
+            format: uuid
+      required:
+      - standardObjectName
+      - ids
+    IdSearchBody:
+      type: object
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: GLJournalDist
+        recordIdentifiers:
+          type: array
+          description: A list of identity keys and their values that uniquely identify a standard object record.
+          items:
+            type: object
+      required:
+      - standardObjectName
+      - recordIdentifiers
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

@@ -1,0 +1,214 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/rockwell-automation-plex-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: probed
+note: No MCP server was found. The pre-flight posted tools/list to /mcp on api.plex.com, api.rockwellautomation.com, api.github.com, datamosaix-portal.cloud.rockwellautomation.com;
+  verdict absent. Candidate tools below are derived from the 500 operation(s) in the provider's own OpenAPI (40 listed); they describe what a
+  server WOULD expose, not one that exists.
+tools:
+- name: create_ap_invoice
+  operationId: createApInvoice
+  method: POST
+  path: /accounting/v1/ap-invoices
+  description: Create AP Invoice
+- name: list_ap_invoices
+  operationId: listApInvoices
+  method: GET
+  path: /accounting/v1/ap-invoices
+  description: List AP Invoices
+- name: get_ap_invoice
+  operationId: getApInvoice
+  method: GET
+  path: /accounting/v1/ap-invoices/{id}
+  description: Get AP Invoice
+- name: update_ap_invoice
+  operationId: updateApInvoice
+  method: PUT
+  path: /accounting/v1/ap-invoices/{id}
+  description: Update AP Invoice
+- name: link_receipts_with_ap_invoice
+  operationId: linkReceiptsWithApInvoice
+  method: POST
+  path: /accounting/v1/ap-invoices/{id}/linkreceipts
+  description: Link Receipts With AP Invoice
+- name: unlink_receipts_from_ap_invoice
+  operationId: unlinkReceiptsFromApInvoice
+  method: POST
+  path: /accounting/v1/ap-invoices/{id}/unlinkreceipts
+  description: Unlink Receipts From AP Invoice
+- name: get_ap_payment
+  operationId: getApPayment
+  method: GET
+  path: /accounting/v1/ap-payments/{id}
+  description: Get AP Payment
+- name: list_ap_payments
+  operationId: listApPayments
+  method: GET
+  path: /accounting/v1/ap-payments
+  description: List AP Payments
+- name: get_ar_deposit
+  operationId: getArDeposit
+  method: GET
+  path: /accounting/v1/ar-deposits/{id}
+  description: Get AR Deposit
+- name: list_ar_deposits
+  operationId: listArDeposits
+  method: GET
+  path: /accounting/v1/ar-deposits
+  description: List AR Deposits
+- name: create_ar_invoice
+  operationId: createArInvoice
+  method: POST
+  path: /accounting/v1/ar-invoices
+  description: Create AR Invoice
+- name: list_ar_invoices
+  operationId: listArInvoices
+  method: GET
+  path: /accounting/v1/ar-invoices
+  description: List AR Invoices
+- name: get_ar_invoice
+  operationId: getArInvoice
+  method: GET
+  path: /accounting/v1/ar-invoices/{id}
+  description: Get AR Invoice
+- name: update_ar_invoice
+  operationId: updateArInvoice
+  method: PUT
+  path: /accounting/v1/ar-invoices/{id}
+  description: Update AR Invoice
+- name: create_activity
+  operationId: createActivity
+  method: POST
+  path: /management/v1/activity-manager
+  description: Create Activity
+- name: list_activities
+  operationId: listActivities
+  method: GET
+  path: /management/v1/activity-manager
+  description: List Activities
+- name: get_activity
+  operationId: getActivity
+  method: GET
+  path: /management/v1/activity-manager/{id}
+  description: Get Activity
+- name: update_activity
+  operationId: updateActivity
+  method: PUT
+  path: /management/v1/activity-manager/{id}
+  description: Update Activity
+- name: get_approved_supplier
+  operationId: getApprovedSupplier
+  method: GET
+  path: /purchasing/v1/approved-suppliers/{id}
+  description: Get Approved Supplier
+- name: get_edi_details
+  operationId: getEdiDetails
+  method: GET
+  path: /purchasing/v1/approved-suppliers/{id}/edi-details
+  description: Get EDI Details
+- name: get_mrp_details
+  operationId: getMrpDetails
+  method: GET
+  path: /purchasing/v1/approved-suppliers/{id}/mrp-details
+  description: Get MRP Details
+- name: list_approved_suppliers
+  operationId: listApprovedSuppliers
+  method: GET
+  path: /purchasing/v1/approved-suppliers
+  description: List Approved Suppliers
+- name: list_prices
+  operationId: listPrices
+  method: GET
+  path: /purchasing/v1/approved-suppliers/{id}/prices
+  description: List Prices
+- name: create_bom_component
+  operationId: createBomComponent
+  method: POST
+  path: /engineering/v1/boms
+  description: Create BOM Component
+- name: list_bom_components
+  operationId: listBomComponents
+  method: GET
+  path: /engineering/v1/boms
+  description: List BOM Components
+- name: deactivate_bom_component
+  operationId: deactivateBomComponent
+  method: POST
+  path: /engineering/v1/boms/{id}/deactivate
+  description: Deactivate BOM Component
+- name: get_bom_component
+  operationId: getBomComponent
+  method: GET
+  path: /engineering/v1/boms/{id}
+  description: Get BOM Component
+- name: patch_bom_component
+  operationId: patchBomComponent
+  method: PATCH
+  path: /engineering/v1/boms/{id}
+  description: Patch BOM Component
+- name: get_building
+  operationId: getBuilding
+  method: GET
+  path: /mdm/v1/buildings/{id}
+  description: Get Building
+- name: list_buildings
+  operationId: listBuildings
+  method: GET
+  path: /mdm/v1/buildings
+  description: List Buildings
+- name: activate_account
+  operationId: activateAccount
+  method: POST
+  path: /mdm/v1/chart-of-accounts/{id}/activate
+  description: Activate Account
+- name: create_account
+  operationId: createAccount
+  method: POST
+  path: /mdm/v1/chart-of-accounts
+  description: Create Account
+- name: list_accounts
+  operationId: listAccounts
+  method: GET
+  path: /mdm/v1/chart-of-accounts
+  description: List Accounts
+- name: deactivate_account
+  operationId: deactivateAccount
+  method: POST
+  path: /mdm/v1/chart-of-accounts/{id}/deactivate
+  description: Deactivate Account
+- name: get_account
+  operationId: getAccount
+  method: GET
+  path: /mdm/v1/chart-of-accounts/{id}
+  description: Get Account
+- name: update_account
+  operationId: updateAccount
+  method: PUT
+  path: /mdm/v1/chart-of-accounts/{id}
+  description: Update Account
+- name: sync_accounts
+  operationId: syncAccounts
+  method: POST
+  path: /mdm/v1/chart-of-accounts/sync
+  description: Sync Accounts
+- name: create_checksheet
+  operationId: createChecksheet
+  method: POST
+  path: /quality/v1/checksheets
+  description: Create Checksheet
+- name: get_checksheet
+  operationId: getChecksheet
+  method: GET
+  path: /quality/v1/checksheets/{id}
+  description: Get Checksheet
+- name: list_checksheet_types
+  operationId: listChecksheetTypes
+  method: GET
+  path: /quality/v1/checksheet-types
+  description: List Checksheet Types

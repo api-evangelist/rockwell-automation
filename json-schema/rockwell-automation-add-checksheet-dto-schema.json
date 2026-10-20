@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/rockwell-automation/main/json-schema/rockwell-automation-add-checksheet-dto-schema.json",
+  "title": "AddChecksheetDto",
+  "description": "The data structure representing a checksheet.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/rockwell-automation-plex-openapi.yml#/components/schemas/AddChecksheetDto",
+  "type": "object",
+  "properties": {
+    "controlPlanId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Control Plan.\nRequired for a non-live checksheet. If there are multiple process control recipes with the same PartId, OperationId, and InspectionMode, you must specify this."
+    },
+    "productionWorkcenterId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Workcenter. This usually represents a live checksheet.\nRequired for completing a live checksheet. The workcenter must be properly configured and have an operator logged in to Plex. The control plan must be designated as primary and must have an active control plan status (&quot;Available For Use&quot; flag set to true). Additionally, for part control plans, the Inspection Mode Manufacturing flag must be set to true, and the selected part operation must be active and not designated as a sub-operation. For process control recipes, the Inspection Mode Process Check flag must be set to true, the control plan type must have its process flag enabled, and it must belong to a process control recipe family."
+    },
+    "jobOperationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Job Operation.\nIn live mode, if sent, should match the setup of the control panel. They can be found at scheduling/{version}/jobs."
+    },
+    "partId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Part."
+    },
+    "partOperationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Part Operation.\nIn live mode, if sent, should match the setup of the control panel. They can be found at mdm/{version}/part-operations. If ProductionWorkcenterId is specified, it is optional to send the PartId, PartOperationId, JobOperationId, and ControlPlanId. If JobOperationId is specified, it is optional to send the PartId and PartOperationId. Process control recipe validations differ slightly from those of part control plans. For part control plans, you can add the checksheet to either a live or non-live checksheet. For process control recipes, the configuration of the process control recipe family, along with the &quot;Control Panel&quot; group and the &quot;All Process Checksheets Display&quot; setting, determines whether the submitted checksheet is valid. If the recipe family is configured as workcenter-only, the checksheet may be added only in the live-mode to any part associated with the specified ProductionWorkcenterId, provided the operation matches that of the recipe family. If the recipe family is set up with both parts and workcenters, the checksheet can only be added to those specific combinations of parts, workcenters, and operations defined in the recipe family. If the &quot;All Process Checksheets Display&quot; setting is enabled, the restrictions for workcenter-only or part-specific assignments no longer apply. In this case, as long as the ProductionWorkcenterId and Operation are aligned, the checksheet may be added to any part only in live-mode."
+    },
+    "operationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Operation."
+    },
+    "inspectionMode": {
+      "type": "string",
+      "description": "The Inspection Mode."
+    },
+    "approvedWorkcenterId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Approved Workcenter for the Part and Operation.\nRelevant only for a non-live checksheet. For a part and operation, these are available in production/{version}/production-definitions/approved-workcenters"
+    },
+    "containerSerialNos": {
+      "type": "array",
+      "description": "A list of Container Serial Nos. The serial number sent must belong to the part and operation of the intended control plan line being sent.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "note": {
+      "type": "string",
+      "description": "The note on the Measurement Group."
+    },
+    "inspectorEmployeeId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Inspector Employee.\nDo not specify this if you are providing the ProductionWorkcenterId. For a live checksheet, this field is automatically set to the primary operator logged into the workcenter. If no operator is specified, the inspector defaults to the Plex API user. Employee information is available at mdm/{version}/employees."
+    },
+    "measurements": {
+      "type": "array",
+      "description": "A list of Measurements.",
+      "items": {
+        "type": "object",
+        "description": "The data structure representing a Measurement.",
+        "properties": {}
+      }
+    },
+    "spcChecksheetContainerText": {
+      "type": "string",
+      "description": "SPC Checksheet Container Text."
+    },
+    "spcChecksheetHeatText": {
+      "type": "string",
+      "description": "SPC Checksheet Heat Text."
+    },
+    "spcChecksheetProductionText": {
+      "type": "string",
+      "description": "SPC Checksheet Production Text."
+    },
+    "specificationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier representing the Specification."
+    },
+    "value": {
+      "type": "number",
+      "format": "double",
+      "description": "The Measurement Value.\n  Attribute specifications are qualitative part features that can only result in a count of non-conformances, \n  like the presence of a burrs on a part, leak or no leak etc.\n  You may collect attribute data against a variable spec by specifying the pass / fail condition on the control plan line form, \n  so if a specification can be measured on a continuous scale, then enter it as a variable spec.\n  Measurements for attribute type must specify either a 1 or a 0 signifying a pass or a fail scenario. \n\n\n  Variable specifications are something that is not an attribute specification. \n  It can be measured on a continuous scale, such as height, weight, diameter, temperature, etc.\n  These would be tolerance types such as:\n  Two Sided (10 mm +/- 0.05 mm)\n  One Sided Maximum (10 mm max)\n  Based on which tolerance type you select, the limits will be calculated. For example, for a Two Sided Tolerance, \n  fields for the target and +/- values will be needed.\n\n\n  A specification could have one or more bonus tolerances associated with it.\n  An example for when this is needed: You have a feature size between 10mm to 11mm or 10.5mm +/- .5mm. \n  In addition there is an allowable maximum material condition of .02 or bonus tolerance for straightness.\n  If the feature size was at it's maximum say 11mm, then the bonus tolerance would be .02mm.\n  The way this will be need to be defined in part specification would be as below :\n  - Create a Part Specification for the Feature Size of 10.5mm +/- .5mm.\n  - Create another Part Specification for the Bonus Tolerance. In this example we are using a Tolerance Type &quot;One-Sided Maximum&quot; and added the .02mm.\n  - Specify a Bonus Tolerance and add a Part Specification with the feature size of 10.5mm as the Dependent Specification. \n  - Make the Applied To as &quot;Upper&quot; and the Bonus Side as &quot;Upper&quot;.\n  Finally create a Control Plan using these two Part Specifications. When you fillout a checksheet and add a dimenstion for the feature size, \n  the bonus specification will calculate in the target area automatically and you can enter a measurement as long as it meets the allowed target.\n  Note: The setting &quot;Bonus Tolerance When Out of Spec Apply&quot; will also contribute to the upper and lower bonus tolerance.\n  When turned on, bonus tolerance values will be calculated even when the bonus is based on a measurement that is out-of-spec. \n  When off, no bonus is applied from out-of-spec measurements.\n\n\n  Compare value specifications only apply to attribute Specifications. \n  It works in conjunction with the Control Plan line if you turn on the setting &quot;Custom Checksheet Data Collection Type Display&quot;. \n  For specifying such compare value functions add the value on the note section of measurements."
+    },
+    "values": {
+      "type": "array",
+      "description": "The Measurement Values.",
+      "items": {
+        "type": "number",
+        "format": "double"
+      }
+    },
+    "gageId": {
+      "type": "string",
+      "description": "The Gage ID for the Measurement Group. Note this will be saved on the checksheet only if the Setting Control_Plans , Gage ID Store is set to true. This field will be required if the corresponding inspection mode requires it."
+    }
+  },
+  "required": [
+    "operationId",
+    "inspectionMode",
+    "measurements",
+    "specificationId",
+    "values"
+  ]
+}

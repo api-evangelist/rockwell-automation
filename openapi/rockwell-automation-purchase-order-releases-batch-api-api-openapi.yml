@@ -1,0 +1,503 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Purchase Order Releases…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Purchase Order Releases Batch API
+  description: 'Use the Purchase Order Releases Batch API to send a large number of release Create, Update, or Cancel requests to Plex for processing. Send a POST request to a batch endpoint and Plex will process the requests. Use a GET request to track the status of the batch request as it is processing.
+
+    Instructions:
+
+
+    Create a batch by submitting a POST request to one of the batch endpoints:
+
+
+    POST purchasing/v1/release-batch/cancel
+
+    POST purchasing/v1/release-batch/update
+
+    POST purchasing/v1/release-batch/create
+
+    POST purchasing/v1/release-batch/delete
+
+    POST purchasing/v2-beta1/release-batch/delete
+
+
+    Format the request to use the appropriate Resource IDs and data.
+
+    For Create Releases, provide a unique identifier for the release or it will be automatically generated.
+
+    Save the Batch Request ID that is returned in the response. Use this ID to check the status of the batch process.
+
+    Use the Batch Request ID in a GET request to purchasing/v1/release-batch/{id} at regular intervals to view the status of releases that have been processed and to view any failure information.
+
+    When the batch is complete, persist any errors that the customer encountered.
+
+
+    At this time, the following functions of Plex are not supported by this API:
+
+
+    Revision Tracking
+
+    Email and EDI Notifications
+
+    Multi-Entity Releases
+
+    JIT / RAN
+
+    Creation of Release Jobs
+
+
+    Additional Technical Limitations:
+
+
+    Request Body Size Maximum: 10MB
+
+    GET Release Batch Endpoint
+
+
+    Batch progress data will only persist in Plex for a short period of time.
+
+    Successful request data will remain for 1 day.
+
+    Failed request data will remain for 3 days.
+
+    NOTE: The actual purchase order release data being created/modified will persist indefinitely as usual.'
+paths:
+  /purchasing/v1/release-batch/cancel:
+    post:
+      operationId: cancelReleaseBatch
+      summary: Cancel Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be cancelled offline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReleaseCancelDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/cancel-release-batch
+  /purchasing/v2-beta1/release-batch/create:
+    post:
+      operationId: createReleaseBatchV2-BETA1
+      summary: Create Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be created offline.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCreateReleaseDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/create-release-batch
+  /purchasing/v1/release-batch/create:
+    post:
+      operationId: createReleaseBatchV1
+      summary: Create Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be created offline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCreateReleaseDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/create-release-batch
+  /purchasing/v2-beta1/release-batch/delete:
+    post:
+      operationId: deleteReleaseBatchV2-BETA1
+      summary: Delete Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be deleted offline. This endpoint can delete releases by release ID, or by a combination of release status, part ID, and supplier ID. To safeguard against deleting all releases in a tenant, this endpoint requires at least one request parameter when not identifying specific releases.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReleaseDeleteDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/delete-release-batch
+  /purchasing/v1/release-batch/delete:
+    post:
+      operationId: deleteReleaseBatchV1
+      summary: Delete Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be deleted offline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+              example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/delete-release-batch
+  /purchasing/v2-beta1/release-batch/{id}:
+    get:
+      operationId: getReleaseBatchV2-BETA1
+      summary: Get Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: Gets the current state and progress of a batch request.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Batch ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/get-release-batch
+  /purchasing/v1/release-batch/{id}:
+    get:
+      operationId: getReleaseBatchV1
+      summary: Get Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: Gets the current state and progress of a batch request.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Request ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/get-release-batch
+  /purchasing/v2-beta1/release-batch/update:
+    post:
+      operationId: updateReleaseBatchV2-BETA1
+      summary: Update Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be updated offline.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchUpdateReleaseDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/update-release-batch
+  /purchasing/v1/release-batch/update:
+    post:
+      operationId: updateReleaseBatchV1
+      summary: Update Release Batch
+      tags:
+      - Purchase Order Releases Batch API
+      description: En-queues a batch of releases to be updated offline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchUpdateReleaseDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProgressDto'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-batch-api/update-release-batch
+components:
+  schemas:
+    BatchCreateReleaseDto:
+      type: object
+      description: The parameters for creating a batch of Releases.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Release. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        poLineItemId:
+          type: string
+          format: uuid
+          description: Purchase Order Line Item ID.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: The status of the new release. If no value is provided for the status, it will be determined based on the firm and planned days by the values provided in this request or in the Approved Supplier record associated with the PO line item.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date of the Release.
+          example: '2026-10-20T12:03:17Z'
+        quantity:
+          type: number
+          format: double
+          description: Release Quantity.
+          example: 0.1
+        type:
+          type: string
+          description: Release Type.
+          example: string
+        note:
+          type: string
+          description: Release Note.
+          example: string
+        poShipTo:
+          type: string
+          description: Purchase Order Ship To.
+          example: string
+        firmDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a firm status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        planDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a planned status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        forecastDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a forecast status.
+
+            Provide a value in this parameter to limit the created releases (the Approved Supplier record is not used to limit the number of Forecast Days for releases).'
+          example: 0
+        releaseLineNo:
+          type: integer
+          format: int32
+          description: The purchase order line item number that the release is associated with. When this is included in the request, the value is taken from the external system rather than assigned according to Plex logic when releases are created. This value helps clarify the due date order in the Plex user interface when releases are created out of order due to parallel asynchronous batch processing.
+          example: 0
+      required:
+      - poLineItemId
+      - dueDate
+      - quantity
+    BatchUpdateReleaseDto:
+      type: object
+      description: The parameters for updating a batch of Releases.
+      properties:
+        status:
+          type: string
+          description: The status of the release. If no value is provided for the status, it will be determined based on the firm and planned days by the values provided in this request or in the Approved Supplier record associated with the PO line item.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date of the Release.
+          example: '2026-10-20T12:03:17Z'
+        quantity:
+          type: number
+          format: double
+          description: Release Quantity.
+          example: 0.1
+        type:
+          type: string
+          description: Release Type.
+          example: string
+        note:
+          type: string
+          description: Release Note.
+          example: string
+        poShipTo:
+          type: string
+          description: Purchase Order Ship To.
+          example: string
+        firmDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a firm status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        planDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a planned status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        forecastDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a forecast status.
+
+            Provide a value in this parameter to limit the created releases (the Approved Supplier record is not used to limit the number of Forecast Days for releases).'
+          example: 0
+        id:
+          type: string
+          format: uuid
+          description: The release id.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - dueDate
+      - quantity
+      - id
+    BatchReleaseCancelDto:
+      type: object
+      description: Extension of the ReleaseCancelDto class to hold any additional fields for Batch endpoints.
+      properties:
+        status:
+          type: string
+          description: The Release_Status
+          example: string
+        id:
+          type: string
+          format: uuid
+          description: The release id.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - status
+      - id
+    BatchProgressDto:
+      type: object
+      description: Progress details for a batch request.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the batch request.
+          example: 00000000-0000-0000-0000-000000000000
+        releasesCount:
+          type: integer
+          format: int32
+          description: The number of releases in the batch request.
+          example: 0
+        releasesProcessed:
+          type: integer
+          format: int32
+          description: The number of releases in the batch request that have been processed.
+          example: 0
+        failures:
+          type: array
+          description: Any errors encountered while processing the releases from a batch request.
+          items: {}
+    BatchReleaseDeleteDto:
+      type: object
+      description: The query parameters for deleting Release resources.
+      properties:
+        deleteReleaseAcknowledgementRecords:
+          type: boolean
+          description: A flag indicating whether or not to delete the release acknowledgements which are associated with the releases.
+          example: false
+        releaseId:
+          type: array
+          description: A list of unique identifiers for releases to delete.
+          items:
+            type: string
+            format: uuid
+        status:
+          type: array
+          description: One or more release status names.
+          items:
+            type: string
+        partId:
+          type: array
+          description: One or more unique identifiers for parts which are associated with releases.
+          items:
+            type: string
+            format: uuid
+        supplierId:
+          type: array
+          description: One or more unique identifiers for suppliers which are associated with releases.
+          items:
+            type: string
+            format: uuid
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

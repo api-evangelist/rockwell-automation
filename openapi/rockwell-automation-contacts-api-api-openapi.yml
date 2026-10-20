@@ -1,0 +1,609 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Contacts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Contacts API
+  description: The Contacts API is used to manage contact master data.
+paths:
+  /mdm/v1/contacts:
+    post:
+      operationId: createContact
+      summary: Create Contact
+      tags:
+      - Contacts API
+      description: Create a new Contact.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactDTO'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/contacts-api/create-contact
+    get:
+      operationId: listContacts
+      summary: List Contacts
+      tags:
+      - Contacts API
+      description: List Contacts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of contact IDs.
+      - name: customerId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: firstName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: lastName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: companyName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup table: Contact Type.'
+      - name: associatedWithId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: IAM Account Id
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactDTO'
+      x-source: https://developers.plex.com/api/documentation/contacts-api/list-contacts
+  /mdm/v1/contacts/{id}/deactivate:
+    post:
+      operationId: deactivateContact
+      summary: Deactivate Contact
+      tags:
+      - Contacts API
+      description: Deactivate a Contact.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/contacts-api/deactivate-contact
+  /mdm/v1/contacts/{id}:
+    delete:
+      operationId: deleteContact
+      summary: Delete Contact
+      tags:
+      - Contacts API
+      description: Delete a Contact.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/contacts-api/delete-contact
+    get:
+      operationId: getContact
+      summary: Get Contact
+      tags:
+      - Contacts API
+      description: Retrieve a Contact by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Contact Resource ID
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactDTO'
+        '400':
+          description: Bad Request
+        '404':
+          description: The contact does not exist.
+      x-source: https://developers.plex.com/api/documentation/contacts-api/get-contact
+    put:
+      operationId: updateContact
+      summary: Update Contact
+      tags:
+      - Contacts API
+      description: Update a Contact.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContactDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/contacts-api/update-contact
+  /mdm/v1/contacts/sync:
+    post:
+      operationId: syncContacts
+      summary: Sync Contacts
+      tags:
+      - Contacts API
+      description: Sync a set of Contacts from another system. This operation creates Contacts that do not exist in Plex and updates existing Contacts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncContactDTO'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/contacts-api/sync-contacts
+components:
+  schemas:
+    ContactDTO:
+      type: object
+      description: The all-inclusive domain model for a Contact.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Contact.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        firstName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+        title:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        companyName:
+          type: string
+          example: string
+        officeAddress:
+          type: string
+          example: string
+        homeAddress:
+          type: string
+          example: string
+        private:
+          type: integer
+          format: int32
+          example: 0
+        description:
+          type: string
+          example: string
+        birthDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        url:
+          type: string
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          example: 0
+        type:
+          type: string
+          description: 'Setup table: Contact Type.'
+          example: string
+        associatedWithId:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedById:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        createdById:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+    SyncContactDTO:
+      type: object
+      description: The full Contact resource structure.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Contact. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        firstName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+        title:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        companyName:
+          type: string
+          example: string
+        officeAddress:
+          type: string
+          example: string
+        homeAddress:
+          type: string
+          example: string
+        private:
+          type: integer
+          format: int32
+          example: 0
+        description:
+          type: string
+          example: string
+        birthDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        url:
+          type: string
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          example: 0
+        type:
+          type: string
+          description: 'Setup table: Contact Type.'
+          example: string
+        associatedWithId:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+    UpdateContactDTO:
+      type: object
+      description: The Contact model exposed for updating.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Contact.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        firstName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+        title:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        companyName:
+          type: string
+          example: string
+        officeAddress:
+          type: string
+          example: string
+        homeAddress:
+          type: string
+          example: string
+        private:
+          type: integer
+          format: int32
+          example: 0
+        description:
+          type: string
+          example: string
+        birthDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        url:
+          type: string
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          example: 0
+        type:
+          type: string
+          description: 'Setup Table: Contact Type.'
+          example: string
+        associatedWithId:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    CreateContactDTO:
+      type: object
+      description: The Contact model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Contact. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        firstName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+        title:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        companyName:
+          type: string
+          example: string
+        officeAddress:
+          type: string
+          example: string
+        homeAddress:
+          type: string
+          example: string
+        private:
+          type: integer
+          format: int32
+          example: 0
+        description:
+          type: string
+          example: string
+        birthDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        url:
+          type: string
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          example: 0
+        type:
+          type: string
+          description: 'Setup table: Contact Type.'
+          example: string
+        associatedWithId:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

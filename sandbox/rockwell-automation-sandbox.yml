@@ -1,0 +1,12 @@
+generated: '2026-10-20'
+method: searched
+source: https://developers.plex.com/getstarted
+description: Plex runs a separate Test environment at https://test.connect.plex.com alongside production https://connect.plex.com ("Tier represents the Product or Test environment"). Test and production keys must be different keys. The developer portal Try It console works for GET endpoints only.
+docs: https://developers.plex.com/getstarted
+environments:
+- name: Production
+  base_url: https://connect.plex.com
+- name: Test
+  base_url: https://test.connect.plex.com
+  evidence: https://developers.plex.com/api/sandbox/url
+key_modes: Test and production keys must be different keys (https://developers.plex.com/best-practices).

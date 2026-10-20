@@ -1,0 +1,1169 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Activity Manager API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Activity Manager API
+  description: The Activity Manager API is used to manage activity data.
+paths:
+  /management/v1/activity-manager:
+    post:
+      operationId: createActivity
+      summary: Create Activity
+      tags:
+      - Activity Manager API
+      description: Add an activity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddActivityRequestDto'
+      responses:
+        '201':
+          description: The record was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddActivityResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddActivityResponseDto'
+      x-source: https://developers.plex.com/api/documentation/activity-manager-api/create-activity
+    get:
+      operationId: listActivities
+      summary: List Activities
+      tags:
+      - Activity Manager API
+      description: Retrieve a list of activities.
+      parameters:
+      - name: tenantId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Tenant ID.
+      - name: activityIds
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the activity.
+      - name: activityName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the activity.
+      - name: activityType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The activity type.
+      - name: activityStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The status information of the activity.
+      - name: priority
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The priority information about the activity.
+      - name: dueDateStartDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The due date of the activity.
+      - name: dueDateEndDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The due date of the activity.
+      - name: customerCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The customer code of the activity.
+      - name: supplierCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The supplier code of the activity.
+      - name: location
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The location of the activity.
+      - name: private
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates whether the activity is private or not.
+      - name: assignedTo
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The User ID assigned to the activity.
+      - name: assignedToDepartment
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The department code to which the activity is assigned.
+      - name: involvedUsers
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The user involved in the activity.
+      - name: statusType
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The status type of the activity.
+      - name: progressType
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The progress type of the activity.
+      - name: parentActivity
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The parent ID of the activity.
+      - name: plannedStartDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The planned start date of the activity.
+      - name: plannedFinishDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The planned finish date of the activity.
+      - name: lastModifiedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return activities that were last modified within a time frame.
+      - name: lastModifiedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return activities that were last modified within a time frame.
+      - name: referenceId
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The unique identifier for the activity's reference.
+      - name: referenceType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The originating application or other source that created the activity.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListActivitiesResponseDto'
+      x-source: https://developers.plex.com/api/documentation/activity-manager-api/list-activities
+  /management/v1/activity-manager/{id}:
+    get:
+      operationId: getActivity
+      summary: Get Activity
+      tags:
+      - Activity Manager API
+      description: Retrieves an activity by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Activity ID.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/activity-manager-api/get-activity
+    put:
+      operationId: updateActivity
+      summary: Update Activity
+      tags:
+      - Activity Manager API
+      description: 'NOTE:
+
+        When you update an activity and provide a value for a field, any existing values are cleared and replaced with the new one.
+
+        When you update an activity and do not provide a value for a field, any previously stored values for that field are retained.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Activity ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateActivityRequestDto'
+      responses:
+        '200':
+          description: The record was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateActivityResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateActivityResponseDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/activity-manager-api/update-activity
+components:
+  schemas:
+    ActivityDto:
+      type: object
+      description: The data structure representing an activity.
+      properties:
+        activityId:
+          type: string
+          format: uuid
+          description: The ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of the activity.
+          example: string
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        involvedUsers:
+          type: array
+          description: The user involved in the activity.
+          items:
+            type: string
+            format: uuid
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        improvementProject:
+          type: string
+          description: The improvement project number of the activity.
+          example: string
+        expenseProject:
+          type: string
+          description: The expense project key of the activity.
+          example: string
+        strategicObjective:
+          type: string
+          description: The objective of the activity.
+          example: string
+        opportunity:
+          type: string
+          description: The opportunity associated with the activity.
+          example: string
+        metricName:
+          type: string
+          description: The metric name of the activity.
+          example: string
+        childActivities:
+          type: array
+          description: The IDs of child activities.
+          items:
+            type: string
+            format: uuid
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        actualStartDateTime:
+          type: string
+          format: date-time
+          description: The actual start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        actualFinishDateTime:
+          type: string
+          format: date-time
+          description: The actual finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        percentageCompletion:
+          type: number
+          format: double
+          description: The completion percentage of the activity.
+          example: 0.1
+        suggestions:
+          type: array
+          description: The suggestions related to the activity.
+          items:
+            type: string
+        comments:
+          type: array
+          description: The comments related to the activity.
+          items:
+            type: string
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date the activity was created.
+          example: '2026-10-20T12:03:01Z'
+        lastModifiedDateTime:
+          type: string
+          format: date-time
+          description: The date on which the activity was last modified.
+          example: '2026-10-20T12:03:01Z'
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity expressed as a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+    ListActivitiesResponseDto:
+      type: object
+      description: The data structure representing an activity.
+      properties:
+        activityId:
+          type: string
+          format: uuid
+          description: The ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of activity.
+          example: string
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        improvementProject:
+          type: string
+          description: The improvement project number of the activity.
+          example: string
+        expenseProject:
+          type: string
+          description: The expense project key of the activity.
+          example: string
+        strategicObjective:
+          type: string
+          description: The objective of the activity.
+          example: string
+        opportunity:
+          type: string
+          description: The opportunity associated with the activity.
+          example: string
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        actualStartDateTime:
+          type: string
+          format: date-time
+          description: The actual start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        actualFinishDateTime:
+          type: string
+          format: date-time
+          description: The actual finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        percentageCompletion:
+          type: number
+          format: double
+          description: The completion percentage of the activity.
+          example: 0.1
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date the activity was created.
+          example: '2026-10-20T12:03:01Z'
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity expressed as a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        lastModifiedDateTime:
+          type: string
+          format: date-time
+          description: The date on which the activity was last modified.
+          example: '2026-10-20T12:03:01Z'
+    AddActivityResponseDto:
+      type: object
+      description: The data structure representing a created activity.
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityId:
+          type: string
+          format: uuid
+          description: The ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of the activity.
+          example: string
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        involvedUsers:
+          type: array
+          description: The user involved in the activity.
+          items:
+            type: string
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        percentageCompletion:
+          type: integer
+          format: int32
+          description: The completion percentage of the activity.
+          example: 0
+        suggestionNos:
+          type: array
+          description: The suggestions related to the activity.
+          items:
+            type: integer
+            format: int32
+        comments:
+          type: array
+          description: The comments related to the activity.
+          items:
+            type: string
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity expressed as a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+    UpdateActivityRequestDto:
+      type: object
+      description: The data structure that represents an update to an activity.
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of the activity.
+          example: string
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        involvedUsers:
+          type: array
+          description: The user involved in the activity.
+          items:
+            type: string
+            format: uuid
+        percentageCompletion:
+          type: integer
+          format: int32
+          description: The completion percentage of the activity.
+          example: 0
+        suggestionNos:
+          type: array
+          description: The suggestions related to the activity.
+          items:
+            type: integer
+            format: int32
+        comments:
+          type: array
+          description: The comments related to the activity.
+          items:
+            type: string
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity. This field should be a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+      required:
+      - tenantId
+      - activityName
+      - activityType
+      - activityStatus
+      - priority
+      - dueDateTime
+    AddActivityRequestDto:
+      type: object
+      description: The data structure representing an activity.
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of the activity.
+          example: string
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        involvedUsers:
+          type: array
+          description: The user involved in the activity.
+          items:
+            type: string
+            format: uuid
+        percentageCompletion:
+          type: integer
+          format: int32
+          description: The completion percentage of the activity.
+          example: 0
+        suggestionNos:
+          type: array
+          description: The suggestions related to the activity.
+          items:
+            type: integer
+            format: int32
+        comments:
+          type: array
+          description: The comments related to the activity.
+          items:
+            type: string
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:01Z'
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity. This field should be a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+      required:
+      - tenantId
+      - activityName
+      - activityType
+      - activityStatus
+      - priority
+      - dueDateTime
+    UpdateActivityResponseDto:
+      type: object
+      description: The data structure representing an updated activity.
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+          description: The Tenant ID.
+          example: 00000000-0000-0000-0000-000000000000
+        activityId:
+          type: string
+          format: uuid
+          description: The ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        activityName:
+          type: string
+          description: The name of the activity.
+          example: string
+        description:
+          type: string
+          description: The description of the activity.
+          example: string
+        activityType:
+          type: string
+          description: The activity type.
+          example: string
+        activityStatus:
+          type: string
+          description: The status information of the activity.
+          example: string
+        statusNote:
+          type: string
+          description: A note on the status of the activity.
+          example: string
+        cost:
+          type: number
+          format: double
+          description: The cost of the activity.
+          example: 0.1
+        priority:
+          type: integer
+          format: int32
+          description: The priority information about the activity.
+          example: 0
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        customerCode:
+          type: string
+          description: The customer code of the activity.
+          example: string
+        supplierCode:
+          type: string
+          description: The supplier code of the activity.
+          example: string
+        location:
+          type: string
+          description: The location of the activity.
+          example: string
+        private:
+          type: boolean
+          description: Indicates whether the activity is private or not.
+          example: false
+        assignedTo:
+          type: string
+          format: uuid
+          description: The User ID assigned to the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedBy:
+          type: string
+          format: uuid
+          description: The User ID assigned by the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToDepartment:
+          type: string
+          description: The department code to which the activity is assigned.
+          example: string
+        involvedUsers:
+          type: array
+          description: The user involved in the activity.
+          items:
+            type: string
+        parentActivity:
+          type: string
+          format: uuid
+          description: The parent ID of the activity.
+          example: 00000000-0000-0000-0000-000000000000
+        plannedStartDateTime:
+          type: string
+          format: date-time
+          description: The planned start date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        plannedFinishDateTime:
+          type: string
+          format: date-time
+          description: The planned finish date of the activity.
+          example: '2026-10-20T12:03:00Z'
+        percentageCompletion:
+          type: integer
+          format: int32
+          description: The completion percentage of the activity.
+          example: 0
+        suggestionNos:
+          type: array
+          description: The suggestions related to the activity.
+          items:
+            type: integer
+            format: int32
+        comments:
+          type: array
+          description: The comments related to the activity.
+          items:
+            type: string
+        referenceUrl:
+          type: string
+          description: The URL of the activity's reference.
+          example: string
+        referenceDetails:
+          type: object
+          description: 'The reference details of the activity expressed as a JSON object consisting of key-value pairs (e.g., {&quot;Key1&quot;: &quot;Value&quot;, &quot;Key2&quot;: 2}) where the values are of primitive types (string, number, or boolean).'
+        referenceType:
+          type: string
+          description: The originating application or other source that created the activity.
+          example: string
+        referenceId:
+          type: string
+          description: The unique identifier for the activity's reference.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

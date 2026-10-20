@@ -1,0 +1,383 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Process Specifications…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Process Specifications API
+  description: The Process Specifications API is used to manage process specification data.
+paths:
+  /quality/v1/process-specifications/{id}:
+    get:
+      operationId: getProcessSpecification
+      summary: Get Process Specification
+      tags:
+      - Process Specifications API
+      description: Retrieve an active process specification by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the process specification.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessSpecificationDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/process-specifications-api/get-process-specification
+  /quality/v1/process-specifications:
+    get:
+      operationId: listProcessSpecifications
+      summary: List Process Specifications
+      tags:
+      - Process Specifications API
+      description: Retrieve a list of active process specifications.
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of IDs representing the specification.
+      - name: processControlRecipeFamilyId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing the process control recipe family.
+      - name: processControlRecipeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing the process control recipe.
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing the operation.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessSpecificationDto'
+      x-source: https://developers.plex.com/api/documentation/process-specifications-api/list-process-specifications
+components:
+  schemas:
+    ProcessSpecificationDto:
+      type: object
+      description: The data structure representing a process specification.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID representing the process specification.
+          example: 00000000-0000-0000-0000-000000000000
+        processControlRecipeFamilyId:
+          type: string
+          format: uuid
+          description: ID representing the process control recipe family.
+          example: 00000000-0000-0000-0000-000000000000
+        processControlRecipeId:
+          type: string
+          format: uuid
+          description: ID representing the process control recipe.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: ID representing the operation.
+          example: 00000000-0000-0000-0000-000000000000
+        specificationNo:
+          type: string
+          description: The specification mo of the process specification.
+          example: string
+        description:
+          type: string
+          description: The description of the process specification.
+          example: string
+        formula:
+          type: string
+          description: 'The specification formula.
+
+            Formulas are used when a spec is calculated based on one or more other specs. For example, if a rectangular part includes specs for length and height, a calculated spec can be implemented to determine square inches:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34] * [7acbf6bb-727b-4714-bf18-8c3f82a45f8c]
+
+            Dependent specifications are contained within brackets and referenced by ID.
+
+            When entering functions into the formula, make sure you use the proper character for separating the parameters.
+
+            Mathematical Expressions
+
+            Functions
+
+
+            AVG
+
+            MAX
+
+            MIN
+
+            SUM
+
+            STDEV
+
+            SIN
+
+            COS
+
+            TAN
+
+            ARCSIN
+
+            ACOS
+
+            ARCCOS
+
+            ATAN
+
+            ARCTAN
+
+            LN
+
+            LOG
+
+            SQRT
+
+            ABS
+
+
+            Constants
+
+
+            PI
+
+            C
+
+            E
+
+
+            Operators
+
+
+            *, +, -, /, ^
+
+            %
+
+            DIV
+
+            MOD
+
+
+            Here is an example formula using a combination of supported functions, constants and operators defined above:
+
+            Pi * min([60bdc4fa-67ea-4d25-b95c-06f67225db34], [7acbf6bb-727b-4714-bf18-8c3f82a45f8c])
+
+            Parameters to defined functions are separated by a comma, but this delimiter may also be overridden by the Plex setting List Delimiter (Lists Setting Group).
+
+            Aggregate Functions
+
+            Aggregate functions can be used in the formula to provide functionality across a set of measurements for a single specification. This is achieved by the use of any aggregate function (min, max, avg, sum) in conjunction with a &quot;token parameter&quot; to indicate which specification(s) are being used as aggregates.  The Formula Type assigned to the formula is used to specify One-To-One (the setting by which all existing formula work) or Many-To-One (used when aggregating a measurement set down to a single value).
+
+            For example, if specification A includes 3 measurements, a calculated specification B can utilize an aggregate formula to calculate a single value:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | A | 10, 20, 30 | 60bdc4fa-67ea-4d25-b95c-06f67225db34 | |
+
+            | B | 20 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:aggregate=true) | Many-To-One |
+
+            A formula type of One-To-One is the existing behavior of a formula, but it can be used in conjunction with aggregate functions to allow a single sample measurement to be used to output multiple measurements:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | C | 10, 0, -10 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | sum([7acbf6bb-727b-4714-bf18-8c3f82a45f8c:aggregate=true) - [60bdc4fa-67ea-4d25-b95c-06f67225db34] | One-To-One |
+
+            Historical Data
+
+            Special token parameters can be used to pull measurement data from past checksheets. A number of past checksheets to be used must be supplised along with an aggregate function (if applicable). The number of past checksheets that can be used in a calculation is limited to 50.
+
+            For example, this formula is used to calculate the average value of a given specification for the last 5 submitted checksheets:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=avg])
+
+            If an aggregate is not necessary, the pastfunction argument can be set to none:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=none])
+
+            Note: it is important to use the &quot;none&quot; aggregation option in formulas where f(x0,...,xn) does not equal f(f(x0,...,xn-1), xn). For example, min(4, 6, 5) is equivalent to min(min(4,6), 5), while stdev(4, 6, 5) is not equivalent to stdev(stdev(4,6), 5).
+
+            Offsheet Historical Data
+
+            Historical data can also be referenced by using offsheet token parameters. This is used to pull aggregated measurements from data entered on any prior checksheet. The number of past checksheets must be specified as a separate checksheet specification measurement. This number is then referenced in subsequent formulas.
+
+            For example, to pull the average value of a specification from a specific number of other checksheets, where its specification ID is 7acbf6bb-727b-4714-bf18-8c3f82a45f8c, a new specification should be created referencing this ID (We''ll call the specification Sample Size):
+
+            [7acbf6bb-727b-4714-bf18-8c3f82a45f8c:offsheetcalc=samplesize]
+
+            Assuming the ID of the above specification is 60bdc4fa-67ea-4d25-b95c-06f67225db34, we can then create a second specification called ''Average'' with the following formula:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:offsheetcalc=avg]
+
+            The above specification value will be calculated using the past X number of prior checksheets, where X is equal to the Sample Size specification value.
+
+            Restrictions
+
+
+            The number of checksheets for the sample size is limited to a maximum of 50.
+
+            The measurements are Container Serial specific.  This means that if a container is not specified then all checksheet measurements will be used.
+
+            As Serialized Checksheets are Container specific (per row), the container serial must be set.
+
+
+            Attributes
+
+            Attributes of a specification can be used as part of the formula. The supported attributes are tolerance, target, min, and max. Attribute usage in a formula will appear as follows:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:attribute=tolerance]'
+          example: string
+        formulaType:
+          type: string
+          description: The specification formula type.
+          example: string
+        defaultGageType:
+          type: string
+          description: The gage type defaulted on a control plan when specification is added.
+          example: string
+        plcName:
+          type: string
+          description: The name of an associated programmable logic controller (PLC).
+          example: string
+        specialSymbol:
+          type: string
+          description: The special symbol to use for the process specification.
+          example: string
+        customerSpecified:
+          type: boolean
+          description: Specifies that this is a process specification that your customer expects to be verified or not.
+          example: false
+        toleranceType:
+          $ref: '#/components/schemas/ToleranceTypeDto'
+        note:
+          type: string
+          description: A short description or name for the specification. This typically comes from the drawing.
+          example: string
+        functionRequirementType:
+          type: string
+          description: The function requirement type of the process specification.
+          example: string
+        specificationDimensionType:
+          type: string
+          description: The specification dimension type of the process specification.
+          example: string
+        updatedDateTime:
+          type: string
+          format: date-time
+          description: The latest date this specification was updated.
+          example: '2026-10-20T12:03:14Z'
+    ToleranceTypeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The tolerance type name.
+          example: string
+        attribute:
+          type: boolean
+          description: The designation of this tolerance type is an attribute specification or not.
+          example: false
+        target:
+          type: number
+          format: double
+          description: The target of the tolerance type.
+          example: 0.1
+        targetPlus:
+          type: number
+          format: double
+          description: The tolerance limit relating to value more than the target.
+          example: 0.1
+        targetMinus:
+          type: number
+          format: double
+          description: The tolerance limit relating to value less than the target.
+          example: 0.1
+        decimalPrecision:
+          type: integer
+          format: int32
+          description: Specify the number of decimal places to apply to measurements.
+          example: 0
+        unit:
+          type: string
+          description: The unit of the tolerance type.
+          example: string
+        oneSidedMinimum:
+          type: number
+          format: double
+          description: The numeric value of the one sided minimum of the specification.
+          example: 0.1
+        oneSidedMaximum:
+          type: number
+          format: double
+          description: The numeric value of the one sided maximum of the specification.
+          example: 0.1
+        measurementText:
+          type: string
+          description: The supplemental text for the actual measurement displayed on the control plan.
+          example: string
+        compareValue:
+          type: string
+          description: The text to display on the checksheet when compare value option is selected.
+          example: string
+        referenceDisplayPopup:
+          type: boolean
+          description: To designate if a pop up message will be displayed when the measurement is out of spec.
+          example: false
+        referencePopupMessage:
+          type: string
+          description: The informational message field on the checksheet when the measurement is out of spec.
+          example: string
+        bonusTolerances:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

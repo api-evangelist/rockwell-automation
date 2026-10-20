@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/rockwell-automation/main/json-schema/rockwell-automation-process-specification-dto-schema.json",
+  "title": "ProcessSpecificationDto",
+  "description": "The data structure representing a process specification.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/rockwell-automation-plex-openapi.yml#/components/schemas/ProcessSpecificationDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID representing the process specification."
+    },
+    "processControlRecipeFamilyId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID representing the process control recipe family."
+    },
+    "processControlRecipeId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID representing the process control recipe."
+    },
+    "operationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID representing the operation."
+    },
+    "specificationNo": {
+      "type": "string",
+      "description": "The specification mo of the process specification."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the process specification."
+    },
+    "formula": {
+      "type": "string",
+      "description": "The specification formula.\nFormulas are used when a spec is calculated based on one or more other specs. For example, if a rectangular part includes specs for length and height, a calculated spec can be implemented to determine square inches:\n[60bdc4fa-67ea-4d25-b95c-06f67225db34] * [7acbf6bb-727b-4714-bf18-8c3f82a45f8c]\nDependent specifications are contained within brackets and referenced by ID.\nWhen entering functions into the formula, make sure you use the proper character for separating the parameters.\nMathematical Expressions\nFunctions\n\nAVG\nMAX\nMIN\nSUM\nSTDEV\nSIN\nCOS\nTAN\nARCSIN\nACOS\nARCCOS\nATAN\nARCTAN\nLN\nLOG\nSQRT\nABS\n\nConstants\n\nPI\nC\nE\n\nOperators\n\n*, +, -, /, ^\n%\nDIV\nMOD\n\nHere is an example formula using a combination of supported functions, constants and operators defined above:\nPi * min([60bdc4fa-67ea-4d25-b95c-06f67225db34], [7acbf6bb-727b-4714-bf18-8c3f82a45f8c])\nParameters to defined functions are separated by a comma, but this delimiter may also be overridden by the Plex setting List Delimiter (Lists Setting Group).\nAggregate Functions\nAggregate functions can be used in the formula to provide functionality across a set of measurements for a single specification. This is achieved by the use of any aggregate function (min, max, avg, sum) in conjunction with a &quot;token parameter&quot; to indicate which specification(s) are being used as aggregates.  The Formula Type assigned to the formula is used to specify One-To-One (the setting by which all existing formula work) or Many-To-One (used when aggregating a measurement set down to a single value).\nFor example, if specification A includes 3 measurements, a calculated specification B can utilize an aggregate formula to calculate a single value:\n| Specification | Measurements | ID | Formula | Formula Type |\n| ----| ---- | ---- | ---- | ---- |\n| A | 10, 20, 30 | 60bdc4fa-67ea-4d25-b95c-06f67225db34 | |\n| B | 20 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:aggregate=true) | Many-To-One |\nA formula type of One-To-One is the existing behavior of a formula, but it can be used in conjunction with aggregate functions to allow a single sample measurement to be used to output multiple measurements:\n| Specification | Measurements | ID | Formula | Formula Type |\n| ----| ---- | ---- | ---- | ---- |\n| C | 10, 0, -10 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | sum([7acbf6bb-727b-4714-bf18-8c3f82a45f8c:aggregate=true) - [60bdc4fa-67ea-4d25-b95c-06f67225db34] | One-To-One |\nHistorical Data\nSpecial token parameters can be used to pull measurement data from past checksheets. A number of past checksheets to be used must be supplised along with an aggregate function (if applicable). The number of past checksheets that can be used in a calculation is limited to 50.\nFor example, this formula is used to calculate the average value of a given specification for the last 5 submitted checksheets:\navg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=avg])\nIf an aggregate is not necessary, the pastfunction argument can be set to none:\navg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=none])\nNote: it is important to use the &quot;none&quot; aggregation option in formulas where f(x0,...,xn) does not equal f(f(x0,...,xn-1), xn). For example, min(4, 6, 5) is equivalent to min(min(4,6), 5), while stdev(4, 6, 5) is not equivalent to stdev(stdev(4,6), 5).\nOffsheet Historical Data\nHistorical data can also be referenced by using offsheet token parameters. This is used to pull aggregated measurements from data entered on any prior checksheet. The number of past checksheets must be specified as a separate checksheet specification measurement. This number is then referenced in subsequent formulas.\nFor example, to pull the average value of a specification from a specific number of other checksheets, where its specification ID is 7acbf6bb-727b-4714-bf18-8c3f82a45f8c, a new specification should be created referencing this ID (We'll call the specification Sample Size):\n[7acbf6bb-727b-4714-bf18-8c3f82a45f8c:offsheetcalc=samplesize]\nAssuming the ID of the above specification is 60bdc4fa-67ea-4d25-b95c-06f67225db34, we can then create a second specification called 'Average' with the following formula:\n[60bdc4fa-67ea-4d25-b95c-06f67225db34:offsheetcalc=avg]\nThe above specification value will be calculated using the past X number of prior checksheets, where X is equal to the Sample Size specification value.\nRestrictions\n\nThe number of checksheets for the sample size is limited to a maximum of 50.\nThe measurements are Container Serial specific.  This means that if a container is not specified then all checksheet measurements will be used.\nAs Serialized Checksheets are Container specific (per row), the container serial must be set.\n\nAttributes\nAttributes of a specification can be used as part of the formula. The supported attributes are tolerance, target, min, and max. Attribute usage in a formula will appear as follows:\n[60bdc4fa-67ea-4d25-b95c-06f67225db34:attribute=tolerance]"
+    },
+    "formulaType": {
+      "type": "string",
+      "description": "The specification formula type."
+    },
+    "defaultGageType": {
+      "type": "string",
+      "description": "The gage type defaulted on a control plan when specification is added."
+    },
+    "plcName": {
+      "type": "string",
+      "description": "The name of an associated programmable logic controller (PLC)."
+    },
+    "specialSymbol": {
+      "type": "string",
+      "description": "The special symbol to use for the process specification."
+    },
+    "customerSpecified": {
+      "type": "boolean",
+      "description": "Specifies that this is a process specification that your customer expects to be verified or not."
+    },
+    "toleranceType": {
+      "$ref": "#/$defs/ToleranceTypeDto"
+    },
+    "note": {
+      "type": "string",
+      "description": "A short description or name for the specification. This typically comes from the drawing."
+    },
+    "functionRequirementType": {
+      "type": "string",
+      "description": "The function requirement type of the process specification."
+    },
+    "specificationDimensionType": {
+      "type": "string",
+      "description": "The specification dimension type of the process specification."
+    },
+    "updatedDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The latest date this specification was updated."
+    }
+  },
+  "$defs": {
+    "ToleranceTypeDto": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The tolerance type name."
+        },
+        "attribute": {
+          "type": "boolean",
+          "description": "The designation of this tolerance type is an attribute specification or not."
+        },
+        "target": {
+          "type": "number",
+          "format": "double",
+          "description": "The target of the tolerance type."
+        },
+        "targetPlus": {
+          "type": "number",
+          "format": "double",
+          "description": "The tolerance limit relating to value more than the target."
+        },
+        "targetMinus": {
+          "type": "number",
+          "format": "double",
+          "description": "The tolerance limit relating to value less than the target."
+        },
+        "decimalPrecision": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Specify the number of decimal places to apply to measurements."
+        },
+        "unit": {
+          "type": "string",
+          "description": "The unit of the tolerance type."
+        },
+        "oneSidedMinimum": {
+          "type": "number",
+          "format": "double",
+          "description": "The numeric value of the one sided minimum of the specification."
+        },
+        "oneSidedMaximum": {
+          "type": "number",
+          "format": "double",
+          "description": "The numeric value of the one sided maximum of the specification."
+        },
+        "measurementText": {
+          "type": "string",
+          "description": "The supplemental text for the actual measurement displayed on the control plan."
+        },
+        "compareValue": {
+          "type": "string",
+          "description": "The text to display on the checksheet when compare value option is selected."
+        },
+        "referenceDisplayPopup": {
+          "type": "boolean",
+          "description": "To designate if a pop up message will be displayed when the measurement is out of spec."
+        },
+        "referencePopupMessage": {
+          "type": "string",
+          "description": "The informational message field on the checksheet when the measurement is out of spec."
+        },
+        "bonusTolerances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      }
+    }
+  }
+}

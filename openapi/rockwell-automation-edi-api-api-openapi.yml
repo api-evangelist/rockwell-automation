@@ -1,0 +1,1625 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect EDI API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: EDI API
+  description: The EDI API is used to manage EDI data.
+paths:
+  /edi/v1/logs/{id}/load-error:
+    delete:
+      operationId: clearLogLoadError
+      summary: Clear Log Load Error
+      tags:
+      - EDI API
+      description: Delete Log Load Errors.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: Cleared EDI Log Errors successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/clear-log-load-error
+    post:
+      operationId: createLogLoadError
+      summary: Create Log Load Error
+      tags:
+      - EDI API
+      description: Create a new Log Load Error.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoadError'
+      responses:
+        '200':
+          description: Added EDI Load Error successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-log-load-error
+  /edi/v1/logs/{id}/problem:
+    delete:
+      operationId: clearLogProblem
+      summary: Clear Log Problem
+      tags:
+      - EDI API
+      description: Delete Log Problems.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/clear-log-problem
+    post:
+      operationId: createLogProblem
+      summary: Create Log Problem
+      tags:
+      - EDI API
+      description: Create a new Log Problem.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Problem'
+      responses:
+        '200':
+          description: Problem Added successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-log-problem
+  /edi/v1/documents/{id}:
+    post:
+      operationId: createDocument
+      summary: Create Document
+      tags:
+      - EDI API
+      description: Add an EDI document to the EDI Log.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The id identifying the EDI log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEdiLogDocument'
+      responses:
+        '204':
+          description: EDI Log added successfully, no content.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-document
+    get:
+      operationId: getEdiDocument
+      summary: Get EDI Document
+      tags:
+      - EDI API
+      description: Retrieve a Document by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-edi-document
+  /edi/v1/logs/{id}/xml-representation-add:
+    post:
+      operationId: createLogXmlRepresentation
+      summary: Create Log XML Representation
+      tags:
+      - EDI API
+      description: Create a new Log XML Representation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogXmlRepresentation'
+      responses:
+        '200':
+          description: Added XML representation successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-log-xml-representation
+  /edi/v1/logs:
+    post:
+      operationId: createLog
+      summary: Create Log
+      tags:
+      - EDI API
+      description: Add an EDI Log record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEdiLogRequest'
+      responses:
+        '201':
+          description: EDI Log added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-log
+    get:
+      operationId: getLogs
+      summary: Get Logs
+      tags:
+      - EDI API
+      description: List Logs by query parameters.
+      parameters:
+      - name: mailboxId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for a Mailbox.
+      - name: customerId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for a Customer.
+      - name: action
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: EDI Action. Must be a unique value.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Status of the EDI Log entry, supports a comma delimited list of desired statuses
+      - name: documentName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Document Name.
+      - name: logDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:11Z'
+        description: The start of the date range for filtering the log entries.
+      - name: logDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:11Z'
+        description: The end of the date range for filtering the log entries.
+      - name: mailboxActive
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Active flag of the EDI Mailbox. Set to true to return logs associated with active mailboxes, false for inactive mailboxes, and do not include the parameter to return active and inactive mailboxes.
+      - name: workflowName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the workflow to filter on.
+      - name: workflowType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: This Type of the Workflow.
+      - name: workflowActive
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Active flag of the Workflow of the EDI Mailbox. Set to true to return logs associated with active workflows, false for inactive workflows, and do not include the parameter to return active and inactive workflows or logs that are not associated with a workflow.
+      responses:
+        '200':
+          description: Retrieved EDI Logs successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-logs
+  /edi/v1/notification:
+    post:
+      operationId: createNotification
+      summary: Create Notification
+      tags:
+      - EDI API
+      description: Create a new Notification.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EdiNotification'
+      responses:
+        '200':
+          description: EDI Notification Added successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-notification
+  /edi/v1/logs/{id}/release-snapshot/{releaseId}:
+    post:
+      operationId: createReleaseSnapshot
+      summary: Create Release Snapshot
+      tags:
+      - EDI API
+      description: Create a new Log Release Snapshot.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      - name: releaseId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseSnapshot'
+      responses:
+        '200':
+          description: The Release Snapshot resource was added successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/create-release-snapshot
+    delete:
+      operationId: deleteReleaseSnapshot
+      summary: Delete Release Snapshot
+      tags:
+      - EDI API
+      description: Delete a Log Release Snapshot.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      - name: releaseId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release resource id.
+      responses:
+        '200':
+          description: The Release Snapshot resource was successfully deleted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/delete-release-snapshot
+  /edi/v1/logs/{id}/release-snapshot:
+    delete:
+      operationId: deleteReleaseSnapshots
+      summary: Delete Release Snapshots
+      tags:
+      - EDI API
+      description: Delete Log Release Snapshots.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: The Release Snapshot resources were successfully deleted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/delete-release-snapshots
+  /edi/v1/load-error-types:
+    get:
+      operationId: getLoadErrorTypes
+      summary: Get Load Error Types
+      tags:
+      - EDI API
+      description: List Load Error Types by query parameters.
+      parameters:
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Load Error Type Description. Must be a unique value.
+      responses:
+        '200':
+          description: Retrieved Load Error Types successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadErrorType'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-load-error-types
+  /edi/v1/log-statuses:
+    get:
+      operationId: getLogStatuses
+      summary: Get Log Statuses
+      tags:
+      - EDI API
+      description: List log statuses.
+      responses:
+        '200':
+          description: Log Statuses retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStatus'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-log-statuses
+  /edi/v1/logs/{id}:
+    get:
+      operationId: getLog
+      summary: Get Log
+      tags:
+      - EDI API
+      description: Retrieve an EDI Log by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: Retrieved EDI Log successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-log
+  /edi/v1/mailboxes/{id}:
+    get:
+      operationId: getMailbox
+      summary: Get Mailbox
+      tags:
+      - EDI API
+      description: Retrieve a Mailbox by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: Retrieved EDI Mailbox successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailbox'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-mailbox
+  /edi/v1/mailboxes:
+    get:
+      operationId: getMailboxes
+      summary: Get Mailboxes
+      tags:
+      - EDI API
+      description: List Mailboxes by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of unique identifiers for Mailboxes.
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: EDI Mailbox Name. Must be a unique value.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The User Code mapped to outbound documents.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: This flag will be set to Active by default.
+      - name: destinationMailbox
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The destination mailbox to filter on.
+      responses:
+        '200':
+          description: Retrieved EDI Mailboxes successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailbox'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-mailboxes
+  /edi/v1/logs/{id}/raw:
+    get:
+      operationId: getTransformedData
+      summary: Get Transformed Data
+      tags:
+      - EDI API
+      description: Retrieve the transformed data for a Log.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformedDataType'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-transformed-data
+    put:
+      operationId: updateTransformedData
+      summary: Update Transformed Data
+      tags:
+      - EDI API
+      description: Update the transformed data for a Log.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The resource id to the EDI Log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformedDataType'
+      responses:
+        '200':
+          description: Updated Transformed Data successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/update-transformed-data
+  /edi/v1/units/{id}:
+    get:
+      operationId: getUnit
+      summary: Get Unit
+      tags:
+      - EDI API
+      description: Retrieve a unit by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitDto'
+        '404':
+          description: The unit does not exist.
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-unit
+  /edi/v1/units:
+    get:
+      operationId: getUnits
+      summary: Get Units
+      tags:
+      - EDI API
+      description: List units by query parameters.
+      parameters:
+      - name: idList
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of unit unique identifiers.
+      - name: unit
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Unit.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitDto'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-units
+  /edi/v1/logs/{id}/workflow-run:
+    get:
+      operationId: getWorkflowRunId
+      summary: Get Workflow Run ID
+      tags:
+      - EDI API
+      description: Retrieve an EDI Log Workflow Run ID by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      responses:
+        '200':
+          description: Retrieved Workflow State successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogicAppsWorkflowRun'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/get-workflow-run-id
+    put:
+      operationId: updateWorkflowRunId
+      summary: Update Workflow Run ID
+      tags:
+      - EDI API
+      description: Update a Log Workflow Run ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogicAppsWorkflowRun'
+      responses:
+        '200':
+          description: Updated Workflow State successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/update-workflow-run-id
+  /edi/v1/logs/{id}/tracking-no:
+    put:
+      operationId: updateEdiLogTrackingNo
+      summary: Update EDI Log Tracking No
+      tags:
+      - EDI API
+      description: Update a Log tracking number (i.e. run id or execution id).
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogTrackingNo'
+      responses:
+        '200':
+          description: Updated EDI Log tracking number successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/update-edi-log-tracking-no
+  /edi/v1/logs/inbound-receive:
+    put:
+      operationId: updateInboundReceive
+      summary: Update Inbound Receive
+      tags:
+      - EDI API
+      description: Receive a list of EDI Log records in sequence.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboundReceive'
+      responses:
+        '200':
+          description: EDI Log records queued to receive successfully.
+        '400':
+          description: The request was not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/update-inbound-receive
+  /edi/v1/logs/{id}/log-status-update:
+    put:
+      operationId: updateLogStatus
+      summary: Update Log Status
+      tags:
+      - EDI API
+      description: Update a Log status.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Log resource id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogStatus'
+      responses:
+        '200':
+          description: Updated EDI Log Status successfully.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/edi-api/update-log-status
+components:
+  schemas:
+    Mailbox:
+      type: object
+      description: API Resource for EDI Mailbox.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Mailbox.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the mailbox was created.
+          example: '2026-10-20T12:03:11Z'
+        createdById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who created the mailbox.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who last modified the mailbox.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the mailbox was last modified.
+          example: '2026-10-20T12:03:11Z'
+        code:
+          type: string
+          description: The Mailbox Code of the EDI Mailbox, which identifies the user of the Mailbox.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the Supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          description: The ID of the Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        shipFromBuildingId:
+          type: string
+          format: uuid
+          description: The ID of the building from which the order will ship.
+          example: 00000000-0000-0000-0000-000000000000
+        note:
+          type: string
+          description: EDI Mailbox Note.
+          example: string
+        status:
+          type: string
+          description: EDI Mailbox Status.
+          example: string
+        name:
+          type: string
+          description: EDI Mailbox Name. Must be a unique value.
+          example: string
+        qualifier:
+          type: string
+          description: Indicates the type of data for the Mailbox Code value. Typically a two-character value. For example, 01 would be a DUNS Number.
+          example: string
+        use:
+          type: string
+          description: Indicates how the Mailbox will be used, such as Send or Send/Receive.
+          example: string
+        originCode:
+          type: string
+          description: The User Code mapped to outbound documents.
+          example: string
+        vendorCode:
+          type: string
+          description: The Vendor Code mapped to outbound documents.
+          example: string
+        destinationQualifier:
+          type: string
+          description: Indicates the type of data for the Destination Mailbox value. Typically a two-character value. For example, 01 would be a DUNS Number.
+          example: string
+        destinationMailbox:
+          type: string
+          description: The Destination value of the EDI Mailbox, which is the identifier of the trading partner associated to the mailbox.
+          example: string
+        destinationCode:
+          type: string
+          description: A Code used to identify the recipient at a trading partner, such as a specific DUNS Number.
+          example: string
+        elementSeparator:
+          type: string
+          description: Single character code used to parse data. This separates each element of a segment.
+          example: string
+        subelementSeparator:
+          type: string
+          description: Single character code used to parse data within an element.
+          example: string
+        segmentTerminator:
+          type: integer
+          format: int32
+          description: The ASCII value used to end segments.
+          example: 0
+        transmissionCount:
+          type: integer
+          format: int32
+          description: A counter to track document creation.
+          example: 0
+        isa01:
+          type: string
+          description: First element of the ISA segment.
+          example: string
+        isa02:
+          type: string
+          description: Second element of the ISA segment.
+          example: string
+        isa03:
+          type: string
+          description: Third element of the ISA segment.
+          example: string
+        isa04:
+          type: string
+          description: Fourth element of the ISA segment.
+          example: string
+        actualProcessorDuns:
+          type: string
+          description: DUNS number used for outbound documents.
+          example: string
+        shipFromCode:
+          type: string
+          description: Identifies the location for the shipment.
+          example: string
+        secondaryPlantCode:
+          type: string
+          description: Secondary plant code.
+          example: string
+        overrideUnitOfMeasureCode:
+          type: string
+          description: Use to override and specify the unit of measure for use on Outbound documents.
+          example: string
+        active:
+          type: boolean
+          description: Indicates whether the mailbox is active.
+          example: false
+        tradingPartnerName:
+          type: string
+          description: Trading Partner Name.
+          example: string
+    EdiNotification:
+      type: object
+      description: API Resource for an EDI Notification.
+      properties:
+        customerId:
+          type: string
+          format: uuid
+          description: A unique identifier for the customer that the notification is being generated about.
+          example: 00000000-0000-0000-0000-000000000000
+        documentName:
+          type: string
+          description: 'The name of the EDI document that the notification is being generated about (ex: DELJIT).'
+          example: string
+        notificationBody:
+          type: string
+          description: The body of the notification.
+          example: string
+        notificationSubject:
+          type: string
+          description: The subject of the notification.
+          example: string
+        notificationType:
+          type: string
+          description: The type of the notification.
+          example: string
+        shipFromId:
+          type: string
+          format: uuid
+          description: Optional unique identifier identifying the ship from location that the notification is being generated about.
+          example: 00000000-0000-0000-0000-000000000000
+    LogStatus:
+      type: object
+      description: API Resource for EDI Log Status.
+      properties:
+        status:
+          type: string
+          description: The status of the EDI Log.
+          example: string
+    LoadErrorType:
+      type: object
+      description: API Resource for EDI Load Error Type.
+      properties:
+        description:
+          type: string
+          description: The Load Error Type Description.
+          example: string
+    TransformedDataType:
+      type: object
+      description: API resource for transformed data
+      properties:
+        transformedData:
+          type: string
+          description: The base64 encoded transformed data representation of the EDI document
+          example: string
+    ReleaseSnapshot:
+      type: object
+      description: API Resource for EDI Release Snapshot
+      properties:
+        poLineId:
+          type: string
+          format: uuid
+          description: The Resource Id of the PO Line record.
+          example: 00000000-0000-0000-0000-000000000000
+        shipToId:
+          type: string
+          format: uuid
+          description: The Customer Address Resource Id ship to Address
+          example: 00000000-0000-0000-0000-000000000000
+        releaseNo:
+          type: string
+          description: The Release Number
+          example: string
+        processDate:
+          type: string
+          format: date-time
+          description: The Process Date
+          example: '2026-10-20T12:03:11Z'
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date
+          example: '2026-10-20T12:03:11Z'
+        shipDate:
+          type: string
+          format: date-time
+          description: The Ship Date
+          example: '2026-10-20T12:03:11Z'
+        releaseQuantity:
+          type: integer
+          format: int32
+          description: The Release Quantity
+          example: 0
+        ediAccumQuantity:
+          type: integer
+          format: int32
+          description: The EDI Accum Quantity
+          example: 0
+        accumQuantity:
+          type: integer
+          format: int32
+          description: The Accum Quantity
+          example: 0
+        accumAuthorizedQuantity:
+          type: integer
+          format: int32
+          description: The Accum Authorized Quantity
+          example: 0
+        isDaily:
+          type: boolean
+          description: Is Daily
+          example: false
+        isChange:
+          type: boolean
+          description: Is Change
+          example: false
+        originalEDIQuantity:
+          type: integer
+          format: int32
+          description: The Original EDI Quantity
+          example: 0
+        lastShipperNo:
+          type: string
+          description: The Last Shipper Number
+          example: string
+        lastShipDate:
+          type: string
+          format: date-time
+          description: The Last Ship Date
+          example: '2026-10-20T12:03:11Z'
+        lastShipQuantity:
+          type: integer
+          format: int32
+          description: The Last Ship Quantity
+          example: 0
+    AddEdiLogRequest:
+      type: object
+      description: Request to add a new EDI Log.
+      properties:
+        documentNumber:
+          type: string
+          description: The document number provided in the document.
+          example: string
+        documentName:
+          type: string
+          description: The EDI document name for this document (i.e. 830, DELJIT).
+          example: string
+        interchangeNo:
+          type: string
+          description: The interchange no provided in the document.
+          example: string
+        mailboxId:
+          type: string
+          format: uuid
+          description: The identifier for the mailbox that the EDI Log belongs to.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: The status to set the added EDI log record to.
+          example: string
+    InboundReceive:
+      type: object
+      description: A object containing information about EDI objects to receive.
+      properties:
+        ediResourceIds:
+          type: array
+          description: A list of the EDI resource ids to receive.
+          items:
+            type: string
+            format: uuid
+    Problem:
+      type: object
+      description: API Resource for an EDI Problem.
+      properties:
+        problemType:
+          type: string
+          description: The type of problem
+          example: string
+        description:
+          type: string
+          description: A description of the problem.
+          example: string
+        problemDate:
+          type: string
+          format: date-time
+          description: The date that the problem occurred.
+          example: '2026-10-20T12:03:11Z'
+        mailboxId:
+          type: string
+          format: uuid
+          description: Optional unique identifier of the mailbox that the problem is associated with.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperId:
+          type: string
+          format: uuid
+          description: Optional unique identifier of the shipper that the problem is associated with.
+          example: 00000000-0000-0000-0000-000000000000
+        documentName:
+          type: string
+          description: Optional name of the document that the problem is associated with.
+          example: string
+    LogXmlRepresentation:
+      type: object
+      description: API Resource for EDI Log XML Representation.
+      properties:
+        xmlRepresentation:
+          type: string
+          description: The XML Representation of the EDI document. This is the canonical XML form.
+          example: string
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UnitDto:
+      type: object
+      description: Basic unit information.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the unit.
+          example: 00000000-0000-0000-0000-000000000000
+        unit:
+          type: string
+          description: The unique name of the actual unit.
+          example: string
+        denominatorUnit:
+          type: string
+          description: The Denominator label is used whenever the Unit is required in the denominator of an equation.
+          example: string
+        ediCode:
+          type: string
+          description: The code in an EDI document that represents the unit.
+          example: string
+        weightUnit:
+          type: boolean
+          description: True if this unit is used for weight.
+          example: false
+        pieceUnit:
+          type: boolean
+          description: True if this unit is used for Pieces.
+          example: false
+        hourUnit:
+          type: boolean
+          description: True if this unit is used for Hours.
+          example: false
+        dayUnit:
+          type: boolean
+          description: True if this unit is used for calendar Days.
+          example: false
+        weekUnit:
+          type: boolean
+          description: True if this unit is used for calendar Weeks.
+          example: false
+        monthUnit:
+          type: boolean
+          description: True if this unit is used for calendar Months.
+          example: false
+        yearUnit:
+          type: boolean
+          description: True if this unit is used for calendar Years.
+          example: false
+        unitStandard:
+          type: string
+          description: The standard of the unit.
+          example: string
+        areaUnit:
+          type: boolean
+          description: True if this unit is used for Area measurement.
+          example: false
+        reference:
+          type: string
+          description: Reference
+          example: string
+    LogicAppsWorkflowRun:
+      type: object
+      description: Information describing a particular run through the Logic Apps workflow.
+      properties:
+        runId:
+          type: string
+          description: A unique identifier for the Azure Logic Apps Workflow Run.
+          example: string
+        workflowType:
+          type: string
+          description: The Workflow Type that is being executed.
+          example: string
+      required:
+      - runId
+    LogTrackingNo:
+      type: object
+      description: Information describing a particular workflow run through.
+      properties:
+        trackingNo:
+          type: string
+          description: A unique identifier for Workflow Run (i.e. azure run_id or Boomi execution id).
+          example: string
+      required:
+      - trackingNo
+    AddEdiLogDocument:
+      type: object
+      description: Request to add an EDI document.
+      properties:
+        rawDocument:
+          type: string
+          description: The base 64 encoded raw EDI document to be parsed for the given standard and document type.
+          example: string
+        standard:
+          type: string
+          description: The EDI document standard for this document (i.e. X12, EDIFACT).
+          example: string
+    Log:
+      type: object
+      description: API Resource for EDI Log
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Log.
+          example: 00000000-0000-0000-0000-000000000000
+        action:
+          type: string
+          description: Send or Receive. Send indicates that the document is an outbound document whereas receive indicates that the document is an inbound document.
+          example: string
+        status:
+          type: string
+          description: The Status of the EDI Log, such as Loaded or Accepted.
+          example: string
+        logDate:
+          type: string
+          format: date-time
+          description: The date on which the document was created.
+          example: '2026-10-20T12:03:11Z'
+        mailboxId:
+          type: string
+          format: uuid
+          description: The ID of the EDI Mailbox.
+          example: 00000000-0000-0000-0000-000000000000
+        documentName:
+          type: string
+          description: The name of the EDI document associated to the EDI Log entry.
+          example: string
+        ediKey:
+          type: integer
+          format: int32
+          description: The EDI Key associated to the EDI Log entry.
+          example: 0
+        mailboxActive:
+          type: boolean
+          description: The Active flag of the EDI Mailbox.
+          example: false
+        customerId:
+          type: string
+          format: uuid
+          description: The ID of the Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        workflowType:
+          type: string
+          description: The Workflow Type of the Mailbox associated to the EDI Log entry.
+          example: string
+        workflowActive:
+          type: boolean
+          description: The Active flag of the Workflow of the EDI Mailbox.
+          example: false
+        workflowName:
+          type: string
+          description: The Workflow Name of the Mailbox associated to the EDI Log entry.
+          example: string
+        previewMode:
+          type: boolean
+          description: The Preview flag of the Document Setup.
+          example: false
+        pendingTransmission:
+          type: boolean
+          description: The Pending Transmission flag of the EDI Log entry.
+          example: false
+    Document:
+      type: object
+      description: API Resource for EDI Document.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Log.
+          example: 00000000-0000-0000-0000-000000000000
+        rawDocument:
+          type: string
+          description: Contains the segment data encoded in Base64.
+          example: string
+        segmentTerminator:
+          type: string
+          description: The ASCII value used to end segments.
+          example: string
+    LoadError:
+      type: object
+      description: API Resource for EDI Load Error.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the EDI Log entry associated with this Error.
+          example: 00000000-0000-0000-0000-000000000000
+        loadErrorTypeDescription:
+          type: string
+          description: The Load Error Type Key.
+          example: string
+        mailboxId:
+          type: string
+          format: uuid
+          description: The ID of the EDI Mailbox.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The Item Part Number.
+          example: string
+        plantCode:
+          type: string
+          description: The Plant Code
+          example: string
+        poNumber:
+          type: string
+          description: The Purchase Order Number.
+          example: string
+        revision:
+          type: string
+          description: The Revision Number
+          example: string
+        customerName:
+          type: string
+          description: The Customer Name
+          example: string
+        ediDate:
+          type: string
+          format: date-time
+          description: EDI Date.
+          example: '2026-10-20T12:03:11Z'
+        note:
+          type: string
+          description: A note with further information describing the error.
+          example: string
+        dockCode:
+          type: string
+          description: The Dock Code.
+          example: string
+        loadErrorMessage:
+          type: string
+          description: The Load Error Message
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

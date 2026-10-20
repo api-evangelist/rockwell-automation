@@ -1,0 +1,218 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Deviations API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Deviations API
+  description: The Deviations API is used to manage deviation data.
+paths:
+  /quality/v1/deviations/{id}:
+    get:
+      operationId: getDeviation
+      summary: Get Deviation
+      tags:
+      - Deviations API
+      description: Retrieve a deviation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviationResponseDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/deviations-api/get-deviation
+  /quality/v1/deviations:
+    get:
+      operationId: listDeviations
+      summary: List Deviations
+      tags:
+      - Deviations API
+      description: Retrieve a list of deviations.
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of IDs representing the Deviation.
+      - name: specificationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing a Specification.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing a Job.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: ID representing a Part.
+      - name: deviationStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The list of deviation status.
+      - name: currentlyEffectiveOnly
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of deviations with effective date less than or equal to today and an expiration date or is greater than today will be returned.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviationResponseDto'
+      x-source: https://developers.plex.com/api/documentation/deviations-api/list-deviations
+components:
+  schemas:
+    GetDeviationResponseDto:
+      type: object
+      description: The data structure representing a deviation.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID representing the deviation.
+          example: 00000000-0000-0000-0000-000000000000
+        acknowledgementLimit:
+          type: integer
+          format: int32
+          description: The acknowledgement limit.
+          example: 0
+        approvedByUserId:
+          type: string
+          description: ID representing the approving user.
+          example: string
+        approvedDate:
+          type: string
+          format: date-time
+          description: The approved date.
+          example: '2026-10-20T12:03:02Z'
+        buildingId:
+          type: string
+          format: uuid
+          description: ID representing the building.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: The building code.
+          example: string
+        codeNo:
+          type: string
+          description: The code no.
+          example: string
+        departmentCode:
+          type: string
+          description: The department code.
+          example: string
+        deviationAcknowledgementFrequencyDescription:
+          type: string
+          description: The deviation acknowledgement frequency.
+          example: string
+        deviationNo:
+          type: string
+          description: The deviation no.
+          example: string
+        deviationStatus:
+          type: string
+          description: The deviation status.
+          example: string
+        effectiveDate:
+          type: string
+          format: date-time
+          description: The effective date.
+          example: '2026-10-20T12:03:02Z'
+        expirationDate:
+          type: string
+          format: date-time
+          description: The expiration date.
+          example: '2026-10-20T12:03:02Z'
+        jobIds:
+          type: array
+          description: A list of IDs representing deviation jobs.
+          items:
+            type: string
+            format: uuid
+        note:
+          type: string
+          description: The deviation note.
+          example: string
+        type:
+          type: string
+          description: The deviation type.
+          example: string
+        parts:
+          type: array
+          description: A list of deviation parts.
+          items:
+            type: object
+            properties: {}
+        piecesAffected:
+          type: integer
+          format: int32
+          description: The pieces affected.
+          example: 0
+        reason:
+          type: string
+          description: The deviation reason.
+          example: string
+        revisionDeviationId:
+          type: string
+          format: uuid
+          description: ID representing the revision deviation.
+          example: 00000000-0000-0000-0000-000000000000
+        revisionDeviationNo:
+          type: string
+          description: The revision deviation no.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: ID representing the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

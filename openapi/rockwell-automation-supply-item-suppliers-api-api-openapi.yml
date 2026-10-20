@@ -1,0 +1,178 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Supply Item Suppliers API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Supply Item Suppliers API
+  description: The Supply Item Suppliers API is used to retrieve supply item suppliers and pricing information.
+paths:
+  /purchasing/v1/item-suppliers/{id}:
+    get:
+      operationId: getSupplyItemSupplier
+      summary: Get Supply Item Supplier
+      tags:
+      - Supply Item Suppliers API
+      description: Retrieve a Supply Item's Supplier and Item record.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemSupplierDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/supply-item-suppliers-api/get-supply-item-supplier
+  /purchasing/v1/item-suppliers/{id}/prices:
+    get:
+      operationId: listPrices_supplyItemSuppliersApi
+      summary: List Prices
+      tags:
+      - Supply Item Suppliers API
+      description: List Supply Item's Supplier Price record.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemSupplierPriceDto'
+        '404':
+          description: The Item Supplier Price resource was not found.
+      x-source: https://developers.plex.com/api/documentation/supply-item-suppliers-api/list-prices
+  /purchasing/v1/item-suppliers:
+    get:
+      operationId: listSupplierItemSuppliers
+      summary: List Supplier Item Suppliers
+      tags:
+      - Supply Item Suppliers API
+      description: List Supply Item Suppliers and Items, based on parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of Item Supplier Resource IDs.
+      - name: itemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Supply Item.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Supplier.
+      - name: supplierItemNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Supplier's Item Number (this may be different from the Plex Supply Item Number).
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemSupplierDto'
+      x-source: https://developers.plex.com/api/documentation/supply-item-suppliers-api/list-supplier-item-suppliers
+components:
+  schemas:
+    ItemSupplierDto:
+      type: object
+      description: The Item Supplier model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Supply Item Supplier. This will be automatically generated if omitted from the request..
+          example: 00000000-0000-0000-0000-000000000000
+        itemId:
+          type: string
+          format: uuid
+          description: The ID of the Supply Item.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the Supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierItemNumber:
+          type: string
+          description: The Supplier's Item Number (this may be different from the Plex Supply Item Number).
+          example: string
+    ItemSupplierPriceDto:
+      type: object
+      description: The Prices model exposed.
+      properties:
+        unit:
+          type: string
+          description: Purchasing unit of measure for the supply.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: Price per unit.
+          example: 0.1
+        purchaseQuantity:
+          type: number
+          format: double
+          description: Quantity to be purchased.
+          example: 0.1
+        leadTime:
+          type: number
+          format: double
+          description: Lead time required when ordering this supply item.
+          example: 0.1
+        currencyCode:
+          type: string
+          description: The ISO 4217 three digit alphanumeric currency code designation.
+          example: string
+        unitConversion:
+          type: number
+          format: double
+          description: The conversion factor from purchasing unit to inventory unit.
+          example: 0.1
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

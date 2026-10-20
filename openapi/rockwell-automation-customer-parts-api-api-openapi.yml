@@ -1,0 +1,370 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Customer Parts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Customer Parts API
+  description: The Customer Parts API is used to manage customer part master data.
+paths:
+  /mdm/v1/customer-parts:
+    post:
+      operationId: createCustomerPart
+      summary: Create Customer Part
+      tags:
+      - Customer Parts API
+      description: Create a customer part.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerPartDTO'
+      responses:
+        '201':
+          description: The Customer Part resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/create-customer-part
+    get:
+      operationId: listCustomerParts
+      summary: List Customer Parts
+      tags:
+      - Customer Parts API
+      description: List customer parts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of customer part IDs.
+      - name: number
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The customer part number.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The part ID.
+      - name: customerId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: modifiedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date and time to use for records that were last modified within a time frame.
+      - name: modifiedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date and time to use for records that were last modified within a time frame.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPartDTO'
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/list-customer-parts
+  /mdm/v1/customer-parts/{id}:
+    delete:
+      operationId: deleteCustomerPart
+      summary: Delete Customer Part
+      tags:
+      - Customer Parts API
+      description: Delete a customer part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The Customer Part resource was successfully deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/delete-customer-part
+    get:
+      operationId: getCustomerPart
+      summary: Get Customer Part
+      tags:
+      - Customer Parts API
+      description: Retrieve a customer part by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPartDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/get-customer-part
+    put:
+      operationId: updateCustomerPart
+      summary: Update Customer Part
+      tags:
+      - Customer Parts API
+      description: Update a customer part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerPartDTO'
+      responses:
+        '200':
+          description: The CustomerPart resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerPartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/update-customer-part
+  /mdm/v1/customer-parts/sync:
+    post:
+      operationId: syncCustomerParts
+      summary: Sync Customer Parts
+      tags:
+      - Customer Parts API
+      description: Sync a set of customer parts from another system. This operation performs create and update logic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncCustomerPartDTO'
+      responses:
+        '202':
+          description: The Sync Customer Parts command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customer-parts-api/sync-customer-parts
+components:
+  schemas:
+    SyncCustomerPartDTO:
+      type: object
+      description: The full CustomerPart Resource structure.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Part. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The customer part number.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: A description of the part.
+          example: string
+        revision:
+          type: string
+          example: string
+      required:
+      - number
+      - partId
+      - customerId
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    CustomerPartDTO:
+      type: object
+      description: The all-inclusive domain model for an Customer Part.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Part. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The customer part number.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          description: The customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: A description of the part.
+          example: string
+        revision:
+          type: string
+          description: The customer part revision.
+          example: string
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the record was last modified.
+          example: '2026-10-20T12:03:02Z'
+        modifiedBy:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who last modified this record.
+          example: 00000000-0000-0000-0000-000000000000
+    CreateCustomerPartDTO:
+      type: object
+      description: The customer part model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Part. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The customer part number.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: A description of the part.
+          example: string
+        revision:
+          type: string
+          example: string
+      required:
+      - number
+      - partId
+      - customerId
+    UpdateCustomerPartDTO:
+      type: object
+      description: The customer part model exposed for updating.
+      properties:
+        number:
+          type: string
+          description: The customer part number.
+          example: string
+        customerId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: A description of the part.
+          example: string
+        revision:
+          type: string
+          example: string
+      required:
+      - number
+      - customerId
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

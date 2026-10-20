@@ -1,0 +1,199 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Time Clock Entries API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Time Clock Entries API
+  description: The Time Clock Entries API is used to retrieve time clock entries.
+paths:
+  /hcm/v1/time-clock-entries:
+    get:
+      operationId: listTimeClockEntries
+      summary: List Time Clock Entries
+      tags:
+      - Time Clock Entries API
+      description: List Time Clock Entries.
+      parameters:
+      - name: employeeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the Employee. This will be automatically generated if omitted from the request.
+      - name: payDateStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Pay Date Start
+      - name: payDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Pay Date End
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Clock in type.
+
+          Setup Table: Clockin_Attribute_Type'
+      - name: shift
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Shift'
+      - name: approved
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+      - name: createdBy
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who created the record.
+      - name: createdDateStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Created Date Start
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Created Date End
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateStart
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Modified Date Start
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: Modified Date End
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEntriesDto'
+      x-source: https://developers.plex.com/api/documentation/time-clock-entries-api/list-time-clock-entries
+components:
+  schemas:
+    TimeClockEntriesDto:
+      type: object
+      description: The TimeClockEntries model.
+      properties:
+        employeeId:
+          type: string
+          format: uuid
+          description: A unique identifier for the Employee. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        payDate:
+          type: string
+          format: date-time
+          description: Pay Date
+          example: '2026-10-20T12:03:18Z'
+        type:
+          type: string
+          description: 'Clock in type.
+
+            Setup Table: Clockin_Attribute_Type'
+          example: string
+        totalHours:
+          type: number
+          format: double
+          description: The total of Regular hours, Overtime_Hours, and Doubletime_Hours
+          example: 0.1
+        shift:
+          type: string
+          description: 'Setup Table: Shift'
+          example: string
+        approved:
+          type: integer
+          format: int32
+          example: 0
+        clockinTime:
+          type: string
+          format: date-time
+          description: The time at which the user clocked in.
+          example: '2026-10-20T12:03:18Z'
+        clockoutTime:
+          type: string
+          format: date-time
+          description: The time at which the user clocked out.
+          example: '2026-10-20T12:03:18Z'
+        createdBy:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:18Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:18Z'
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

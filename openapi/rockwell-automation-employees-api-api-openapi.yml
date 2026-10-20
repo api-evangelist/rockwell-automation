@@ -1,0 +1,677 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Employees API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Employees API
+  description: 'The Employees API is used to manage employee and user master data. Note: Any endpoints that alter data cannot be used if your PCN has been fully migrated to IAM. The Get and List endpoints are still accessible.'
+paths:
+  /mdm/v1/employees/{id}/activate:
+    post:
+      operationId: activateEmployee
+      summary: Activate Employee
+      tags:
+      - Employees API
+      description: 'Activate an Employee and the associated User Account. Note: Additional configuration is required via the User Manager to fully enable User login.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateEmployeeCommand'
+      responses:
+        '202':
+          description: The Deactivate Employee command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The Employee Resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/employees-api/activate-employee
+  /mdm/v1/employees:
+    post:
+      operationId: createEmployee
+      summary: Create Employee
+      tags:
+      - Employees API
+      description: 'Create a new Employee and associated User Account (if User ID provided does not already correspond to existing User). Note: Additional configuration required via User Manager to fully enable User login.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmployeeDTO'
+      responses:
+        '201':
+          description: The Employee resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/employees-api/create-employee
+    get:
+      operationId: listEmployees
+      summary: List Employees
+      tags:
+      - Employees API
+      description: List Employees by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of unique identifiers for Employees.
+      - name: badgeNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Employee badge number as used in Plex.
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The User ID as seen on Plex login screens.
+      - name: firstName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: lastName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: supervisorId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Refers to another Employee's ID within the same Enterprise.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Employee Status'
+      - name: position
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Job title or position. Plex Classic Screen: Positions. Plex UX Screen: Employee Positions.'
+      - name: shift
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The Employee''s default shift. Setup Table: Shift'
+      - name: building
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The Employee''s default building. Screen: Buildings'
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Typically full-time or part-time. Setup Table: Employee Type'
+      - name: department
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Department'
+      - name: email
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+      x-source: https://developers.plex.com/api/documentation/employees-api/list-employees
+  /mdm/v1/employees/{id}/deactivate:
+    post:
+      operationId: deactivateEmployee
+      summary: Deactivate Employee
+      tags:
+      - Employees API
+      description: Deactivate an Employee and the associated User Account.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeactivateEmployeeCommand'
+      responses:
+        '202':
+          description: The Deactivate Employee command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The Employee Resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/employees-api/deactivate-employee
+  /mdm/v1/employees/{id}:
+    get:
+      operationId: getEmployee
+      summary: Get Employee
+      tags:
+      - Employees API
+      description: Retrieve an Employee by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/employees-api/get-employee
+    put:
+      operationId: updateEmployee
+      summary: Update Employee
+      tags:
+      - Employees API
+      description: Update an Employee.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployeeDTO'
+      responses:
+        '200':
+          description: The Employee resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/employees-api/update-employee
+  /mdm/v1/employees/sync:
+    post:
+      operationId: syncEmployees
+      summary: Sync Employees
+      tags:
+      - Employees API
+      description: Sync a set of Employees from another system. This operation creates Employees that do not exist in Plex and updates existing Employees.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncEmployeeDTO'
+      responses:
+        '202':
+          description: The Sync Employees command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/employees-api/sync-employees
+  /mdm/v1/employees/{id}/transfer:
+    post:
+      operationId: transferEmployee
+      summary: Transfer Employee
+      tags:
+      - Employees API
+      description: 'Transfer an Employee to a different Tenant within the same Enterprise. Note: The Employee setup data must be available in the target Tenant in order for the Employee to transfer successfully.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferEmployeeCommand'
+      responses:
+        '202':
+          description: The Transfer Employee command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/employees-api/transfer-employee
+components:
+  schemas:
+    EmployeeDTO:
+      type: object
+      description: All properties related to an Employee.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Employee.
+          example: 00000000-0000-0000-0000-000000000000
+        badgeNumber:
+          type: string
+          description: Employee badge number as used in Plex.
+          example: string
+        userId:
+          type: string
+          description: The User ID as seen on Plex login screens.
+          example: string
+        firstName:
+          type: string
+          example: string
+        middleName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supervisorId:
+          type: string
+          format: uuid
+          description: Refers to another Employee's ID within the same Enterprise.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: 'Setup Table: Employee Status'
+          example: string
+        position:
+          type: string
+          description: 'Job title or position. Plex Classic Screen: Positions. Plex UX Screen: Employee Positions.'
+          example: string
+        shift:
+          type: string
+          description: 'The Employee''s default shift. Setup Table: Shift'
+          example: string
+        building:
+          type: string
+          description: 'The Employee''s default building. Screen: Buildings'
+          example: string
+        type:
+          type: string
+          description: 'Typically full-time or part-time. Setup Table: Employee Type'
+          example: string
+        department:
+          type: string
+          description: 'Setup Table: Department'
+          example: string
+        email:
+          type: string
+          example: string
+        workPhone:
+          type: string
+          example: string
+        workExtension:
+          type: string
+          example: string
+        homePhone:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+    ActivateEmployeeCommand:
+      type: object
+      description: Properties related to activating an Employee.
+      properties:
+        status:
+          type: string
+          description: 'An Employee Status configured to be Active. Setup Table: Employee Status'
+          example: string
+      required:
+      - status
+    CreateEmployeeDTO:
+      type: object
+      description: Properties to be set when creating a new Employee.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Employee. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        badgeNumber:
+          type: string
+          description: Employee badge number as used in Plex.
+          example: string
+        userId:
+          type: string
+          description: The User ID as seen on Plex login screens.
+          example: string
+        firstName:
+          type: string
+          example: string
+        middleName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supervisorId:
+          type: string
+          format: uuid
+          description: Refers to another Employee's ID within the same Enterprise.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: 'Setup Table: Employee Status'
+          example: string
+        position:
+          type: string
+          description: 'Job title or position. Plex Classic Screen: Positions. Plex UX Screen: Employee Positions.'
+          example: string
+        shift:
+          type: string
+          description: 'The Employee''s default shift. Setup Table: Shift'
+          example: string
+        building:
+          type: string
+          description: 'The Employee''s default building. Screen: Buildings'
+          example: string
+        type:
+          type: string
+          description: 'Typically full-time or part-time. Setup Table: Employee Type'
+          example: string
+        department:
+          type: string
+          description: 'Setup Table: Department'
+          example: string
+        email:
+          type: string
+          example: string
+        workPhone:
+          type: string
+          example: string
+        workExtension:
+          type: string
+          example: string
+        homePhone:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+      required:
+      - userId
+      - firstName
+      - lastName
+      - status
+      - position
+      - department
+    UpdateEmployeeDTO:
+      type: object
+      description: Properties to be set when updating an Employee.
+      properties:
+        badgeNumber:
+          type: string
+          description: Employee badge number as used in Plex.
+          example: string
+        firstName:
+          type: string
+          example: string
+        middleName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supervisorId:
+          type: string
+          format: uuid
+          description: Refers to another Employee's ID within the same Enterprise.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: 'Setup Table: Employee Status'
+          example: string
+        position:
+          type: string
+          description: 'Job title or position. Plex Classic Screen: Positions. Plex UX Screen: Employee Positions.'
+          example: string
+        shift:
+          type: string
+          description: 'The Employee''s default shift. Setup Table: Shift'
+          example: string
+        building:
+          type: string
+          description: 'The Employee''s default building. Screen: Buildings'
+          example: string
+        type:
+          type: string
+          description: 'Typically full-time or part-time. Setup Table: Employee Type'
+          example: string
+        department:
+          type: string
+          description: 'Setup Table: Department'
+          example: string
+        email:
+          type: string
+          example: string
+        workPhone:
+          type: string
+          example: string
+        workExtension:
+          type: string
+          example: string
+        homePhone:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+      required:
+      - firstName
+      - lastName
+      - status
+      - position
+      - department
+    TransferEmployeeCommand:
+      type: object
+      description: Properties related to transferring an Employee to another Tenant.
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+          description: A unique identifier for a Tenant.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - tenantId
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    SyncEmployeeDTO:
+      type: object
+      description: All properties related to an Employee.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Employee. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        badgeNumber:
+          type: string
+          description: Employee badge number as used in Plex.
+          example: string
+        userId:
+          type: string
+          description: The User ID as seen on Plex login screens.
+          example: string
+        firstName:
+          type: string
+          example: string
+        middleName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        supervisorId:
+          type: string
+          format: uuid
+          description: Refers to another Employee's ID within the same Enterprise.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: 'Setup Table: Employee Status'
+          example: string
+        position:
+          type: string
+          description: 'Job title or position. Plex Classic Screen: Positions. Plex UX Screen: Employee Positions.'
+          example: string
+        shift:
+          type: string
+          description: 'The Employee''s default shift. Setup Table: Shift'
+          example: string
+        building:
+          type: string
+          description: 'The Employee''s default building. Screen: Buildings'
+          example: string
+        type:
+          type: string
+          description: 'Typically full-time or part-time. Setup Table: Employee Type'
+          example: string
+        department:
+          type: string
+          description: 'Setup Table: Department'
+          example: string
+        email:
+          type: string
+          example: string
+        workPhone:
+          type: string
+          example: string
+        workExtension:
+          type: string
+          example: string
+        homePhone:
+          type: string
+          example: string
+        mobilePhone:
+          type: string
+          example: string
+      required:
+      - userId
+      - firstName
+      - lastName
+      - status
+      - position
+      - department
+    DeactivateEmployeeCommand:
+      type: object
+      description: Properties related to deactivating an Employee.
+      properties:
+        status:
+          type: string
+          description: 'An Employee Status configured to be Inactive. Setup Table: Employee Status'
+          example: string
+      required:
+      - status
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

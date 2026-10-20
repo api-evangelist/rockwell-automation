@@ -1,0 +1,354 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Supplier Returns API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Supplier Returns API
+  description: The Supplier Returns API is used to retrieve supplier returns, including line items.
+paths:
+  /purchasing/v1/supplier-returns/{id}:
+    get:
+      operationId: getSupplierReturn
+      summary: Get Supplier Return
+      tags:
+      - Supplier Returns API
+      description: Retrieve a Supplier Return Record by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierReturnDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/supplier-returns-api/get-supplier-return
+  /purchasing/v1/supplier-returns/{id}/lines:
+    get:
+      operationId: listSupplierReturnLines
+      summary: List Supplier Return Lines
+      tags:
+      - Supplier Returns API
+      description: List Supplier Return Line records based on supplier return lines.
+      parameters:
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date on which the record was created.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date and time of the last modification to the record.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date and time of the last modification to the record.
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineDto'
+        '404':
+          description: The Supplier Return resource was not found.
+      x-source: https://developers.plex.com/api/documentation/supplier-returns-api/list-supplier-return-lines
+  /purchasing/v1/supplier-returns:
+    get:
+      operationId: listSupplierReturns
+      summary: List Supplier Returns
+      tags:
+      - Supplier Returns API
+      description: List Supplier Return Records based on supplier return properties.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of Supplier Return IDs.
+      - name: supplierReturnNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Return Number.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Supplier.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supplier Return Status'
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supplier Return Type'
+      - name: supplierAddressId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date on which the record was created.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date and time of the last modification to the return.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The date and time of the last modification to the return.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplierReturnDto'
+      x-source: https://developers.plex.com/api/documentation/supplier-returns-api/list-supplier-returns
+components:
+  schemas:
+    LineDto:
+      type: object
+      description: The shipper line model exposed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the shipper line. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperId:
+          type: string
+          format: uuid
+          description: The ID of the shipper associated with this shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the Part Number associated with the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The part quantity on the shipper line.
+          example: 0.1
+        releaseId:
+          type: string
+          format: uuid
+          description: The ID of the release on the specified shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        price:
+          type: number
+          format: double
+          description: The shipping order unit price assigned to the shipper line.
+          example: 0.1
+        customerPartId:
+          type: string
+          format: uuid
+          description: The ID of the customer part on the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        priceId:
+          type: string
+          format: uuid
+          description: The ID of the price used on the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the shipper line.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the shipper line.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The tare weight of the shipper line.
+          example: 0.1
+        shipperLineNote:
+          type: string
+          description: The note on the shipper line.
+          example: string
+        packingComplete:
+          type: boolean
+          description: Indicates if packing is complete for the shipper line.
+          example: false
+        conversion:
+          type: number
+          format: double
+          description: The unit conversion used on the shipper line.
+          example: 0.1
+    SupplierReturnDto:
+      type: object
+      description: The Supplier Return model exposed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Supplier Return. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierReturnNumber:
+          type: string
+          description: Return Number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the Supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: 'Setup Table: Supplier Return Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Supplier Return Type'
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:18Z'
+        supplierAddressId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        shipTo:
+          type: string
+          description: The shipping address for the return.
+          example: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date and time of the last modification to the return.
+          example: '2026-10-20T12:03:18Z'
+        carrierId:
+          type: string
+          format: uuid
+          description: If the Supplier has a Supplier Type of Carrier, this ID will link to Supplier_No.
+          example: 00000000-0000-0000-0000-000000000000
+        note:
+          type: string
+          example: string
+        contactId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

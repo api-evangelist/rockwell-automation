@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Control Plan Types API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Control Plan Types API
+  description: The Control Plan Types API is used to manage control plan type data.
+paths:
+  /quality/v1/control-plan-types:
+    get:
+      operationId: listControlPlanTypes
+      summary: List Control Plan Types
+      tags:
+      - Control Plan Types API
+      description: Retrieve a list of control plan types.
+      parameters:
+      - name: controlPlanType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A list of Control Plan Types.
+      - name: production
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The production flag.
+      - name: process
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The process flag.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetControlPlanTypeResponseDto'
+      x-source: https://developers.plex.com/api/documentation/control-plan-types-api/list-control-plan-types
+components:
+  schemas:
+    GetControlPlanTypeResponseDto:
+      type: object
+      description: The data structure representing a control plan type.
+      properties:
+        controlPlanType:
+          type: string
+          description: The name of the Control Plan Type.
+          example: string
+        process:
+          type: boolean
+          description: The process flag.
+          example: false
+        production:
+          type: boolean
+          description: The production flag.
+          example: false
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

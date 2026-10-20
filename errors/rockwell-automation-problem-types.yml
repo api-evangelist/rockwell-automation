@@ -1,0 +1,38 @@
+generated: '2026-10-20'
+method: searched
+source: https://developers.plex.com/getstarted
+format: custom-json
+envelope:
+  fields: [code, message]
+  example: '{"code": "REQUEST_NOT_AUTHENTICATED", "message": "The request could not be authenticated."}'
+problems:
+- status: 400
+  title: Malformed request
+  type: null
+  description: The body of the request does not match the resource being requested.
+  remediation: Check the request body against the operation schema.
+- status: 400
+  title: Validation failure
+  type: null
+  description: One or more of the parameters use an incorrect format or are omitted from the request.
+  remediation: Correct parameter formats (dates as YYYY-MM-DDThh:mm:ss.fffffffZ) and supply required parameters.
+- status: 401
+  title: Request not authenticated
+  type: REQUEST_NOT_AUTHENTICATED
+  description: Expired API key, invalid API key, or no API key, or no access to the requested tenant.
+  remediation: Verify the X-Plex-Connect-Api-Key header is specified and matches the value in the Plex Developer Portal.
+- status: 403
+  title: Forbidden
+  type: null
+  description: The server understood the request but refuses to authorize it; re-authenticating makes no difference.
+  remediation: Request access to the resource.
+- status: 404
+  title: Resource not found
+  type: null
+  description: Incorrect request URL or no data exists to return.
+  remediation: Check the URL.
+- status: 500
+  title: Request processing error
+  type: null
+  description: Unexpected error.
+  remediation: Submit a support ticket to Plex with steps to reproduce; do not include secrets.

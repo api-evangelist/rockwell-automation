@@ -1,0 +1,197 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 15
+  own: 8
+  other_domain: 4
+  platform: 3
+  roles:
+  - api
+  - docs
+  - legal
+  - other
+  - portal
+  - source
+  - website
+hosts:
+- host: api.github.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: github.com
+  role: api
+  relation: platform
+- host: api.plex.com
+  found_by:
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: plex.com
+  role: api
+  relation: other-domain
+- host: api.rockwellautomation.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: rockwellautomation.com
+  role: api
+  relation: own
+- host: compatibility.rockwellautomation.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: rockwellautomation.com
+  role: other
+  relation: own
+- host: configurator.rockwellautomation.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: rockwellautomation.com
+  role: other
+  relation: own
+- host: connect.plex.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: plex.com
+  role: other
+  relation: other-domain
+- host: datamosaix-portal.cloud.rockwellautomation.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: rockwellautomation.com
+  role: other
+  relation: own
+- host: developers.plex.com
+  found_by:
+  - pointer
+  - probed
+  - namespace-probe
+  - docs-index
+  - well-known
+  types:
+  - Portal
+  - DeveloperPortal
+  serves:
+  - docs
+  title: PLEX Developer Portal
+  status: 200
+  registrable_domain: plex.com
+  role: portal
+  relation: other-domain
+- host: docs.plex.com
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - docs-index
+  types: []
+  serves:
+  - docs
+  title: Rockwell Automation Documentation
+  status: 200
+  registrable_domain: plex.com
+  role: docs
+  relation: other-domain
+- host: engage.rockwellautomation.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  types:
+  - TermsOfService
+  serves: []
+  registrable_domain: rockwellautomation.com
+  role: legal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  - apis[]
+  - contract-discovery
+  - vendor-detect
+  types:
+  - GitHubOrganization
+  serves:
+  - api
+  - docs
+  - hosting
+  vendor: github-pages
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: map.rockwellautomation.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: rockwellautomation.com
+  role: other
+  relation: own
+- host: plex.rockwellautomation.com
+  found_by:
+  - apis[]
+  - probed
+  - well-known
+  types: []
+  serves:
+  - docs
+  registrable_domain: rockwellautomation.com
+  role: other
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.rockwellautomation.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - Documentation
+  - Support
+  - PrivacyPolicy
+  - Blog
+  serves:
+  - docs
+  - cdn
+  vendor: akamai
+  registrable_domain: rockwellautomation.com
+  role: website
+  relation: own

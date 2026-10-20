@@ -1,0 +1,536 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Key Measurables API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Key Measurables API
+  description: The Key Measurables API is used to manage key measurable (metric) data displayed on the Business Function Dashboard in Plex.
+paths:
+  /management/v1/metrics/{id}/data:
+    get:
+      operationId: getMetricData
+      summary: Get Metric Data
+      tags:
+      - Key Measurables API
+      description: Retrieve the data associated with a metric.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the metric record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricDataDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/get-metric-data
+  /management/v1/metrics/{id}:
+    get:
+      operationId: getMetric
+      summary: Get Metric
+      tags:
+      - Key Measurables API
+      description: Retrieve a metric by query ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the metric record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/get-metric
+  /management/v1/data-sets/{id}/dimensions:
+    get:
+      operationId: listDataSetDimensions
+      summary: List Data Set Dimensions
+      tags:
+      - Key Measurables API
+      description: Retrieve the dimensions associated with a data set ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the associated data set.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/list-data-set-dimensions
+  /management/v1/data-sets/{id}/measures:
+    get:
+      operationId: listDataSetMeasures
+      summary: List Data Set Measures
+      tags:
+      - Key Measurables API
+      description: Retrieve the measures associated with a data set ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the data set record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasureDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/list-data-set-measures
+  /management/v1/data-sets:
+    get:
+      operationId: listDataSets
+      summary: List Data Sets
+      tags:
+      - Key Measurables API
+      description: Retrieve a list of data sets.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSetDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/list-data-sets
+  /management/v1/metrics/{id}/benchmarks:
+    get:
+      operationId: listMetricBenchmarks
+      summary: List Metric Benchmarks
+      tags:
+      - Key Measurables API
+      description: Retrieve the benchmarks associated with a metric.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the metric record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricBenchmarkDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/list-metric-benchmarks
+  /management/v1/metrics:
+    get:
+      operationId: listMetrics
+      summary: List Metrics
+      tags:
+      - Key Measurables API
+      description: Retrieve a list of metrics.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/list-metrics
+  /management/v1/data-sets/{id}/upload-data:
+    post:
+      operationId: uploadDataSetFile
+      summary: Upload Data Set File
+      tags:
+      - Key Measurables API
+      description: Upload data for a data set. Upload the file using a content type of multipart/form-data with a parameter named "file".
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the data set.
+      responses:
+        '200':
+          description: The file was uploaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadDataSetDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '429':
+          description: Too many request by an account within a given amount of time.
+        '500':
+          description: Server Error
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/key-measurables-api/upload-data-set-file
+components:
+  schemas:
+    DimensionDto:
+      type: object
+      description: The data structure representing a dimension.
+      properties:
+        id:
+          type: string
+          description: The dimension ID.
+          example: string
+        description:
+          type: string
+          description: The dimension description.
+          example: string
+    MetricDto:
+      type: object
+      description: The data structure representing a metric.
+      properties:
+        id:
+          type: string
+          description: The ID of a metric.
+          example: string
+        name:
+          type: string
+          description: The name of the metric.
+          example: string
+        businessFunctionId:
+          type: string
+          description: The ID of the business function for the metric.
+          example: string
+        businessFunctionValue:
+          type: string
+          description: The name of the business function for the metric.
+          example: string
+        dataSetId:
+          type: string
+          description: The ID of the data set for the metric.
+          example: string
+        dataSetName:
+          type: string
+          description: The name of the data set for the metric.
+          example: string
+        dataSetPeriodValue:
+          type: string
+          description: The time period of the data set for the metric.
+          example: string
+        measureId:
+          type: string
+          description: The ID of the measure used to collect metric data.
+          example: string
+        measureName:
+          type: string
+          description: The name of the measure used to collect metric data.
+          example: string
+        unit:
+          type: string
+          description: The unit of measure used for the metric.
+          example: string
+        frequencyId:
+          type: string
+          description: The ID of the aggregation frequency used for the metric.
+          example: string
+        frequencyDescription:
+          type: string
+          description: The description of the aggregation frequency used for the metric.
+          example: string
+        frequencyMethodName:
+          type: string
+          description: The name of the aggregation method for the metric data in the specified frequency.
+          example: string
+        dimensionId:
+          type: string
+          description: The ID of the dimension for the metric.
+          example: string
+        dimensionDescription:
+          type: string
+          description: The description of the dimension for the metric.
+          example: string
+        numberOfDimensionValues:
+          type: integer
+          format: int32
+          description: The number of dimension values for the metric.
+          example: 0
+        displayTopBottomName:
+          type: string
+          description: The name of the option for displaying top or bottom values for the metric data.
+          example: string
+        benchmarkType:
+          type: string
+          description: The name of the benchmark (goal) type for the metric (i.e., threshold or target).
+          example: string
+        successIndicatorName:
+          type: string
+          description: The name of the success indicator for the metric (High or Low).
+          example: string
+        benchmarks:
+          type: array
+          description: The benchmark IDs for the metric.
+          items:
+            type: string
+        strategicObjectives:
+          type: array
+          description: The strategic objectives keys for the metric.
+          items:
+            type: integer
+            format: int32
+        createdBy:
+          type: string
+          description: The IAM account ID of the user who created the metric.
+          example: string
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date on which the metric was created.
+          example: '2026-10-20T12:03:13Z'
+        lastModifiedBy:
+          type: string
+          description: The ID of the user that last modified the metric.
+          example: string
+        lastModifiedDateTime:
+          type: string
+          format: date-time
+          description: The date on which the metric was last modified.
+          example: '2026-10-20T12:03:13Z'
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UploadDataSetDto:
+      type: object
+      properties:
+        dataSetId:
+          type: string
+          format: uuid
+          description: The data set ID.
+          example: 00000000-0000-0000-0000-000000000000
+        fileStatus:
+          type: string
+          description: The status of the file.
+          example: string
+    MetricBenchmarkDto:
+      type: object
+      description: The data structure representing metric benchmarks.
+      properties:
+        id:
+          type: string
+          description: The metric benchmark ID.
+          example: string
+        metricId:
+          type: string
+          description: The metric ID.
+          example: string
+        startDateTime:
+          type: string
+          format: date-time
+          description: The start date for the metric benchmark.
+          example: '2026-10-20T12:03:13Z'
+        endDateTime:
+          type: string
+          format: date-time
+          description: The end date for the metric benchmark.
+          example: '2026-10-20T12:03:13Z'
+        success:
+          type: number
+          format: double
+          description: The success value for the metric benchmark.
+          example: 0.1
+        warning:
+          type: number
+          format: double
+          description: The warning value for the metric benchmark.
+          example: 0.1
+        warningPercent:
+          type: number
+          format: double
+          description: The warning percentage for the metric benchmark.
+          example: 0.1
+        critical:
+          type: number
+          format: double
+          description: The critical value for the metric benchmark.
+          example: 0.1
+        criticalPercent:
+          type: number
+          format: double
+          description: The critical percentage for the metric benchmark.
+          example: 0.1
+    MetricDataDto:
+      type: object
+      description: The data structure representing metric data.
+      properties:
+        metricId:
+          type: string
+          description: The metric ID.
+          example: string
+        metricName:
+          type: string
+          description: The metric name.
+          example: string
+        unit:
+          type: string
+          description: The unit of measure for the metric.
+          example: string
+        dimension:
+          type: string
+          description: The dimension data (a list of data points and dates) for the metric.
+          example: string
+        frequency:
+          type: string
+          description: The aggregation frequency for the metric data.
+          example: string
+        dimensions:
+          type: array
+          description: The dimension data for the metric.
+          items:
+            type: object
+            description: The data structure representing dimension data.
+            properties: {}
+    MeasureDto:
+      type: object
+      description: The data structure representing the measure defined for the data set.
+      properties:
+        id:
+          type: string
+          description: The ID of the data set's measure.
+          example: string
+        name:
+          type: string
+          description: The name of the data set's measure.
+          example: string
+    DataSetDto:
+      type: object
+      description: The data structure representing a data set.
+      properties:
+        id:
+          type: string
+          description: The data set ID.
+          example: string
+        name:
+          type: string
+          description: The name of the data set.
+          example: string
+        period:
+          type: string
+          description: The time period of the data set.
+          example: string
+        dataSetType:
+          type: string
+          description: The data set's type (internal or external).
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

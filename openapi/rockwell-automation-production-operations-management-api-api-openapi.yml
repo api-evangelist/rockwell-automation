@@ -1,0 +1,4328 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Production Operations…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Production Operations Management API
+  description: 'Manage and monitor shop floor activities.
+
+    Disclaimer: This API contains a mixture of stable and beta endpoints. Some endpoints have been recently added as a part of a limited beta release for our community to test and review documentation. Beta endpoints have limited support duration and may be subject to change. We''re very interested in your feedback, which you can provide here: Plex-API-Beta@Plex.com.'
+paths:
+  /production/v1/tank-management/locations/{locationId}/tank-events/ignore-for-lot-trace:
+    post:
+      operationId: activateTankEventsLocationIgnoreForLotTrace
+      summary: Activate Tank Events Location Ignore For Lot Trace
+      tags:
+      - Production Operations Management API
+      description: Activate Ignore For Lot Trace flag on selected tank log record.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier of the location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TankLotLogIgnoreRequest'
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/activate-tank-events-location-ignore-for-lot-trace
+  /production/v1/tank-management/workcenters/{workcenterId}/tank-events/ignore-for-lot-trace:
+    post:
+      operationId: activateTankEventsWorkcenterIgnoreForLotTrace
+      summary: Activate Tank Events Workcenter Ignore For Lot Trace
+      tags:
+      - Production Operations Management API
+      description: Activate Ignore For Lot Trace flag on selected tank log record.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TankLotLogIgnoreRequest'
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/activate-tank-events-workcenter-ignore-for-lot-trace
+  /production/v1/control/workcenters/{workcenterId}/loaded-source-inventory:
+    post:
+      operationId: addSourceInventory
+      summary: Add Source Inventory
+      tags:
+      - Production Operations Management API
+      description: Loads a container to a workcenters loaded source inventory.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddSourceInventoryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadedSourceInventory'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/add-source-inventory
+    get:
+      operationId: getLoadedSourceInventory
+      summary: Get Loaded Source Inventory
+      tags:
+      - Production Operations Management API
+      description: Gets all source inventory currently loaded to a workcenter.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for a part.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for a part operation.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadedSourceInventory'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-loaded-source-inventory
+    delete:
+      operationId: unloadAllSourceInventory
+      summary: Unload All Source Inventory
+      tags:
+      - Production Operations Management API
+      description: Unloads all loaded source from a workcenter.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      responses:
+        '204':
+          description: The command executed successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/unload-all-source-inventory
+  /production/v1/control/workcenters/{workcenterId}/assign-lot:
+    post:
+      operationId: assignLot
+      summary: Assign Lot
+      tags:
+      - Production Operations Management API
+      description: Assigns a lot for a workcenter setup.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignLotRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LotResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/assign-lot
+  /production/v1/control/workcenters/{workcenterId}/clear-lot:
+    post:
+      operationId: clearLotFromSetupContainer
+      summary: Clear Lot From Setup Container
+      tags:
+      - Production Operations Management API
+      description: Clear lot from setup container.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClearLotRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/clear-lot-from-setup-container
+  /production/v1/control/workcenters/{workcenterId}/operators/clockin:
+    post:
+      operationId: clockInOperator
+      summary: Clock In Operator
+      tags:
+      - Production Operations Management API
+      description: Clocks in an operator to a workcenter by workcenter ID and account ID.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClockinOperatorRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetup'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/clock-in-operator
+  /production/v1/control/workcenters/{workcenterId}/operators/clockout:
+    post:
+      operationId: clockOutOperators
+      summary: Clock Out Operators
+      tags:
+      - Production Operations Management API
+      description: Clocks out operators from a workcenter by workcenter ID and account IDs. If no account IDs are provided then all operators are clocked out from the workcenter.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      - name: accountIDs
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of unique identifiers of IAM accounts to be clocked out of the workcenter. If not provided all operators will be clocked out.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetup'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/clock-out-operators
+  /production/v1/production-definitions/approved-suppliers:
+    post:
+      operationId: createApprovedSupplier
+      summary: Create Approved Supplier
+      tags:
+      - Production Operations Management API
+      description: Create a new approved supplier record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddApprovedSupplierRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplier'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/create-approved-supplier
+    get:
+      operationId: listApprovedSuppliers_productionOperationsManagementApi
+      summary: List Approved Suppliers
+      tags:
+      - Production Operations Management API
+      description: Retrieve a list of approved suppliers.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part operation.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the supplier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedSupplier'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-approved-suppliers
+  /production/v1/production-definitions/approved-workcenters:
+    post:
+      operationId: createApprovedWorkcenter
+      summary: Create Approved Workcenter
+      tags:
+      - Production Operations Management API
+      description: Create a new approved workcenter. Does not follow Rate Display Setting. The standardProductionRate is overwritten to Operation.Standard_Rate / Part_Operation.Repetitions when Standard Rate Form Display is on and the Standard Rate is > 0.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovedWorkcenterRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedWorkcenter'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedWorkcenter'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/create-approved-workcenter
+    get:
+      operationId: listApprovedWorkcenters
+      summary: List Approved Workcenters
+      tags:
+      - Production Operations Management API
+      description: Gets all the approved workcenters based on the query parameters.
+      parameters:
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the workcenter where part is produced.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the part that is produced.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the part operation.
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the operation.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedWorkcenter'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedWorkcenter'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-approved-workcenters
+  /production/v1/tank-management/locations/{locationId}/sanitize:
+    post:
+      operationId: createSanitizationEvent
+      summary: Create Sanitization Event
+      tags:
+      - Production Operations Management API
+      description: Create a tank/silo sanitization event record.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier of location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTankSanitizationEventRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TankSanitizationEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/create-sanitization-event
+  /production/v1/control/workcenters/{workcenterId}/batches/{batchId}:
+    get:
+      operationId: getBatch
+      summary: Get Batch
+      tags:
+      - Production Operations Management API
+      description: Retrieves a batch by workcenter ID and batch ID.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      - name: batchId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the batch.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-batch
+  /production/v1/production-definitions/cost-sub-types/{costSubTypeId}:
+    get:
+      operationId: getCostSubType
+      summary: Get Cost Sub Type
+      tags:
+      - Production Operations Management API
+      description: Retrieves a cost sub type by ID.
+      parameters:
+      - name: costSubTypeId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostSubType'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-cost-sub-type
+  /production/v1/production-definitions/locations/{locationId}:
+    get:
+      operationId: getLocation
+      summary: Get Location
+      tags:
+      - Production Operations Management API
+      description: Retrieves a production location by ID.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-location
+  /production/v1/control/workcenters/{workcenterId}/next-batch:
+    get:
+      operationId: getNextBatch
+      summary: Get Next Batch
+      tags:
+      - Production Operations Management API
+      description: Retrieves the next scheduled batch at a workcenter based on Job Dispatch logic.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the job.
+      - name: sortOrder
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The sort order method used to determine how to order scheduled jobs. If omitted from the request, the default value is SortOrder unless the &quot;Run Record SortOrder Use&quot; setting is enabled, in which case the default is StartDate. Sort order values are: SortOrder, StartDate, CompletionDate, ToolAssemblyNo, Job.'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-next-batch
+  /production/v1/production-definitions/production-lines/{id}:
+    get:
+      operationId: getProductionLine
+      summary: Get Production Line
+      tags:
+      - Production Operations Management API
+      description: Retrieves the production line by the ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The production line ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionLine'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-production-line
+  /production/v1/control/workcenters/{workcenterId}/required-source-inventory:
+    get:
+      operationId: getRequiredSourceInventory
+      summary: Get Required Source Inventory
+      tags:
+      - Production Operations Management API
+      description: Gets all source inventory required to run production at a workcenter.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequiredSourceInventory'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-required-source-inventory
+  /production/v1/production-definitions/workcenter-events/{workcenterEventId}:
+    get:
+      operationId: getWorkcenterEvent
+      summary: Get Workcenter Event
+      tags:
+      - Production Operations Management API
+      description: Retrieves a workcenter event by ID.
+      parameters:
+      - name: workcenterEventId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of a workcenter event
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterEvent'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-workcenter-event
+  /production/v1/control/workcenters/{workcenterId}:
+    get:
+      operationId: getWorkcenterSetup
+      summary: Get Workcenter Setup
+      tags:
+      - Production Operations Management API
+      description: Retrieves a workcenters current status, setup, and operators by ID.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetup'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-workcenter-setup
+  /production/v1/production-definitions/workcenter-statuses/{workcenterStatusId}:
+    get:
+      operationId: getWorkcenterStatus
+      summary: Get Workcenter Status
+      tags:
+      - Production Operations Management API
+      description: Retrieves a workcenter status by ID.
+      parameters:
+      - name: workcenterStatusId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of a workcenter status.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterStatus'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-workcenter-status
+  /production/v1/production-definitions/workcenters/{id}:
+    get:
+      operationId: getWorkcenter
+      summary: Get Workcenter
+      tags:
+      - Production Operations Management API
+      description: Retrieve information of a specific workcenter by its UUID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The UUID assigned to the workcenter.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workcenter'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workcenter'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/get-workcenter
+  /production/v1/production-definitions/approved-equipment:
+    get:
+      operationId: listApprovedEquipment
+      summary: List Approved Equipment
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of Approved Equipment based on the query parameters.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Part to filter by.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Part Operation to filter by.
+      - name: equipmentTypeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Equipment Type to filter by.
+      - name: equipmentId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Equipment to filter by.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedEquipment'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovedEquipment'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-approved-equipment
+  /production/v1/control/workcenters/{workcenterId}/batches:
+    get:
+      operationId: listBatches
+      summary: List Batches
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of batches scheduled to a workcenter.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      - name: beginDueDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date used to return batches that are due within a time period.
+      - name: endDueDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date used to return batches that are due within a time period.
+      - name: beginStartDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date used to return batches that start within a time period.
+      - name: endStartDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date used to return batches that start within a time period.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for a part.
+      - name: batchStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The status of the job operation batch as defined by the setup table Job_Op_Batch_Status.
+      - name: sortOrder
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The sort order method used to determine how to order scheduled jobs. If omitted from the request, the default value is SortOrder unless the &quot;Run Record SortOrder Use&quot; setting is enabled, in which case the default is StartDate. Sort order values are: SortOrder, StartDate, CompletionDate, ToolAssemblyNo, Job.'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-batches
+  /production/v1/production-definitions/cost-sub-types:
+    get:
+      operationId: listCostSubTypes
+      summary: List Cost Sub Types
+      tags:
+      - Production Operations Management API
+      description: Retrieves list of cost sub type.
+      parameters:
+      - name: costSubTypeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A cost sub type name.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Filters results by if cost sub type is active or not.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostSubType'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-cost-sub-types
+  /production/v1/production-history/labor-entries:
+    get:
+      operationId: listLaborEntries
+      summary: List Labor Entries
+      tags:
+      - Production Operations Management API
+      description: Retrieve historical and closed labor cost activities performed at a workcenter. This API returns results similar to the Labor Records application with the Sort By filter set to Workcenter. See Knowledge Center MES API documentation for more details.
+      parameters:
+      - name: accountId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID assigned to a specific IAM account.
+      - name: employeeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID assigned to a specific employee.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the production job that was loaded to the workcenter when the labor activity was recorded. Note that a production job is not necessary to set or change teh workcenter's status.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the workcenter where the labor transaction was recorded.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part that was being produced in the workcenter when the labor activity was recorded.
+      - name: costActivity
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. The type of manufacturing labor activity that was performed, such as Setup, Maintenance, Production. This is the Cost Sub Type configured in Cost Types Setup application.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time range from when closed labor entries are to be retrieved. Labor activities that end within specified date/time range will be retrieved.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time until when closed labor entries are to be retrieved. Labor activities that end within specified date/time range will be retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaborHistory'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-labor-entries
+  /production/v1/tank-management/locations/{locationId}/tank-events:
+    get:
+      operationId: listLocationTankEvents
+      summary: List Location Tank Events
+      tags:
+      - Production Operations Management API
+      description: Get combined tank logs and sanitization events.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier of location.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Begin datetime for query.
+      - name: endDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: End datetime for query.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TankEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-location-tank-events
+  /production/v1/production-definitions/locations:
+    get:
+      operationId: listLocations_productionOperationsManagementApi
+      summary: List Locations
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of all active locations that can hold production inventory.
+      parameters:
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The building identifier.
+      - name: locationName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The location name.
+      - name: locationType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The location type.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-locations
+  /production/v1/production-history/production-entries-summary:
+    get:
+      operationId: listProductionEntriesSummary
+      summary: List Production Entries Summary
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of production history entries aggregated per part operation and workcenter.
+      parameters:
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the workcenter where the production transaction was recorded.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as Kanban may have been used.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part that was produced.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part operation that was produced.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date when recorded production transactions were retrieved within a time frame.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date when recorded production transactions were retrieved within a time frame.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionHistorySummary'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-production-entries-summary
+  /production/v1/production-history/production-entries:
+    get:
+      operationId: listProductionEntries
+      summary: List Production Entries
+      tags:
+      - Production Operations Management API
+      description: Retrieve a list of production history entries. This API returns results similar to the Detailed Production History report.
+      parameters:
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the workcenter where the production transaction was recorded.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as Kanban may have been used.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part that was produced.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part operation that was produced.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date when recorded production transactions were retrieved within a time frame.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date when recorded production transactions were retrieved within a time frame.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionHistory'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-production-entries
+  /production/v1/production-definitions/production-lines/{id}/workcenters:
+    get:
+      operationId: listProductionLineWorkcenters
+      summary: List Production Line Workcenters
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of all production line workcenters by the ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The production line ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionLineWorkcenter'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-production-line-workcenters
+  /production/v1/production-definitions/production-lines:
+    get:
+      operationId: listProductionLines
+      summary: List Production Lines
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of all production lines on the query parameters.
+      parameters:
+      - name: productionLineId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier assigned to the production line.
+      - name: productionLineCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. A short name associated to the productionLineID, and a unique code to reference the production line.
+      - name: equipmentId
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. A short name associated to the equipment.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionLine'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-production-lines
+  /production/v1/tank-management/sanitization-codes:
+    get:
+      operationId: listSanitizationCodes
+      summary: List Sanitization Codes
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of active sanitization codes.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SanitizationCode'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-sanitization-codes
+  /production/v1/production-history/scrap-entries-summary:
+    get:
+      operationId: listScrapEntriesSummary
+      summary: List Scrap Entries Summary
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of scrap entries aggregated per part operation and workcenter.
+      parameters:
+      - name: scrapReason
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Setup table &quot;Scrap Reason&quot; (part.dbo.scrap_reason). The reason code which indicates why the material or part was scrapped. 50 characters max.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the workcenter where the scrap transaction was recorded.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the production job that scrap was recorded against. Note that a production job is not necessary to record scrap. Another scheduling method such as kanban may have been used.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part that was scrapped.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part operation that was produced.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date when scrap transactions were retrieved within a time frame.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date when scrap transactions were retrieved within a time frame.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScrapHistorySummary'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-scrap-entries-summary
+  /production/v1/production-history/scrap-entries:
+    get:
+      operationId: listScrapEntries
+      summary: List Scrap Entries
+      tags:
+      - Production Operations Management API
+      description: Retrieve list of scrap entries. This API returns results similar to the Scrap Logs application. See Knowledge Center MES API documentation for more details.
+      parameters:
+      - name: scrapReason
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Setup table &quot;Scrap Reason&quot; (part.dbo.scrap_reason). The reason code which indicates why the material or part was scrapped. 50 characters max.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the workcenter where the scrap transaction was recorded.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the production job that scrap was recorded against. Note that a production job is not necessary to record scrap. Another scheduling method such as kanban may have been used.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part that was scrapped.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the part operation that was produced.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date when scrap transactions were retrieved within a time frame.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date when scrap transactions were retrieved within a time frame.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScrapHistory'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-scrap-entries
+  /production/v1/production-history/subcontract-receipts:
+    get:
+      operationId: listSubcontractReceipts
+      summary: List Subcontract Receipts
+      tags:
+      - Production Operations Management API
+      description: Lists subcontract receipts and filters by query parameters.
+      parameters:
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The beginning date when subcontract receipts were retrieved within a time frame.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: The end date when subcontract receipts were retrieved within a time frame.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The part ID.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The supplier ID.
+      - name: supplierShipperNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. The supplier shipper number.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcontractReceipt'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-subcontract-receipts
+  /production/v1/production-definitions/workcenter-events:
+    get:
+      operationId: listWorkcenterEvents
+      summary: List Workcenter Events
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of workcenter events.
+      parameters:
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Filters results by if workcenter event is active or not.
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The description of a workcenter event.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterEvent'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenter-events
+  /production/v1/production-history/workcenter-setup-entries:
+    get:
+      operationId: listWorkcenterSetupEntries
+      summary: List Workcenter Setup Entries
+      tags:
+      - Production Operations Management API
+      description: Gets the work center setup entries.
+      parameters:
+      - name: beginSetupDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Gets or sets the Start of the DateTime (in UTC) Range for the requested setup entries
+      - name: endSetupDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Gets or sets the End of the DateTime (in UTC) Range for the requested setup entries
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Gets or sets the WorkCenterId (UUID)
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Gets or sets the PartId (UUID)
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetupEntry'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenter-setup-entries
+  /production/v1/production-history/workcenter-status-entries:
+    get:
+      operationId: listWorkcenterStatusEntries
+      summary: List Workcenter Status Entries
+      tags:
+      - Production Operations Management API
+      description: Retrieve list of historical workcenter status entries. The API returns results that are a cross of Workcenter Status Summary and Workcenter Log applications. See Knowledge Center MES API documentation for more details.
+      parameters:
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the workcenter where the status transaction was recorded.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the production job that was loaded to the workcenter when the workcenter status entry was recorded.  Note that a production job is not necessary to set or change the workcenter's status.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part that was being produced in the workcenter when the workcenter status entry was recorded.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. The status of a workcenter.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time from when recorded workcenter status transaction are to be retrieved.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time until when recorded workcenter status transaction are to be retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterStatusHistory'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenter-status-entries
+  /production/v1/production-definitions/workcenter-statuses:
+    get:
+      operationId: listWorkcenterStatus
+      summary: List Workcenter Status
+      tags:
+      - Production Operations Management API
+      description: Retrieves a list of all workcenter statuses on the query parameters.
+      parameters:
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The description of a workcenter status.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Filters results by if status is active or not.
+      - name: offStatus
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Filters results if status is an off status or not.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterStatus'
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenter-status
+  /production/v1/tank-management/workcenters/{workcenterId}/tank-events:
+    get:
+      operationId: listWorkcenterTankEvents
+      summary: List Workcenter Tank Events
+      tags:
+      - Production Operations Management API
+      description: Get combined tank logs and sanitization events.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier of the workcenter.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: Begin datetime for query.
+      - name: endDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:16Z'
+        description: End datetime for query.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TankEvent'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenter-tank-events
+  /production/v1/production-definitions/workcenters:
+    get:
+      operationId: listWorkcenters
+      summary: List Workcenters
+      tags:
+      - Production Operations Management API
+      description: Retrieve list of workcenters and their information.
+      parameters:
+      - name: workcenterCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A short name associated to the workcenterID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters max.
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The full name associated to the workcenterID that serves as a more descriptive name for the workcenter. Depending on your settings, this name can also display on the Control Panel and sequence board. 100 characters max.
+      - name: workcenterType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A grouping of similar workcenters. The workcenter type influences how the workcenter behaves and is also available as a filter in different areas of the application, such as the Control Panel, Production Statuses, and more. Setup table &quot;Workcenter Type&quot; (part.dbo.workcenter_type). 50 characters max.
+      - name: workcenterGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Workcenter Group&quot; (part.dbo.workcenter_group). An optional grouping of similar workcenters. This is helpful when there are many workcenters that can be chosen from the Control Panel. If the Workcenter Group setting is on, the Control Panel will display the Workcenter Groups then once a group is chosen, the list of workcenters only in that group will display.
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID of the building the workcenter is located in.
+      - name: tankSilo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Boolean indicating whether the results should be filtered to only return tank/silo results.
+      - name: plcName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The PLC Name of the workcenter. 50 characters max.
+      - name: ipAddress
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The IP Address of the workcenter. 15 characters max.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workcenter'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/list-workcenters
+  /production/v1/tank-management/containers/move-containers:
+    post:
+      operationId: moveTankContainers
+      summary: Move Tank Containers
+      tags:
+      - Production Operations Management API
+      description: Move tank containers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveTankContainersRequest'
+      responses:
+        '202':
+          description: The quantity was successfully moved from tank to location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/move-tank-containers
+  /production/v1/control/workcenters/{workcenterId}/record-batch-production:
+    post:
+      operationId: recordBatchProduction
+      summary: Record Batch Production
+      tags:
+      - Production Operations Management API
+      description: Records batch production.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The workcenter ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordBatchProductionRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordProductionResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/record-batch-production
+  /production/v1/control/workcenters/{workcenterId}/record-variable-bom-production:
+    post:
+      operationId: recordVariableBomProduction
+      summary: Record Variable BOM Production
+      tags:
+      - Production Operations Management API
+      description: Records variable BOM production for a workcenter setup.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordVariableBOMProductionRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordVariableBOMProductionDetailResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/record-variable-bom-production
+  /production/v1/control/workcenter-setups:
+    post:
+      operationId: searchWorkcenterSetups
+      summary: Search Workcenter Setups
+      tags:
+      - Production Operations Management API
+      description: Searches for Workcenter Setups by Workcenter ID, Workcenter Code, Workcenter Type, and Workcenter Group.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchWorkcenterSetupsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchWorkcenterSetupsResponse'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/search-workcenter-setups
+  /production/v1/control/workcenters/{workcenterId}/status:
+    post:
+      operationId: setWorkcenterStatus
+      summary: Set Workcenter Status
+      tags:
+      - Production Operations Management API
+      description: Updates workcenter status of a workcenter by ID.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetWorkcenterStatus'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetup'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/set-workcenter-status
+  /production/v1/control/workcenters/{workcenterId}/setup-job:
+    post:
+      operationId: setupJob
+      summary: Setup Job
+      tags:
+      - Production Operations Management API
+      description: Sets up a scheduled job operation on a workcenter by ID.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetupJobRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkcenterSetup'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/setup-job
+  /production/v1/control/workcenters/{workcenterId}/loaded-source-inventory/{serialNo}:
+    delete:
+      operationId: unloadSourceInventoryBySerialNo
+      summary: Unload Source Inventory By Serial No
+      tags:
+      - Production Operations Management API
+      description: Unloads the serialNo from a workcenters loaded inventory list.
+      parameters:
+      - name: workcenterId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the workcenter.
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: A serial number of a part container.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadedSourceInventory'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/production-operations-management-api/unload-source-inventory-by-serial-no
+components:
+  schemas:
+    AssignLotRequest:
+      type: object
+      description: Request object for assigning a lot.
+      properties:
+        jobOpId:
+          type: string
+          format: uuid
+          description: A unique identifier of a job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        batchNo:
+          type: string
+          description: The batch number.
+          example: string
+        forceCreateNewLot:
+          type: boolean
+          description: A boolean flag indicating whether new lot creation should be forced.
+          example: false
+      required:
+      - jobOpId
+    SearchWorkcenterSetupsRequest:
+      type: object
+      description: Request to search for Workcenter Setups
+      properties:
+        workcenterIds:
+          type: array
+          description: List of Workcenter IDs used to filter search results
+          items:
+            type: string
+            format: uuid
+        workcenterCodes:
+          type: array
+          description: List of Workcenter Codes used to filter search results
+          items:
+            type: string
+        workcenterTypes:
+          type: array
+          description: List of Workcenter Types used to filter search results
+          items:
+            type: string
+        workcenterGroups:
+          type: array
+          description: List of Workcenter Groups used to filter search results
+          items:
+            type: string
+    AddSourceInventoryRequest:
+      type: object
+      description: Request to add a container to source inventory.
+      properties:
+        loadFIFO:
+          type: boolean
+          description: Flag used to indicate what sort order the added container will be added with. If true, the container will be added to the front of the queue. If false, the container will be added to the back of the queue.
+          example: false
+        serialNo:
+          type: string
+          description: The serial no of a container.
+          example: string
+      required:
+      - serialNo
+    SearchWorkcenterSetupsResponse:
+      type: object
+      description: Response returned when performing a search for Workcenter Setups
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: A short name associated with the workcenter ID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters max.
+          example: string
+        name:
+          type: string
+          description: A long name associated with the workcenter ID. 100 characters max.
+          example: string
+        type:
+          type: string
+          description: The workcenter type.
+          example: string
+        group:
+          type: string
+          description: The workcenter group.
+          example: string
+        statusId:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter status.
+          example: 00000000-0000-0000-0000-000000000000
+        statusDescription:
+          type: string
+          description: A workcenter status description.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: The job number, including prefix and suffix, associated with the job ID.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: number
+          format: double
+          description: The operation number of the part operation.
+          example: 0.1
+        operationCode:
+          type: string
+          description: The operation code of the part operation. 30 characters max.
+          example: string
+        jobOperationQuantity:
+          type: number
+          format: double
+          description: The quantity to be produced in this job operation.
+          example: 0.1
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated with the part ID.
+          example: string
+        partRevision:
+          type: string
+          description: 8 characters max. The part revision. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. The part number revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partName:
+          type: string
+          description: The name of the part.
+          example: string
+        jobOperationStatus:
+          type: string
+          description: The job operation status.
+          example: string
+        jobOperationQuantityCompleted:
+          type: number
+          format: double
+          description: The quantity of parts produced at job operation.
+          example: 0.1
+        jobOperationQuantityBalance:
+          type: number
+          format: double
+          description: The quantity of parts remaining to be produced at job operation.
+          example: 0.1
+        containerType:
+          type: string
+          description: The container type.
+          example: string
+        standardQuantity:
+          type: number
+          format: double
+          description: Standard pack size for the Part Operation.
+          example: 0.1
+    RecordBatchProductionRequest:
+      type: object
+      description: Record production request.
+      properties:
+        batchId:
+          type: string
+          format: uuid
+          description: A unique identifier of the batch.
+          example: 00000000-0000-0000-0000-000000000000
+        batchComponentQuantities:
+          type: array
+          description: List of Batch Component Sources.
+          items:
+            type: object
+            description: Component source for a batch operation.
+            properties: {}
+        operatorId:
+          type: string
+          format: uuid
+          description: A unique identifier of an IAM account used to indicate what user is recording production. If no value is provided the IAM account associated with the API Key will be used.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: Quantity to be depleted from source.
+          example: 0.1
+        lotId:
+          type: string
+          format: uuid
+          description: A unique identifier of a lot that is being produced for.
+          example: 00000000-0000-0000-0000-000000000000
+        locationId:
+          type: string
+          format: uuid
+          description: A unique identifier of a location that is being produced to.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of a part. If no SupplyItemId is provided, this is required.
+          example: 00000000-0000-0000-0000-000000000000
+        supplyItemId:
+          type: string
+          format: uuid
+          description: A unique identifier of a supply item. If no PartId is provided, this is required.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - batchId
+      - quantity
+    RequiredSourceInventory:
+      type: object
+      description: Status of source inventory that is required to record production against the setup job operation.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        supplyItemId:
+          type: string
+          format: uuid
+          description: A unique identifier for a supply item.
+          example: 00000000-0000-0000-0000-000000000000
+        loaded:
+          type: boolean
+          description: Flag indicating if the required source inventory has been loaded.
+          example: false
+        totalLoaded:
+          type: number
+          format: double
+          description: The quantity of the source inventory that has been loaded.
+          example: 0.1
+        totalYield:
+          type: number
+          format: double
+          description: The total yield of the loaded source inventory.
+          example: 0.1
+        bomQuantity:
+          type: number
+          format: double
+          description: The quantity of the source inventory that is required per unit of production.
+          example: 0.1
+        sourceType:
+          type: string
+          description: The source inventory type.
+          example: string
+        name:
+          type: string
+          description: The source inventory name.
+          example: string
+    ClockinOperatorRequest:
+      type: object
+      description: The Clock In Operator Request.
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier of an IAM account to be clocked into the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        costSubTypeId:
+          type: string
+          format: uuid
+          description: A unique identifier of a cost sub type.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - accountId
+      - costSubTypeId
+    ApprovedWorkcenter:
+      type: object
+      description: Data Structure to represent Approved Workcenter response model.
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: The ID of the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated to the &quot;workcenterID&quot; and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel. 50 characters max.
+          example: string
+        workcenterName:
+          type: string
+          description: The name associated to the &quot;workcenterID&quot;.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part that is produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partNo:
+          type: string
+          description: The part number associated to the &quot;partId&quot; that is produced. Acceptable part number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Part numbers cannot use question marks or ampersands. Other characters may cause issues.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision of the &quot;partId&quot;. A revision represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNoRevision:
+          type: string
+          description: The part number and revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long. Format {partNumber}{part rev separator}{revision}.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: The operation associated with the Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNo:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code associated to the &quot;partOperationId&quot;. 30 characters max.
+          example: string
+        crewSize:
+          type: number
+          format: double
+          description: The crew size associated with the workcenter.
+          example: 0.1
+        standardProductionRate:
+          type: number
+          format: double
+          description: The standard production rate associated with the workcenter.
+          example: 0.1
+        note:
+          type: string
+          description: The note associated with the workcenter.
+          example: string
+        setupTime:
+          type: number
+          format: double
+          description: The setup time associated with the workcenter.
+          example: 0.1
+        idealRate:
+          type: number
+          format: double
+          description: The ideal rate associated with the workcenter.
+          example: 0.1
+        targetRate:
+          type: number
+          format: double
+          description: The target rate associated with the workcenter.
+          example: 0.1
+        setupCrewSize:
+          type: number
+          format: double
+          description: The setup crew size associated with the workcenter.
+          example: 0.1
+        sequenceRate:
+          type: number
+          format: double
+          description: The sequence rate associated with the workcenter.
+          example: 0.1
+    AddApprovedSupplierRequest:
+      type: object
+      description: Approved Suppliers Request
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierId:
+          type: string
+          format: uuid
+          description: A unique identifier for the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        note:
+          type: string
+          description: Notes related to the supplier. 500 characters max.
+          example: string
+      required:
+      - partId
+      - partOperationId
+      - supplierId
+    TankEvent:
+      type: object
+      description: The lot and sanitization events for a tank or silo.
+      properties:
+        tankSiloCode:
+          type: string
+          description: The tank/silo code.
+          example: string
+        tankName:
+          type: string
+          description: The tank name.
+          example: string
+        eventType:
+          type: string
+          description: 'The tank event type: Sanitize if it is a sanitization event; if not, it should be a system lot event, including but not limited to Inventory Create, Production, and Move.'
+          example: string
+        partNo:
+          type: string
+          description: The part number.
+          example: string
+        partName:
+          type: string
+          description: The part name.
+          example: string
+        lotId:
+          type: string
+          format: uuid
+          description: The lot ID.
+          example: 00000000-0000-0000-0000-000000000000
+        lotNo:
+          type: string
+          description: The lot number.
+          example: string
+        addDateTime:
+          type: string
+          format: date-time
+          description: The record add datetime.
+          example: '2026-10-20T12:03:16Z'
+        ignoreForLotTraceDateTime:
+          type: string
+          format: date-time
+          description: The ignore for lot trace datetime.
+          example: '2026-10-20T12:03:16Z'
+        sanitizationCode:
+          type: string
+          description: The sanitization code.
+          example: string
+        resetLotTrace:
+          type: boolean
+          description: The reset lot trace flag.
+          example: false
+        note:
+          type: string
+          description: The tank lot log note.
+          example: string
+    CostSubType:
+      type: object
+      description: A cost sub type record.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of a cost sub type.
+          example: 00000000-0000-0000-0000-000000000000
+        costSubTypeName:
+          type: string
+          description: The identifying name of a cost sub type.
+          example: string
+        laborTracking:
+          type: boolean
+          description: Indicates if cost sub type is for labor tracking.
+          example: false
+        directLabor:
+          type: boolean
+          description: Indicates if cost sub type is for direct labor.
+          example: false
+        indirectLabor:
+          type: boolean
+          description: Indicates if cost sub type is for indirect labor.
+          example: false
+        lunch:
+          type: boolean
+          description: Indicates if cost sub type is for lunch.
+          example: false
+        maintenanceLabor:
+          type: boolean
+          description: Indicates if cost sub type is for maintenance labor.
+          example: false
+        toolSetMaintenance:
+          type: boolean
+          description: Indicates if cost sub type is for tool set maintenance.
+          example: false
+        setupCost:
+          type: boolean
+          description: Indicates if cost sub type is for setup cost.
+          example: false
+        productionCost:
+          type: boolean
+          description: Indicates if cost sub type is for production cost.
+          example: false
+        active:
+          type: boolean
+          description: Indicates if cost sub type is active.
+          example: false
+    MoveTankContainersRequest:
+      type: object
+      description: The move tank containers request.
+      properties:
+        fromLocationCode:
+          type: string
+          description: The Tank Location to move containers From.
+          example: string
+        toLocationCode:
+          type: string
+          description: The Location to move containers To.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The Part ID to move.
+          example: 00000000-0000-0000-0000-000000000000
+        partOperationId:
+          type: string
+          format: uuid
+          description: The Part Operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+        moveQuantity:
+          type: number
+          format: double
+          description: The quantity to move.
+          example: 0.1
+      required:
+      - fromLocationCode
+      - toLocationCode
+      - partId
+      - moveQuantity
+    LaborHistory:
+      type: object
+      description: In Plex, time spent by shop floor operators is tracked when they clock into a workcenter's timeclock and select a Labor Cost Activity. When an operator changes the activity, prior activity closes and the new activity starts. Operators can manually close an open activity by clocking out, or Plex can automatically force a clock out if an operator forgets to do so manually at the end of a shift.
+      properties:
+        employee:
+          type: string
+          description: Format {Last Name}, {First Name} ({Department}) Example &quot;Smith, John (Quality)&quot;.&quot; The name of an employee associated to labor record.
+          example: string
+        employeeId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID assigned to employee that is associated to labor record.
+          example: 00000000-0000-0000-0000-000000000000
+        accountId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID assigned to an IAM account that is associated to labor record.
+          example: 00000000-0000-0000-0000-000000000000
+        costActivity:
+          type: string
+          description: 50 characters max. The type of manufacturing labor activity that was performed, such as Setup, Maintenance, Production. This is the Cost Sub Type configured in Cost Types Setup application.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the workcenter where the labor transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 50 characters max. A short name associated to the workcenterID at which a labor transaction occurred.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the production job that was loaded to the workcenter when labor record was created.
+          example: 00000000-0000-0000-0000-000000000000
+        jobCode:
+          type: string
+          description: 20 characters max. Job number, including prefix and suffix, associated to the jobID that was loaded to the workcenter when labor record was created.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part that was being produced in the workcenter when the labor activity was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: 100 characters max. Part Number associated to the partId that was being produced in the workcenter when the labor activity was recorded. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: 8 characters max. Part Revision of the partID. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. Part Number and Revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The UUID of the part operation that was being produced in the workcenter when the labor activity was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: 10 characters max. The Operation Number (sequence order) of the part Operation that was being produced in the workcenter when the labor activity was recorded.
+          example: 0
+        operationCode:
+          type: string
+          description: 30 characters max. The Operation Code associated to the partOperationID.
+          example: string
+        beginTime:
+          type: string
+          format: date-time
+          description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The start date and time of the activity.
+          example: '2026-10-20T12:03:16Z'
+        endTime:
+          type: string
+          format: date-time
+          description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The end date and time of the activity.
+          example: '2026-10-20T12:03:16Z'
+        duration:
+          type: integer
+          format: int32
+          description: The duration of the labor record in minutes.
+          example: 0
+    SubcontractReceipt:
+      type: object
+      description: The subcontract receipt
+      properties:
+        supplierCode:
+          type: string
+          description: The supplier code. 25 character maximum.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierShipperNo:
+          type: string
+          description: The supplier shipper number. 50 characters maximum.
+          example: string
+        receiptDate:
+          type: string
+          format: date-time
+          description: The date and time when the receipt was recorded.
+          example: '2026-10-20T12:03:16Z'
+        partId:
+          type: string
+          format: uuid
+          description: The part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          example: string
+        revision:
+          type: string
+          description: The part revision. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR). 8 characters maximum.
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'The part number and revision formatted with a separator. If the part has a revision, Plex returns the part number and the revision joined by the delimiter defined in the Part Rev Separator configuration (a system-wide value, up to 5 characters). If the part has no revision, only the part number is returned. Format: {partNumber}{partRevSeparator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The part operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: The operation code. 10 characters maximum.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The operation number (sequence order). 30 characters maximum.
+          example: 0
+        serialNo:
+          type: string
+          description: The serial number of the container that was received. 25 characters maximum.
+          example: string
+        lotNo:
+          type: string
+          description: The lot number of the container that was received. 25 characters maximum.
+          example: string
+        lotId:
+          type: string
+          format: uuid
+          description: The lot ID.
+          example: 00000000-0000-0000-0000-000000000000
+        trackingNo:
+          type: string
+          description: The container's Tracking Number. 50 characters maximum.
+          example: string
+        heatCode:
+          type: string
+          description: The heat receipt's heat code. 50 characters maximum.
+          example: string
+        heatNo:
+          type: string
+          description: The short code or number identifying a heat. 30 characters maximum.
+          example: string
+        receivedQuantity:
+          type: number
+          format: double
+          description: The quantity received. Decimal with a maximum of 19 total digits, 5 of which can be after the decimal point (precision 19, scale 5).
+          example: 0.1
+        receiptNote:
+          type: string
+          description: Receipt notes. 500 characters maximum.
+          example: string
+    Location:
+      type: object
+      description: The Location.
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: The Location ID.
+          example: 00000000-0000-0000-0000-000000000000
+        locationCode:
+          type: string
+          description: The Location Code.
+          example: string
+        buildingName:
+          type: string
+          description: The Building Name.
+          example: string
+        buildingCode:
+          type: string
+          description: The Building Code.
+          example: string
+        locationType:
+          type: string
+          description: The Location Type.
+          example: string
+        inventoryLocation:
+          type: boolean
+          description: Boolean flag to indicate whether the Location type is of Inventory or not.
+          example: false
+        supplyLocation:
+          type: boolean
+          description: Boolean flag to indicate whether the Location type is of Supply Location or not.
+          example: false
+        tankSilo:
+          type: boolean
+          description: Boolean flag to indicate whether the workcenter is a Tank/Silo.
+          example: false
+        allergens:
+          type: array
+          description: List of allergens associated with the location.
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: List of storage conditions associated with the location.
+          items:
+            type: string
+        allergenExclusions:
+          type: array
+          description: List of allergen exclusions associated with the location.
+          items:
+            type: string
+        storageConditionExclusions:
+          type: array
+          description: List of storage condition exclusions associated with the location.
+          items:
+            type: string
+        storageSections:
+          type: array
+          description: List of storage sections associated with the location.
+          items:
+            type: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who last modified the location record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the location record was last modified.
+          example: '2026-10-20T12:03:12Z'
+    ProductionLineWorkcenter:
+      type: object
+      description: A workcenter in Plex is defined as an area where a complete operation happens. It may represent a single part operation or multiple part operations, a single piece of equipment, or multiple pieces of equipment. A workcenter could be a machine, such as a stamping press, or an area like an inspection or assembly area, or a combination of these. When determining what your workcenters will be, think of a workcenter as a place where a container of parts is advanced through a routing step.
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: The unique identifier assigned to the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 50 characters max. A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel.
+          example: string
+        name:
+          type: string
+          description: 100 characters max. The full name associated to the workcenterID that is a more descriptive name for the Workcenter. Depending on your settings, this name can also display on the control panel and sequence board.
+          example: string
+        workcenterType:
+          type: string
+          description: 50 characters max. Setup table &quot;Workcenter Type&quot; (part.dbo.workcenter_type). Grouping of similar workcenters. The Workcenter Type influences how the workcenter behaves, but is also available as a filter in different places (control panel, production status, Workcenter log, sequence board).
+          example: string
+        workcenterGroup:
+          type: string
+          description: 50 characters max. Setup table &quot;Workcenter Group&quot; (part.dbo.workcenter_group). An optional grouping of similar workcenters. This is helpful when there are many workcenters that can be chosen from the Control Panel. If the Workcenter Group setting is on, the Control Panel will display the Workcenter Groups then once a group is chosen, the list of workcenters only in that group will display.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: The unique identifier of the building the workcenter is located in.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: 50 characters max. A short name for the building.
+          example: string
+        productionLineStatusDriver:
+          type: boolean
+          description: True, if the workcenter is identified as the bottleneck in the production line.
+          example: false
+        addBy:
+          type: string
+          description: 101 characters max. The name of the plex user who added the production line workcenter.
+          example: string
+        addDateTime:
+          type: string
+          format: date-time
+          description: The date and time the production line workcenter was added.
+          example: '2026-10-20T12:03:17Z'
+    ScrapHistory:
+      type: object
+      description: A Scrap Entry in Plex is the action of scrapping a specific quantity of component or produced part that results in removing that quantity out of inventory. Recording of scrap is performed using the dedicated Record Scrap functions in the Control Panel or in other standalone applications.
+      properties:
+        transactionDate:
+          type: string
+          format: date-time
+          description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time on which the scrap transaction was recorded in Plex.
+          example: '2026-10-20T12:03:16Z'
+        scrapReason:
+          type: string
+          description: 50 characters max. Setup table &quot;Scrap Reason&quot; (part.dbo.scrap_reason). The reason code which indicates why the material or part was scrapped.
+          example: string
+        transactionType:
+          type: string
+          description: Possible values are &quot;Control Panel Scrap&quot; and &quot;Scrap&quot;. Scrapping a part being produced in Control Panel will be identified as Control Panel Scrap. Recording scrap using any other application will be identified as Scrap.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: Decimal, (19,5) max characters. Quantity that was scrapped.
+          example: 0.1
+        workcenterId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the workcenter where scrap was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 50 characters max. A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the production job that scrap was recorded against. Note that a production job is not necessary to record scrap. Another scheduling method such as kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        jobCode:
+          type: string
+          description: 20 characters max. Job number, including prefix and suffix, associated to the jobID that scrap was recorded against.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part that was scrapped.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: 100 characters max. Part Number associated to the partId that was scrapped. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: 8 characters max. Part Revision of the partID. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. Part Number and Revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part operation that was scrapped.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: 10 characters max. The Operation Number (sequence order) of the part Operation that was scrapped.
+          example: 0
+        operationCode:
+          type: string
+          description: 30 characters max. The Operation Code associated to the partOperationID.
+          example: string
+        serialNo:
+          type: string
+          description: 25 characters max. The Serial No of the Scrap/Rejection Container.
+          example: string
+    RecordVariableBOMProductionDetailResponse:
+      type: object
+      description: The record variable bom production response object.
+      properties:
+        serialNo:
+          type: string
+          description: 25 characters max. The Serial No of the produced container.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The output container quantity.
+          example: 0.1
+        sourceComponentQuantities:
+          type: array
+          description: The batch components.
+          items:
+            type: object
+            description: Component source for a batch operation.
+            properties: {}
+    WorkcenterStatusHistory:
+      type: object
+      description: In Plex, workcenter production hours are tracked throughout the day when a workcenter's status is changed in Control Panel. Status can be changed manually by user or automated by a machine when the machine is integrated with Plex.
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the workcenter where the status transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 50 characters max. A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel.
+          example: string
+        logDate:
+          type: string
+          format: date-time
+          description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ See Knowledge center topic &quot;Dates and Times&quot; for more information (KC path Platform &gt; Plex APIs &gt; HTTP Data Source API &gt; Dates and Times). The date and time when the workcenter status transaction started.
+          example: '2026-10-20T12:03:16Z'
+        workcenterStatus:
+          type: string
+          description: 50 characters max. The workcenter status associated to a recorded transaction.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the production job that was loaded to the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        jobCode:
+          type: string
+          description: 20 characters max. Job number, including prefix and suffix, associated to the jobID.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. UUID of the part that was being produced in the workcenter when the workcenter status transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: 100 characters max. Part Number associated to the partId that was being produced in the workcenter when the workcenter status transaction was recorded. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: 8 characters max. Part Revision of the partID. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. Part Number and Revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The UUID of the part operation that was being produced in the workcenter when the workcenter status transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: 10 characters max. The Operation Number (sequence order) of the part Operation that was being produced in the workcenter when the workcenter status transaction was recorded.
+          example: 0
+        operationCode:
+          type: string
+          description: 30 characters max. The Operation Code associated to the partOperationID.
+          example: string
+        duration:
+          type: integer
+          format: int32
+          description: Duration that the workcenter was in the workcenter status given in seconds.
+          example: 0
+    ApprovedSupplier:
+      type: object
+      description: Approved Supplier Response
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNo:
+          type: string
+          description: A short code or number to reference the part. 100 characters max.
+          example: string
+        partRevision:
+          type: string
+          description: The revision of the part. 8 characters max.
+          example: string
+        partNoRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNo:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code of the part operation. 30 characters max.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The supplier code of the supplier. 25 characters max.
+          example: string
+        note:
+          type: string
+          description: Notes related to the supplier. 500 characters max.
+          example: string
+        approvedSupplierId:
+          type: string
+          format: uuid
+          description: The ID of the approved supplier.
+          example: 00000000-0000-0000-0000-000000000000
+    ApprovedEquipment:
+      type: object
+      description: In Plex, approved equipment is used to define which equipment is authorized for use in specific part operations.
+      properties:
+        equipmentId:
+          type: string
+          format: uuid
+          description: The unique identifier of the equipment that is approved.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The type of equipment (50 character maximum).
+          example: string
+        typeId:
+          type: string
+          format: uuid
+          description: The unique identifier of the type.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: The description of the equipment (200 character maximum).
+          example: string
+        category:
+          type: string
+          description: The category that is associated with the equipment (found in the Equipment Category setup table, 50 character maximum).
+          example: string
+        partOpNo:
+          type: integer
+          format: int32
+          description: The operation number of the related part operation.
+          example: 0
+        partOpDescription:
+          type: string
+          description: The operation description of the related part operation.
+          example: string
+        partOpId:
+          type: string
+          format: uuid
+          description: The unique identifier of the related part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        partNo:
+          type: string
+          description: A short code or number to reference the part (100 character maximum).
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The unique identifier for the related part.
+          example: 00000000-0000-0000-0000-000000000000
+    ProductionHistorySummary:
+      type: object
+      description: A production record in Plex is the action of recording production of a product that results in depleting source material and advancing the product to the next operation. A single production record is created each time production is recorded. When Plex Production Tracking is implemented, production is recorded multiple times during a shift. For example, after a container is full or a job operation is completed, there may be a long list of production records. Production records do not include scrapped parts (scrapped using specific scrapping functions). Production records include parts produced and moved into a Plex container record, regardless of the status of that container record.
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: UUID of the workcenter where the production transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel. 50 characters maximum.
+          example: string
+        totalQuantity:
+          type: number
+          format: double
+          description: Total Quantity that was produced. Decimal with a maximum of 18 total digits, 3 of which can be after the decimal point (precision 18, scale 3).
+          example: 0.1
+        jobId:
+          type: string
+          format: uuid
+          description: UUID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: Job number, including prefix and suffix, associated to the jobID that production was recorded against. 20 characters maximum.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: UUID of the part that was produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part Number associated to the partId that was produced. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues. 100 characters maximum.
+          example: string
+        revision:
+          type: string
+          description: Part Revision of the partID. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR). 8 characters maximum.
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'Part Number and Revision formatted with a separator. If the part has a revision, Plex returns the part number and the revision joined by the delimiter defined in the Part Rev Separator configuration (a system-wide value, up to 5 characters). If the part has no revision, only the part number is returned. Format: {partNumber}{partRevSeparator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: UUID of the part operation that was produced.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: The Operation Number (sequence order) of the part Operation that was produced. 10 characters maximum.
+          example: 0
+        operationCode:
+          type: string
+          description: The Operation Code associated to the partOperationID. 30 characters maximum.
+          example: string
+    TankSanitizationEvent:
+      type: object
+      description: The Tank/Silo Sanitization event object.
+      properties:
+        sanitizationCode:
+          type: string
+          description: The Sanitization Code.
+          example: string
+        sanitizationDateTime:
+          type: string
+          format: date-time
+          description: The Sanitization event date/time.
+          example: '2026-10-20T12:03:15Z'
+        location:
+          type: string
+          description: The Tank/Silo Location.
+          example: string
+        note:
+          type: string
+          description: The note about the sanitization event.
+          example: string
+        retiredContainerCount:
+          type: integer
+          format: int32
+          description: 'The number of containers automatically retired.
+
+            Null when automatic retirement was not enabled for the
+
+            sanitization code.'
+          example: 0
+    Workcenter:
+      type: object
+      description: A workcenter in Plex is defined as an area where a complete operation happens. It may represent a single part operation or multiple part operations, a single piece of equipment, or multiple pieces of equipment. A workcenter could be a machine, such as a stamping press, or an area like an inspection or assembly area, or a combination of these. When determining what your workcenters will be, think of a workcenter as a place where a container of parts is advanced through a routing step.
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: The UUID assigned to the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 50 characters max. A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel.
+          example: string
+        name:
+          type: string
+          description: 100 characters max. The full name associated to the workcenterID that is a more descriptive name for the Workcenter. Depending on your settings, this name can also display on the control panel and sequence board.
+          example: string
+        workcenterType:
+          type: string
+          description: 50 characters max. Setup table &quot;Workcenter Type&quot; (part.dbo.workcenter_type). Grouping of similar workcenters. The Workcenter Type influences how the workcenter behaves, but is also available as a filter in different places (control panel, production status, Workcenter log, sequence board).
+          example: string
+        workcenterGroup:
+          type: string
+          description: 50 characters max. Setup table &quot;Workcenter Group&quot; (part.dbo.workcenter_group). An optional grouping of similar workcenters. This is helpful when there are many workcenters that can be chosen from the Control Panel. If the Workcenter Group setting is on, the Control Panel will display the Workcenter Groups then once a group is chosen, the list of workcenters only in that group will display.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: UUID of the building the workcenter is located in.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: 50 characters max. A short name for the building.
+          example: string
+        tankSilo:
+          type: boolean
+          description: Boolean flag to indicate whether the workcenter is a Tank/Silo.
+          example: false
+        productionLineId:
+          type: string
+          format: uuid
+          description: The unique identifier for the production line associated with the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        ipAddress:
+          type: string
+          description: The IP Address of the workcenter.
+          example: string
+        plcName:
+          type: string
+          description: The PLC Name of the workcenter.
+          example: string
+    WorkcenterSetup:
+      type: object
+      description: Workcenter Setup Response
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: A short name associated with the workcenter ID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters max.
+          example: string
+        name:
+          type: string
+          description: A long name associated with the workcenter ID. 100 characters max.
+          example: string
+        type:
+          type: string
+          description: The workcenter type.
+          example: string
+        statusId:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter status.
+          example: 00000000-0000-0000-0000-000000000000
+        statusDescription:
+          type: string
+          description: A workcenter status description.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: The job number, including prefix and suffix, associated with the job ID.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: number
+          format: double
+          description: The operation number of the part operation.
+          example: 0.1
+        operationCode:
+          type: string
+          description: The operation code of the part operation. 30 characters max.
+          example: string
+        jobOperationQuantity:
+          type: number
+          format: double
+          description: The quantity to be produced in this job operation.
+          example: 0.1
+        lotId:
+          type: string
+          format: uuid
+          description: The unique identifier for the lot in this job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        productionLineId:
+          type: string
+          format: uuid
+          description: The unique identifier for the production line associated with the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        batches:
+          type: array
+          description: A list of all batches in this job operation.
+          items:
+            type: object
+            description: A setup batch response.
+            properties: {}
+        operators:
+          type: array
+          description: A list of all operators logged in at this workcenter.
+          items:
+            type: object
+            description: An operator logged into a workcenter.
+            properties: {}
+    ClearLotRequest:
+      type: object
+      description: Request object for clearing lot from setup container.
+      properties:
+        jobOpId:
+          type: string
+          format: uuid
+          description: A unique identifier of a job operation.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - jobOpId
+    LoadedSourceInventory:
+      type: object
+      description: A container loaded into source inventory of a workcenter.
+      properties:
+        operationCode:
+          type: string
+          description: The operation code of the part operation. 30 characters max.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of a part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated with the part ID.
+          example: string
+        partNumberRevision:
+          type: string
+          description: A combination of the part number and revision associated with the part ID, separated with the value from the Part Rev Separator setting.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier of a part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        partRevision:
+          type: string
+          description: The part revision associated with the part ID.
+          example: string
+        totalNetWeight:
+          type: number
+          format: double
+          description: The weight of the container.
+          example: 0.1
+        totalQuantity:
+          type: number
+          format: double
+          description: The quantity in the container.
+          example: 0.1
+        containers:
+          type: array
+          description: A list of a parts loaded containers.
+          items:
+            type: object
+            description: A loaded source container.
+            properties: {}
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    WorkcenterSetupEntry:
+      type: object
+      description: Model to return WorkCenter Setup entries for a given datetime range, workcenterID or partID as part of the ProductionHistory API Response
+      properties:
+        workcenterId:
+          type: string
+          format: uuid
+          description: Gets or sets the workcenterId (UUID) of the WorkCenter that was running jobs for the requested query parameters
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: 'Gets or sets the workcenterCode of the WorkCenter
+
+            that was running jobs for the requested query'
+          example: string
+        setupDateTime:
+          type: string
+          format: date-time
+          description: Gets or sets the date and time when the Setup was provisioned in the WorkCenter that was running jobs for the requested query
+          example: '2026-10-20T12:03:16Z'
+        setupDateTimeChange:
+          type: string
+          format: date-time
+          description: Gets or sets the date and time when the Setup was updated/deleted in the WorkCenter that was running jobs for the requested query
+          example: '2026-10-20T12:03:16Z'
+        parentPartId:
+          type: string
+          format: uuid
+          description: Gets or sets the parent Part's Id (UUID) within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        parentPartNumber:
+          type: string
+          description: Gets or sets the parent Part's Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        parentPartRevision:
+          type: string
+          description: Gets or sets the parent Part's Revision within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        parentPartNumberRevision:
+          type: string
+          description: Gets or sets the parent Part's Revision Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        parentPartOperationId:
+          type: string
+          format: uuid
+          description: Gets or sets the parent Part's Operation id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        parentPartOperationCode:
+          type: string
+          description: Gets or sets the parent Part's Operation code within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        parentPartOperationNumber:
+          type: integer
+          format: int32
+          description: Gets or sets the parent Part's Operation Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 0
+        parentPartJobId:
+          type: string
+          format: uuid
+          description: Gets or sets the parent Part's Job id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        parentPartJobNumber:
+          type: string
+          description: Gets or sets the parent Part's Job Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        parentPartJobOperationId:
+          type: string
+          format: uuid
+          description: Gets or sets the parent Part's Job operation id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        parentPartJobOperationNumber:
+          type: number
+          format: double
+          description: Gets or sets the parent Part's Job operation number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 0.1
+        childPartId:
+          type: string
+          format: uuid
+          description: Gets or sets the child Part's Id (UUID) within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        childPartNumber:
+          type: string
+          description: Gets or sets the child Part's Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        childPartRevision:
+          type: string
+          description: Gets or sets the child Part's Revision within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        childPartNumberRevision:
+          type: string
+          description: Gets or sets the child Part's Revision Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        childPartOperationId:
+          type: string
+          format: uuid
+          description: Gets or sets the child Part's Operation id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        childPartOperationCode:
+          type: string
+          description: Gets or sets the child Part's Operation code within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        childPartOperationNumber:
+          type: integer
+          format: int32
+          description: Gets or sets the child Part's Operation Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 0
+        childPartJobId:
+          type: string
+          format: uuid
+          description: Gets or sets the child Part's Job id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        childPartJobNumber:
+          type: string
+          description: Gets or sets the child Part's Job Number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: string
+        childPartJobOperationId:
+          type: string
+          format: uuid
+          description: Gets or sets the child Part's Job operation id within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 00000000-0000-0000-0000-000000000000
+        childPartJobOperationNumber:
+          type: number
+          format: double
+          description: Gets or sets the child Part's Job operation number within a Setup in the WorkCenter that was running jobs for the requested query
+          example: 0.1
+        dynamicMultiOut:
+          type: boolean
+          description: Gets or sets whether the performed Job is Dynamic MultiOut job within a Setup in the WorkCenter that was running jobs for the requested query
+          example: false
+        traditionalMultiOut:
+          type: boolean
+          description: Gets or sets whether the performed Job is Traditional MultiOut job within a Setup in the WorkCenter that was running jobs for the requested query
+          example: false
+        parent:
+          type: boolean
+          description: Gets or sets whether the part in question is a Parent part within a Setup in the WorkCenter that was running jobs for the requested query
+          example: false
+        companion:
+          type: boolean
+          description: Gets or sets whether the part in question is a Companion part within a Setup in the WorkCenter that was running jobs for the requested query
+          example: false
+    WorkcenterEvent:
+      type: object
+      description: A workcenter event.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of a workcenter event.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: The short code for a workcenter event.
+          example: string
+        description:
+          type: string
+          description: The description of a workcenter event.
+          example: string
+        active:
+          type: boolean
+          description: Indicates that a workcenter event is active.
+          example: false
+    RecordProductionResponse:
+      type: object
+      description: Response returned when production successfully recorded.
+      properties:
+        batchId:
+          type: string
+          format: uuid
+          description: A unique identifier of a batch.
+          example: 00000000-0000-0000-0000-000000000000
+        jobId:
+          type: string
+          format: uuid
+          description: A unique identifier of the production job.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: The job number, including prefix and suffix, associated with the job ID.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        jobOperationStatus:
+          type: string
+          description: The job operation status.
+          example: string
+        jobStatus:
+          type: string
+          description: The job status.
+          example: string
+        masterUnitID:
+          type: string
+          format: uuid
+          description: A unique identifier of a master unit.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: The operation code of the part operation. 30 characters max.
+          example: string
+        operationNumber:
+          type: number
+          format: double
+          description: The operation number of the part operation.
+          example: 0.1
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated with the part ID.
+          example: string
+        partNumberRevision:
+          type: string
+          description: A combination of the part number and revision associated with the part ID, separated with the value from the Part Rev Separator setting.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision associated with the part ID.
+          example: string
+        printMasterUnitID:
+          type: string
+          format: uuid
+          description: A unique identifier of a master unit to be used for triggering a master unit label print job.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The quantity produced.
+          example: 0.1
+        serialNo:
+          type: string
+          description: 25 characters max. The Serial No of the produced container.
+          example: string
+        trackingNo:
+          type: string
+          description: The tracking no.
+          example: string
+        workcenterCode:
+          type: string
+          description: A short name associated with the workcenter ID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters max.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        locationId:
+          type: string
+          format: uuid
+          description: A unique identifier of the container's location.
+          example: 00000000-0000-0000-0000-000000000000
+        location:
+          type: string
+          description: The containers location.
+          example: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who recorded production.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time at which production was recorded.
+          example: '2026-10-20T12:03:16Z'
+    Batch:
+      type: object
+      description: A job operation batch.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the batch.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: integer
+          format: int32
+          description: The identifier for the batch for the current job operation.
+          example: 0
+        batchStatus:
+          type: string
+          description: The status of the batch.
+          example: string
+        size:
+          type: number
+          format: double
+          description: The quantity to be produced in the batch.
+          example: 0.1
+        workcenterId:
+          type: string
+          format: uuid
+          description: A unique identifier for the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated with the workcenter ID, and a unique code to reference the workcenter. This code displays throughout the system, primarily on the Control Panel. 50 characters maximum.
+          example: string
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job operation.
+          example: 00000000-0000-0000-0000-000000000000
+        dueDateTime:
+          type: string
+          format: date-time
+          description: The due date of the batch.
+          example: '2026-10-20T12:03:13Z'
+        startDateTime:
+          type: string
+          format: date-time
+          description: The scheduled start date of the batch.
+          example: '2026-10-20T12:03:13Z'
+    SanitizationCode:
+      type: object
+      description: Tank/Silo Sanitization code.
+      properties:
+        code:
+          type: string
+          description: The Sanitization Code.
+          example: string
+        description:
+          type: string
+          description: Sanitization Code description.
+          example: string
+        resetLotTrace:
+          type: boolean
+          description: Indicates whether or not lot trace should be reset.
+          example: false
+        defaultRetireInventory:
+          type: boolean
+          description: Indicates the default retire-inventory behavior.
+          example: false
+        autoRetireInventory:
+          type: boolean
+          description: Indicates whether or not inventory should automatically be retired when this sanitization code is used.
+          example: false
+    AddTankSanitizationEventRequest:
+      type: object
+      description: Add Tank/Silo Sanitization event request object.
+      properties:
+        sanitizationCode:
+          type: string
+          description: The Sanitization Code (100 chars max).
+          example: string
+        sanitizationDateTime:
+          type: string
+          format: date-time
+          description: The Sanitization event date/time.
+          example: '2026-10-20T12:03:15Z'
+        note:
+          type: string
+          description: The note about the sanitization event (500 chars max).
+          example: string
+      required:
+      - sanitizationCode
+    ProductionLine:
+      type: object
+      description: A production line in Plex defines a series of delegated and approved workcenters at each stage of the production process.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier assigned to the production line.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: 50 characters max. A short name associated to the productionLineID, and a unique code to reference the production line.
+          example: string
+        description:
+          type: string
+          description: 1000 characters max. The description associated to the productionLineID that describes the production line.
+          example: string
+        equipmentId:
+          type: string
+          description: 50 characters max. A short name associated to the equipment.
+          example: string
+        equipmentDescription:
+          type: string
+          description: 200 characters max. The description associated to the equipmentID that describes the equipment.
+          example: string
+        active:
+          type: boolean
+          description: The status of the production line if it is active or not.
+          example: false
+        addBy:
+          type: string
+          description: 101 characters max. The name of the plex user who added the production line.
+          example: string
+        addDateTime:
+          type: string
+          format: date-time
+          description: The date and time the production line was added.
+          example: '2026-10-20T12:03:15Z'
+        updateBy:
+          type: string
+          description: 101 characters max. The name of the plex user who last updated the production line.
+          example: string
+        updateDateTime:
+          type: string
+          format: date-time
+          description: The date and time the production line was last updated.
+          example: '2026-10-20T12:03:15Z'
+    ApprovedWorkcenterRequest:
+      type: object
+      description: Data Structure to represent Approved Workcenter request model.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part that is produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterId:
+          type: string
+          format: uuid
+          description: The ID of the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        crewSize:
+          type: number
+          format: double
+          description: The crew size associated with the workcenter.
+          example: 0.1
+        standardProductionRate:
+          type: number
+          format: double
+          description: The standard production rate associated with the workcenter.
+          example: 0.1
+        note:
+          type: string
+          description: The note associated with the workcenter.
+          example: string
+        setupTime:
+          type: number
+          format: double
+          description: The setup time associated with the workcenter.
+          example: 0.1
+        idealRate:
+          type: number
+          format: double
+          description: The ideal rate associated with the workcenter.
+          example: 0.1
+        targetRate:
+          type: number
+          format: double
+          description: The target rate associated with the workcenter.
+          example: 0.1
+        setupCrewSize:
+          type: number
+          format: double
+          description: The setup crew size associated with the workcenter.
+          example: 0.1
+        sequenceRate:
+          type: number
+          format: double
+          description: The sequence rate associated with the workcenter.
+          example: 0.1
+      required:
+      - partId
+      - partOperationId
+      - workcenterId
+    TankLotLogIgnoreRequest:
+      type: object
+      description: Tank Lot Log Ignore request.
+      properties:
+        lotId:
+          type: string
+          format: uuid
+          description: The lot ID to ignore.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - lotId
+    WorkcenterStatus:
+      type: object
+      description: A Workcenter Status.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the workcenter status.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: The workcenter status description.
+          example: string
+        canRunProduction:
+          type: boolean
+          description: Indicates workcenter status can run production.
+          example: false
+        offStatus:
+          type: boolean
+          description: Indicates workcenter status is an off status.
+          example: false
+        clockoutOperators:
+          type: boolean
+          description: Indicates workcenter status can cause clockout operators when selected in ux.
+          example: false
+        idleStatus:
+          type: boolean
+          description: Indicates workcenter status is an idle status.
+          example: false
+        defaultAfterJobChange:
+          type: boolean
+          description: Indicates workcenter status is the default after a job change.
+          example: false
+        productionStatus:
+          type: boolean
+          description: Indicates workcenter status is a production status.
+          example: false
+        setupStatus:
+          type: boolean
+          description: Indicates workcenter status is a setup status.
+          example: false
+        downtimeStatus:
+          type: boolean
+          description: Indicates workcenter status is a downtime status.
+          example: false
+        noOperatorRequired:
+          type: boolean
+          description: Indicates workcenter status does not require operators to be logged in.
+          example: false
+        laborCostSubTypeId:
+          type: string
+          format: uuid
+          description: A unique identifier of a Cost Sub Type used for labor.
+          example: 00000000-0000-0000-0000-000000000000
+        maintenanceStatus:
+          type: boolean
+          description: Indicates workcenter status is a maintenance status.
+          example: false
+        active:
+          type: boolean
+          description: Indicates workcenter status is active.
+          example: false
+        excessSetup:
+          type: boolean
+          description: Indicates workcenter status is an excess setup status.
+          example: false
+        workcenterGroupWorkcenters:
+          type: array
+          description: List of workcenter IDs belonging to the workcenter group associated with this workcenter status.
+          items:
+            type: string
+            format: uuid
+        linkedWorkcenterEvents:
+          type: array
+          description: List of workcenter event IDs linked to this status.
+          items:
+            type: string
+            format: uuid
+    ProductionHistory:
+      type: object
+      description: A production record in Plex is the action of recording production of a product that results in depleting source material and advancing the product to the next operation. A single production record is created each time production is recorded. When Plex Production Tracking is implemented, production is recorded multiple times during a shift. For example, after a container is full or a job operation is completed, there may be a long list of production records. Production records do not include scrapped parts (scrapped using specific scrapping functions). Production records include parts produced and moved into a Plex container record, regardless of the status of that container record.
+      properties:
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date and time on which the production transaction was recorded in Plex.
+          example: '2026-10-20T12:03:16Z'
+        workcenterId:
+          type: string
+          format: uuid
+          description: The ID of the workcenter where the production transaction was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated to the &quot;workcenterID&quot; and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel. 50 characters max.
+          example: string
+        serialNo:
+          type: string
+          description: The serial number of the container. 25 characters max.
+          example: string
+        lotNo:
+          type: string
+          description: The unique lot number. 25 characters max.
+          example: string
+        employeeId:
+          type: string
+          format: uuid
+          description: The employee resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        employeeName:
+          type: string
+          description: The employee name using the Plex User Display Name format.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The quantity that was produced.
+          example: 0.1
+        jobId:
+          type: string
+          format: uuid
+          description: The ID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as Kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        jobCode:
+          type: string
+          description: The job number, including prefix and suffix, associated to the &quot;jobId&quot; that production was recorded against. 20 characters max.
+          example: string
+        jobNo:
+          type: string
+          description: The unique job number. 20 characters max.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part that was produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated to the &quot;partId&quot; that was produced. Acceptable part number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: The part revision of the &quot;partId&quot;. A revision represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'The part number and revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long. Format: {partNumber}{part rev separator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code associated to the &quot;partOperationId&quot;. 30 characters max.
+          example: string
+        masterUnitNo:
+          type: string
+          description: The master unit number of the master unit. 10 characters max.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        lotId:
+          type: string
+          format: uuid
+          description: The lot resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        heatCode:
+          type: string
+          description: The heat code of the heat. 50 characters max.
+          example: string
+        heatNo:
+          type: string
+          description: The heat number of the heat. 30 characters max.
+          example: string
+        heatId:
+          type: string
+          format: uuid
+          description: The material heat resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        unit:
+          type: string
+          description: The unit of measure for the operation. 20 characters max.
+          example: string
+        trackingNo:
+          type: string
+          description: The tracking number of the container. 50 characters max.
+          example: string
+        shelfDateTime:
+          type: string
+          format: date-time
+          description: The shelf life date of the container.
+          example: '2026-10-20T12:03:16Z'
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: The date a lot was manufactured, either in Plex or by a supplier or subcontractor.
+          example: '2026-10-20T12:03:16Z'
+        bestByDateTime:
+          type: string
+          format: date-time
+          description: The best-by date which represents the last date for consumption of products in a lot by consumers.
+          example: '2026-10-20T12:03:16Z'
+        useByDateTime:
+          type: string
+          format: date-time
+          description: The last date to use a lot for production.
+          example: '2026-10-20T12:03:16Z'
+        sellByDateTime:
+          type: string
+          format: date-time
+          description: The last date for the sale of a product in a lot to consumers.
+          example: '2026-10-20T12:03:16Z'
+    LotResponse:
+      type: object
+      description: A lot
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier of the lot.
+          example: 00000000-0000-0000-0000-000000000000
+        lotNo:
+          type: string
+          description: The lot number.
+          example: string
+    SetupJobRequest:
+      type: object
+      description: Setup Job Request
+      properties:
+        jobOperationId:
+          type: string
+          format: uuid
+          description: A unique identifier of a job operation.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - jobOperationId
+    RecordVariableBOMProductionRequest:
+      type: object
+      description: Request object for recording variable BOM production.
+      properties:
+        sourceComponentQuantities:
+          type: array
+          description: The list of source components to add to the batch.
+          items:
+            type: object
+            description: Request object for control panel source material.
+            properties: {}
+        quantity:
+          type: number
+          format: double
+          description: The source component quantity.
+          example: 0.1
+        jobOpId:
+          type: string
+          format: uuid
+          description: A unique identifier for the job op on the workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        completeContainer:
+          type: boolean
+          description: Flag indicating if the output container should be finalized.
+          example: false
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier for a part.
+          example: 00000000-0000-0000-0000-000000000000
+        itemId:
+          type: string
+          format: uuid
+          description: A unique identifier for a supply item.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - sourceComponentQuantities
+      - quantity
+      - jobOpId
+    ScrapHistorySummary:
+      type: object
+      description: A Scrap Entry in Plex is the action of scrapping a specific quantity of component or produced part that results in removing that quantity out of inventory. Recording of scrap is performed using the dedicated Record Scrap functions in the Control Panel or in other standalone applications.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: UUID of the part that was scrapped.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Part Number associated to the partId that was scrapped. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues. 100 characters maximum.
+          example: string
+        revision:
+          type: string
+          description: Part Revision of the partID. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR). 8 characters maximum.
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'Part Number and Revision formatted with a separator. If the part has a revision, Plex returns the part number and the revision joined by the delimiter defined in the Part Rev Separator configuration (a system-wide value, up to 5 characters). If the part has no revision, only the part number is returned. Format: {partNumber}{partRevSeparator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: UUID of the part operation that was scrapped.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: The Operation Code associated to the partOperationID. 30 characters maximum.
+          example: string
+        serialNo:
+          type: string
+          description: The Serial No of the Scrap/Rejection Container. 50 characters maximum.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The Operation Number (sequence order) of the part Operation that was scrapped. 10 characters maximum.
+          example: 0
+        workcenterId:
+          type: string
+          format: uuid
+          description: UUID of the workcenter where scrap was recorded.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterCode:
+          type: string
+          description: A short name associated to the workcenterID, and a unique code to reference the workcenter. This code shows up throughout the system, primarily on the Control Panel. 50 characters maximum.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: UUID of the production job that scrap was recorded against. Note that a production job is not necessary to record scrap. Another scheduling method such as kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: Job number, including prefix and suffix, associated to the jobID that scrap was recorded against. 20 characters maximum.
+          example: string
+        scrapReason:
+          type: string
+          description: Setup table &quot;Scrap Reason&quot; (part.dbo.scrap_reason). The reason code which indicates why the material or part was scrapped. 50 characters maximum.
+          example: string
+        totalQuantity:
+          type: number
+          format: double
+          description: Total Quantity that was scrapped. Decimal with a maximum of 19 total digits, 5 of which can be after the decimal point (precision 19, scale 5).
+          example: 0.1
+    SetWorkcenterStatus:
+      type: object
+      description: Query object used for updating a workcenter status.
+      properties:
+        workcenterStatusId:
+          type: string
+          format: uuid
+          description: A unique identifier of a workcenter status.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterEventId:
+          type: string
+          format: uuid
+          description: A unique identifier of a workcenter event.
+          example: 00000000-0000-0000-0000-000000000000
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier of a plex user. If no user is specified the user account associated with the API key will be used.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - workcenterStatusId
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

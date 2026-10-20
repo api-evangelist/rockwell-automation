@@ -1,0 +1,1477 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/rockwell-automation-plex-openapi.yml
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 363
+  entities_in_spec: 363
+  relationships: 103
+entities:
+- name: AccountsPayableInvoiceDto
+  fields: 48
+  description: The Accounts Payable Invoice model.
+- name: AccountsPayableInvoiceReceiptsDto
+  fields: 1
+- name: AccountsPayablePaymentDto
+  fields: 27
+  description: The Accounts Payable Payment model.
+- name: AccountsReceivableDepositDto
+  fields: 20
+  description: The Accounts Receivable Deposit model.
+- name: AccountsReceivableInvoiceDto
+  fields: 47
+  description: The Accounts Receivable Invoice model.
+- name: ActivateEmployeeCommand
+  fields: 1
+  description: Properties related to activating an Employee.
+- name: ActiveContainer
+  fields: 31
+  description: A Plex container containing active inventory.
+- name: ActivityDto
+  fields: 38
+  description: The data structure representing an activity.
+- name: AddAccountsPayableInvoiceDto
+  fields: 39
+- name: AddAccountsReceivableInvoiceDto
+  fields: 40
+- name: AddActivityRequestDto
+  fields: 27
+  description: The data structure representing an activity.
+- name: AddActivityResponseDto
+  fields: 28
+  description: The data structure representing a created activity.
+- name: AddApprovedSupplierRequest
+  fields: 4
+  description: Approved Suppliers Request
+- name: AddBomComponentDto
+  fields: 16
+  description: Datastructure to represent the input model to add a BOM component.
+- name: AddChecksheetDto
+  fields: 19
+  description: The data structure representing a checksheet.
+- name: AddChecksheetResponse
+  fields: 3
+- name: AddEdiLogDocument
+  fields: 2
+  description: Request to add an EDI document.
+- name: AddEdiLogRequest
+  fields: 5
+  description: Request to add a new EDI Log.
+- name: AddEquipmentAttribute
+  fields: 12
+- name: AddJobInput
+  fields: 13
+  description: Data structure to represent input request for AddJob endpoint.
+- name: AddJournalEntryDto
+  fields: 20
+  description: The Add GL journal entry model.
+- name: AddKitRecommendationRequest
+  fields: 1
+- name: AddPartSpecificationDto
+  fields: 44
+- name: AddProcessGroupRequestDto
+  fields: 11
+  description: The request object containing the data required to create a process group.
+- name: AddProcessStepInstallBomsRequestDto
+  fields: 8
+  description: The request object containing the data required to add an Install BOM and its component parts to
+    a process step.
+- name: AddProcessStepRequestDto
+  fields: 9
+  description: The request object containing the data required to add a process step.
+- name: AddSourceInventoryRequest
+  fields: 2
+  description: Request to add a container to source inventory.
+- name: AddTankSanitizationEventRequest
+  fields: 3
+  description: Add Tank/Silo Sanitization event request object.
+- name: AddressDTO
+  fields: 18
+  description: The model for supplier address.
+- name: ApprovedEquipment
+  fields: 10
+  description: In Plex, approved equipment is used to define which equipment is authorized for use in specific part
+    operations.
+- name: ApprovedSupplier
+  fields: 11
+  description: Approved Supplier Response
+- name: ApprovedSupplierDto
+  fields: 10
+  description: The Approved Supplier model.
+- name: ApprovedSupplierEdiDto
+  fields: 2
+  description: The approved supplier EDI data transfer object.
+- name: ApprovedSupplierMrpDto
+  fields: 3
+  description: The approved supplier MRP data transfer object.
+- name: ApprovedWorkcenter
+  fields: 19
+  description: Data Structure to represent Approved Workcenter response model.
+- name: ApprovedWorkcenterRequest
+  fields: 11
+  description: Data Structure to represent Approved Workcenter request model.
+- name: AssetDataDTO
+  fields: 9
+- name: AssetRequest
+  fields: 12
+- name: AssetStatusDTO
+  fields: 12
+- name: AssignLotRequest
+  fields: 3
+  description: Request object for assigning a lot.
+- name: AttachmentGroupsResponseRow
+  fields: 1
+- name: AttachmentsResponseRow
+  fields: 3
+- name: AuditReleaseDto
+  fields: 1
+  description: Data model used when auditing a release.
+- name: BackwardSchedule
+  fields: 1
+- name: Batch
+  fields: 9
+  description: A job operation batch.
+- name: BatchCreateReleaseDto
+  fields: 12
+  description: The parameters for creating a batch of Releases.
+- name: BatchProgressDto
+  fields: 4
+  description: Progress details for a batch request.
+- name: BatchReleaseCancelDto
+  fields: 2
+  description: Extension of the ReleaseCancelDto class to hold any additional fields for Batch endpoints.
+- name: BatchReleaseDeleteDto
+  fields: 5
+  description: The query parameters for deleting Release resources.
+- name: BatchUpdateReleaseDto
+  fields: 10
+  description: The parameters for updating a batch of Releases.
+- name: BomComponentDto
+  fields: 31
+  description: The Bill Of Material (Bom) component model.
+- name: BuildingDto
+  fields: 16
+- name: ChartOfAccountDto
+  fields: 9
+- name: ChecksheetDto
+  fields: 18
+  description: The checksheet details.
+- name: ClearLotRequest
+  fields: 1
+  description: Request object for clearing lot from setup container.
+- name: ClockinOperatorRequest
+  fields: 2
+  description: The Clock In Operator Request.
+- name: ContactDTO
+  fields: 25
+  description: The all-inclusive domain model for a Contact.
+- name: ContainerAdjustment
+  fields: 17
+  description: In Plex, container adjustments are inventory changes made outside of standard receiving, shipping,
+    and production activities, such as cycle counts or manual updates to the container quantity itself.
+- name: ContainerDto
+  fields: 35
+  description: The Container model.
+- name: ContainerLocationMoves
+  fields: 16
+  description: The container location moves.
+- name: ContainerShippingDetailsDto
+  fields: 17
+  description: The container shipping details model.
+- name: CostSubType
+  fields: 11
+  description: A cost sub type record.
+- name: CreateAddressDTO
+  fields: 14
+  description: The supplier address model exposed for adding.
+- name: CreateChartOfAccountDto
+  fields: 4
+- name: CreateContactDTO
+  fields: 21
+  description: The Contact model exposed for adding.
+- name: CreateCustomerAddressDTO
+  fields: 47
+  description: The CustomerAddress model exposed for adding.
+- name: CreateCustomerDTO
+  fields: 31
+  description: The customer model exposed for adding.
+- name: CreateCustomerPartDTO
+  fields: 6
+  description: The customer part model exposed for adding.
+- name: CreateCustomerPurchaseOrderDto
+  fields: 23
+  description: Create customer purchase order.
+- name: CreateDynamicMultiOutSetDto
+  fields: 5
+  description: The Dynamic Multi Out Set model exposed for adding.
+- name: CreateEmployeeDTO
+  fields: 18
+  description: Properties to be set when creating a new Employee.
+- name: CreateInventoryShipment
+  fields: 1
+- name: CreateKitDto
+  fields: 5
+  description: Create a sequenced kit.
+- name: CreateOrderLineDto
+  fields: 14
+  description: Create order line.
+- name: CreateOrderLinePriceDto
+  fields: 7
+  description: Create sales order line prices.
+- name: CreateOrderLineShipToDto
+  fields: 4
+  description: Create order line ship to.
+- name: CreatePartDTO
+  fields: 20
+  description: The part model containing the data required to create a part.
+- name: CreatePartOperationDTO
+  fields: 8
+  description: A single operation in a part operation routing.
+- name: CreatePlannedRackDto
+  fields: 9
+  description: The planned rack dto.
+- name: CreatePriceAdjustmentDto
+  fields: 31
+- name: CreateRackDto
+  fields: 3
+  description: The parameters to create a Rack.
+- name: CreateReceiptLotRequest
+  fields: 3
+  description: Create inventory receipt lot request.
+- name: CreateReceiptRequest
+  fields: 3
+  description: The Create Inventory Receipt Request.
+- name: CreateReleaseDto
+  fields: 3
+  description: The Sequenced Release model exposed for adding.
+- name: CreateShipperDto
+  fields: 35
+  description: The shipper model exposed for adding.
+- name: CreateSupplierDTO
+  fields: 12
+  description: The supplier model exposed for adding.
+- name: CreateSupplyItemDto
+  fields: 28
+  description: The Supply Item model exposed for adding.
+- name: CreateTransferOrderDto
+  fields: 12
+  description: Create transfer order.
+- name: CreateTruckDto
+  fields: 30
+  description: The create truck DTO.
+- name: CreateWebAddressAttachmentRequest
+  fields: 2
+- name: CreateWebAddressAttachmentResponse
+  fields: 1
+- name: CustomObject
+  fields: 1
+- name: CustomObjectData
+  fields: 1
+- name: CustomObjectFieldDefinition
+  fields: 5
+- name: CustomObjectRecord
+  fields: 5
+- name: CustomObjectSearchBody
+  fields: 6
+- name: CustomerAddressDTO
+  fields: 51
+  description: The all-inclusive domain model for a [object Object].
+- name: CustomerAddressEdiDTO
+  fields: 21
+  description: The all-inclusive domain model for a customer address EDI Object.
+- name: CustomerDTO
+  fields: 35
+  description: The all-inclusive domain model for a Customer.
+- name: CustomerFinancialsDTO
+  fields: 19
+  description: The domain model for Customer Financials.
+- name: CustomerPartDTO
+  fields: 8
+  description: The all-inclusive domain model for an Customer Part.
+- name: DataSetDto
+  fields: 4
+  description: The data structure representing a data set.
+- name: DeactivateEmployeeCommand
+  fields: 1
+  description: Properties related to deactivating an Employee.
+- name: DeactivateSupplierCommand
+  fields: 1
+  description: Properties related to deactivating a Supplier.
+- name: DeleteProcessStepInstallBomsRequestDto
+  fields: 2
+  description: The request object containing the data required to delete an Install BOM and its component parts.
+- name: DeleteProcessStepToolsRequestDto
+  fields: 2
+  description: The request object containing the data required to delete a list of tools associated with the process
+    step.
+- name: DescriptionDTO
+  fields: 1
+  description: Model for Part Operation description
+- name: DimensionDto
+  fields: 2
+  description: The data structure representing a dimension.
+- name: DisplayTypeDto
+  fields: 6
+- name: Document
+  fields: 3
+  description: API Resource for EDI Document.
+- name: DynamicMultiOutSetDto
+  fields: 5
+- name: DynamicMultiOutTemplateDto
+  fields: 4
+  description: The Dynamic Multi Out Template model.
+- name: DynamicMultiOutTemplatePartOperationDto
+  fields: 11
+  description: The Part Operation model for Dynamic Multi Out Templates.
+- name: EdiNotification
+  fields: 6
+  description: API Resource for an EDI Notification.
+- name: ElapsedTimeAssetResponse
+  fields: 2
+  description: Elapsed time results grouped by assets
+- name: ElapsedTimeTagResponse
+  fields: 2
+  description: Elapsed time results grouped by tags
+- name: EmployeeDTO
+  fields: 18
+  description: All properties related to an Employee.
+- name: EquipmentAttributeDTO
+  fields: 10
+- name: EquipmentDTO
+  fields: 24
+- name: EquipmentTypeDTO
+  fields: 8
+- name: Error
+  fields: 2
+- name: ErrorResponse
+  fields: 3
+- name: Event
+  fields: 17
+- name: FieldDefinition
+  fields: 6
+  description: The FieldDefinition Model.
+- name: FieldType
+  fields: 3
+  description: The FieldType Model.
+- name: FieldTypeAvailableConstraints
+  fields: 8
+  description: The FieldTypeAvailableConstraints Model.
+- name: FieldValuesSearchBody
+  fields: 6
+  description: The data structure that is used when searching for standard object records and their custom field
+    values. The name of a standard object must be specified, and a list of record identities and/or a list
+- name: FinancialsDTO
+  fields: 19
+  description: The model for Supplier Financials.
+- name: FinancialsDto
+  fields: 19
+  description: The model for Supplier Financials.
+- name: FiscalPeriodStatusDto
+  fields: 6
+  description: The Fiscal Period Status model.
+- name: ForbiddenErrorResponse
+  fields: 2
+- name: FormulaTypeDto
+  fields: 3
+- name: GeneralLedgerActivityAPInvoiceDto
+  fields: 17
+  description: The General Ledger Activity AP Invoice model.
+- name: GeneralLedgerActivityAPPaymentDto
+  fields: 17
+  description: The General Ledger Activity - AP Payment model.
+- name: GeneralLedgerActivityARDepositDto
+  fields: 15
+  description: The General Ledger Activity - AR Deposit model.
+- name: GeneralLedgerActivityARInvoiceDto
+  fields: 17
+  description: The General Ledger Activity - AR Invoice model.
+- name: GeneralLedgerActivityJournalDto
+  fields: 20
+  description: The General Ledger Activity GL Journal model.
+- name: GetChecksheetTypeResponseDto
+  fields: 12
+  description: The data structure representing a checksheet type.
+- name: GetControlPlanLineResponseDto
+  fields: 31
+  description: The data structure representing a control plan line.
+- name: GetControlPlanResponseDto
+  fields: 16
+  description: The data structure representing a control plan.
+- name: GetControlPlanTypeResponseDto
+  fields: 3
+  description: The data structure representing a control plan type.
+- name: GetDeviationResponseDto
+  fields: 22
+  description: The data structure representing a deviation.
+- name: GetDeviationStatusResponseDto
+  fields: 7
+  description: The data structure representing a Deviation Status.
+- name: GetMasterUnitRequest
+  fields: 2
+  description: The Get Master Unit Request.
+- name: GetMasterUnitResponse
+  fields: 4
+  description: The Get Master Unit Response.
+- name: GetProcessControlPlanLineResponseDto
+  fields: 25
+  description: The data structure representing a control plan line.
+- name: GetProcessControlPlanResponseDto
+  fields: 13
+  description: The data structure representing a control plan.
+- name: GetSamplePlanResponseDto
+  fields: 6
+  description: The data structure representing a sample plan.
+- name: IdSearchBody
+  fields: 2
+- name: IdentityMappingsResponse
+  fields: 2
+- name: InboundReceive
+  fields: 1
+  description: A object containing information about EDI objects to receive.
+- name: InventoryPart
+  fields: 8
+  description: A part in Plex is any purchased or manufactured component, assembly, or finished good.
+- name: InventoryShipment
+  fields: 6
+  description: The inventory shipment.
+- name: ItemAdjustment
+  fields: 7
+  description: The Item Adjustment Model
+- name: ItemSupplierDto
+  fields: 4
+  description: The Item Supplier model.
+- name: ItemSupplierPriceDto
+  fields: 6
+  description: The Prices model exposed.
+- name: JiSTruckDto
+  fields: 4
+  description: The Truck model returned from the rack schedule and load process.
+- name: Job
+  fields: 20
+- name: JobBomComponentCommand
+  fields: 17
+- name: JobListItem
+  fields: 23
+- name: JobOpScheduleRequest
+  fields: 6
+  description: Data structure to represent input request which contains job operations ID and list of schedule details
+    which include workcenter ID
+- name: JobOperation
+  fields: 25
+- name: JobType
+  fields: 18
+  description: The Job Type
+- name: JournalDto
+  fields: 14
+  description: The Journal Entry model.
+- name: JournalEntryDto
+  fields: 20
+  description: The Journal Entry model.
+- name: JournalLineDto
+  fields: 9
+  description: The query parameters for Journal Entry Line resources.
+- name: KeySearchBody
+  fields: 2
+- name: KitDto
+  fields: 20
+  description: The kit model exposed.
+- name: KitPackingResponseDto
+  fields: 7
+  description: Data model representing the output of a kit packing operation.
+- name: KitRecommendationBom
+  fields: 3
+- name: KitRecommendationBomsRequest
+  fields: 1
+- name: KitRecommendationDto
+  fields: 4
+- name: LaborHistory
+  fields: 18
+  description: 'In Plex, time spent by shop floor operators is tracked when they clock into a workcenter''s timeclock
+    and select a Labor Cost Activity. When an operator changes the activity, prior activity closes and '
+- name: LatestTagDataResponse
+  fields: 13
+- name: LineContainerDto
+  fields: 4
+  description: The shipper line container model exposed.
+- name: LineDto
+  fields: 14
+  description: The shipper line model exposed.
+- name: LineItemDto
+  fields: 30
+  description: The primary model for a Line Item.
+- name: LineReleaseDto
+  fields: 1
+  description: The shipper line release model exposed.
+- name: ListActivitiesResponseDto
+  fields: 33
+  description: The data structure representing an activity.
+- name: ListInspectionModesResponseDto
+  fields: 7
+  description: The data structure representing an inspection mode.
+- name: ListToleranceTypesResponseDto
+  fields: 10
+- name: LoadContainerDto
+  fields: 1
+  description: The query parameters for shipper line resources.
+- name: LoadError
+  fields: 12
+  description: API Resource for EDI Load Error.
+- name: LoadErrorType
+  fields: 1
+  description: API Resource for EDI Load Error Type.
+- name: LoadedSourceInventory
+  fields: 10
+  description: A container loaded into source inventory of a workcenter.
+- name: Location
+  fields: 15
+  description: The Location.
+- name: Log
+  fields: 14
+  description: API Resource for EDI Log
+- name: LogStatus
+  fields: 1
+  description: API Resource for EDI Log Status.
+- name: LogTrackingNo
+  fields: 1
+  description: Information describing a particular workflow run through.
+- name: LogXmlRepresentation
+  fields: 1
+  description: API Resource for EDI Log XML Representation.
+- name: LogicAppsWorkflowRun
+  fields: 2
+  description: Information describing a particular run through the Logic Apps workflow.
+- name: Lot
+  fields: 17
+  description: Datastructure to represent lot usage date information
+- name: LotResponse
+  fields: 2
+  description: A lot
+- name: Mailbox
+  fields: 33
+  description: API Resource for EDI Mailbox.
+- name: MasterUnitDetailsDto
+  fields: 12
+  description: The MasterUnit model.
+- name: MasterUnitDto
+  fields: 1
+  description: The master unit for packing a rack.
+- name: MeasureDto
+  fields: 2
+  description: The data structure representing the measure defined for the data set.
+- name: MetricBenchmarkDto
+  fields: 9
+  description: The data structure representing metric benchmarks.
+- name: MetricDataDto
+  fields: 6
+  description: The data structure representing metric data.
+- name: MetricDto
+  fields: 25
+  description: The data structure representing a metric.
+- name: MoveTankContainersRequest
+  fields: 5
+  description: The move tank containers request.
+- name: NoteDTO
+  fields: 2
+  description: Model for Part Operation notes
+- name: OperatingParameterDto
+  fields: 10
+  description: The data transfer object representing an Operating Parameter.
+- name: OperatingParameterGroupDto
+  fields: 12
+  description: The data transfer object representing an Operating Parameter.
+- name: OperationDTO
+  fields: 4
+  description: The all-inclusive domain model for a Operation.
+- name: OrderLinePriceAdjustmentsDto
+  fields: 4
+  description: The Order Lines Price Adjustments Model exposed
+- name: OrderLinePriceDto
+  fields: 21
+  description: The Order Lines Prices model
+- name: OrderLineShipTosDto
+  fields: 7
+  description: The Order Lines Ship To model exposed.
+- name: OrderLinesDto
+  fields: 15
+  description: The Order Lines model exposed.
+- name: OrderPriceAdjustmentsDto
+  fields: 4
+  description: The Order Price Adjustment model exposed.
+- name: OrdersDto
+  fields: 35
+  description: The Orders model exposed.
+- name: PackingResponseDto
+  fields: 6
+  description: Data model representing the output of a packing operation.
+- name: PartDTO
+  fields: 24
+  description: The all-inclusive domain model for a part.
+- name: PartOperationDTO
+  fields: 10
+  description: A single operation in a part operation routing.
+- name: PartOperationListItemDTO
+  fields: 13
+  description: A single operation in a part operation routing, as returned by the List Part Operations endpoint.
+- name: PartShippingDetailsDto
+  fields: 15
+  description: The part model exposed for retrieving details.
+- name: PlannedRackDto
+  fields: 6
+  description: The planned rack dto.
+- name: PoPriceDto
+  fields: 8
+  description: The primary model for a Price.
+- name: PriceAdjustmentDto
+  fields: 31
+  description: The price adjustment model utilized for adding.
+- name: PriceDto
+  fields: 11
+  description: The Price model.
+- name: Problem
+  fields: 6
+  description: API Resource for an EDI Problem.
+- name: ProcessControlRecipeDto
+  fields: 6
+  description: The data structure representing a Process Control Recipe.
+- name: ProcessControlRecipeFamilyDto
+  fields: 9
+  description: The data structure representing a Process Control Recipe Family.
+- name: ProcessControlRecipeFamilyTypeResponseDto
+  fields: 2
+  description: The data structure representing a process control recipe family type.
+- name: ProcessGroupResponseDto
+  fields: 16
+  description: A response object containing data that defines a process group.
+- name: ProcessSpecificationDto
+  fields: 17
+  description: The data structure representing a process specification.
+- name: ProcessStepChecksheetResponseDto
+  fields: 2
+  description: A response object containing data that defines a process step's checksheet configuration.
+- name: ProcessStepInstallBomResponseDto
+  fields: 1
+  description: A response object containing a list of components in a process step's Install BOM.
+- name: ProcessStepResponseDto
+  fields: 19
+  description: A response object containing the data that defines a process step.
+- name: ProcessStepToolComponentResponseDto
+  fields: 9
+  description: A response object containing data that defines a process step's Tool Component configuration.
+- name: ProcessStepValidateComponentResponseDto
+  fields: 16
+  description: The response object containing the data that defines a process step's Validate Component configuration.
+- name: ProcessStepsReportResponseDto
+  fields: 20
+  description: A response object containing the data that defines a row in a process step report.
+- name: ProductionDTO
+  fields: 4
+  description: Model for Part Operation production
+- name: ProductionHistory
+  fields: 31
+  description: 'A production record in Plex is the action of recording production of a product that results in depleting
+    source material and advancing the product to the next operation. A single production record is '
+- name: ProductionHistorySummary
+  fields: 12
+  description: 'A production record in Plex is the action of recording production of a product that results in depleting
+    source material and advancing the product to the next operation. A single production record is '
+- name: ProductionLine
+  fields: 10
+  description: A production line in Plex defines a series of delegated and approved workcenters at each stage of
+    the production process.
+- name: ProductionLineWorkcenter
+  fields: 10
+  description: 'A workcenter in Plex is defined as an area where a complete operation happens. It may represent
+    a single part operation or multiple part operations, a single piece of equipment, or multiple pieces of '
+- name: PurchaseOrderDto
+  fields: 39
+  description: The primary model for a Purchase Order.
+- name: PurchaseOrderStatusDto
+  fields: 9
+  description: The primary model for a PO Status.
+- name: PurchaseOrderTypeDto
+  fields: 5
+  description: The Purchase Order Type model.
+- name: PurchasingDefaultsDTO
+  fields: 12
+  description: The model for Supplier Purchasing Defaults.
+- name: RackDto
+  fields: 17
+  description: The rack dto.
+- name: RackScheduleAndLoadDto
+  fields: 2
+  description: The service model used to load a rack to a truck.
+- name: Receipt
+  fields: 5
+  description: The Inventory Receipt.
+- name: ReceiptDto
+  fields: 22
+  description: The Receipt model.
+- name: ReceiptInventoryRequest
+  fields: 10
+  description: The Receipt Inventory.
+- name: ReceiptLot
+  fields: 5
+  description: A lot associated with an inventory receipt.
+- name: RecordBatchProductionRequest
+  fields: 8
+  description: Record production request.
+- name: RecordProductionResponse
+  fields: 23
+  description: Response returned when production successfully recorded.
+- name: RecordVariableBOMProductionDetailResponse
+  fields: 3
+  description: The record variable bom production response object.
+- name: RecordVariableBOMProductionRequest
+  fields: 6
+  description: Request object for recording variable BOM production.
+- name: ReleaseCancelDto
+  fields: 1
+  description: The Release Cancel model
+- name: ReleaseDto
+  fields: 14
+  description: The Sequenced Release model.
+- name: ReleaseEdiDto
+  fields: 24
+  description: The Release EDI model exposed for adding.
+- name: ReleaseSnapshot
+  fields: 16
+  description: API Resource for EDI Release Snapshot
+- name: ReleaseStatusDto
+  fields: 12
+  description: The Release Status model.
+- name: RequiredSourceInventory
+  fields: 9
+  description: Status of source inventory that is required to record production against the setup job operation.
+- name: RetireContainerRequest
+  fields: 1
+  description: The Retire Container Request.
+- name: SanitizationCode
+  fields: 5
+  description: Tank/Silo Sanitization code.
+- name: ScannedValuesDto
+  fields: 4
+  description: A model containing the data that defines the scanned values captured by a Validate Component process
+    step.
+- name: ScheduleReleaseDto
+  fields: 2
+  description: The Schedule Release DTO.
+- name: ScheduleReleaseResponseDto
+  fields: 3
+  description: The Schedule Release Response DTO.
+- name: SchedulingDTO
+  fields: 9
+  description: The model for Part Operation Scheduling.
+- name: ScrapContainerRequest
+  fields: 3
+  description: The Scrap Container Request.
+- name: ScrapHistory
+  fields: 16
+  description: A Scrap Entry in Plex is the action of scrapping a specific quantity of component or produced part
+    that results in removing that quantity out of inventory. Recording of scrap is performed using the de
+- name: ScrapHistorySummary
+  fields: 14
+  description: A Scrap Entry in Plex is the action of scrapping a specific quantity of component or produced part
+    that results in removing that quantity out of inventory. Recording of scrap is performed using the de
+- name: ScrapReason
+  fields: 1
+  description: A Scrap Reason
+- name: SearchWorkcenterSetupsRequest
+  fields: 4
+  description: Request to search for Workcenter Setups
+- name: SearchWorkcenterSetupsResponse
+  fields: 23
+  description: Response returned when performing a search for Workcenter Setups
+- name: SetWorkcenterStatus
+  fields: 3
+  description: Query object used for updating a workcenter status.
+- name: SetupJobRequest
+  fields: 1
+  description: Setup Job Request
+- name: ShippableContainerDto
+  fields: 25
+  description: The shippable container model.
+- name: ShipperDto
+  fields: 48
+  description: The shipper model exposed.
+- name: SpecificationDto
+  fields: 46
+- name: SpecificationTypeDto
+  fields: 10
+- name: StageInventoryRequest
+  fields: 1
+  description: The request to stage the inventory shipment.
+- name: StandardObject
+  fields: 4
+  description: The data model that describes the structure of a standard object. This includes the name used internally,
+    the label that is displayed on Plex forms, and the properties that are used to uniquely identi
+- name: StandardObjectInstance
+  fields: 2
+  description: The data model that describes a record of a standard object. This includes the standard object name,
+    and the properties and values used to identify a record.
+- name: StandardObjectRecord
+  fields: 3
+  description: The data model that describes a record of a standard object. This includes the standard object name,
+    the properties and values used to identify a record, and the custom field values that have been sav
+- name: StandardObjectRecordIdentifiers
+  fields: 2
+  description: The data model that describes the fields necessary to uniquely identify a record of a standard object.
+- name: StorageDTO
+  fields: 4
+  description: The container storage detail for a Part Operation.
+- name: SubcontractReceipt
+  fields: 19
+  description: The subcontract receipt
+- name: SupplierDTO
+  fields: 16
+  description: The primary model for a Supplier.
+- name: SupplierReturnDto
+  fields: 14
+  description: The Supplier Return model exposed.
+- name: SupplyAdjustmentRequest
+  fields: 5
+  description: The Supply Adjustment Request
+- name: SupplyItem
+  fields: 7
+  description: The Supply Item model.
+- name: SupplyItemDto
+  fields: 32
+  description: The Supply Item model.
+- name: SyncChartOfAccountDto
+  fields: 4
+- name: SyncContactDTO
+  fields: 21
+  description: The full Contact resource structure.
+- name: SyncCustomerDTO
+  fields: 87
+  description: The full Customer Resource structure
+- name: SyncCustomerPartDTO
+  fields: 6
+  description: The full CustomerPart Resource structure.
+- name: SyncEmployeeDTO
+  fields: 18
+  description: All properties related to an Employee.
+- name: SyncLocationDTO
+  fields: 13
+  description: DTO for the Sync Location (add or update) request and response.
+- name: SyncPartDTO
+  fields: 20
+  description: The part model containing the data required to sync parts from another system.
+- name: SyncSupplierDTO
+  fields: 57
+  description: The full Supplier resource structure to be added or updated.
+- name: SyncSupplyItemDto
+  fields: 28
+  description: The full Supply Item Resource structure
+- name: TankEvent
+  fields: 12
+  description: The lot and sanitization events for a tank or silo.
+- name: TankLotLogIgnoreRequest
+  fields: 1
+  description: Tank Lot Log Ignore request.
+- name: TankSanitizationEvent
+  fields: 5
+  description: The Tank/Silo Sanitization event object.
+- name: TenantDto
+  fields: 2
+  description: Basic Tenant information
+- name: TimeClockEntriesDto
+  fields: 12
+  description: The TimeClockEntries model.
+- name: ToleranceTypeDto
+  fields: 14
+- name: ToolDeviceProcessStepReportDto
+  fields: 3
+  description: A model containing the data that defines tool-device details for a Tool Component process step.
+- name: TransferEmployeeCommand
+  fields: 1
+  description: Properties related to transferring an Employee to another Tenant.
+- name: TransferOrderDto
+  fields: 21
+  description: The Transfer Order.
+- name: TransformedDataType
+  fields: 1
+  description: API resource for transformed data
+- name: TrialBalanceDto
+  fields: 2
+  description: The Trial Balance model.
+- name: TruckDto
+  fields: 40
+  description: The truck model exposed for adding records.
+- name: UnitDto
+  fields: 14
+  description: Basic unit information.
+- name: UnstageRequest
+  fields: 1
+  description: The request to unstage the inventory shipment.
+- name: UpdateAccountsPayableInvoiceDto
+  fields: 40
+- name: UpdateAccountsReceivableInvoiceDto
+  fields: 33
+- name: UpdateActivityRequestDto
+  fields: 27
+  description: The data structure that represents an update to an activity.
+- name: UpdateActivityResponseDto
+  fields: 28
+  description: The data structure representing an updated activity.
+- name: UpdateAddressDTO
+  fields: 13
+  description: The supplier address model exposed for updating.
+- name: UpdateBomComponentDto
+  fields: 14
+  description: A class to represent the Update Bom Request Model.
+- name: UpdateChartOfAccountDto
+  fields: 3
+- name: UpdateContactDTO
+  fields: 21
+  description: The Contact model exposed for updating.
+- name: UpdateContainerRFIDRequest
+  fields: 1
+  description: The Update Container RFID Request.
+- name: UpdateCustomerAddressDTO
+  fields: 46
+  description: The CustomerAddress model exposed for updating.
+- name: UpdateCustomerAddressEdiDTO
+  fields: 21
+  description: The customer address EDI details model for updating.
+- name: UpdateCustomerDTO
+  fields: 30
+  description: The customer model exposed for updating.
+- name: UpdateCustomerFinancialsDTO
+  fields: 19
+  description: The customer financial model for updating.
+- name: UpdateCustomerPartDTO
+  fields: 4
+  description: The customer part model exposed for updating.
+- name: UpdateCustomerPurchaseOrderDto
+  fields: 22
+  description: Update customer purchase order.
+- name: UpdateDescriptionDTO
+  fields: 1
+  description: Model for Part Operation description
+- name: UpdateEmployeeDTO
+  fields: 16
+  description: Properties to be set when updating an Employee.
+- name: UpdateEquipmentAttribute
+  fields: 12
+- name: UpdateFinancialsDTO
+  fields: 19
+  description: The model for Supplier Financials.
+- name: UpdateFinancialsDto
+  fields: 21
+  description: The model for Supplier Financials.
+- name: UpdateJob
+  fields: 8
+- name: UpdateJournalEntryDto
+  fields: 21
+  description: The Update GL Journal Entry model.
+- name: UpdateMasterUnitRFIDRequest
+  fields: 1
+  description: The Update Master Unit RFID Request.
+- name: UpdateOrderLineDto
+  fields: 12
+  description: Update order line.
+- name: UpdateOrderLinePriceDto
+  fields: 7
+  description: Update sales order line prices.
+- name: UpdatePartDTO
+  fields: 19
+  description: The part model containing the data required to update a part.
+- name: UpdatePartOperationDTO
+  fields: 7
+  description: Properties to be set when updating a Part Operation
+- name: UpdateProcessGroupRequestDto
+  fields: 8
+  description: A request object containing the data required to update a process group.
+- name: UpdateProcessStepChecksheetRequestDto
+  fields: 2
+  description: A request object containing the data required to update the checksheet configuration for a process
+    step.
+- name: UpdateProcessStepInstallBomsRequestDto
+  fields: 6
+  description: The request object containing the data required to update an Install BOM and its component parts.
+- name: UpdateProcessStepRequestDto
+  fields: 8
+  description: A request object containing the data required to update a process step.
+- name: UpdateProcessStepToolComponentRequestDto
+  fields: 10
+  description: The request object containing the data required to update Tool Component configuration for a process
+    step.
+- name: UpdateProcessStepValidateComponentRequestDto
+  fields: 12
+  description: The request object containing the data required to update a process step's Validate Component configuration.
+- name: UpdateProductionDTO
+  fields: 3
+  description: Model for Part Operation production updates
+- name: UpdatePurchasingDefaultsDTO
+  fields: 12
+  description: The model for Supplier Purchasing Defaults.
+- name: UpdateReleaseDto
+  fields: 9
+  description: The Release model exposed for updating.
+- name: UpdateReleaseEdiDto
+  fields: 24
+  description: The Release EDI model exposed for updating.
+- name: UpdateSchedulingDTO
+  fields: 8
+  description: Modle for Part Operation scheduling updates.
+- name: UpdateShipperDto
+  fields: 31
+  description: The shipper model exposed for updating records.
+- name: UpdateStorageDTO
+  fields: 1
+  description: The container storage detail for a Part Operation.
+- name: UpdateSupplierDTO
+  fields: 11
+  description: The supplier model exposed for updating.
+- name: UpdateSupplyItemDto
+  fields: 27
+  description: The Supply Item model exposed for updating.
+- name: UpdateTransferOrderDto
+  fields: 11
+  description: Update transfer order.
+- name: UpdateTruckDto
+  fields: 27
+  description: The update truck DTO.
+- name: UploadDataSetDto
+  fields: 2
+- name: UserAccountDTO
+  fields: 8
+  description: The all-inclusive domain model for a User Account.
+- name: ValidationResponse
+  fields: 3
+- name: Workcenter
+  fields: 11
+  description: 'A workcenter in Plex is defined as an area where a complete operation happens. It may represent
+    a single part operation or multiple part operations, a single piece of equipment, or multiple pieces of '
+- name: WorkcenterEvent
+  fields: 4
+  description: A workcenter event.
+- name: WorkcenterSetup
+  fields: 16
+  description: Workcenter Setup Response
+- name: WorkcenterSetupEntry
+  fields: 30
+  description: Model to return WorkCenter Setup entries for a given datetime range, workcenterID or partID as part
+    of the ProductionHistory API Response
+- name: WorkcenterStatus
+  fields: 17
+  description: A Workcenter Status.
+- name: WorkcenterStatusHistory
+  fields: 14
+  description: In Plex, workcenter production hours are tracked throughout the day when a workcenter's status is
+    changed in Control Panel. Status can be changed manually by user or automated by a machine when the ma
+relationships:
+- from: AccountsPayableInvoiceReceiptsDto
+  to: Receipt
+  type: belongs_to
+  via: receiptIds
+- from: AddChecksheetDto
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: AddChecksheetDto
+  to: ApprovedWorkcenter
+  type: belongs_to
+  via: approvedWorkcenterId
+- from: ChecksheetDto
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ChecksheetDto
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: ChecksheetDto
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: FieldType
+  to: FieldTypeAvailableConstraints
+  type: has_one
+  via: availableConstraints
+- from: StandardObject
+  to: StandardObjectRecordIdentifiers
+  type: has_one
+  via: recordIdentifiers
+- from: SyncCustomerDTO
+  to: UpdateCustomerFinancialsDTO
+  type: has_one
+  via: financials
+- from: GetDeviationResponseDto
+  to: Job
+  type: belongs_to
+  via: jobIds
+- from: AddProcessStepInstallBomsRequestDto
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ProcessStepResponseDto
+  to: ProcessStepChecksheetResponseDto
+  type: has_one
+  via: checksheet
+- from: ProcessStepResponseDto
+  to: ProcessStepValidateComponentResponseDto
+  type: has_one
+  via: validateComponent
+- from: ProcessStepResponseDto
+  to: ProcessStepToolComponentResponseDto
+  type: has_one
+  via: toolComponent
+- from: ProcessStepResponseDto
+  to: ProcessStepInstallBomResponseDto
+  type: has_one
+  via: installBom
+- from: ProcessStepsReportResponseDto
+  to: ToolDeviceProcessStepReportDto
+  type: has_one
+  via: toolDeviceProcessStepReport
+- from: ProcessStepsReportResponseDto
+  to: ScannedValuesDto
+  type: has_one
+  via: scannedValues
+- from: CreateDynamicMultiOutSetDto
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationIds
+- from: DynamicMultiOutSetDto
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationIds
+- from: LoadError
+  to: Mailbox
+  type: belongs_to
+  via: mailboxId
+- from: Problem
+  to: Mailbox
+  type: belongs_to
+  via: mailboxId
+- from: AddEdiLogRequest
+  to: Mailbox
+  type: belongs_to
+  via: mailboxId
+- from: Log
+  to: Mailbox
+  type: belongs_to
+  via: mailboxId
+- from: EquipmentDTO
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: EquipmentDTO
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: IdentityMappingsResponse
+  to: StandardObject
+  type: has_one
+  via: standardObject
+- from: SupplyAdjustmentRequest
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ActiveContainer
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ActiveContainer
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: ContainerAdjustment
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ContainerLocationMoves
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ItemAdjustment
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ReceiptInventoryRequest
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ReceiptInventoryRequest
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: SyncLocationDTO
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: ContainerDto
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: ContainerDto
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: JobOperation
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: JobOperation
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: Batch
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: Batch
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: JobOpScheduleRequest
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: JobOpScheduleRequest
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: OperatingParameterDto
+  to: DisplayTypeDto
+  type: has_one
+  via: displayType
+- from: OperatingParameterGroupDto
+  to: OperatingParameterDto
+  type: has_one
+  via: operatingParameter
+- from: AddPartSpecificationDto
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: SpecificationDto
+  to: ToleranceTypeDto
+  type: has_one
+  via: toleranceType
+- from: SpecificationDto
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ProcessControlRecipeDto
+  to: Workcenter
+  type: belongs_to
+  via: workcenterIds
+- from: ProcessSpecificationDto
+  to: ToleranceTypeDto
+  type: has_one
+  via: toleranceType
+- from: TankLotLogIgnoreRequest
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: ClockinOperatorRequest
+  to: CostSubType
+  type: belongs_to
+  via: costSubTypeId
+- from: WorkcenterSetup
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: WorkcenterSetup
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: WorkcenterSetup
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: WorkcenterSetup
+  to: ProductionLine
+  type: belongs_to
+  via: productionLineId
+- from: ApprovedWorkcenterRequest
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ApprovedWorkcenter
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: RequiredSourceInventory
+  to: SupplyItem
+  type: belongs_to
+  via: supplyItemId
+- from: Workcenter
+  to: ProductionLine
+  type: belongs_to
+  via: productionLineId
+- from: LaborHistory
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: LaborHistory
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: TankEvent
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: ProductionHistorySummary
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ProductionHistorySummary
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: ProductionHistory
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ProductionHistory
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: ProductionHistory
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: ProductionLineWorkcenter
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ScrapHistorySummary
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ScrapHistorySummary
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: ScrapHistory
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: ScrapHistory
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: SubcontractReceipt
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: WorkcenterSetupEntry
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: WorkcenterStatusHistory
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: WorkcenterStatusHistory
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: RecordBatchProductionRequest
+  to: Batch
+  type: belongs_to
+  via: batchId
+- from: RecordBatchProductionRequest
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: RecordBatchProductionRequest
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: RecordBatchProductionRequest
+  to: SupplyItem
+  type: belongs_to
+  via: supplyItemId
+- from: RecordProductionResponse
+  to: Batch
+  type: belongs_to
+  via: batchId
+- from: RecordProductionResponse
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: RecordProductionResponse
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: RecordProductionResponse
+  to: Workcenter
+  type: belongs_to
+  via: workcenterId
+- from: RecordProductionResponse
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: SearchWorkcenterSetupsRequest
+  to: Workcenter
+  type: belongs_to
+  via: workcenterIds
+- from: SearchWorkcenterSetupsResponse
+  to: Job
+  type: belongs_to
+  via: jobId
+- from: SearchWorkcenterSetupsResponse
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: SetWorkcenterStatus
+  to: WorkcenterStatus
+  type: belongs_to
+  via: workcenterStatusId
+- from: SetWorkcenterStatus
+  to: WorkcenterEvent
+  type: belongs_to
+  via: workcenterEventId
+- from: SetupJobRequest
+  to: JobOperation
+  type: belongs_to
+  via: jobOperationId
+- from: ReleaseEdiDto
+  to: Log
+  type: belongs_to
+  via: logId
+- from: UpdateReleaseEdiDto
+  to: Log
+  type: belongs_to
+  via: logId
+- from: ShippableContainerDto
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: SyncSupplierDTO
+  to: UpdateFinancialsDTO
+  type: has_one
+  via: financials
+- from: SyncSupplierDTO
+  to: UpdatePurchasingDefaultsDTO
+  type: has_one
+  via: purchasingDefaults
+- from: TransferOrderDto
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: TransferOrderDto
+  to: SupplyItem
+  type: belongs_to
+  via: supplyItemId
+- from: CreateTransferOrderDto
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: CreateTransferOrderDto
+  to: SupplyItem
+  type: belongs_to
+  via: supplyItemId
+- from: UpdateTransferOrderDto
+  to: Lot
+  type: belongs_to
+  via: lotId
+- from: UpdateTransferOrderDto
+  to: SupplyItem
+  type: belongs_to
+  via: supplyItemId

@@ -1,0 +1,151 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect User Accounts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: User Accounts API
+  description: The User Accounts API is used to manage user account master data.
+paths:
+  /mdm/v1/user-accounts/{id}:
+    get:
+      operationId: getUserAccount
+      summary: Get User Account
+      tags:
+      - User Accounts API
+      description: Retrieve a User Account by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccountDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/user-accounts-api/get-user-account
+  /mdm/v1/user-accounts:
+    get:
+      operationId: listUserAccounts
+      summary: List User Accounts
+      tags:
+      - User Accounts API
+      description: List User Accounts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the User Account. This will be automatically generated if omitted from the request.
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The User ID as seen on Plex login screens.
+      - name: firstName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: middleName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: lastName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: email
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: position
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Position or title within the organization.
+      - name: department
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccountDTO'
+      x-source: https://developers.plex.com/api/documentation/user-accounts-api/list-user-accounts
+components:
+  schemas:
+    UserAccountDTO:
+      type: object
+      description: The all-inclusive domain model for a User Account.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the User Account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        userId:
+          type: string
+          description: The User ID as seen on Plex login screens
+          example: string
+        firstName:
+          type: string
+          example: string
+        middleName:
+          type: string
+          example: string
+        lastName:
+          type: string
+          example: string
+        position:
+          type: string
+          description: Position or title within the organization
+          example: string
+        email:
+          type: string
+          example: string
+        department:
+          type: string
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

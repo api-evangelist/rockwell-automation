@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Specification Types API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Specification Types API
+  description: The Specification Types API is used to manage specification type data.
+paths:
+  /quality/v1/specification-types:
+    get:
+      operationId: listSpecificationTypes
+      summary: List Specification Types
+      tags:
+      - Specification Types API
+      description: Retrieve a list of specification types.
+      parameters:
+      - name: specificationType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The specification type.
+      - name: checksheetType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The checksheet type.
+      - name: process
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The process flag.
+      - name: standard
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The standard flag.
+      - name: foundationProcess
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The foundation process flag.
+      - name: foundationProduct
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The foundation product flag.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecificationTypeDto'
+      x-source: https://developers.plex.com/api/documentation/specification-types-api/list-specification-types
+components:
+  schemas:
+    SpecificationTypeDto:
+      type: object
+      properties:
+        specificationType:
+          type: string
+          description: The specification type.
+          example: string
+        specificationTypeCode:
+          type: string
+          description: The specification type code.
+          example: string
+        default:
+          type: boolean
+          description: The default flag.
+          example: false
+        process:
+          type: boolean
+          description: The process flag.
+          example: false
+        standardSpecification:
+          type: boolean
+          description: The standard specification flag.
+          example: false
+        streamEnabled:
+          type: boolean
+          description: The stream enabled flag.
+          example: false
+        foundationProcess:
+          type: boolean
+          description: The foundation process flag.
+          example: false
+        foundationProduct:
+          type: boolean
+          description: The foundation product flag.
+          example: false
+        processCharacteristic:
+          type: boolean
+          description: The process characteristic flag.
+          example: false
+        checksheetType:
+          type: string
+          description: The checksheet type.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

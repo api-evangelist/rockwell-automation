@@ -1,0 +1,123 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Inspection Modes API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Inspection Modes API
+  description: The Inspection Modes API is used to manage inspection modes data.
+paths:
+  /quality/v1/inspection-modes:
+    get:
+      operationId: listInspectionModes
+      summary: List Inspection Modes
+      tags:
+      - Inspection Modes API
+      description: Retrieve a list of inspection modes.
+      parameters:
+      - name: description
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The list of inspection mode descriptions.
+      - name: plcIntegrated
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The PLC integrated flag.
+      - name: manufacturing
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Manufacturing flag.
+      - name: processCheck
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Process Check flag.
+      - name: outOfSpecNotify
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Out of Spec Notify flag.
+      - name: gageRequired
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Gage Required flag.
+      - name: exceptionOverrideRequired
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Exception Override Required flag.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInspectionModesResponseDto'
+      x-source: https://developers.plex.com/api/documentation/inspection-modes-api/list-inspection-modes
+components:
+  schemas:
+    ListInspectionModesResponseDto:
+      type: object
+      description: The data structure representing an inspection mode.
+      properties:
+        description:
+          type: string
+          description: The list of inspection mode descriptions.
+          example: string
+        plcIntegrated:
+          type: boolean
+          description: The PLC integrated flag.
+          example: false
+        manufacturing:
+          type: boolean
+          description: The Manufacturing flag.
+          example: false
+        processCheck:
+          type: boolean
+          description: The Process Check flag.
+          example: false
+        outOfSpecNotify:
+          type: boolean
+          description: The Out of Spec Notify flag.
+          example: false
+        gageRequired:
+          type: boolean
+          description: The Gage Required flag.
+          example: false
+        exceptionOverrideRequired:
+          type: boolean
+          description: The Exception Override Required flag.
+          example: false
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

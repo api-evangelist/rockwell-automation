@@ -1,0 +1,311 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Operating Parameters API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Operating Parameters API
+  description: The Operating Parameters API is used to manage operating parameters data. The Operating Parameters module must be enabled.
+paths:
+  /engineering/v1/operating-parameters/{id}:
+    get:
+      operationId: getOperatingParameterById
+      summary: Get Operating Parameter By ID
+      tags:
+      - Operating Parameters API
+      description: Get an Operating Parameter by its ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Operating Parameter ID.
+      responses:
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorResponse'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingParameterDto'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/operating-parameters-api/get-operating-parameter-by-id
+  /engineering/v1/operating-parameter-groups:
+    get:
+      operationId: listOperatingParameterGroups
+      summary: List Operating Parameter Groups
+      tags:
+      - Operating Parameters API
+      description: List Operating Parameter Groups, with optional filtering.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Part to filter by.
+      - name: partOpId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Part Operation to filter by.
+      - name: equipmentTypeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the EquipmentType to filter by.
+      - name: equipmentId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Equipment to filter by.
+      responses:
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorResponse'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingParameterGroupDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/operating-parameters-api/list-operating-parameter-groups
+  /engineering/v1/operating-parameters:
+    get:
+      operationId: listOperatingParameters
+      summary: List Operating Parameters
+      tags:
+      - Operating Parameters API
+      description: List Operating Parameters, with optional filtering.
+      parameters:
+      - name: operatingParameterCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The code of the Operating Parameter to filter by.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A filter to return only active or inactive Operating Parameters. If not specified, defaults to true (active only).
+      - name: unitId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier representing the Unit to filter by.
+      responses:
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorResponse'
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingParameterDto'
+      x-source: https://developers.plex.com/api/documentation/operating-parameters-api/list-operating-parameters
+components:
+  schemas:
+    OperatingParameterGroupDto:
+      type: object
+      description: The data transfer object representing an Operating Parameter.
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        operatingParameter:
+          $ref: '#/components/schemas/OperatingParameterDto'
+        partOperation:
+          type: string
+          example: string
+        operationNo:
+          type: integer
+          format: int32
+          example: 0
+        equipmentType:
+          type: string
+          example: string
+        approvedEquipment:
+          type: string
+          example: string
+        equipmentAttributeName:
+          type: string
+          example: string
+        textValue:
+          type: string
+          example: string
+        listValue:
+          type: array
+          items:
+            type: object
+            description: The data transfer object representing a default list item.
+            properties: {}
+        numericValue:
+          type: number
+          format: double
+          example: 0.1
+        precision:
+          type: integer
+          format: int32
+          example: 0
+        active:
+          type: boolean
+          example: false
+      required:
+      - id
+    ErrorResponse:
+      type: object
+      properties:
+        httpStatusCode:
+          type: integer
+          format: int32
+          example: 0
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+    ForbiddenErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+    OperatingParameterDto:
+      type: object
+      description: The data transfer object representing an Operating Parameter.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the Operating Parameter.
+          example: 00000000-0000-0000-0000-000000000000
+        active:
+          type: boolean
+          description: The active status of the Operating Parameter.
+          example: false
+        code:
+          type: string
+          description: The code or name of the Operating Parameter.
+          example: string
+        description:
+          type: string
+          description: The description of the Operating Parameter.
+          example: string
+        unit:
+          type: string
+          description: The unit of measurement for the Operating Parameter.
+          example: string
+        defaultTextValue:
+          type: string
+          description: The default text value of the Operating Parameter, if applicable.
+          example: string
+        defaultNumericValue:
+          type: number
+          format: double
+          description: The default numeric value of the Operating Parameter, if applicable.
+          example: 0.1
+        defaultNumericPrecision:
+          type: integer
+          format: int32
+          description: The precision of the default numeric value, if applicable.
+          example: 0
+        defaultListValue:
+          type: array
+          description: The default list values of the Operating Parameter, if applicable.
+          items:
+            type: object
+            description: The data transfer object representing a default list item.
+            properties: {}
+        displayType:
+          $ref: '#/components/schemas/DisplayTypeDto'
+    DisplayTypeDto:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of the Display Type.
+          example: string
+        description:
+          type: string
+          description: The description of the Display Type.
+          example: string
+        attributeValueType:
+          type: string
+          description: The attribute value type of the Display Type. Acceptable values are &quot;Numeric&quot;, &quot;Text&quot;, and &quot;List&quot;.
+          example: string
+        active:
+          type: boolean
+          description: The active status of the Display Type.
+          example: false
+        booleanDisplay:
+          type: boolean
+          description: The boolean display status of the Display Type.
+          example: false
+        usePrecision:
+          type: boolean
+          description: The precision usage status of the Display Type.
+          example: false
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

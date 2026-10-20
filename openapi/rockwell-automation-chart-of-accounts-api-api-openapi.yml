@@ -1,0 +1,368 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Chart of Accounts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Chart of Accounts API
+  description: The Chart of Accounts API is used to manage the chart of accounts master data.
+paths:
+  /mdm/v1/chart-of-accounts/{id}/activate:
+    post:
+      operationId: activateAccount
+      summary: Activate Account
+      tags:
+      - Chart of Accounts API
+      description: Activate an Account.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '202':
+          description: The Activate ChartOfAccountcommand was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The ChartOfAccount Resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/activate-account
+  /mdm/v1/chart-of-accounts:
+    post:
+      operationId: createAccount
+      summary: Create Account
+      tags:
+      - Chart of Accounts API
+      description: Create a new Account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChartOfAccountDto'
+      responses:
+        '201':
+          description: The ChartOfAccount resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartOfAccountDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/create-account
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      tags:
+      - Chart of Accounts API
+      description: List Accounts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the Account.
+      - name: accountNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A supplemental ID field used to identify an account.
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A unique name for the account.
+      - name: categoryType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Must be one of the following values: Asset, Equity, Expense, Liability,  or Revenue.'
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: This flag will be set to Active by default.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartOfAccountDto'
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/list-accounts
+  /mdm/v1/chart-of-accounts/{id}/deactivate:
+    post:
+      operationId: deactivateAccount
+      summary: Deactivate Account
+      tags:
+      - Chart of Accounts API
+      description: Deactivate an Account.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '202':
+          description: The Deactivate ChartOfAccount command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The ChartOfAccount Resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/deactivate-account
+  /mdm/v1/chart-of-accounts/{id}:
+    get:
+      operationId: getAccount
+      summary: Get Account
+      tags:
+      - Chart of Accounts API
+      description: Retrieve an Account by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartOfAccountDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/get-account
+    put:
+      operationId: updateAccount
+      summary: Update Account
+      tags:
+      - Chart of Accounts API
+      description: Update an Account.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateChartOfAccountDto'
+      responses:
+        '200':
+          description: The ChartOfAccount resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartOfAccountDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/update-account
+  /mdm/v1/chart-of-accounts/sync:
+    post:
+      operationId: syncAccounts
+      summary: Sync Accounts
+      tags:
+      - Chart of Accounts API
+      description: Sync a set of Accounts from another system. This operation creates Accounts that do not exist in Plex and updates existing Accounts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncChartOfAccountDto'
+      responses:
+        '202':
+          description: The Sync command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/chart-of-accounts-api/sync-accounts
+components:
+  schemas:
+    CreateChartOfAccountDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: A supplemental ID field used to identify an account.
+          example: string
+        name:
+          type: string
+          description: A unique name for the account.
+          example: string
+        categoryType:
+          type: string
+          description: 'Must be one of the following values: Asset, Equity, Expense, Liability,  or Revenue.'
+          example: string
+      required:
+      - accountNumber
+      - name
+      - categoryType
+    ChartOfAccountDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: A supplemental ID field used to identify an account.
+          example: string
+        name:
+          type: string
+          description: A unique name for the account.
+          example: string
+        categoryType:
+          type: string
+          description: 'Must be one of the following values: Asset, Equity, Expense, Liability,  or Revenue.'
+          example: string
+        active:
+          type: boolean
+          description: This flag will be set to Active by default.
+          example: false
+        inactiveDate:
+          type: string
+          format: date-time
+          description: The date on which the record became Inactive.
+          example: '2026-10-20T12:03:01Z'
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:01Z'
+        modifiedBy:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:01Z'
+    UpdateChartOfAccountDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        name:
+          type: string
+          description: A unique name for the account.
+          example: string
+        categoryType:
+          type: string
+          description: 'Must be one of the following values: Asset, Equity, Expense, Liability,  or Revenue.'
+          example: string
+      required:
+      - id
+      - name
+      - categoryType
+    SyncChartOfAccountDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Account. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: A supplemental ID field used to identify an account.
+          example: string
+        name:
+          type: string
+          description: A unique name for the account.
+          example: string
+        categoryType:
+          type: string
+          description: 'Must be one of the following values: Asset, Equity, Expense, Liability,  or Revenue.'
+          example: string
+      required:
+      - accountNumber
+      - name
+      - categoryType
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

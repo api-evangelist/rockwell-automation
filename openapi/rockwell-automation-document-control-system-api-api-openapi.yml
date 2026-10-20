@@ -1,0 +1,198 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Document Control System…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Document Control System API
+  description: The Document Control System (DCS) API is used retrieve documents and list attachments.
+paths:
+  /platform/dcs/v1/attachments/{attachmentGroupId}/{recordId}/web-address:
+    post:
+      operationId: createWebAttachment
+      summary: Create Web Attachment
+      tags:
+      - Document Control System API
+      description: 'Some attachment groups accept a uuid format for the record ID, while others accept an integer. See the table below for details.
+
+        | Attachment Group ID | Record ID Format |
+
+        |---------------------|------------------|
+
+        | DeviationTracking | uuid |
+
+        | SPCChecksheet | integer |
+
+        | PartSpecification | uuid |
+
+        | Subgroup | integer |'
+      parameters:
+      - name: attachmentGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The ID of an attachment group returned by the &quot;List Attachment Groups&quot; endpoint.
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The unique identifier of a record within the specified attachment group. The format of this input can be either an integer or uuid. See the API description for details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebAddressAttachmentRequest'
+      responses:
+        '200':
+          description: Web address attachment created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWebAddressAttachmentResponse'
+        '400':
+          description: Invalid parameters or request body.
+        '404':
+          description: Attachment group does not exist or record not found.
+      x-source: https://developers.plex.com/api/documentation/document-control-system-api/create-web-attachment
+  /platform/dcs/v1/documents/{nodeNo}/file:
+    get:
+      operationId: getDocumentFile
+      summary: Get Document File
+      tags:
+      - Document Control System API
+      description: Gets the binary file data of the document.
+      parameters:
+      - name: nodeNo
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: 'A node number that represents a reference to a document. Note: multiple node numbers can point to the same document.'
+      responses:
+        '200':
+          description: Document found.
+        '404':
+          description: Document was not found.
+      x-source: https://developers.plex.com/api/documentation/document-control-system-api/get-document-file
+  /platform/dcs/v1/attachment-groups:
+    get:
+      operationId: listAttachmentGroups
+      summary: List Attachment Groups
+      tags:
+      - Document Control System API
+      description: List the attachment groups that are used to organize attachments based on the related record in Plex. Only some attachment groups are supported by the API.
+      responses:
+        '200':
+          description: Attachment groups listed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentGroupsResponseRow'
+      x-source: https://developers.plex.com/api/documentation/document-control-system-api/list-attachment-groups
+  /platform/dcs/v1/attachments/{attachmentGroupId}/{recordId}:
+    get:
+      operationId: listAttachments
+      summary: List Attachments
+      tags:
+      - Document Control System API
+      description: 'Limited to attachments which represent a file hosted by Plex. Excludes attachments of storage type Web Address, Local File, etc.
+
+        Some attachment groups accept a uuid format for the record ID, while others accept an integer. See the table below for details.
+
+        | Attachment Group ID | Record ID Format |
+
+        |---------------------|------------------|
+
+        | DeviationTracking | uuid |
+
+        | SPCChecksheet | integer |
+
+        | PartSpecification | uuid |
+
+        | Subgroup | integer |'
+      parameters:
+      - name: attachmentGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The ID of an attachment group returned by the &quot;List Attachment Groups&quot; API.
+      - name: recordId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The unique identifier of a record within the specified attachment group. The format of this input can be either an integer or uuid. See the API description for details.
+      responses:
+        '200':
+          description: Record identified successfully, attachments listed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentsResponseRow'
+        '400':
+          description: Invalid parameters.
+        '404':
+          description: Attachment group does not exist or record not found.
+      x-source: https://developers.plex.com/api/documentation/document-control-system-api/list-attachments
+components:
+  schemas:
+    AttachmentGroupsResponseRow:
+      type: object
+      properties:
+        id:
+          type: string
+          example: string
+    AttachmentsResponseRow:
+      type: object
+      properties:
+        nodeNo:
+          type: integer
+          format: int32
+          example: 0
+        docName:
+          type: string
+          example: string
+        fileExtension:
+          type: string
+          example: string
+    CreateWebAddressAttachmentRequest:
+      type: object
+      properties:
+        docName:
+          type: string
+          example: string
+        webAddress:
+          type: string
+          example: string
+    CreateWebAddressAttachmentResponse:
+      type: object
+      properties:
+        nodeNo:
+          type: integer
+          format: int32
+          example: 0
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

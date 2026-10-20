@@ -1,0 +1,509 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Price Adjustments API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Price Adjustments API
+  description: The Price Adjustments API is used to manage price adjustment data.
+paths:
+  /sales/v1/price-adjustments:
+    post:
+      operationId: createPriceAdjustment
+      summary: Create Price Adjustment
+      tags:
+      - Price Adjustments API
+      description: Create a price adjustment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePriceAdjustmentDto'
+      responses:
+        '201':
+          description: The record was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePriceAdjustmentDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/price-adjustments-api/create-price-adjustment
+    get:
+      operationId: listPriceAdjustments
+      summary: List Price Adjustments
+      tags:
+      - Price Adjustments API
+      description: List price adjustments by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the price adjustment.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The price adjustment type assigned to the price adjustment.
+      - name: accountNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL account number associated with the price adjustment record.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the internal part number to which the price adjustment record applies.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Identifies if the price adjustment record is active, regardless of effective and expiration dates.
+      - name: effectiveDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date used to return price adjustments with an effective date within a time frame.
+      - name: effectiveDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date used to return price adjustments with an effective date within a time frame.
+      - name: expirationDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date used to return price adjustments with an expiration date within a time frame.
+      - name: expirationDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date used to return price adjustments with an expiration date within a time frame.
+      - name: customerType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The customer type to which the price adjustment record applies.
+      - name: partProductType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The price adjustment record pertains to internal part numbers of a specific part product type.
+      - name: grade
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The material grade assigned to a price adjustment.
+      - name: partType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The price adjustment record pertains to part numbers of a specific part type.
+      - name: region
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The region associated with the price adjustment.
+      - name: partGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The price adjustment record pertains to part numbers of a specific part group.
+      - name: partProductGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The price adjustment record pertains to part numbers of a specific part product group.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceAdjustmentDto'
+      x-source: https://developers.plex.com/api/documentation/price-adjustments-api/list-price-adjustments
+  /sales/v1/price-adjustments/{id}:
+    get:
+      operationId: getPriceAdjustment
+      summary: Get Price Adjustment
+      tags:
+      - Price Adjustments API
+      description: Retrieve a price adjustment by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceAdjustmentDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/price-adjustments-api/get-price-adjustment
+components:
+  schemas:
+    PriceAdjustmentDto:
+      type: object
+      description: The price adjustment model utilized for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The price adjustment ID.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: Describes the reason for the price adjustment.
+          example: string
+        type:
+          type: string
+          description: The price adjustment type assigned to the price adjustment.
+          example: string
+        invoiceLine:
+          type: string
+          description: Information associated with a price adjustment record that can be passed to an Accounts Receivable invoice distribution line.
+          example: string
+        orderEntryLine:
+          type: string
+          description: Information associated with a price adjustment record that can be passed to an order line entry.
+          example: string
+        accountNo:
+          type: string
+          description: The GL account number associated with the price adjustment record.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The internal part number ID to which the price adjustment record applies.
+          example: 00000000-0000-0000-0000-000000000000
+        amount:
+          type: number
+          format: double
+          description: The price adjustment amount.
+          example: 0.1
+        unit:
+          type: string
+          description: The unit of measure for the price adjustment.
+          example: string
+        percentage:
+          type: boolean
+          description: Identifies if the amount associated with the price adjustment is a percentage or discrete amount.
+          example: false
+        active:
+          type: boolean
+          description: Identifies whether the sales price adjustment record is active, regardless of effective and expiration dates.
+          example: false
+        effectiveDate:
+          type: string
+          format: date-time
+          description: The date the price adjustment goes into effect.
+          example: '2026-10-20T12:03:14Z'
+        expirationDate:
+          type: string
+          format: date-time
+          description: The date the price adjustment expires.
+          example: '2026-10-20T12:03:14Z'
+        breakpointQuantity:
+          type: integer
+          format: int32
+          description: The minimum quantity that must be shipped for a price adjustment to apply to a shipment.
+          example: 0
+        customerType:
+          type: string
+          description: The customer type to which the price adjustment record applies.
+          example: string
+        partProductType:
+          type: string
+          description: The price adjustment record pertains to internal part numbers of a specific part product type.
+          example: string
+        grade:
+          type: string
+          description: The material grade assigned to a price adjustment.
+          example: string
+        partType:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part type.
+          example: string
+        region:
+          type: string
+          description: The region associated with the price adjustment.
+          example: string
+        partGroup:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part group.
+          example: string
+        partProductGroup:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part product group.
+          example: string
+        gradeType:
+          type: string
+          description: The grade type associated with the price adjustment.
+          example: string
+        partNo:
+          type: string
+          description: The part number associated with the price adjustment.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision associated with the price adjustment.
+          example: string
+        partSource:
+          type: string
+          description: The part source associated with the price adjustment.
+          example: string
+        partTypeSubType:
+          type: string
+          description: The part type sub type associated with the price adjustment.
+          example: string
+        priceSource:
+          type: string
+          description: The price source associated with the price adjustment.
+          example: string
+        secondaryAmount:
+          type: number
+          format: double
+          description: The secondary amount associated with the price adjustment.
+          example: 0.1
+        temper:
+          type: string
+          description: The temper associated with the price adjustment.
+          example: string
+        customers:
+          type: array
+          description: Customers associated with the price adjustment.
+          items:
+            type: object
+            description: The customer model associated with the price adjustment.
+            properties: {}
+        customerAddresses:
+          type: array
+          description: Customer addresses associated with the price adjustment.
+          items:
+            type: object
+            description: The customer address model associated with the price adjustment.
+            properties: {}
+    CreatePriceAdjustmentDto:
+      type: object
+      properties:
+        priceAdjustmentType:
+          type: string
+          description: The price adjustment type assigned to the price adjustment.
+          example: string
+        accountNo:
+          type: string
+          description: The GL account number associated with the price adjustment record.
+          example: string
+        active:
+          type: boolean
+          description: Identifies if the price adjustment record is active regardless of effective and expiration dates.
+          example: false
+        amount:
+          type: number
+          format: double
+          description: The price adjustment amount.
+          example: 0.1
+        secondaryAmount:
+          type: number
+          format: double
+          description: The secondary amount associated with the price adjustment.
+          example: 0.1
+        breakPointQuantity:
+          type: integer
+          format: int32
+          description: The minimum quantity that must be shipped for a price adjustment to apply to a shipment.
+          example: 0
+        description:
+          type: string
+          description: Describes the reason for the price adjustment.
+          example: string
+        effectiveDate:
+          type: string
+          format: date-time
+          description: The date the price adjustment goes into effect.
+          example: '2026-10-20T12:03:14Z'
+        expirationDate:
+          type: string
+          format: date-time
+          description: The date the price adjustment expires.
+          example: '2026-10-20T12:03:14Z'
+        invoiceLine:
+          type: string
+          description: Information associated with a price adjustment record that can be passed to an Accounts Receivable invoice distribution line.
+          example: string
+        orderEntryLine:
+          type: string
+          description: Information associated with a price adjustment record that can be passed to an order line entry.
+          example: string
+        partNo:
+          type: string
+          description: The part number associated with the price adjustment.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision associated with the price adjustment.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The internal part number ID to which the price adjustment record applies.
+          example: 00000000-0000-0000-0000-000000000000
+        partType:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part type.
+          example: string
+        partGroup:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part group.
+          example: string
+        partProductType:
+          type: string
+          description: The price adjustment record pertains to internal part numbers of a specific part product type.
+          example: string
+        partProductGroup:
+          type: string
+          description: The price adjustment record pertains to part numbers of a specific part product group.
+          example: string
+        partSource:
+          type: string
+          description: The part source associated with the price adjustment.
+          example: string
+        partTypeSubType:
+          type: string
+          description: The part type sub type associated with the price adjustment.
+          example: string
+        grade:
+          type: string
+          description: The material grade assigned to a price adjustment.
+          example: string
+        gradeType:
+          type: string
+          description: The grade type associated with the price adjustment.
+          example: string
+        temper:
+          type: string
+          description: The temper associated with the price adjustment.
+          example: string
+        percentage:
+          type: boolean
+          description: Identifies if the amount associated with the price adjustment is a percentage or discrete amount.
+          example: false
+        priceSource:
+          type: string
+          description: The price source associated with the price adjustment.
+          example: string
+        unit:
+          type: string
+          description: The unit of measure for the price adjustment.
+          example: string
+        customerCodes:
+          type: array
+          description: The customer codes associated with the price adjustment.
+          items:
+            type: string
+        customerAddressCodes:
+          type: array
+          description: The customer address codes associated with the price adjustment.
+          items:
+            type: string
+        customerAddressIds:
+          type: array
+          description: The customer address IDs associated with the price adjustment.
+          items:
+            type: string
+        customerType:
+          type: string
+          description: The customer type to which the price adjustment record applies.
+          example: string
+        region:
+          type: string
+          description: The region associated with the price adjustment.
+          example: string
+      required:
+      - priceAdjustmentType
+      - accountNo
+      - active
+      - amount
+      - description
+      - invoiceLine
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

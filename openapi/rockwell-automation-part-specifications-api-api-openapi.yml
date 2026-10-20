@@ -1,0 +1,972 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Part Specifications API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Part Specifications API
+  description: The Part Specifications API is used to manage part specifications data.
+paths:
+  /quality/v1/part-specifications:
+    post:
+      operationId: addOrUpdatePartSpecification
+      summary: Add Or Update Part Specification
+      tags:
+      - Part Specifications API
+      description: Add or update a part specification.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPartSpecificationDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecificationDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/part-specifications-api/add-or-update-part-specification
+    get:
+      operationId: listPartSpecifications
+      summary: List Part Specifications
+      tags:
+      - Part Specifications API
+      description: Retrieve a list of part specifications.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Specification Part ID.
+      - name: ids
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Part Specification.
+      - name: specificationNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Specification number of the part specification.
+      - name: specificationType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Specification Type filter for the part specification.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Active filter for the part specification.
+      - name: createdDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The Created Date Time Begin filter for the part specification.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The Created Date Time End filter for the part specification.
+      - name: updatedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The Updated Date Time Begin filter for the part specification.
+      - name: updatedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:13Z'
+        description: The Updated Date Time End filter for the part specification.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecificationDto'
+      x-source: https://developers.plex.com/api/documentation/part-specifications-api/list-part-specifications
+  /quality/v1/part-specifications/{id}:
+    delete:
+      operationId: deletePartSpecification
+      summary: Delete Part Specification
+      tags:
+      - Part Specifications API
+      description: Delete a part specification by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part specification.
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/part-specifications-api/delete-part-specification
+    get:
+      operationId: getPartSpecification
+      summary: Get Part Specification
+      tags:
+      - Part Specifications API
+      description: Retrieve a part specification by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the part specification.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecificationDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/part-specifications-api/get-part-specification
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    AddPartSpecificationDto:
+      type: object
+      properties:
+        aboveUclR:
+          type: boolean
+          description: The subgroup above UCL on Range chart alert.
+          example: false
+        aboveUclX:
+          type: boolean
+          description: The subgroup above UCL on X chart alert.
+          example: false
+        active:
+          type: boolean
+          description: The Active Flag for the part specification.
+          example: false
+        attributeData:
+          type: integer
+          format: int32
+          description: Specifies whether or not the specification collects attribute data.
+          example: 0
+        belowLclR:
+          type: boolean
+          description: The subgroup below LCL on Range chart alert.
+          example: false
+        belowLclX:
+          type: boolean
+          description: The subgroup below LCL on X chart alert.
+          example: false
+        color:
+          type: string
+          description: The display color for the specification.
+          example: string
+        customerSpecified:
+          type: boolean
+          description: Specifies whether or not this is a part specification that your customer expects to be verified.
+          example: false
+        description:
+          type: string
+          description: The description of the part specification.
+          example: string
+        deviationRestricted:
+          type: boolean
+          description: The Deviation Restricted flag for the specification.
+          example: false
+        dockAudit:
+          type: boolean
+          description: The Dock Audit flag for the specification.
+          example: false
+        formula:
+          type: string
+          description: 'The specification formula.
+
+            Formulas are used when a spec is calculated based on one or more other specs. For example, if a rectangular part includes specs for length and height, a calculated spec can be implemented to determine square inches:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34] * [7acbf6bb-727b-4714-bf18-8c3f82a45f8c]
+
+            Dependent specifications are contained within brackets and referenced by ID.
+
+            When entering functions into the formula, make sure you use the proper character for separating the parameters.
+
+            Mathematical Expressions
+
+            Functions
+
+
+            AVG
+
+            MAX
+
+            MIN
+
+            SUM
+
+            STDEV
+
+            SIN
+
+            COS
+
+            TAN
+
+            ARCSIN
+
+            ACOS
+
+            ARCCOS
+
+            ATAN
+
+            ARCTAN
+
+            LN
+
+            LOG
+
+            SQRT
+
+            ABS
+
+
+            Constants
+
+
+            PI
+
+            C
+
+            E
+
+
+            Operators
+
+
+            *, +, -, /, ^
+
+            %
+
+            DIV
+
+            MOD
+
+
+            Here is an example formula using a combination of supported functions, constants and operators defined above:
+
+            Pi * min([60bdc4fa-67ea-4d25-b95c-06f67225db34], [7acbf6bb-727b-4714-bf18-8c3f82a45f8c])
+
+            Parameters to defined functions are separated by a comma, but this delimiter may also be overridden by the Plex setting List Delimiter (Lists Setting Group).
+
+            Aggregate Functions
+
+            Aggregate functions can be used in the formula to provide functionality across a set of measurements for a single specification. This is achieved by the use of any aggregate function (min, max, avg, sum) in conjunction with a &quot;token parameter&quot; to indicate which specification(s) are being used as aggregates.  The Formula Type assigned to the formula is used to specify One-To-One (the setting by which all existing formula work) or Many-To-One (used when aggregating a measurement set down to a single value).
+
+            For example, if specification A includes 3 measurements, a calculated specification B can utilize an aggregate formula to calculate a single value:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | A | 10, 20, 30 | 60bdc4fa-67ea-4d25-b95c-06f67225db34 | |
+
+            | B | 20 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:aggregate=true) | Many-To-One |
+
+            A formula type of One-To-One is the existing behavior of a formula, but it can be used in conjunction with aggregate functions to allow a single sample measurement to be used to output multiple measurements:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | C | 10, 0, -10 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | sum([7acbf6bb-727b-4714-bf18-8c3f82a45f8c:aggregate=true) - [60bdc4fa-67ea-4d25-b95c-06f67225db34] | One-To-One |
+
+            Historical Data
+
+            Special token parameters can be used to pull measurement data from past checksheets. A number of past checksheets to be used must be supplised along with an aggregate function (if applicable). The number of past checksheets that can be used in a calculation is limited to 50.
+
+            For example, this formula is used to calculate the average value of a given specification for the last 5 submitted checksheets:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=avg])
+
+            If an aggregate is not necessary, the pastfunction argument can be set to none:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=none])
+
+            Note: it is important to use the &quot;none&quot; aggregation option in formulas where f(x0,...,xn) does not equal f(f(x0,...,xn-1), xn). For example, min(4, 6, 5) is equivalent to min(min(4,6), 5), while stdev(4, 6, 5) is not equivalent to stdev(stdev(4,6), 5).
+
+            Offsheet Historical Data
+
+            Historical data can also be referenced by using offsheet token parameters. This is used to pull aggregated measurements from data entered on any prior checksheet. The number of past checksheets must be specified as a separate checksheet specification measurement. This number is then referenced in subsequent formulas.
+
+            For example, to pull the average value of a specification from a specific number of other checksheets, where its specification ID is 7acbf6bb-727b-4714-bf18-8c3f82a45f8c, a new specification should be created referencing this ID (We''ll call the specification Sample Size):
+
+            [7acbf6bb-727b-4714-bf18-8c3f82a45f8c:offsheetcalc=samplesize]
+
+            Assuming the ID of the above specification is 60bdc4fa-67ea-4d25-b95c-06f67225db34, we can then create a second specification called ''Average'' with the following formula:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:offsheetcalc=avg]
+
+            The above specification value will be calculated using the past X number of prior checksheets, where X is equal to the Sample Size specification value.
+
+            Restrictions
+
+
+            The number of checksheets for the sample size is limited to a maximum of 50.
+
+            The measurements are Container Serial specific.  This means that if a container is not specified then all checksheet measurements will be used.
+
+            As Serialized Checksheets are Container specific (per row), the container serial must be set.
+
+
+            Attributes
+
+            Attributes of a specification can be used as part of the formula. The supported attributes are tolerance, target, min, and max. Attribute usage in a formula will appear as follows:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:attribute=tolerance]'
+          example: string
+        formulaTypeId:
+          type: string
+          format: uuid
+          description: The Specification Formula type ID.
+          example: 00000000-0000-0000-0000-000000000000
+        functionRequirementType:
+          type: string
+          description: The function requirement type of the part specification.
+          example: string
+        gageType:
+          type: string
+          description: The Gage Type specification.
+          example: string
+        importance:
+          type: string
+          description: The Importance level of the specification.
+          example: string
+        jobSheetInclude:
+          type: boolean
+          description: Indicates whether or not the specification is included in the job sheet.
+          example: false
+        lowerTolerance:
+          type: number
+          format: double
+          description: The lower tolerance value of the specification.
+          example: 0.1
+        note:
+          type: string
+          description: A short description or name for the specification. This typically comes from the drawing.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The Part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        plcName:
+          type: string
+          description: The name of an associated programmable logic controller (PLC).
+          example: string
+        precision:
+          type: integer
+          format: int32
+          description: The number of decimal places for numeric values.
+          example: 0
+        primaryImageNodeNo:
+          type: integer
+          format: int32
+          description: The primary image node number for the specification.
+          example: 0
+        runAboveMeanR:
+          type: integer
+          format: int32
+          description: Run above centerline on Range chart alert.
+          example: 0
+        runAboveMeanX:
+          type: integer
+          format: int32
+          description: Run above centerline on X chart alert.
+          example: 0
+        runBelowMeanR:
+          type: integer
+          format: int32
+          description: Run below centerline on Range chart alert.
+          example: 0
+        runBelowMeanX:
+          type: integer
+          format: int32
+          description: Run below centerline on X chart alert.
+          example: 0
+        runLengthR:
+          type: integer
+          format: int32
+          description: The length of the run on the Range chart.
+          example: 0
+        runLengthX:
+          type: integer
+          format: int32
+          description: The length of the run on the X chart.
+          example: 0
+        spc:
+          type: boolean
+          description: The SPC enabled flag for the specification.
+          example: false
+        specialSymbol:
+          type: string
+          description: The special symbol to use for the part specification.
+          example: string
+        specificationDimensionType:
+          type: string
+          description: The specification dimension type of the part specification.
+          example: string
+        specificationNumber:
+          type: string
+          description: The specification number of the part specification.
+          example: string
+        specificationId:
+          type: string
+          format: uuid
+          description: The Specification ID of the part specification.
+          example: 00000000-0000-0000-0000-000000000000
+        specificationType:
+          type: string
+          description: The specification type.
+          example: string
+        targetValue:
+          type: number
+          format: double
+          description: The Nominal/Target value of the specification.
+          example: 0.1
+        targetValueDisplay:
+          type: boolean
+          description: Indicates whether or not the target value is displayed.
+          example: false
+        toleranceType:
+          type: string
+          description: The tolerance type attributes of the part specification.
+          example: string
+        trend:
+          type: boolean
+          description: Consecutive Trending alert.
+          example: false
+        trendLength:
+          type: integer
+          format: int32
+          description: The trend length for alerts on the specification.
+          example: 0
+        upperTolerance:
+          type: number
+          format: double
+          description: The upper tolerance value of the specification.
+          example: 0.1
+        unit:
+          type: string
+          description: The unit of measure for the specification.
+          example: string
+        valueText:
+          type: string
+          description: The value text of the specification.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: The workcenter associated with the specification.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - color
+      - description
+      - formula
+      - functionRequirementType
+      - gageType
+      - importance
+      - note
+      - plcName
+      - precision
+      - specificationDimensionType
+      - specificationNumber
+      - specificationType
+      - toleranceType
+      - unit
+      - valueText
+    SpecificationDto:
+      type: object
+      properties:
+        aboveUclR:
+          type: integer
+          format: int32
+          description: The subgroup above UCL on the range chart alert.
+          example: 0
+        aboveUclX:
+          type: integer
+          format: int32
+          description: The subgroup above UCL on the X chart alert.
+          example: 0
+        active:
+          type: boolean
+          description: The Active Flag for the specification.
+          example: false
+        belowLclR:
+          type: integer
+          format: int32
+          description: The subgroup below LCL on the range chart alert.
+          example: 0
+        belowLclX:
+          type: integer
+          format: int32
+          description: The subgroup below LCL on the X chart alert.
+          example: 0
+        color:
+          type: string
+          description: The display color for the specification.
+          example: string
+        createdBy:
+          type: integer
+          format: int32
+          description: The user who created the specification.
+          example: 0
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time the specification was created.
+          example: '2026-10-20T12:03:13Z'
+        customerSpecified:
+          type: boolean
+          description: Indicates whether or not the customer expects the part specification to be verified.
+          example: false
+        description:
+          type: string
+          description: The description of the Part Specification.
+          example: string
+        deviationRestricted:
+          type: boolean
+          description: The Deviation Restricted flag for the specification.
+          example: false
+        dockAudit:
+          type: boolean
+          description: The Dock Audit flag for the specification.
+          example: false
+        formula:
+          type: string
+          description: 'The specification formula.
+
+            Formulas are used when a spec is calculated based on one or more other specs. For example, if a rectangular part includes specs for length and height, a calculated spec can be implemented to determine square inches:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34] * [7acbf6bb-727b-4714-bf18-8c3f82a45f8c]
+
+            Dependent specifications are contained within brackets and referenced by ID.
+
+            When entering functions into the formula, make sure you use the proper character for separating the parameters.
+
+            Mathematical Expressions
+
+            Functions
+
+
+            AVG
+
+            MAX
+
+            MIN
+
+            SUM
+
+            STDEV
+
+            SIN
+
+            COS
+
+            TAN
+
+            ARCSIN
+
+            ACOS
+
+            ARCCOS
+
+            ATAN
+
+            ARCTAN
+
+            LN
+
+            LOG
+
+            SQRT
+
+            ABS
+
+
+            Constants
+
+
+            PI
+
+            C
+
+            E
+
+
+            Operators
+
+
+            *, +, -, /, ^
+
+            %
+
+            DIV
+
+            MOD
+
+
+            Here is an example formula using a combination of supported functions, constants and operators defined above:
+
+            Pi * min([60bdc4fa-67ea-4d25-b95c-06f67225db34], [7acbf6bb-727b-4714-bf18-8c3f82a45f8c])
+
+            Parameters to defined functions are separated by a comma, but this delimiter may also be overridden by the Plex setting List Delimiter (Lists Setting Group).
+
+            Aggregate Functions
+
+            Aggregate functions can be used in the formula to provide functionality across a set of measurements for a single specification. This is achieved by the use of any aggregate function (min, max, avg, sum) in conjunction with a &quot;token parameter&quot; to indicate which specification(s) are being used as aggregates.  The Formula Type assigned to the formula is used to specify One-To-One (the setting by which all existing formula work) or Many-To-One (used when aggregating a measurement set down to a single value).
+
+            For example, if specification A includes 3 measurements, a calculated specification B can utilize an aggregate formula to calculate a single value:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | A | 10, 20, 30 | 60bdc4fa-67ea-4d25-b95c-06f67225db34 | |
+
+            | B | 20 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:aggregate=true) | Many-To-One |
+
+            A formula type of One-To-One is the existing behavior of a formula, but it can be used in conjunction with aggregate functions to allow a single sample measurement to be used to output multiple measurements:
+
+            | Specification | Measurements | ID | Formula | Formula Type |
+
+            | ----| ---- | ---- | ---- | ---- |
+
+            | C | 10, 0, -10 | 7acbf6bb-727b-4714-bf18-8c3f82a45f8c | sum([7acbf6bb-727b-4714-bf18-8c3f82a45f8c:aggregate=true) - [60bdc4fa-67ea-4d25-b95c-06f67225db34] | One-To-One |
+
+            Historical Data
+
+            Special token parameters can be used to pull measurement data from past checksheets. A number of past checksheets to be used must be supplised along with an aggregate function (if applicable). The number of past checksheets that can be used in a calculation is limited to 50.
+
+            For example, this formula is used to calculate the average value of a given specification for the last 5 submitted checksheets:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=avg])
+
+            If an aggregate is not necessary, the pastfunction argument can be set to none:
+
+            avg([60bdc4fa-67ea-4d25-b95c-06f67225db34:pastchecksheets=5 pastfunction=none])
+
+            Note: it is important to use the &quot;none&quot; aggregation option in formulas where f(x0,...,xn) does not equal f(f(x0,...,xn-1), xn). For example, min(4, 6, 5) is equivalent to min(min(4,6), 5), while stdev(4, 6, 5) is not equivalent to stdev(stdev(4,6), 5).
+
+            Offsheet Historical Data
+
+            Historical data can also be referenced by using offsheet token parameters. This is used to pull aggregated measurements from data entered on any prior checksheet. The number of past checksheets must be specified as a separate checksheet specification measurement. This number is then referenced in subsequent formulas.
+
+            For example, to pull the average value of a specification from a specific number of other checksheets, where its specification ID is 7acbf6bb-727b-4714-bf18-8c3f82a45f8c, a new specification should be created referencing this ID (We''ll call the specification Sample Size):
+
+            [7acbf6bb-727b-4714-bf18-8c3f82a45f8c:offsheetcalc=samplesize]
+
+            Assuming the ID of the above specification is 60bdc4fa-67ea-4d25-b95c-06f67225db34, we can then create a second specification called ''Average'' with the following formula:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:offsheetcalc=avg]
+
+            The above specification value will be calculated using the past X number of prior checksheets, where X is equal to the Sample Size specification value.
+
+            Restrictions
+
+
+            The number of checksheets for the sample size is limited to a maximum of 50.
+
+            The measurements are Container Serial specific.  This means that if a container is not specified then all checksheet measurements will be used.
+
+            As Serialized Checksheets are Container specific (per row), the container serial must be set.
+
+
+            Attributes
+
+            Attributes of a specification can be used as part of the formula. The supported attributes are tolerance, target, min, and max. Attribute usage in a formula will appear as follows:
+
+            [60bdc4fa-67ea-4d25-b95c-06f67225db34:attribute=tolerance]'
+          example: string
+        formulaType:
+          type: string
+          description: The specification formula type.
+          example: string
+        formulaTypeId:
+          type: string
+          format: uuid
+          description: The Specification Formula Type ID.
+          example: 00000000-0000-0000-0000-000000000000
+        functionRequirementType:
+          type: string
+          description: The function requirement type of the part specification.
+          example: string
+        gageType:
+          type: string
+          description: The Gage Type specification.
+          example: string
+        id:
+          type: string
+          format: uuid
+          description: The Specification ID of the part specification.
+          example: 00000000-0000-0000-0000-000000000000
+        importance:
+          type: string
+          description: The importance of the specification.
+          example: string
+        jobSheetInclude:
+          type: boolean
+          description: Indicates whether or not the specification is included in the job sheet.
+          example: false
+        note:
+          type: string
+          description: A short description or name for the specification. This typically comes from the drawing.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: Specify the Part ID requiring specifications.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: Specify the part number requiring specifications.
+          example: string
+        partRevision:
+          type: string
+          description: Specify the part revision requiring specifications.
+          example: string
+        plcName:
+          type: string
+          description: The name of an associated programmable logic controller (PLC).
+          example: string
+        primaryImageNodeNo:
+          type: integer
+          format: int32
+          description: The primary image node number for the specification.
+          example: 0
+        processControlRecipeId:
+          type: string
+          format: uuid
+          description: The Process Control Recipe ID.
+          example: 00000000-0000-0000-0000-000000000000
+        runAboveMeanR:
+          type: integer
+          format: int32
+          description: Run above centerline on Range chart alert.
+          example: 0
+        runAboveMeanX:
+          type: integer
+          format: int32
+          description: Run above centerline on X chart alert.
+          example: 0
+        runBelowMeanR:
+          type: integer
+          format: int32
+          description: Run below centerline on Range chart alert.
+          example: 0
+        runBelowMeanX:
+          type: integer
+          format: int32
+          description: Run below centerline on X chart alert.
+          example: 0
+        runLengthR:
+          type: integer
+          format: int32
+          description: The length of the run on the Range chart.
+          example: 0
+        runLengthX:
+          type: integer
+          format: int32
+          description: The length of the run on the X chart.
+          example: 0
+        spcFlag:
+          type: boolean
+          description: The SPC enabled flag for the specification.
+          example: false
+        specialSymbol:
+          type: string
+          description: The special symbol to use for the part specification.
+          example: string
+        specificationDimensionType:
+          type: string
+          description: The specification dimension type of the part specification.
+          example: string
+        specificationNumber:
+          type: string
+          description: The specification number of the part specification.
+          example: string
+        specificationType:
+          type: string
+          description: The specification type.
+          example: string
+        targetValueDisplay:
+          type: boolean
+          description: Indicates whether or not the target value is displayed.
+          example: false
+        toleranceType:
+          $ref: '#/components/schemas/ToleranceTypeDto'
+        trend:
+          type: integer
+          format: int32
+          description: The Consecutive Trending alert.
+          example: 0
+        trendLength:
+          type: integer
+          format: int32
+          description: The trend length for alerts on the specification.
+          example: 0
+        updatedDateTime:
+          type: string
+          format: date-time
+          description: The latest date this specification was updated.
+          example: '2026-10-20T12:03:13Z'
+        valueText:
+          type: string
+          description: The value text of the specification.
+          example: string
+        workcenter:
+          type: string
+          description: The workcenter associated with the specification.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: The ID of the workcenter associated with the specification.
+          example: 00000000-0000-0000-0000-000000000000
+    ToleranceTypeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The tolerance type name.
+          example: string
+        attribute:
+          type: boolean
+          description: The designation of this tolerance type is an attribute specification or not.
+          example: false
+        target:
+          type: number
+          format: double
+          description: The target of the tolerance type.
+          example: 0.1
+        targetPlus:
+          type: number
+          format: double
+          description: The tolerance limit relating to value more than the target.
+          example: 0.1
+        targetMinus:
+          type: number
+          format: double
+          description: The tolerance limit relating to value less than the target.
+          example: 0.1
+        decimalPrecision:
+          type: integer
+          format: int32
+          description: Specify the number of decimal places to apply to measurements.
+          example: 0
+        unit:
+          type: string
+          description: The unit of the tolerance type.
+          example: string
+        oneSidedMinimum:
+          type: number
+          format: double
+          description: The numeric value of the one sided minimum of the specification.
+          example: 0.1
+        oneSidedMaximum:
+          type: number
+          format: double
+          description: The numeric value of the one sided maximum of the specification.
+          example: 0.1
+        measurementText:
+          type: string
+          description: The supplemental text for the actual measurement displayed on the control plan.
+          example: string
+        compareValue:
+          type: string
+          description: The text to display on the checksheet when compare value option is selected.
+          example: string
+        referenceDisplayPopup:
+          type: boolean
+          description: To designate if a pop up message will be displayed when the measurement is out of spec.
+          example: false
+        referencePopupMessage:
+          type: string
+          description: The informational message field on the checksheet when the measurement is out of spec.
+          example: string
+        bonusTolerances:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

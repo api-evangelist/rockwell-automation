@@ -1,0 +1,240 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Accounts Receivable…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Accounts Receivable Deposits API
+  description: The Account Receivable Deposits API is used to retrieve Account Receivable Deposits and Account Receivable Deposit Lines data.
+paths:
+  /accounting/v1/ar-deposits/{id}:
+    get:
+      operationId: getArDeposit
+      summary: Get AR Deposit
+      tags:
+      - Accounts Receivable Deposits API
+      description: Retrieve an AR Deposit by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Accounts Receivable Deposit's resource id.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableDepositDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-deposits-api/get-ar-deposit
+  /accounting/v1/ar-deposits:
+    get:
+      operationId: listArDeposits
+      summary: List AR Deposits
+      tags:
+      - Accounts Receivable Deposits API
+      description: List AR Deposits based on specified parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the AR Deposit.
+      - name: depositNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AR deposit number.
+      - name: periodDisplayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The start date used to return AR deposit records during a period.
+      - name: periodDisplayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The end date used to return AR deposit records during a period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AR deposit transaction records during a period.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The ending date used to return AR deposit transaction records during a period.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AR deposits created within a time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The ending date used to return AR deposits created within a time frame.
+      - name: booked
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify AR deposit is booked.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableDepositDto'
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-deposits-api/list-ar-deposits
+components:
+  schemas:
+    AccountsReceivableDepositDto:
+      type: object
+      description: The Accounts Receivable Deposit model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the AR deposit.
+          example: 00000000-0000-0000-0000-000000000000
+        depositNumber:
+          type: string
+          description: The AR deposit number.
+          example: string
+        amount:
+          type: number
+          format: double
+          description: The AR deposit amount.
+          example: 0.1
+        periodDisplay:
+          type: string
+          description: List of AR deposit records during a period.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which an AR deposit was recorded.
+          example: '2026-10-20T12:03:00Z'
+        currencyCode:
+          type: string
+          description: The AR deposit currency code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AR deposit exchange rate.
+          example: 0.1
+        internalNote:
+          type: string
+          description: Internal note added to an AR deposit.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which an AR deposit was created.
+          example: '2026-10-20T12:03:00Z'
+        depositCurrencyAmount:
+          type: number
+          format: double
+          description: AR deposit currency amount.
+          example: 0.1
+        cleared:
+          type: string
+          description: 'Specify an AR deposit has cleared.
+
+            Uncleared - the transaction is not part of a bank reconciliation
+
+            Pending - the transaction is part of a saved bank reconciliation that has not yet been finalized
+
+            Cleared - the transaction is part of a finalized bank reconciliation and has cleared the relevant bank account'
+          example: string
+        clearDate:
+          type: string
+          format: date-time
+          description: The date on which an AR deposit cleared.
+          example: '2026-10-20T12:03:00Z'
+        clearPeriod:
+          type: string
+          description: The period in which an AR deposit cleared.
+          example: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which an AR deposit was modified.
+          example: '2026-10-20T12:03:00Z'
+        voucherNumber:
+          type: string
+          description: The AR deposit voucher number.
+          example: string
+        clearedAmount:
+          type: number
+          format: double
+          description: The cleared amount of the AR deposit.
+          example: 0.1
+        booked:
+          type: boolean
+          description: Specify AR deposit booked status.
+          example: false
+        lines:
+          type: array
+          description: List of AR Deposit lines
+          items:
+            type: object
+            description: The Accounts Receivable Deposit Line model.
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

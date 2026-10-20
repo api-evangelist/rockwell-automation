@@ -1,0 +1,670 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Equipment API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Equipment API
+  description: The Equipment API is used to manage equipment data.
+paths:
+  /maintenance/v1/equipment-attributes:
+    post:
+      operationId: createEquipmentAttribute
+      summary: Create Equipment Attribute
+      tags:
+      - Equipment API
+      description: Creates a new Equipment Attribute.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEquipmentAttribute'
+      responses:
+        '201':
+          description: The resource was created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentAttributeDTO'
+        '400':
+          description: A validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/equipment-api/create-equipment-attribute
+    get:
+      operationId: listEquipmentAttributes
+      summary: List Equipment Attributes
+      tags:
+      - Equipment API
+      description: List equipment attributes by query parameters.
+      parameters:
+      - name: attributeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of an Equipment Attribute.
+      - name: unit
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The unit associated with the Equipment Attribute.
+      - name: typeAttribute
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Type Equipment Attributes will be returned.
+      - name: groupAttribute
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Group Equipment Attributes will be returned.
+      - name: categoryAttribute
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Category Equipment Attributes will be returned.
+      - name: useValues
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Equipment Attributes where values are being use will be returned.
+      - name: smartAttribute
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Smart Equipment Attributes will be returned.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, only the list of Active Equipment Attributes will be returned.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentAttributeDTO'
+      x-source: https://developers.plex.com/api/documentation/equipment-api/list-equipment-attributes
+  /maintenance/v1/equipment-attributes/{id}:
+    get:
+      operationId: getEquipmentAttributes
+      summary: Get Equipment Attributes
+      tags:
+      - Equipment API
+      description: Get equipment attribute by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentAttributeDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/equipment-api/get-equipment-attributes
+    put:
+      operationId: updateEquipmentAttribute
+      summary: Update Equipment Attribute
+      tags:
+      - Equipment API
+      description: Updates an Equipment Attribute.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEquipmentAttribute'
+      responses:
+        '200':
+          description: The resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentAttributeDTO'
+        '400':
+          description: A validation error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/equipment-api/update-equipment-attribute
+  /maintenance/v1/equipment-types/{id}:
+    get:
+      operationId: getEquipmentTypes
+      summary: Get Equipment Types
+      tags:
+      - Equipment API
+      description: Get equipment type by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentTypeDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/equipment-api/get-equipment-types
+  /maintenance/v1/equipment/{id}:
+    get:
+      operationId: getEquipment
+      summary: Get Equipment
+      tags:
+      - Equipment API
+      description: Get equipment by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/equipment-api/get-equipment
+  /maintenance/v1/equipment-types:
+    get:
+      operationId: listEquipmentTypes
+      summary: List Equipment Types
+      tags:
+      - Equipment API
+      description: List equipment Types by query parameters.
+      parameters:
+      - name: equipmentType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of an Equipment Type.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentTypeDTO'
+      x-source: https://developers.plex.com/api/documentation/equipment-api/list-equipment-types
+  /maintenance/v1/equipment:
+    get:
+      operationId: listEquipment
+      summary: List Equipment
+      tags:
+      - Equipment API
+      description: List equipment by query parameters.
+      parameters:
+      - name: equipmentId
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Equipment ID.
+      - name: equipmentTypeId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Equipment Type.
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Equipment Building.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Equipment Location.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the Equipment Workcenter.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the associated Part.
+      - name: partType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The associated Part Type.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The associated Equipment Status.
+      - name: serialNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Equipment Serial Number.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The Equipment Active flag.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentDTO'
+      x-source: https://developers.plex.com/api/documentation/equipment-api/list-equipment
+components:
+  schemas:
+    UpdateEquipmentAttribute:
+      type: object
+      properties:
+        attributeName:
+          type: string
+          description: The name of the Equipment Attribute.
+          example: string
+        description:
+          type: string
+          description: A description of the Equipment Attribute.
+          example: string
+        unitId:
+          type: string
+          format: uuid
+          description: The unit ID associated with the Equipment Attribute.
+          example: 00000000-0000-0000-0000-000000000000
+        useValues:
+          type: boolean
+          description: The Use Value Flag.
+          example: false
+        typeAttribute:
+          type: boolean
+          description: The Type Attribute Flag.
+          example: false
+        groupAttribute:
+          type: boolean
+          description: The Group Attribute Flag.
+          example: false
+        categoryAttribute:
+          type: boolean
+          description: The Category Attribute Flag.
+          example: false
+        smartAttribute:
+          type: boolean
+          description: The Smart Attribute Flag. Operating Parameters module must be enabled for Smart Attributes.
+          example: false
+        active:
+          type: boolean
+          description: The Active Flag.
+          example: false
+        attributeValues:
+          type: array
+          description: List of associated Values if Use Value is enabled.
+          items:
+            type: object
+            properties: {}
+        attributeValue:
+          type: string
+          description: A value of the Equipment Attribute.
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          description: The sort order for the Equipment Attribute Value.
+          example: 0
+      required:
+      - attributeName
+      - unitId
+    EquipmentDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the Equipment.
+          example: 00000000-0000-0000-0000-000000000000
+        equipmentId:
+          type: string
+          description: The Equipment ID.
+          example: string
+        description:
+          type: string
+          description: The Equipment Description.
+          example: string
+        brand:
+          type: string
+          description: The Equipment Brand.
+          example: string
+        modelNo:
+          type: string
+          description: The Equipment Model Number.
+          example: string
+        equipmentType:
+          type: string
+          description: The Equipment Type of the Equipment.
+          example: string
+        equipmentTypeId:
+          type: string
+          format: uuid
+          description: The ID of the Equipment Type.
+          example: 00000000-0000-0000-0000-000000000000
+        equipmentGroup:
+          type: string
+          description: The Group of the Equipment.
+          example: string
+        equipmentCategory:
+          type: string
+          description: The Category of the Equipment.
+          example: string
+        equipmentPriority:
+          type: string
+          description: The Priority of the Equipment.
+          example: string
+        location:
+          type: string
+          description: The Location of the Equipment.
+          example: string
+        locationId:
+          type: string
+          format: uuid
+          description: The ID of the Equipment Location.
+          example: 00000000-0000-0000-0000-000000000000
+        building:
+          type: string
+          description: The Building of the Equipment.
+          example: string
+        buildingId:
+          type: string
+          format: uuid
+          description: The ID of the Equipment Building.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenter:
+          type: string
+          description: The Workcenter of the Equipment.
+          example: string
+        workcenterId:
+          type: string
+          format: uuid
+          description: The ID of the Equipment Workcenter.
+          example: 00000000-0000-0000-0000-000000000000
+        department:
+          type: string
+          description: The Department of the Equipment.
+          example: string
+        status:
+          type: string
+          description: The Status of the Equipment.
+          example: string
+        taxClassification:
+          type: string
+          description: The Tax Classification of the Equipment.
+          example: string
+        champion:
+          type: string
+          description: The Champion of the Equipment.
+          example: string
+        serialNo:
+          type: string
+          description: The Equipment Serial Number.
+          example: string
+        active:
+          type: boolean
+          description: The Equipment Active flag.
+          example: false
+        equipmentAttributes:
+          type: array
+          description: The list of associated Equipment Attributes.
+          items:
+            type: object
+            properties: {}
+        parts:
+          type: array
+          description: The list of associated Parts.
+          items:
+            type: object
+            properties: {}
+    EquipmentTypeDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: An ID representing the Equipment Type.
+          example: 00000000-0000-0000-0000-000000000000
+        equipmentType:
+          type: string
+          description: The name of the Equipment Type.
+          example: string
+        group:
+          type: string
+          description: The group of the Equipment Type.
+          example: string
+        partSectionUse:
+          type: boolean
+          description: The Part Section Use Flag.
+          example: false
+        maintenanceReadingUse:
+          type: boolean
+          description: The Maintenance Reading Use Flag.
+          example: false
+        equipmentLinkCascade:
+          type: boolean
+          description: The Equipment Link Cascade Flag.
+          example: false
+        subsystems:
+          type: array
+          description: The list of associated Subsystems.
+          items:
+            type: string
+        equipmentAttributes:
+          type: array
+          description: The list of associated Equipment Attributes.
+          items:
+            type: object
+            properties: {}
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    EquipmentAttributeDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: An ID representing the Equipment Attribute.
+          example: 00000000-0000-0000-0000-000000000000
+        attributeName:
+          type: string
+          description: The name of the Equipment Attribute.
+          example: string
+        description:
+          type: string
+          description: A description of the Equipment Attribute.
+          example: string
+        unit:
+          type: string
+          description: The unit associated with the Equipment Attribute.
+          example: string
+        useValues:
+          type: boolean
+          description: The Use Value Flag.
+          example: false
+        typeAttribute:
+          type: boolean
+          description: The Type Attribute Flag.
+          example: false
+        groupAttribute:
+          type: boolean
+          description: The Group Attribute Flag.
+          example: false
+        categoryAttribute:
+          type: boolean
+          description: The Category Attribute Flag.
+          example: false
+        smartAttribute:
+          type: boolean
+          description: The Smart Attribute Flag.
+          example: false
+        active:
+          type: boolean
+          description: The Active Flag.
+          example: false
+    AddEquipmentAttribute:
+      type: object
+      properties:
+        attributeName:
+          type: string
+          description: The name of the Equipment Attribute.
+          example: string
+        description:
+          type: string
+          description: A description of the Equipment Attribute.
+          example: string
+        unitId:
+          type: string
+          format: uuid
+          description: The unit ID associated with the Equipment Attribute.
+          example: 00000000-0000-0000-0000-000000000000
+        useValues:
+          type: boolean
+          description: The Use Value Flag.
+          example: false
+        typeAttribute:
+          type: boolean
+          description: The Type Attribute Flag.
+          example: false
+        groupAttribute:
+          type: boolean
+          description: The Group Attribute Flag.
+          example: false
+        categoryAttribute:
+          type: boolean
+          description: The Category Attribute Flag.
+          example: false
+        smartAttribute:
+          type: boolean
+          description: The Smart Attribute Flag. Operating Parameters module must be enabled for Smart Attributes.
+          example: false
+        active:
+          type: boolean
+          description: The Active Flag.
+          example: false
+        attributeValues:
+          type: array
+          description: List of associated Values if Use Value is enabled.
+          items:
+            type: object
+            properties: {}
+        attributeValue:
+          type: string
+          description: A value of the Equipment Attribute.
+          example: string
+        sortOrder:
+          type: integer
+          format: int32
+          description: The sort order for the Equipment Attribute Value.
+          example: 0
+      required:
+      - attributeName
+      - unitId
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

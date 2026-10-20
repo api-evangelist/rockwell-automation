@@ -1,0 +1,944 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Accounts Payable…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Accounts Payable Invoices API
+  description: The Accounts Payable Invoices API is used to retrieve Accounts Payable invoices, Accounts Payable invoice lines, and Accounts Payable invoice tax data.
+paths:
+  /accounting/v1/ap-invoices:
+    post:
+      operationId: createApInvoice
+      summary: Create AP Invoice
+      tags:
+      - Accounts Payable Invoices API
+      description: Add an AP invoice.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAccountsPayableInvoiceDto'
+      responses:
+        '201':
+          description: The record was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/create-ap-invoice
+    get:
+      operationId: listApInvoices
+      summary: List AP Invoices
+      tags:
+      - Accounts Payable Invoices API
+      description: 'Disclaimer: The APIs are designed to maintain optimal performance with a limit of 1,000 invoices per call (depending on the number of distribution lines per invoice). To avoid timeout errors, you can apply relevant filters to retrieve a more specific response.'
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The AP invoice ID.
+      - name: invoiceNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice number.
+      - name: periodDisplayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The beginning period used to return AP invoice records.
+      - name: periodDisplayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The end period used to return AP invoice records.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AP transaction records during a period.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AP transaction records during a period.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AP invoices created within a time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AP invoices created within a time frame.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AP invoices modified within a time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AP invoices modified within a time frame.
+      - name: booked
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that the AP invoice is booked.
+      - name: supplierCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice supplier code.
+      - name: poNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice purchase order number.
+      - name: shipperNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice shipper number.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice status.
+      - name: externalReferenceCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AP invoice external reference code.
+      - name: paid
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that the AP invoice is paid.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/list-ap-invoices
+  /accounting/v1/ap-invoices/{id}:
+    get:
+      operationId: getApInvoice
+      summary: Get AP Invoice
+      tags:
+      - Accounts Payable Invoices API
+      description: Retrieves an AP invoice by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Accounts Payable invoice ID.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/get-ap-invoice
+    put:
+      operationId: updateApInvoice
+      summary: Update AP Invoice
+      tags:
+      - Accounts Payable Invoices API
+      description: Update an AP invoice.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountsPayableInvoiceDto'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/update-ap-invoice
+  /accounting/v1/ap-invoices/{id}/linkreceipts:
+    post:
+      operationId: linkReceiptsWithApInvoice
+      summary: Link Receipts With AP Invoice
+      tags:
+      - Accounts Payable Invoices API
+      description: 'Disclaimer: The Accounts Payable Invoices API only links the following supported receipt types with AP invoices: receiving and consignment usage. This API does not link settlement receipts with AP invoices. The APIs are designed to maintain optimal performance with a limit of 300 receipts per invoice per call. To avoid timeout errors, you can call this endpoint in batches of 300 receipts each to link more receipts to an invoice.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountsPayableInvoiceReceiptsDto'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/link-receipts-with-ap-invoice
+  /accounting/v1/ap-invoices/{id}/unlinkreceipts:
+    post:
+      operationId: unlinkReceiptsFromApInvoice
+      summary: Unlink Receipts From AP Invoice
+      tags:
+      - Accounts Payable Invoices API
+      description: 'Disclaimer: The APIs are designed to maintain optimal performance with a limit of 300 receipts per invoice per call. To avoid timeout errors, you can call this endpoint in batches of 300 receipts each to unlink more receipts from an invoice.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountsPayableInvoiceReceiptsDto'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsPayableInvoiceDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/accounts-payable-invoices-api/unlink-receipts-from-ap-invoice
+components:
+  schemas:
+    UpdateAccountsPayableInvoiceDto:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+          description: The AP invoice number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The AP invoice ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The AP invoice supplier code, typically an abbreviated name for the supplier.
+          example: string
+        supplierAddressCode:
+          type: string
+          description: The AP invoice supplier address code.
+          example: string
+        terms:
+          type: string
+          description: The AP invoice terms.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AP invoice is recorded.
+          example: string
+        currencyCode:
+          type: string
+          description: The AP invoice currency code.
+          example: string
+        status:
+          type: string
+          description: The AP invoice status.
+          example: string
+        discountDueDate:
+          type: string
+          format: date-time
+          description: The AP invoice discount due date.
+          example: '2026-10-20T12:03:01Z'
+        poId:
+          type: string
+          format: uuid
+          description: The AP invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        note:
+          type: string
+          description: A note added to an AP invoice.
+          example: string
+        checkNote:
+          type: string
+          description: A check note added to an AP invoice.
+          example: string
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        invoiceDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice was created.
+          example: '2026-10-20T12:03:01Z'
+        poNumber:
+          type: string
+          description: The AP invoice purchase order number.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AP invoice due date.
+          example: '2026-10-20T12:03:01Z'
+        department:
+          type: string
+          description: The AP invoice department code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AP invoice exchange rate.
+          example: 0.1
+        governmentIssuedNumber:
+          type: string
+          description: The AP invoice government issued number.
+          example: string
+        discount:
+          type: number
+          format: double
+          description: The AP invoice discount.
+          example: 0.1
+        interCompany:
+          type: boolean
+          description: The AP invoice intercompany tax.
+          example: false
+        discountableAmount:
+          type: number
+          format: double
+          description: The AP invoice discountable amount.
+          example: 0.1
+        taxPointDate:
+          type: string
+          format: date-time
+          description: The AP invoice tax point date.
+          example: '2026-10-20T12:03:01Z'
+        expectedPayDate:
+          type: string
+          format: date-time
+          description: The AP invoice expected pay date.
+          example: '2026-10-20T12:03:01Z'
+        type:
+          type: string
+          description: The AP invoice type.
+          example: string
+        checkNos:
+          type: string
+          description: The AP invoice check numbers.
+          example: string
+        lines:
+          type: array
+          description: A list of AP lines.
+          items:
+            type: object
+            properties: {}
+        lineId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AP invoice line item.
+          example: 00000000-0000-0000-0000-000000000000
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AP invoice line account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The AP invoice line account number.
+          example: string
+        projectCode:
+          type: string
+          description: The AP invoice line project code.
+          example: string
+        description:
+          type: string
+          description: A description of the AP invoice line.
+          example: string
+        accountingJobNumber:
+          type: string
+          description: The accounting job number for an AP invoice line, if applicable.
+          example: string
+        itemTaxCode:
+          type: string
+          description: The AP invoice item tax code.
+          example: string
+        taxCodes:
+          type: array
+          description: A list of tax codes.
+          items:
+            type: string
+        shipperNo:
+          type: string
+          description: The AP invoice line supplier shipper number.
+          example: string
+        referenceNo:
+          type: string
+          description: The AP invoice line reference number.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: The AP invoice line unit price.
+          example: 0.1
+        quantity:
+          type: number
+          format: double
+          description: The AP invoice line quantity.
+          example: 0.1
+        isTaxLine:
+          type: boolean
+          description: Specify that the AP invoice line is a tax line.
+          example: false
+    AccountsPayableInvoiceDto:
+      type: object
+      description: The Accounts Payable Invoice model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The AP invoice ID.
+          example: 00000000-0000-0000-0000-000000000000
+        invoiceNumber:
+          type: string
+          description: The AP invoice number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The AP supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The AP supplier code.
+          example: string
+        supplierAddressId:
+          type: string
+          format: uuid
+          description: The AP supplier address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierAddressCode:
+          type: string
+          description: The AP supplier address code.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AP invoice was recorded.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date an AP transaction was recorded.
+          example: '2026-10-20T12:03:00Z'
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        currencyCode:
+          type: string
+          description: The AP invoice currency code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AP invoice exchange rate.
+          example: 0.1
+        department:
+          type: integer
+          format: int32
+          description: The AP invoice department number.
+          example: 0
+        terms:
+          type: string
+          description: The AP invoice terms.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AP invoice due date.
+          example: '2026-10-20T12:03:00Z'
+        discount:
+          type: number
+          format: double
+          description: The discount applicable to an AP invoice.
+          example: 0.1
+        internalNote:
+          type: string
+          description: An internal note added to an AP invoice.
+          example: string
+        voucherNumber:
+          type: string
+          description: The AP invoice voucher number.
+          example: string
+        status:
+          type: string
+          description: The AP invoice status.
+          example: string
+        governmentIssuedNumber:
+          type: string
+          description: The AP invoice government issued number.
+          example: string
+        type:
+          type: string
+          description: The AP invoice type.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice was created.
+          example: '2026-10-20T12:03:00Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice was modified.
+          example: '2026-10-20T12:03:00Z'
+        booked:
+          type: boolean
+          description: Specify that an AP invoice is booked.
+          example: false
+        taxableDate:
+          type: string
+          format: date-time
+          description: The date the AP invoice tax was calculated.
+          example: '2026-10-20T12:03:00Z'
+        amount:
+          type: number
+          format: double
+          description: The AP invoice amount.
+          example: 0.1
+        paid:
+          type: boolean
+          description: Specify that an AP invoice has been paid.
+          example: false
+        paidDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice was paid.
+          example: '2026-10-20T12:03:00Z'
+        paidPeriod:
+          type: string
+          description: The period in which an AP invoice was paid.
+          example: string
+        totalControlAmount:
+          type: number
+          format: double
+          description: The AP invoice positive pay total payment amount.
+          example: 0.1
+        expectedPayDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice payment is expected.
+          example: '2026-10-20T12:03:00Z'
+        taxId:
+          type: string
+          description: The AP invoice tax ID from the supplier record.
+          example: string
+        foreignCurrencyAmount:
+          type: number
+          format: double
+          description: The AP invoice foreign currency amount.
+          example: 0.1
+        discountDueDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice must be paid to receive a defined discount.
+          example: '2026-10-20T12:03:00Z'
+        exchangeRateDate:
+          type: string
+          format: date-time
+          description: The date an AP invoice exchange rate was calculated.
+          example: '2026-10-20T12:03:00Z'
+        balance:
+          type: number
+          format: double
+          description: The AP invoice balance.
+          example: 0.1
+        discountableAmount:
+          type: number
+          format: double
+          description: The AP invoice discountable amount.
+          example: 0.1
+        debitMemo:
+          type: integer
+          format: int32
+          description: Specify an AP invoice debit memo.
+          example: 0
+        intercompany:
+          type: integer
+          format: int32
+          description: The AP invoice intercompany tax.
+          example: 0
+        checkNote:
+          type: string
+          description: A note added to an AP invoice check.
+          example: string
+        shipperNo:
+          type: string
+          description: The AP invoice shipper number.
+          example: string
+        shipperId:
+          type: string
+          format: uuid
+          description: The AP invoice shipper ID.
+          example: 00000000-0000-0000-0000-000000000000
+        poNumber:
+          type: string
+          description: The AP invoice purchase order number.
+          example: string
+        poId:
+          type: string
+          format: uuid
+          description: The AP invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        externalReferenceCode:
+          type: string
+          description: The AP invoice external reference code.
+          example: string
+        foreignCurrencyBalance:
+          type: number
+          format: double
+          description: The AP invoice foreign balance.
+          example: 0.1
+        lines:
+          type: array
+          description: A list of AP invoice lines.
+          items:
+            type: object
+            description: The Accounts Payable Invoice Line model.
+            properties: {}
+    AccountsPayableInvoiceReceiptsDto:
+      type: object
+      properties:
+        receiptIds:
+          type: array
+          description: The list of Receipt IDs.
+          items:
+            type: string
+            format: uuid
+      required:
+      - receiptIds
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    AddAccountsPayableInvoiceDto:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+          description: The AP invoice number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The AP invoice supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The AP supplier code, typically an abbreviated name for the supplier.
+          example: string
+        supplierAddressCode:
+          type: string
+          description: The AP invoice supplier address code.
+          example: string
+        terms:
+          type: string
+          description: The AP invoice terms.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AP invoice is recorded.
+          example: string
+        currencyCode:
+          type: string
+          description: The AP invoice currency code.
+          example: string
+        status:
+          type: string
+          description: The AP invoice status.
+          example: string
+        discountDueDate:
+          type: string
+          format: date-time
+          description: The AP invoice discount due date.
+          example: '2026-10-20T12:03:00Z'
+        poId:
+          type: string
+          format: uuid
+          description: The AP invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        note:
+          type: string
+          description: A note added to an AP invoice.
+          example: string
+        checkNote:
+          type: string
+          description: A check note added to an AP invoice.
+          example: string
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        invoiceDate:
+          type: string
+          format: date-time
+          description: The date an AP transaction was recorded.
+          example: '2026-10-20T12:03:00Z'
+        poNumber:
+          type: string
+          description: The AP invoice purchase order number.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AP invoice due date.
+          example: '2026-10-20T12:03:00Z'
+        department:
+          type: string
+          description: The AP invoice department code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AP invoice exchange rate.
+          example: 0.1
+        debitMemo:
+          type: boolean
+          description: Specify that the AP invoice is a debit memo.
+          example: false
+        governmentIssuedNumber:
+          type: string
+          description: The AP invoice government issued number.
+          example: string
+        discount:
+          type: number
+          format: double
+          description: The AP invoice discount.
+          example: 0.1
+        interCompany:
+          type: boolean
+          description: The AP invoice intercompany tax.
+          example: false
+        discountableAmount:
+          type: number
+          format: double
+          description: The AP invoice discountable amount.
+          example: 0.1
+        taxPointDate:
+          type: string
+          format: date-time
+          description: The AP invoice tax point date.
+          example: '2026-10-20T12:03:00Z'
+        expectedPayDate:
+          type: string
+          format: date-time
+          description: The AP invoice expected pay date.
+          example: '2026-10-20T12:03:00Z'
+        type:
+          type: string
+          description: The AP invoice type.
+          example: string
+        lines:
+          type: array
+          description: A list of AP invoice lines.
+          items:
+            type: object
+            properties: {}
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AP invoice line account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The AP invoice line account number.
+          example: string
+        projectCode:
+          type: string
+          description: The AP invoice line project code.
+          example: string
+        description:
+          type: string
+          description: A description of the AP invoice line.
+          example: string
+        accountingJobNumber:
+          type: string
+          description: The accounting job number for an AP invoice line, if applicable.
+          example: string
+        itemTaxCode:
+          type: string
+          description: The AP invoice line item tax code.
+          example: string
+        taxCodes:
+          type: array
+          description: A list of tax codes.
+          items:
+            type: string
+        shipperNo:
+          type: string
+          description: The AP invoice line supplier shipper number.
+          example: string
+        referenceNo:
+          type: string
+          description: The AP invoice line reference number.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: The AP invoice line unit price.
+          example: 0.1
+        quantity:
+          type: number
+          format: double
+          description: The AP invoice line unit quantity.
+          example: 0.1
+        isTaxLine:
+          type: boolean
+          description: Specify that the AP invoice line is a tax line.
+          example: false
+      required:
+      - invoiceNumber
+      - terms
+      - periodDisplay
+      - currencyCode
+      - status
+      - description
+      - isTaxLine
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

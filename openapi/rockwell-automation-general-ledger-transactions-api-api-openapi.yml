@@ -1,0 +1,700 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect General Ledger…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: General Ledger Transactions API
+  description: The General Ledger Transactions API is used to retrieve General Ledger Transactions data.
+paths:
+  /accounting/v1/general-ledger-activity/ap-invoices:
+    get:
+      operationId: listGlTransactionLinesForApInvoices
+      summary: List GL Transaction Lines For AP Invoices
+      tags:
+      - General Ledger Transactions API
+      description: List GL transaction lines for AP invoices based on specified parameters.
+      parameters:
+      - name: accountId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the GL transaction account.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL transaction fiscal period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date on which a GL transaction was recorded.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date on which a GL transaction was recorded.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralLedgerActivityAPInvoiceDto'
+        '400':
+          description: The validation result for an invalid account ID.
+      x-source: https://developers.plex.com/api/documentation/general-ledger-transactions-api/list-gl-transaction-lines-for-ap-invoices
+  /accounting/v1/general-ledger-activity/ap-payments:
+    get:
+      operationId: listGlTransactionLinesForApPayments
+      summary: List GL Transaction Lines For AP Payments
+      tags:
+      - General Ledger Transactions API
+      description: List GL transaction lines for AP payments based on specified parameters.
+      parameters:
+      - name: accountId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the GL transaction account.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL transaction fiscal period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date on which a GL transaction was recorded.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date on which a GL transaction was recorded.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralLedgerActivityAPPaymentDto'
+        '400':
+          description: The validation result for an invalid account ID.
+      x-source: https://developers.plex.com/api/documentation/general-ledger-transactions-api/list-gl-transaction-lines-for-ap-payments
+  /accounting/v1/general-ledger-activity/ar-deposits:
+    get:
+      operationId: listGlTransactionLinesForArDeposits
+      summary: List GL Transaction Lines For AR Deposits
+      tags:
+      - General Ledger Transactions API
+      description: List GL transaction lines for AR deposits based on specified parameters.
+      parameters:
+      - name: accountId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the GL transaction account.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL transaction fiscal period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date on which a GL transaction was recorded.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date on which a GL transaction was recorded.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralLedgerActivityARDepositDto'
+        '400':
+          description: The validation result for an invalid account ID.
+      x-source: https://developers.plex.com/api/documentation/general-ledger-transactions-api/list-gl-transaction-lines-for-ar-deposits
+  /accounting/v1/general-ledger-activity/ar-invoices:
+    get:
+      operationId: listGlTransactionLinesForArInvoices
+      summary: List GL Transaction Lines For AR Invoices
+      tags:
+      - General Ledger Transactions API
+      description: List GL transaction lines for AR invoices based on specified parameters.
+      parameters:
+      - name: accountId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the GL transaction account.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL transaction fiscal period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date on which a GL transaction was recorded.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date on which a GL transaction was recorded.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralLedgerActivityARInvoiceDto'
+        '400':
+          description: The validation result for an invalid account ID.
+      x-source: https://developers.plex.com/api/documentation/general-ledger-transactions-api/list-gl-transaction-lines-for-ar-invoices
+  /accounting/v1/general-ledger-activity/journal-entries:
+    get:
+      operationId: listGlTransactionLinesForJournals
+      summary: List GL Transaction Lines For Journals
+      tags:
+      - General Ledger Transactions API
+      description: List GL transaction lines for journal based on specified parameters.
+      parameters:
+      - name: accountId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the GL transaction account.
+      - name: periodDisplay
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The GL transaction fiscal period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date on which a GL transaction was recorded.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date on which a GL transaction was recorded.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date used to return GL journal entries modified within a time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date used to return GL journal entries modified within a time frame.
+      - name: period13
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that a GL journal entry has a 13th period.
+      - name: periodAdjustmentEntries
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that a GL journal entry has a period adjustment use.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneralLedgerActivityJournalDto'
+        '400':
+          description: The validation result for an invalid account ID.
+      x-source: https://developers.plex.com/api/documentation/general-ledger-transactions-api/list-gl-transaction-lines-for-journals
+components:
+  schemas:
+    GeneralLedgerActivityARInvoiceDto:
+      type: object
+      description: The General Ledger Activity - AR Invoice model.
+      properties:
+        periodDisplay:
+          type: string
+          description: The GL transaction fiscal period date.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which a GL transaction was recorded.
+          example: '2026-10-20T12:03:12Z'
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The GL transaction account number.
+          example: string
+        baseSegment:
+          type: string
+          description: The GL transaction base account segment.
+          example: string
+        costCenterSegment:
+          type: string
+          description: The GL transaction account cost center segment.
+          example: string
+        subAccountSegment:
+          type: string
+          description: The GL transaction account location segment.
+          example: string
+        description:
+          type: string
+          description: A description of the GL transaction.
+          example: string
+        credit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a credit.
+          example: 0.1
+        debit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency credit.
+          example: 0.1
+        currencyDebit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency debit.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: Accounting job number for GL transaction, if applicable.
+          example: string
+        voucherNumber:
+          type: string
+          description: The GL transaction voucher number.
+          example: string
+        invoiceNumber:
+          type: string
+          description: The GL transaction invoice number.
+          example: string
+        customerId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction AR customer.
+          example: 00000000-0000-0000-0000-000000000000
+        customerCode:
+          type: string
+          description: The GL transaction AR customer code, typically an abbreviated name for the customer.
+          example: string
+    GeneralLedgerActivityAPPaymentDto:
+      type: object
+      description: The General Ledger Activity - AP Payment model.
+      properties:
+        periodDisplay:
+          type: string
+          description: The GL transaction fiscal period date.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which a GL transaction was recorded.
+          example: '2026-10-20T12:03:12Z'
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The GL transaction account number.
+          example: string
+        baseSegment:
+          type: string
+          description: The GL transaction base account segment.
+          example: string
+        costCenterSegment:
+          type: string
+          description: The GL transaction account cost center segment.
+          example: string
+        subAccountSegment:
+          type: string
+          description: The GL transaction account location segment.
+          example: string
+        description:
+          type: string
+          description: A description of the GL transaction.
+          example: string
+        credit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a credit.
+          example: 0.1
+        debit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency credit.
+          example: 0.1
+        currencyDebit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency debit.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: Accounting job number for GL transaction, if applicable.
+          example: string
+        voucherNumber:
+          type: string
+          description: The GL transaction voucher number.
+          example: string
+        paymentNumber:
+          type: string
+          description: The GL transaction AP check payment number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction AP supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The GL transaction AP customer code, typically an abbreviated name for the customer.
+          example: string
+    GeneralLedgerActivityARDepositDto:
+      type: object
+      description: The General Ledger Activity - AR Deposit model.
+      properties:
+        periodDisplay:
+          type: string
+          description: The GL transaction fiscal period date.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which a GL transaction was recorded.
+          example: '2026-10-20T12:03:12Z'
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The GL transaction account number.
+          example: string
+        baseSegment:
+          type: string
+          description: The GL transaction base account segment.
+          example: string
+        costCenterSegment:
+          type: string
+          description: The GL transaction account cost center segment.
+          example: string
+        subAccountSegment:
+          type: string
+          description: The GL transaction account location segment.
+          example: string
+        description:
+          type: string
+          description: A description of the GL transaction.
+          example: string
+        credit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a credit.
+          example: 0.1
+        debit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency credit.
+          example: 0.1
+        currencyDebit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency debit.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: Accounting job number for GL transaction, if applicable.
+          example: string
+        voucherNumber:
+          type: string
+          description: The GL transaction voucher number.
+          example: string
+        depositNumber:
+          type: string
+          description: The GL transaction AR deposit number.
+          example: string
+    GeneralLedgerActivityAPInvoiceDto:
+      type: object
+      description: The General Ledger Activity AP Invoice model.
+      properties:
+        periodDisplay:
+          type: string
+          description: The GL transaction fiscal period date.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which a GL transaction was recorded.
+          example: '2026-10-20T12:03:12Z'
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The GL transaction account number.
+          example: string
+        baseSegment:
+          type: string
+          description: The GL transaction base account segment.
+          example: string
+        costCenterSegment:
+          type: string
+          description: The GL transaction account cost center segment.
+          example: string
+        subAccountSegment:
+          type: string
+          description: The GL transaction account location segment.
+          example: string
+        description:
+          type: string
+          description: A description of the GL transaction.
+          example: string
+        credit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a credit.
+          example: 0.1
+        debit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency credit.
+          example: 0.1
+        currencyDebit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency debit.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: Accounting job number for GL transaction, if applicable.
+          example: string
+        voucherNumber:
+          type: string
+          description: The GL transaction voucher number.
+          example: string
+        invoiceNumber:
+          type: string
+          description: The GL transaction invoice number.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction AP supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The GL transaction AP customer code, typically an abbreviated name for the customer.
+          example: string
+    GeneralLedgerActivityJournalDto:
+      type: object
+      description: The General Ledger Activity GL Journal model.
+      properties:
+        periodDisplay:
+          type: string
+          description: The GL transaction fiscal period.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which a GL transaction was recorded.
+          example: '2026-10-20T12:03:12Z'
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the GL transaction account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The GL transaction account number.
+          example: string
+        baseSegment:
+          type: string
+          description: The GL transaction base account segment.
+          example: string
+        costCenterSegment:
+          type: string
+          description: The GL transaction account cost center segment.
+          example: string
+        subAccountSegment:
+          type: string
+          description: The GL transaction account location segment.
+          example: string
+        description:
+          type: string
+          description: A description of the GL transaction.
+          example: string
+        credit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a credit.
+          example: 0.1
+        debit:
+          type: number
+          format: double
+          description: GL transaction distribution is calculated as a debit.
+          example: 0.1
+        currencyCredit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency credit.
+          example: 0.1
+        currencyDebit:
+          type: number
+          format: double
+          description: GL transaction distribution amount is a foreign currency debit.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: Accounting job number for GL transaction, if applicable.
+          example: string
+        voucherNumber:
+          type: string
+          description: The GL transaction voucher number.
+          example: string
+        journalNumber:
+          type: integer
+          format: int32
+          description: The GL journal entry journal number.
+          example: 0
+        headerDescription:
+          type: string
+          description: The GL journal entry header description.
+          example: string
+        period13:
+          type: boolean
+          description: Specify if a GL journal entry is in the 13th period.
+          example: false
+        periodAdjustmentEntries:
+          type: boolean
+          description: Specify that a GL journal entry has a period adjustment use.
+          example: false
+        governmentIssuedNo:
+          type: string
+          description: The GL journal entry government issued number.
+          example: string
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which a GL journal entry was modified.
+          example: '2026-10-20T12:03:12Z'
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

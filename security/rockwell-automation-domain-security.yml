@@ -1,4 +1,4 @@
-generated: '2026-07-11'
+generated: '2026-10-20'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -24,10 +24,11 @@ domains:
 - domain: rockwellautomation.com
   dnssec: false
   caa:
-  - 0 issue "digicert.com"
   - 1 issue "letsencrypt.org"
+  - 0 issue "digicert.com"
   spf: true
-  dmarc: false
+  dmarc: true
+  dmarc_policy: reject
 - domain: plex.com
   dnssec: false
   caa: []

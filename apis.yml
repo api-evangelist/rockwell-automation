@@ -30,12 +30,7 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rockwell-automation.png
 name: Rockwell Automation
-description: Rockwell Automation is a global provider of industrial automation and
-  digital transformation solutions, helping manufacturers boost productivity, sustainability,
-  and agility. The company offers a portfolio of hardware, software, and services
-  including programmable logic controllers (PLCs), industrial networking, motor control,
-  safety systems, and the FactoryTalk software suite for MES, SCADA, historian, remote
-  access, and industrial data management.
+description: Rockwell Automation is a global provider of industrial automation and digital transformation solutions, helping manufacturers boost productivity, sustainability, and agility. The company offers a portfolio of hardware, software, and services including programmable logic controllers (PLCs), industrial networking, motor control, safety systems, and the FactoryTalk software suite for MES, SCADA, historian, remote access, and industrial data management.
 type: Index
 url: https://raw.githubusercontent.com/api-evangelist/rockwell-automation/refs/heads/main/apis.yml
 tags:
@@ -55,107 +50,54 @@ tags_raw:
 - Fortune 500
 - Industrial
 created: '2026-03-21'
-modified: '2026-05-02'
+modified: '2026-10-20'
 specificationVersion: '0.23'
-apis:
-- aid: rockwell-automation:plex-erp-api
-  name: Rockwell Automation Plex ERP API
-  description: Plex by Rockwell Automation provides a Smart Manufacturing Platform
-    ERP API with REST/JSON endpoints for customer orders, shipping, production, quality,
-    and just-in-sequence parts delivery. Enables integration with third-party systems
-    and cloud services through role-based security.
-  tags:
-  - ERP
-  - Manufacturing
-  - Smart Manufacturing
-  - REST
-  - Industrial Automation
-  humanURL: https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
-  baseURL: https://api.plex.com
-  properties:
-  - url: https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
-    type: Documentation
-  - url: https://developers.plex.com/docs
-    type: Portal
-  - url: https://docs.plex.com/welcome
-    type: Documentation
-- aid: rockwell-automation:factorytalk-datamosaix-api
-  name: Rockwell Automation FactoryTalk DataMosaix API
-  description: FactoryTalk DataMosaix is an Industrial DataOps solution that provides
-    REST API access for industrial data management, contextualization, and analytics.
-    Supports machine-to-machine (M2M) communication, data ingestion, visualization,
-    and integration with enterprise analytics tools via OpenAPI-specified endpoints
-    accessible through Swagger UI.
-  tags:
-  - Industrial Data
-  - DataOps
-  - Manufacturing
-  - REST
-  - Industrial Automation
-  humanURL: https://www.rockwellautomation.com/en-us/products/software/factorytalk/datamosaix.html
-  baseURL: https://datamosaix-portal.cloud.rockwellautomation.com
-  properties:
-  - url: https://www.rockwellautomation.com/en-us/docs/factorytalk-datamosaix/current/online-help-ditamap/api-reference.html
-    type: Documentation
-  - url: https://www.rockwellautomation.com/en-us/products/software/factorytalk/datamosaix.html
-    type: Website
-- aid: rockwell-automation:factorytalk-remote-access-api
-  name: Rockwell Automation FactoryTalk Remote Access Web API
-  description: FactoryTalk Remote Access (FTRA) Web API provides RESTful HTTP interface
-    for remote access management, enabling developers to integrate industrial device
-    remote access capabilities into third-party applications and proprietary systems.
-    Supports GET, POST, PUT, PATCH, and DELETE operations for device and session management.
-  tags:
-  - Remote Access
-  - Industrial Automation
-  - REST
-  - Manufacturing
-  humanURL: https://www.rockwellautomation.com/en-us/products/software/factorytalk/remote-access.html
-  baseURL: https://api.rockwellautomation.com
-  properties:
-  - url: https://www.rockwellautomation.com/en-pr/docs/factorytalk-remote-access/ubiquity-ftra-help/ftra-ditamap/web-api.html
-    type: Documentation
-- aid: rockwell-automation:logix-designer-api
-  name: Rockwell Automation Logix Designer SDK
-  description: The Studio 5000 Logix Designer Software Development Kit (LDSDK) provides
-    programmatic access to Logix controller programming for CI/CD pipeline automation,
-    version control integration, and export of L5X controller files for PLC program
-    management.
-  tags:
-  - PLC
-  - Programming
-  - SDK
-  - Industrial Automation
-  - Manufacturing
-  humanURL: https://github.com/RockwellAutomation/ra-logix-designer-vcs-custom-tools
-  baseURL: https://github.com/RockwellAutomation
-  properties:
-  - url: https://github.com/RockwellAutomation/ra-logix-cicd
-    type: GitHubRepository
-  - url: https://github.com/RockwellAutomation/ra-logix-designer-vcs-custom-tools
-    type: GitHubRepository
-- aid: rockwell-automation:emulate3d-api
-  name: Rockwell Automation Emulate3D API
-  description: Emulate3D Core API provides programmatic access to 3D simulation and
-    digital twin capabilities for factory automation. Enables integration with Nvidia
-    Omniverse and custom automation workflows via scripting interfaces.
-  tags:
-  - Digital Twin
-  - Simulation
-  - Industrial Automation
-  - Manufacturing
-  humanURL: https://github.com/RockwellAutomation/ra-emulate3d-core-samples
-  baseURL: https://github.com/RockwellAutomation
-  properties:
-  - url: https://github.com/RockwellAutomation/ra-emulate3d-core-samples
-    type: GitHubRepository
-  - url: https://github.com/RockwellAutomation/ra-emulate3d-kit-app-template
-    type: GitHubRepository
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
 common:
-- type: Plans
-  url: plans/rockwell-automation-plans-pricing.yml
+- type: Security
+  url: https://engage.rockwellautomation.com/HigherLogic/Security/SAML/localSAMLLoginService.aspx?ReturnUrl=https%3a%2f%2fengage.rockwellautomation.com%2fhome
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/rockwell-automation-agentic-access.yml
 - type: RateLimits
   url: rate-limits/rockwell-automation-rate-limits.yml
+- type: Spectral
+  url: rules/rockwell-automation-rules.yml
+- type: Spectral
+  url: rules/rockwell-automation-jsonschema-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/rockwell-automation-context.jsonld
+- type: DataModel
+  url: data-model/rockwell-automation-data-model.yml
+- type: Conventions
+  url: conventions/rockwell-automation-conventions.yml
+- type: Sandbox
+  url: sandbox/rockwell-automation-sandbox.yml
+- type: ErrorCatalog
+  url: errors/rockwell-automation-problem-types.yml
+- type: Conformance
+  url: conformance/rockwell-automation-conformance.yml
+- type: LLMsTxt
+  url: llms/rockwell-automation-llms.txt
+- type: SecurityTxt
+  url: well-known/rockwell-automation-security.txt
+- type: SecurityTxt
+  url: well-known/rockwell-automation-developers-security.txt
+- type: WellKnown
+  url: well-known/rockwell-automation-well-known.yml
+- type: Hosts
+  url: hosts/rockwell-automation-hosts.yml
+- type: IntegrationEdges
+  url: integrations/rockwell-automation-integration-edges.yml
+- type: Vendors
+  url: vendors/rockwell-automation-vendors.yml
+- type: Authentication
+  url: authentication/rockwell-automation-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/rockwell-automation-vulnerability-disclosure.yml
 - type: FinOps
   url: finops/rockwell-automation-finops.yml
 - type: DomainSecurity
@@ -184,6 +126,2809 @@ common:
   type: JSONLDContext
 - url: vocabulary/rockwell-automation-vocabulary.yml
   type: Vocabulary
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+- url: https://developers.plex.com
+  type: DeveloperPortal
+- url: https://engage.rockwellautomation.com/termsandconditions
+  type: TermsOfService
+apis:
+- aid: rockwell-automation:factorytalk-datamosaix-api
+  name: Rockwell Automation FactoryTalk DataMosaix API
+  description: >-
+    FactoryTalk DataMosaix is an Industrial DataOps solution that provides REST API access for industrial
+    data management, contextualization, and analytics. Supports machine-to-machine (M2M) communication,
+    data ingestion, visualization, and integration with enterprise analytics tools via OpenAPI-specified
+    endpoints accessible through Swagger UI.
+  tags:
+  - Industrial Data
+  - DataOps
+  - Manufacturing
+  - REST
+  - Industrial Automation
+  humanURL: https://www.rockwellautomation.com/en-us/products/software/factorytalk/datamosaix.html
+  baseURL: https://datamosaix-portal.cloud.rockwellautomation.com
+  properties:
+  - url: >-
+      https://www.rockwellautomation.com/en-us/docs/factorytalk-datamosaix/current/online-help-ditamap/api-reference.html
+    type: Documentation
+  - url: https://www.rockwellautomation.com/en-us/products/software/factorytalk/datamosaix.html
+    type: Website
+- aid: rockwell-automation:factorytalk-remote-access-api
+  name: Rockwell Automation FactoryTalk Remote Access Web API
+  description: >-
+    FactoryTalk Remote Access (FTRA) Web API provides RESTful HTTP interface for remote access management,
+    enabling developers to integrate industrial device remote access capabilities into third-party applications
+    and proprietary systems. Supports GET, POST, PUT, PATCH, and DELETE operations for device and session
+    management.
+  tags:
+  - Remote Access
+  - Industrial Automation
+  - REST
+  - Manufacturing
+  humanURL: >-
+    https://www.rockwellautomation.com/en-us/products/software/factorytalk/remote-access.html
+  baseURL: https://api.rockwellautomation.com
+  properties: []
+- aid: rockwell-automation:logix-designer-api
+  name: Rockwell Automation Logix Designer SDK
+  description: >-
+    The Studio 5000 Logix Designer Software Development Kit (LDSDK) provides programmatic access to Logix
+    controller programming for CI/CD pipeline automation, version control integration, and export of L5X
+    controller files for PLC program management.
+  tags:
+  - PLC
+  - Programming
+  - SDK
+  - Industrial Automation
+  - Manufacturing
+  humanURL: https://github.com/RockwellAutomation/ra-logix-designer-vcs-custom-tools
+  baseURL: https://github.com/RockwellAutomation
+  properties:
+  - url: https://github.com/RockwellAutomation/ra-logix-cicd
+    type: GitHubRepository
+  - url: https://github.com/RockwellAutomation/ra-logix-designer-vcs-custom-tools
+    type: GitHubRepository
+- aid: rockwell-automation:emulate3d-api
+  name: Rockwell Automation Emulate3D API
+  description: >-
+    Emulate3D Core API provides programmatic access to 3D simulation and digital twin capabilities for
+    factory automation. Enables integration with Nvidia Omniverse and custom automation workflows via
+    scripting interfaces.
+  tags:
+  - Digital Twin
+  - Simulation
+  - Industrial Automation
+  - Manufacturing
+  humanURL: https://github.com/RockwellAutomation/ra-emulate3d-core-samples
+  baseURL: https://github.com/RockwellAutomation
+  properties:
+  - url: https://github.com/RockwellAutomation/ra-emulate3d-core-samples
+    type: GitHubRepository
+  - url: https://github.com/RockwellAutomation/ra-emulate3d-kit-app-template
+    type: GitHubRepository
+- aid: rockwell-automation:rockwell-automation-accounts-payable-invoices-api-api
+  name: Rockwell Automation Accounts Payable Invoices API
+  description: >-
+    The Accounts Payable Invoices API is used to retrieve Accounts Payable invoices, Accounts Payable
+    invoice lines, and Accounts Payable invoice tax data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Accounts Payable Invoices API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-accounts-payable-invoices-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-accounts-payable-payments-api-api
+  name: Rockwell Automation Accounts Payable Payments API
+  description: >-
+    The Accounts Payable Payments API is used to retrieve Accounts Payable Payments, Accounts Payable
+    Payment Lines and Accounts Payable Payment Checks data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Accounts Payable Payments API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-accounts-payable-payments-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-accounts-receivable-deposits-api-api
+  name: Rockwell Automation Accounts Receivable Deposits API
+  description: >-
+    The Account Receivable Deposits API is used to retrieve Account Receivable Deposits and Account Receivable
+    Deposit Lines data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Accounts Receivable Deposits API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-accounts-receivable-deposits-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-accounts-receivable-invoices-api-api
+  name: Rockwell Automation Accounts Receivable Invoices API
+  description: >-
+    The Accounts Receivable Invoices API is used to retrieve Accounts Receivable invoices, Accounts Receivable
+    invoice lines, and Accounts Receivable invoice tax data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Accounts Receivable Invoices API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-accounts-receivable-invoices-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-activity-manager-api-api
+  name: Rockwell Automation Activity Manager API
+  description: The Activity Manager API is used to manage activity data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Activity Manager API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-activity-manager-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-approved-suppliers-api-api
+  name: Rockwell Automation Approved Suppliers API
+  description: >-
+    The Approved Suppliers API is used to retrieve approved suppliers and pricing information.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Approved Suppliers API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-approved-suppliers-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-bom-api-api
+  name: Rockwell Automation BOM API
+  description: The BOM API is used to manage BOM Data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - BOM API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-bom-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-buildings-api-api
+  name: Rockwell Automation Buildings API
+  description: The Building API is used to manage building data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Buildings API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-buildings-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-chart-of-accounts-api-api
+  name: Rockwell Automation Chart of Accounts API
+  description: The Chart of Accounts API is used to manage the chart of accounts master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Chart of Accounts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-chart-of-accounts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-checksheet-api-api
+  name: Rockwell Automation Checksheet API
+  description: The Checksheets API is used to manage checksheet data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Checksheet API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-checksheet-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-checksheet-type-api-api
+  name: Rockwell Automation Checksheet Type API
+  description: The Checksheet Types API is used to manage checksheet type data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Checksheet Type API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-checksheet-type-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-contacts-api-api
+  name: Rockwell Automation Contacts API
+  description: The Contacts API is used to manage contact master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Contacts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-contacts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-control-plan-types-api-api
+  name: Rockwell Automation Control Plan Types API
+  description: The Control Plan Types API is used to manage control plan type data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Control Plan Types API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-control-plan-types-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-control-plans-api-api
+  name: Rockwell Automation Control Plans API
+  description: The Control Plans API is used to manage control plan data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Control Plans API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-control-plans-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-custom-fields-api-api
+  name: Rockwell Automation Custom Fields API
+  description: The custom fields API to query standard objects, field definitions, field types
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Custom Fields API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-custom-fields-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-custom-objects-api-api
+  name: Rockwell Automation Custom Objects API
+  description: >-
+    The custom objects API to query custom objects, custom object field definitions, and data records
+    of custom objects.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Custom Objects API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-custom-objects-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-customer-parts-api-api
+  name: Rockwell Automation Customer Parts API
+  description: The Customer Parts API is used to manage customer part master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Customer Parts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-customer-parts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-customer-shippers-api-api
+  name: Rockwell Automation Customer Shippers API
+  description: The Customer Shippers API is used to manage customer shipper data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Customer Shippers API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-customer-shippers-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-customer-trucks-api-api
+  name: Rockwell Automation Customer Trucks API
+  description: The Customer Trucks API is used to manage customer truck data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Customer Trucks API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-customer-trucks-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-customers-api-api
+  name: Rockwell Automation Customers API
+  description: >-
+    The Customers API is used to manage customer master data, including financial information and addresses.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Customers API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-customers-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-deviation-status-api-api
+  name: Rockwell Automation Deviation Status API
+  description: The Deviation Status API is used to manage deviation status data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Deviation Status API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-deviation-status-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-deviations-api-api
+  name: Rockwell Automation Deviations API
+  description: The Deviations API is used to manage deviation data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Deviations API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-deviations-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-digital-work-instructions-api-api
+  name: Rockwell Automation Digital Work Instructions API
+  description: >-
+    The Digital Work Instructions API provides endpoints for managing and retrieving process groups, process
+    steps, and reporting on process step execution information for digital work instructions.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Digital Work Instructions API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-digital-work-instructions-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-document-control-system-api-api
+  name: Rockwell Automation Document Control System API
+  description: The Document Control System (DCS) API is used retrieve documents and list attachments.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Document Control System API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-document-control-system-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-dynamic-multi-out-sets-api-api
+  name: Rockwell Automation Dynamic Multi Out Sets API
+  description: The Dynamic Multi Out Sets API is used to manage dynamic multi out set data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Dynamic Multi Out Sets API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-dynamic-multi-out-sets-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-dynamic-multi-out-templates-api-api
+  name: Rockwell Automation Dynamic Multi Out Templates API
+  description: The Dynamic Multi Out Templates API is used to manage dynamic multi out template data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Dynamic Multi Out Templates API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-dynamic-multi-out-templates-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-edi-api-api
+  name: Rockwell Automation EDI API
+  description: The EDI API is used to manage EDI data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - EDI API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-edi-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-employees-api-api
+  name: Rockwell Automation Employees API
+  description: >-
+    The Employees API is used to manage employee and user master data. Note: Any endpoints that alter
+    data cannot be used if your PCN has been fully migrated to IAM.  The Get and List endpoints are still
+    accessible.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Employees API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-employees-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-equipment-api-api
+  name: Rockwell Automation Equipment API
+  description: The Equipment API is used to manage equipment data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Equipment API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-equipment-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-fiscal-period-statuses-api-api
+  name: Rockwell Automation Fiscal Period Statuses API
+  description: The Fiscal Period Statuses API is used to retrieve Fiscal Period Status data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Fiscal Period Statuses API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-fiscal-period-statuses-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-formula-types-api-api
+  name: Rockwell Automation Formula Types API
+  description: The Formula Types API is used to manage formula types data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Formula Types API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-formula-types-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-general-ledger-transactions-api-api
+  name: Rockwell Automation General Ledger Transactions API
+  description: >-
+    The General Ledger Transactions API is used to retrieve General Ledger Transactions data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - General Ledger Transactions API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-general-ledger-transactions-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-id-conversion-api-api
+  name: Rockwell Automation Id Conversion API
+  description: >-
+    The Identity Mappings API is used to retrieve a list of IDs for a specified standard object by searching
+    against keys or retrieves a list of identity keys and their values that uniquely identify a standard
+    object record.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Id Conversion API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-id-conversion-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-inspection-modes-api-api
+  name: Rockwell Automation Inspection Modes API
+  description: The Inspection Modes API is used to manage inspection modes data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Inspection Modes API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-inspection-modes-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-inventory-operations-management-api-api
+  name: Rockwell Automation Inventory Operations Management API
+  description: >-
+    Manage and monitor inventory of purchased components, WIP, and Finished Goods.
+
+    Disclaimer: This API contains a mixture of stable and beta endpoints. Some endpoints have been recently
+    added as a part of a limited beta release for our community to test and review documentation. Beta
+    endpoints have limited support duration and may be subject to change. We're very interested in your
+    feedback, which you can provide here: Plex-API-Beta@Plex.com.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Inventory Operations Management API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-inventory-operations-management-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-inventory-tracking-api-api
+  name: Rockwell Automation Inventory Tracking API
+  description: The Inventory Tracking API is used to manage Inventory Data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Inventory Tracking API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-inventory-tracking-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-job-scheduling-api-api
+  name: Rockwell Automation Job Scheduling API
+  description: Manage and schedule production jobs.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Job Scheduling API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-job-scheduling-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-journal-entries-api-api
+  name: Rockwell Automation Journal Entries API
+  description: The Journal Entries API is used to retrieve journal entries and journal entry lines.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Journal Entries API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-journal-entries-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-just-in-sequence-api-api
+  name: Rockwell Automation Just In Sequence API
+  description: The Just In Sequence API is used to manage sequenced shipping data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Just In Sequence API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-just-in-sequence-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-key-measurables-api-api
+  name: Rockwell Automation Key Measurables API
+  description: >-
+    The Key Measurables API is used to manage key measurable (metric) data displayed on the Business Function
+    Dashboard in Plex.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Key Measurables API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-key-measurables-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-kit-recommendations-api-api
+  name: Rockwell Automation Kit Recommendations API
+  description: The Kit Recommendations API is used to manage BOM recommendations for Material Kitting.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Kit Recommendations API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-kit-recommendations-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-operating-parameters-api-api
+  name: Rockwell Automation Operating Parameters API
+  description: >-
+    The Operating Parameters API is used to manage operating parameters data. The Operating Parameters
+    module must be enabled.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Operating Parameters API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-operating-parameters-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-part-specifications-api-api
+  name: Rockwell Automation Part Specifications API
+  description: The Part Specifications API is used to manage part specifications data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Part Specifications API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-part-specifications-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-parts-api-api
+  name: Rockwell Automation Parts API
+  description: The Parts API is used to manage part master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Parts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-parts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-plex-apm-api-api
+  name: Rockwell Automation Plex APM API
+  description: >-
+    The 'Plex APM API' is used to fetch equipment(assets) and parameters(tags) data from Plex APM(IIoT).
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Plex APM API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-plex-apm-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-plex-apm-odata-api-api
+  name: Rockwell Automation Plex APM OData API
+  description: >-
+    Tag Data Endpoint
+
+    You can use this to query the data points(numerical tags data) and events(boolean and string tags
+    data) from Plex APM. In order to query the data, currently, only $filter, $select and $top query parameters
+    are supported.
+
+    How to use the API:
+
+
+    Parameter $filter query is required.
+
+    Parameter $filter query must always have StartDateTime and EndDateTime.
+
+    For $filter query, allowed logical operators are: eq/and/in/startswith/endswith.
+
+    All query parameters are case-sensitive.
+
+    All query paramters should be provided in complete length with eq or in logical operators. A partial
+    match won't be returned in the response.
+
+    Startswith, Endswith operator currently support only AssetCode, AssetName, TagName and TagAlias for
+    partial text search or wildcard search. The response will always have StartDateTime and EndDateTime
+    query parameters returned with null value hence this can be ignored. The actual timestamp of the record
+    is indicated by ReceivedISOTimestamp in the response.
+
+    For $filter query, start date cannot be before 2019-01-01T00:00:00Z.
+
+    Parameter $top query is optional with max limit of 50000.
+
+    Parameter $orderBy is not supported.
+
+    Parameter $filter date range defined by StartDateTime and EndDateTime must not exceed 31 days.
+
+
+    Query Options
+
+    Following are sample OData parameters queries (Query options overview - OData | Microsoft Docs)
+
+    $select: For retrieving specific columns in the response, you should provide $select parameter. Following
+    are the acceptable values for select query:
+
+
+    AssetCode
+
+    AssetName
+
+    TagName
+
+    TagAlias
+
+    DataType
+
+    StreamType
+
+    Value
+
+    MeasuringUnit
+
+    Quality
+
+    ReceivedISOTimestamp
+
+    Severity
+
+    EventReason
+
+    Source
+
+    GatewayName
+
+    GatewayId
+
+    StartDateTime
+
+    EndDateTime
+
+
+    $top: For limiting response to a specific record count, you should provide $top parameter. If user
+    does not provide $top parameter, response will be served with a default limit of 50000. $top accepts
+    a non-negative integer value.
+
+    $filter: For fetching the tag data, you must provide $filter parameter. Allowed logical operators
+    for filter query are - eq, and, in, startswith, endswith. Following list describes allowed $filter
+    query parameters, along with their acceptable values/format:
+
+
+    StartDateTime: Start datetime for the filter query is mandatory.Valid format: YYYY-MM-DDThh:mm:ssZ.
+
+    EndDateTime: End datetime for the filter query is mandatory.Valid format: YYYY-MM-DDThh:mm:ssZ.
+
+    AssetCode: Single or comma-separated list of asset codes using eq or in or startswith or endswith
+    respectively, for which response is retrieved. This parameter is case-sensitive and requires the complete
+    asset code for matching using eq or in. For partial text search, use startswith or endswith.
+
+    AssetName: Single or comma-separated list of asset names using eq or in or startswith or endswith
+    respectively, for which response is retrieved. This parameter is case-sensitive and requires the complete
+    asset name for matching using eq or in. For partial text search, use startswith or endswith.
+
+    TagName: Single or comma-separated list of tag names using eq or in or startswith or endswith respectively,
+    for which response is retrieved. This parameter is case-sensitive and requires the complete tag name
+    for matching using eq or in. For partial text search, use startswith or endswith.
+
+    TagAlias: Single or comma-separated list of tag alias using eq or in or startswith or endswith respectively,
+    for which response is retrieved. This parameter is case-sensitive and requires the complete tag alias
+    for matching using eq or in.For partial text search, use startswith or endswith.
+
+    DataType: Single or comma-separated list of data types using eq or in or startswith or endswith respectively,
+    for which response is retrieved.This parameter is case-sensitive and requires the complete data type
+    for matching. Following are the allowed values for data type: Numerical, Boolean, String.
+
+    StreamType: Single or comma-separated list of stream types using eq or in or startswith or endswith
+    respectively, for which response is retrieved. Stream type values are case-sensitive and requires
+    the complete stream type for matching. Following are the allowed values for stream type:
+
+
+    Boolean: Problem, Abnormal, Action Required, Maintenance, In-Cycle, Idle, Off, Other and any user-defined
+    Boolean stream types.
+
+    Numerical: Threshold, Discreet, Continuous.
+
+    String: Part Number, Batch Number, Job Number, Operation Code, Operation Number, Other, Lot Number,
+    Process Code, Tool Number` and any user-defined string stream types.
+
+
+
+    MeasuringUnit: Single or comma-separated list of unit abbreviation using eq or in respectively, for
+    which response is retrieved. This parameter is case-sensitive and requires the complete unit abbreviation
+    for matching.
+
+    Source: Single or comma-separated list of sources using eq or in or startswith or endswith respectively.
+    A source in Plex APM could be a gateway name, 'Complex Event Processor' for threshold events, or a
+    system-defined source for user actions. This parameter is case-sensitive and requires the complete
+    source name for matching.
+
+    GatewayName: Single or comma-separated list of gateway name using eq or in or startswith or endswith
+    respectively, for which response is retrieved. This parameter is case-sensitive and requires the complete
+    gateway name for matching.
+
+    GatewayId: Single or comma-separated list of gateway ID using eq or in or startswith or endswith respectively,
+    for which response is retrieved. This parameter is case-sensitive and requires the complete gateway
+    ID for matching.
+
+
+    Following are examples of filter, select, and top query that combine logical operator and query parameters.
+
+
+    $filter=startdatetime eq 2021-07-12T00:00:00Z and enddatetime eq 2021-07-12T07:01:55Z
+
+    $filter=startdatetime eq 2021-07-12T00:00:00Z and enddatetime eq 2021-07-12T07:01:55Z and source in
+    ('GatewayName1', 'GatewayName2') and assetcode eq 'AssetCode1' and assetname in ('AssetName1')
+
+    $filter=startdatetime eq 2021-07-12T00:00:00Z and enddatetime eq 2021-07-12T07:01:55Z and assetcode
+    in ('AssetCode1', 'AssetCode2') and tagName in ('TagName1', 'TagName2')&amp;$select=TagName, AssetCode,
+    AssetName, GatewayName, Value,ReceivedISOTimestamp&amp;$top=10
+
+    $filter=startdatetime eq 2021-07-12T00:00:00Z and enddatetime eq 2021-07-12T07:01:55Z and startswith(tagname,'Ex')
+    and endswith(tagname,'Bool')
+
+    $filter=startdatetime eq 2021-07-12T00:00:00Z and enddatetime eq 2021-07-12T07:01:55Z and startswith(tagalias,'Ex')
+    and endswith(tagalias,'Bool') and assetname eq 'Broach-06' and MeasuringUnit eq 'kA'
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Plex APM OData API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-plex-apm-odata-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-price-adjustments-api-api
+  name: Rockwell Automation Price Adjustments API
+  description: The Price Adjustments API is used to manage price adjustment data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Price Adjustments API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-price-adjustments-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-process-control-plans-api-api
+  name: Rockwell Automation Process Control Plans API
+  description: >-
+    The Process Control Plans API is used to manage process control recipe control plans data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Process Control Plans API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-process-control-plans-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-process-control-recipe-family-api-api
+  name: Rockwell Automation Process Control Recipe Family API
+  description: >-
+    The Process Control Recipe Family API is used to manage process control recipe family data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Process Control Recipe Family API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-process-control-recipe-family-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-process-control-recipe-family-types-api-api
+  name: Rockwell Automation Process Control Recipe Family Types API
+  description: >-
+    The Process Control Recipe Family Types API is used to manage process control recipe family types
+    data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Process Control Recipe Family Types API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-process-control-recipe-family-types-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-process-routings-api-api
+  name: Rockwell Automation Process Routings API
+  description: The Process Routings API is used to manage part operations.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Process Routings API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-process-routings-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-process-specifications-api-api
+  name: Rockwell Automation Process Specifications API
+  description: The Process Specifications API is used to manage process specification data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Process Specifications API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-process-specifications-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-production-operations-management-api-api
+  name: Rockwell Automation Production Operations Management API
+  description: >-
+    Manage and monitor shop floor activities.
+
+    Disclaimer: This API contains a mixture of stable and beta endpoints. Some endpoints have been recently
+    added as a part of a limited beta release for our community to test and review documentation. Beta
+    endpoints have limited support duration and may be subject to change. We're very interested in your
+    feedback, which you can provide here: Plex-API-Beta@Plex.com.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Production Operations Management API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-production-operations-management-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-purchase-order-releases-api-api
+  name: Rockwell Automation Purchase Order Releases API
+  description: The Purchase Order Releases API is used to retrieve and modify purchase order releases.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Purchase Order Releases API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-purchase-order-releases-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-purchase-order-releases-batch-api-api
+  name: Rockwell Automation Purchase Order Releases Batch API
+  description: >-
+    Use the Purchase Order Releases Batch API to send a large number of release Create, Update, or Cancel
+    requests to Plex for processing. Send a POST request to a batch endpoint and Plex will process the
+    requests. Use a GET request to track the status of the batch request as it is processing.
+
+    Instructions:
+
+
+    Create a batch by submitting a POST request to one of the batch endpoints:
+
+
+    POST purchasing/v1/release-batch/cancel
+
+    POST purchasing/v1/release-batch/update
+
+    POST purchasing/v1/release-batch/create
+
+    POST purchasing/v1/release-batch/delete
+
+    POST purchasing/v2-beta1/release-batch/delete
+
+
+
+    Format the request to use the appropriate Resource IDs and data.
+
+    For Create Releases, provide a unique identifier for the release or it will be  automatically generated.
+
+    Save the Batch Request ID that is returned in the response. Use this ID to check the status of the
+    batch process.
+
+    Use the Batch Request ID in a GET request to purchasing/v1/release-batch/{id} at regular intervals
+    to view the status of releases that have been processed and to view any failure information.
+
+    When the batch is complete, persist any errors that the customer encountered.
+
+
+    At this time, the following functions of Plex are not supported by this API:
+
+
+    Revision Tracking
+
+    Email and EDI Notifications
+
+    Multi-Entity Releases
+
+    JIT / RAN
+
+    Creation of Release Jobs
+
+
+    Additional Technical Limitations:
+
+
+    Request Body Size Maximum: 10MB
+
+    GET Release Batch Endpoint
+
+
+    Batch progress data will only persist in Plex for a short period of time.
+
+    Successful request data will remain for 1 day.
+
+    Failed request data will remain for 3 days.
+
+    NOTE: The actual purchase order release data being created/modified will persist indefinitely as usual.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Purchase Order Releases Batch API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-purchase-order-releases-batch-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-purchase-orders-api-api
+  name: Rockwell Automation Purchase Orders API
+  description: >-
+    The Purchase Orders API is used to retrieve purchase order information, including line items. This
+    API exposes endpoints to retrieve purchase orders and their sub-resources in the context of Purchasing.
+    Use a GET request to retrieve the information about purchase orders, line items related to purchase
+    orders, purchase order types, and statuses.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Purchase Orders API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-purchase-orders-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-receipts-api-api
+  name: Rockwell Automation Receipts API
+  description: The Receipts API is used to retrieve receipts.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Receipts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-receipts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-sales-orders-api-api
+  name: Rockwell Automation Sales Orders API
+  description: The Sales Orders API is used to manage sales order data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Sales Orders API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-sales-orders-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-sales-releases-api-api
+  name: Rockwell Automation Sales Releases API
+  description: The Sales Releases API is used to manage sales release data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Sales Releases API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-sales-releases-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-sample-plans-api-api
+  name: Rockwell Automation Sample Plans API
+  description: The Sample Plans API is used to manage sample plan data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Sample Plans API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-sample-plans-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-shipping-inventory-api-api
+  name: Rockwell Automation Shipping Inventory API
+  description: The Shipping Inventory API is used to manage shipping inventory data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Shipping Inventory API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-shipping-inventory-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-specification-types-api-api
+  name: Rockwell Automation Specification Types API
+  description: The Specification Types API is used to manage specification type data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Specification Types API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-specification-types-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-supplier-returns-api-api
+  name: Rockwell Automation Supplier Returns API
+  description: The Supplier Returns API is used to retrieve supplier returns, including line items.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Supplier Returns API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-supplier-returns-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-suppliers-api-api
+  name: Rockwell Automation Suppliers API
+  description: >-
+    The Suppliers API is used to manage supplier master data, including financial information, addresses,
+    and purchasing information.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Suppliers API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-suppliers-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-supply-item-suppliers-api-api
+  name: Rockwell Automation Supply Item Suppliers API
+  description: >-
+    The Supply Item Suppliers API is used to retrieve supply item suppliers and pricing information.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Supply Item Suppliers API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-supply-item-suppliers-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-supply-items-api-api
+  name: Rockwell Automation Supply Items API
+  description: The Supply Items API is used to manage supply item master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Supply Items API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-supply-items-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-tenant-directory-api-api
+  name: Rockwell Automation Tenant Directory API
+  description: >-
+    The Tenant Directory API is used to retrieve tenant information for use with other Plex APIs.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Tenant Directory API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-tenant-directory-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-time-clock-entries-api-api
+  name: Rockwell Automation Time Clock Entries API
+  description: The Time Clock Entries API is used to retrieve time clock entries.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Time Clock Entries API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-time-clock-entries-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-tolerance-types-api-api
+  name: Rockwell Automation Tolerance Types API
+  description: The Tolerance Types API is used to manage tolerance types data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Tolerance Types API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-tolerance-types-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-transfer-orders-api-api
+  name: Rockwell Automation Transfer Orders API
+  description: The Transfer Orders API is used to manage transfer order data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Transfer Orders API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-transfer-orders-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-trial-balances-api-api
+  name: Rockwell Automation Trial Balances API
+  description: The Trial Balances API is used to retrieve Trial Balance data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - Trial Balances API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-trial-balances-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+- aid: rockwell-automation:rockwell-automation-user-accounts-api-api
+  name: Rockwell Automation User Accounts API
+  description: The User Accounts API is used to manage user account master data.
+  humanURL: >-
+    https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  baseURL: https://connect.plex.com
+  tags:
+  - User Accounts API
+  properties:
+  - type: OpenAPI
+    url: openapi/rockwell-automation-user-accounts-api-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://plex.rockwellautomation.com/en-us/resources/enterprise-resource-planning-erp-apis.html
+  - type: Portal
+    url: https://developers.plex.com/docs
+  - type: Documentation
+    url: https://docs.plex.com/welcome
+  - type: GettingStarted
+    url: https://developers.plex.com/getstarted
+  - type: Postman
+    url: https://documenter.getpostman.com/view/15704995/UVJfjvCx
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-part-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-add-checksheet-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-sync-customer-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-process-specification-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/rockwell-automation-shipper-dto-schema.json
+x-enrichment:
+  date: '2026-10-20'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v5

@@ -1,0 +1,592 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Custom Fields API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Custom Fields API
+  description: The custom fields API to query standard objects, field definitions, field types
+paths:
+  /platform/custom-fields/v1/field-values/delete:
+    post:
+      operationId: deleteFieldValues
+      summary: Delete Field Values
+      tags:
+      - Custom Fields API
+      description: Delete custom field values from the list of specified resources. This operation is limited to 5000 records per transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardObjectInstance'
+      responses:
+        '200':
+          description: Custom field values deleted successfully.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/delete-field-values
+  /platform/custom-fields/v1/field-definitions/{fieldName}:
+    get:
+      operationId: getFieldDefinition
+      summary: Get Field Definition
+      tags:
+      - Custom Fields API
+      description: Get Custom Field Definition by Name.
+      parameters:
+      - name: fieldName
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The name of the field definition that uniquely identifies the field within a standard object and is used internally by the system.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldDefinition'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/get-field-definition
+  /platform/custom-fields/v1/field-types/{fieldTypeName}:
+    get:
+      operationId: getFieldType
+      summary: Get Field Type
+      tags:
+      - Custom Fields API
+      description: Get a data type and its available constraints that can be assigned to a custom field.
+      parameters:
+      - name: fieldTypeName
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The name of the data type used internally by the system.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldType'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/get-field-type
+  /platform/custom-fields/v1/standard-objects/{standardObjectName}:
+    get:
+      operationId: getStandardObject
+      summary: Get Standard Object
+      tags:
+      - Custom Fields API
+      description: Get information about a standard object.
+      parameters:
+      - name: standardObjectName
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The name of the standard object that is used internally by the system.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardObject'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/get-standard-object
+  /platform/custom-fields/v1/field-definitions:
+    get:
+      operationId: listFieldDefinitions
+      summary: List Field Definitions
+      tags:
+      - Custom Fields API
+      description: Retrieve a list of custom field definitions and the standard objects to which they have been added.
+      parameters:
+      - name: fieldName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the field definition that uniquely identifies the field within a standard object and is used internally by the system.
+      - name: fieldLabel
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The display name of the custom field that is used as a label on forms within Plex and on printed documents.
+      - name: standardObjectName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the standard object that is used internally by the system.
+      - name: fieldTypeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the data type used internally by the system.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldDefinition'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/list-field-definitions
+  /platform/custom-fields/v1/field-types:
+    get:
+      operationId: listFieldTypes
+      summary: List Field Types
+      tags:
+      - Custom Fields API
+      description: Retrieve a list of data types that can be assigned to a custom field definition.
+      parameters:
+      - name: fieldTypeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the data type used internally by the system.
+      - name: fieldTypeLabel
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The display name of the data type that is used as a label on forms within Plex.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldType'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/list-field-types
+  /platform/custom-fields/v1/standard-objects:
+    get:
+      operationId: listStandardObjects
+      summary: List Standard Objects
+      tags:
+      - Custom Fields API
+      description: Retrieve a list of standard objects and the property keys that uniquely identify records.
+      parameters:
+      - name: standardObjectName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the standard object that is used internally by the system.
+      - name: standardObjectLabel
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The display name of the standard object that is used on forms within Plex and on printed documents.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardObject'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/list-standard-objects
+  /platform/custom-fields/v1/field-values/save:
+    post:
+      operationId: saveFieldValues
+      summary: Save Field Values
+      tags:
+      - Custom Fields API
+      description: Add or update custom field values for the list of specified resources. This operation is limited to 5000 records per transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardObjectRecord'
+      responses:
+        '200':
+          description: Custom field values saved successfully.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/save-field-values
+  /platform/custom-fields/v1/field-values/search:
+    post:
+      operationId: searchFieldValues
+      summary: Search Field Values
+      tags:
+      - Custom Fields API
+      description: 'Retrieve a list of resources of the specified standard object by searching against record identifiers and custom field values.
+
+        Sample request for search by customer fields
+
+        POST /search
+
+
+        {
+
+        "standardObjectName": "GLJournalDist",
+
+        "fieldValueSearchFilters": [
+
+        {
+
+        fieldName": "decimalTestLine",
+
+        "operation": ">",
+
+        "operand": 10
+
+        },
+
+        {
+
+        "fieldName": "textUniqueLine",
+
+        "operation": "startsWith",
+
+        "operand": "text"
+
+        }
+
+        ]
+
+        }
+
+
+        Sample request for search by identity values
+
+        POST /search
+
+
+        {
+
+        "standardObjectName": "GLJournalDist",
+
+        "recordIdentifiers": [
+
+        {
+
+        "Journal_Link": 8,
+
+        "Line_Item_No": 30113466
+
+        },
+
+        {
+
+        "Journal_Link": 8,
+
+        "Line_Item_No": 30113467
+
+        }
+
+        ]
+
+        }
+
+
+        This operation will return a maximum of 5000.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FieldValuesSearchBody'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardObjectRecord'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/search-field-values
+  /platform/custom-fields/v1/field-values/validate:
+    post:
+      operationId: validateFieldValues
+      summary: Validate Field Values
+      tags:
+      - Custom Fields API
+      description: Validate Custom Field Values. This operation is limited to 5000 records per transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardObjectRecord'
+      responses:
+        '200':
+          description: Custom field values validated successfully.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/custom-fields-api/validate-field-values
+components:
+  schemas:
+    FieldValuesSearchBody:
+      type: object
+      description: The data structure that is used when searching for standard object records and their custom field values. The name of a standard object must be specified, and a list of record identities and/or a list of custom field search values may be included.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: GLJournalDist
+        recordIdentifiers:
+          type: array
+          description: A list of identity keys and their values that uniquely identify a standard object record.
+          items:
+            type: object
+        fieldValueSearchFilters:
+          type: array
+          description: A list of custom fields and values on which to search, and the operation used to compare with the standard object resource's values. Allowed operations are &gt;, &lt;, &gt;=, &lt;=, =, StartsWith, IsNull.
+          items:
+            type: object
+            description: The custom field name, operation, and operand on which to search custom field values.
+            properties: {}
+        fieldName:
+          type: string
+          description: The name of the field definition that uniquely identifies the field within a standard object and is used internally by the system.
+          example: string
+        operation:
+          type: string
+          description: The operation to use to compare the specified operand with the custom field values of standard objects. Allowed values are &gt;, &lt;, &gt;=, &lt;=, =, StartsWith, IsNull.
+          example: string
+        operand:
+          description: The value to compare using the specified operation with the custom field values of standard object records.
+          example: {}
+      required:
+      - standardObjectName
+      - fieldName
+      - operation
+    FieldTypeAvailableConstraints:
+      type: object
+      description: The FieldTypeAvailableConstraints Model.
+      properties:
+        unique:
+          type: boolean
+          description: Indicates that custom field definitions of the field type can be configured so that values for the custom field must be unique among resource records of a standard object.
+          example: false
+        required:
+          type: boolean
+          description: Indicates that custom field definitions of the field type can be configured so that values for the custom field on resources can be required.
+          example: false
+        minimumValue:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured to have a minimum value. Values of the custom field must be greater than the minimum value, or greater than or equal to the minimum value if the minimumValueInclusive flag is turned on.
+          example: false
+        minimumValueInclusive:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured so that the minimum value set on the field definition is an allowed value on resources.
+          example: false
+        maximumValue:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured to have a maximum value. Values of the custom field must be less than the maximum value, or less than or equal to the maximum value if the maximumValueInclusive flag is turned on.
+          example: false
+        maximumValueInclusive:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured so that the maximum value set on the field definition is an allowed value on resources.
+          example: false
+        allowedValues:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured with a list of specified values which are the only allowed values for a custom field on a resource.
+          example: false
+        maximumLength:
+          type: boolean
+          description: Indicates that custom field definitions of the field type may be configured with a maximum length. Values of the custom field must have a length less than or equal to the specified maximum length of the definition.
+          example: false
+      required:
+      - unique
+      - required
+      - minimumValue
+      - minimumValueInclusive
+      - maximumValue
+      - maximumValueInclusive
+      - allowedValues
+      - maximumLength
+    StandardObjectRecord:
+      type: object
+      description: The data model that describes a record of a standard object. This includes the standard object name, the properties and values used to identify a record, and the custom field values that have been saved.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: GLJournalDist
+        recordIdentifiers:
+          type: object
+          description: A list of identity keys and their values that uniquely identify a standard object record.
+        customFields:
+          type: object
+          description: "The custom fields and values that have been saved to a standard object resource.\nThe customFields property is an object with a schema derived from the relevant custom fields. Each property is the name of a custom field (not case sensitive) with a corresponding value matching the custom field's type.\nCustom Field Type to JSON Type Mapping\n\nBoolean - boolean\nCustom Object Reference -  object\nDate - string(date)\nDate Time - string(date-time)\nDecimal - number(double)\nInteger - integer(int64)\nStandard Object Reference - object\nText - string\nTime - string(time)\n\nCustom Object Reference Format\nCustom Object References are always returned to the client as an object with three properties OR null.\nProperties\n\nid - string(uuid) - The uuid used to uniquely identify a custom object record.\nrecordIdentifier - integer(int64) - The value used to uniquely identify a custom object record.\ndisplayValue - string - This is either the object's Primary Field (when specified) or the object's first field.\n\nWhen adding or updating a custom object reference, several formats can be used.\n\nA string(uuid) representing the record's ID.\n\nExample\n{\n  &quot;customFields&quot;: {\n    &quot;MyCustomObjectReference&quot;: &quot;d13023f2-9841-4439-8f8b-2d75ef3e87f4&quot;\n  }\n}\n\n\nA integer(int64) representing a record identifier.\n\nExample\n{\n  &quot;customFields&quot;: {\n    &quot;MyCustomObjectReference&quot;: 15\n  }\n}\n\n\nAn object with either a recordIdentifier or id property. Additional properties (such as displayName) are ignored with write operations.\n\nExample\n{\n  &quot;customFields&quot;: {\n    &quot;MyCustomObjectReference&quot;: {\n      &quot;recordIdentifier&quot;: 15,\n      &quot;id&quot;: &quot;d13023f2-9841-4439-8f8b-2d75ef3e87f4&quot;,\n      &quot;displayValue&quot;: &quot;Blue&quot;\n    }\n  }\n}\n\nStandard Object Reference Format\nStandard Object References are always returned to the client as an object with two properties OR null.\nProperties\n\nrecordIdentifiers - object - An object of identity keys and their values that uniquely identify a standard object record.  This object has a schema that is derived from the identifiers used by the referenced standard object. For example, the Part standard object has a single identifier named Part_Key.\ndisplayValue -  string - The human readable text used to represent the referenced record. This value alone may not uniquely identify a record.\n\nWhen adding or updating a standard object reference, several formats can be used.\n\nAn object with the proper recordIdentifiers object. Additional properties (such as displayName) are ignored with write operations.\n\nExample\n{\n  &quot;customFields&quot;: {\n    &quot;MyPartReference&quot;: {\n      &quot;recordIdentifiers&quot;: {\n        &quot;Part_Key&quot;: 1234\n      },\n      &quot;displayValue&quot;: &quot;4799-AAA&quot;\n    }\n  }\n}\n\n\nWhen the referenced object only has one identifier, the single value may be used.\n\nExample\n{\n  &quot;customFields&quot;: {\n    &quot;MyPartReference&quot;: 1234\n  }\n}"
+      required:
+      - standardObjectName
+      - recordIdentifiers
+      - customFields
+    StandardObjectRecordIdentifiers:
+      type: object
+      description: The data model that describes the fields necessary to uniquely identify a record of a standard object.
+      properties:
+        keyCount:
+          type: integer
+          format: int32
+          description: The number of fields necessary to uniquely identify a resource of a standard object.
+          example: 2
+        keys:
+          type: array
+          description: A list of identity keys and their data type.
+          items:
+            type: object
+      required:
+      - keyCount
+      - keys
+    StandardObject:
+      type: object
+      description: The data model that describes the structure of a standard object. This includes the name used internally, the label that is displayed on Plex forms, and the properties that are used to uniquely identify a record of the standard object.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: string
+        standardObjectLabel:
+          type: string
+          description: The display name of the standard object that is used as a label on forms within Plex and on printed documents.
+          example: string
+        tableName:
+          type: string
+          description: The name of the table that a standard object represents.
+          example: string
+        recordIdentifiers:
+          $ref: '#/components/schemas/StandardObjectRecordIdentifiers'
+      required:
+      - standardObjectName
+      - standardObjectLabel
+      - tableName
+      - recordIdentifiers
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    StandardObjectInstance:
+      type: object
+      description: The data model that describes a record of a standard object. This includes the standard object name, and the properties and values used to identify a record.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: GLJournal
+        recordIdentifiers:
+          type: object
+          description: A list of identity keys and their values that uniquely identify a standard object record.
+      required:
+      - standardObjectName
+      - recordIdentifiers
+    FieldType:
+      type: object
+      description: The FieldType Model.
+      properties:
+        fieldTypeName:
+          type: string
+          description: The name of the data type used internally by the system.
+          example: string
+        fieldTypeLabel:
+          type: string
+          description: The display name of the data type that is used as a label on forms within Plex.
+          example: string
+        availableConstraints:
+          $ref: '#/components/schemas/FieldTypeAvailableConstraints'
+      required:
+      - fieldTypeName
+      - fieldTypeLabel
+      - availableConstraints
+    FieldDefinition:
+      type: object
+      description: The FieldDefinition Model.
+      properties:
+        standardObjectName:
+          type: string
+          description: The name of the standard object that is used internally by the system.
+          example: string
+        fieldTypeName:
+          type: string
+          description: The name of the data type used internally by the system.
+          example: string
+        fieldName:
+          type: string
+          description: The name of the field definition that uniquely identifies the field within a standard object and is used internally by the system.
+          example: string
+        fieldLabel:
+          type: string
+          description: The display name of the custom field that is used as a label on forms within Plex and on printed documents.
+          example: string
+        description:
+          type: string
+          description: The description of the custom field definition that helps users understand of information should be saved to the custom field.
+          example: string
+        constraints:
+          description: Constraints of the custom field definition, such as minimum and maximum values that are allowed.
+          example:
+            required: false
+            minimumValue: 100
+            minimumValueInclusive: true
+            maximumValue: 200
+            maximumValueInclusive: true
+      required:
+      - standardObjectName
+      - fieldTypeName
+      - fieldName
+      - fieldLabel
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

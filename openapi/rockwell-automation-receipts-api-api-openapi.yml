@@ -1,0 +1,245 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Receipts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Receipts API
+  description: The Receipts API is used to retrieve receipts.
+paths:
+  /purchasing/v1/receipts/{id}:
+    get:
+      operationId: getReceipt
+      summary: Get Receipt
+      tags:
+      - Receipts API
+      description: Retrieve a receipt by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/receipts-api/get-receipt
+  /purchasing/v1/receipts:
+    get:
+      operationId: listReceipts
+      summary: List Receipts
+      tags:
+      - Receipts API
+      description: List receipts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of receipt IDs.
+      - name: pOLineItemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: pOId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: itemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: operationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: releaseId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: supplierShipperNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: receiveDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the receipt was received.
+      - name: receiveDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the receipt was received.
+      - name: receivedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The IAM Account ID of the user who received the receipt.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptDto'
+      x-source: https://developers.plex.com/api/documentation/receipts-api/list-receipts
+components:
+  schemas:
+    ReceiptDto:
+      type: object
+      description: The Receipt model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Receipt. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        poLineItemId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        supplierId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        poId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        itemId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          example: string
+        releaseId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        supplierShipperNumber:
+          type: string
+          example: string
+        receiveDate:
+          type: string
+          format: date-time
+          description: The date on which the Receipt was received.
+          example: '2026-10-20T12:03:17Z'
+        receivedById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who received the receipt.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the Receipt was created.
+          example: '2026-10-20T12:03:17Z'
+        quantity:
+          type: number
+          format: double
+          example: 0.1
+        priceUnit:
+          type: string
+          example: string
+        orderUnit:
+          type: string
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          example: 0.1
+        unitPriceOriginal:
+          type: number
+          format: double
+          example: 0.1
+        estimatedPrice:
+          type: boolean
+          description: If the unit price is estimated.
+          example: false
+        inventoryUnit:
+          type: string
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          example: 0.1
+        taxRate:
+          type: number
+          format: double
+          example: 0.1
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM Account ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

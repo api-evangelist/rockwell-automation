@@ -1,0 +1,8 @@
+name: Rockwell Automation agent skills
+generated: '2026-10-20'
+method: generated
+source: openapi/rockwell-automation-plex-openapi.yml
+skills:
+- name: manage-plex-customers
+  file: skills/rockwell-automation-manage-plex-customers.md
+  api: rockwell-automation:plex-erp-api

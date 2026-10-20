@@ -1,0 +1,431 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/rockwell-automation/main/json-schema/rockwell-automation-sync-customer-dto-schema.json",
+  "title": "SyncCustomerDTO",
+  "description": "The full Customer Resource structure",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/rockwell-automation-plex-openapi.yml#/components/schemas/SyncCustomerDTO",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier for the Customer Address. This will be automatically generated if omitted from the request."
+    },
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "description": "Setup Table: Customer Status"
+    },
+    "type": {
+      "type": "string",
+      "description": "Setup Table: Customer Type"
+    },
+    "note": {
+      "type": "string"
+    },
+    "supplierCode": {
+      "type": "string"
+    },
+    "otherCustomerCode": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "string",
+      "description": "Setup Table: Customer Rating"
+    },
+    "industries": {
+      "type": "array",
+      "description": "Setup Table: Industries",
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaultCarrierIds": {
+      "type": "array",
+      "description": "A list of Default Carriers, by Supplier ID.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "region": {
+      "type": "string"
+    },
+    "businessType": {
+      "type": "string",
+      "description": "Setup Table: Business Type"
+    },
+    "category": {
+      "type": "string",
+      "description": "Setup Table: Customer Category"
+    },
+    "class": {
+      "type": "string",
+      "description": "Setup Table: Customer Class"
+    },
+    "catalog": {
+      "type": "string",
+      "description": "Screen: Catalogs"
+    },
+    "assignedToId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The sales person assigned to this customer, by IAM Account ID."
+    },
+    "assignedTo2Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The sales person assigned to this customer, by IAM Account ID."
+    },
+    "assignedTo3Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The sales person assigned to this customer, by IAM Account ID."
+    },
+    "assignedToGroup": {
+      "type": "string"
+    },
+    "contactResourceId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The Contact_Id of the sales person assigned to this Customer."
+    },
+    "annualSalesMillions": {
+      "type": "number",
+      "format": "double"
+    },
+    "estimatedEmployees": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "trackingNoOnWeighScaleRequired": {
+      "type": "boolean"
+    },
+    "multipleOrdersPerShipper": {
+      "type": "boolean"
+    },
+    "estimatedAnnualSales": {
+      "type": "string"
+    },
+    "newShipperPerReleaseNo": {
+      "type": "boolean"
+    },
+    "defaultBackOrder": {
+      "type": "string",
+      "description": "Setup Table: Back Order"
+    },
+    "financials": {
+      "$ref": "#/$defs/UpdateCustomerFinancialsDTO"
+    },
+    "addresses": {
+      "type": "array",
+      "description": "The customer's sub-resources: customer addresses",
+      "items": {
+        "type": "object",
+        "description": "The CustomerAddress model exposed for adding.",
+        "properties": {}
+      }
+    },
+    "maxDaysOutstanding": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "currencyCode": {
+      "type": "string"
+    },
+    "terms": {
+      "type": "string",
+      "description": "Setup Table: Terms"
+    },
+    "requestedTerms": {
+      "type": "string",
+      "description": "Setup Table: Terms"
+    },
+    "creditLimit": {
+      "type": "number",
+      "format": "double"
+    },
+    "salesTaxExempt": {
+      "type": "boolean"
+    },
+    "creditHold": {
+      "type": "boolean"
+    },
+    "creditStatus": {
+      "type": "string",
+      "description": "Setup Table: Credit Status"
+    },
+    "creditRating": {
+      "type": "string",
+      "description": "Setup Table: Credit Rating"
+    },
+    "creditReviewDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "creditNote": {
+      "type": "string"
+    },
+    "invoiceDelivery": {
+      "type": "string",
+      "description": "Setup Table: Invoice Delivery. The default value is &quot;Mail/Print Invoice&quot;."
+    },
+    "salesTaxExemptNo": {
+      "type": "string"
+    },
+    "billingSeparation": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "invoiceLineReference": {
+      "type": "string",
+      "description": "The customer's invoices will reference one of the following options: Part No, Release No, Customer Order No"
+    },
+    "taxIdNo": {
+      "type": "string"
+    },
+    "retroactivePricing": {
+      "type": "boolean"
+    },
+    "governmentIssuedTaxNo": {
+      "type": "string"
+    },
+    "invoicePo": {
+      "type": "string",
+      "description": "The invoice PO will reference of the following options: Release No or Customer Release No."
+    },
+    "quoteTo": {
+      "type": "boolean",
+      "description": "If true, this address may be used for customer quotes."
+    },
+    "shipTo": {
+      "type": "boolean",
+      "description": "If true, this address may be used for customer shipping."
+    },
+    "billTo": {
+      "type": "boolean",
+      "description": "If true, this address may be used for customer invoices."
+    },
+    "billToAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The customer address ID to be used for customer billing."
+    },
+    "remitTo": {
+      "type": "boolean",
+      "description": "If true, this address may be used for remittance."
+    },
+    "thirdPartyShipTo": {
+      "type": "boolean",
+      "description": "If true, this is a valid third-party shipping address."
+    },
+    "thirdPartyShipToAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The customer address ID to be used for third-party shipping."
+    },
+    "pool": {
+      "type": "boolean",
+      "description": "If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location."
+    },
+    "poolAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The customer address ID to be used for pooling."
+    },
+    "oldCustomerNo": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "county": {
+      "type": "string"
+    },
+    "shippingInstructions": {
+      "type": "string"
+    },
+    "ignoreTransitOnWeekends": {
+      "type": "boolean"
+    },
+    "transportationLeadTime": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "truckType": {
+      "type": "string",
+      "description": "Screen: Truck Types"
+    },
+    "salespersonId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The salesperson assigned to this customer, by IAM account ID."
+    },
+    "statementAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The address to which statements should be sent, if this address is a valid Billing address."
+    },
+    "freightTerms": {
+      "type": "string",
+      "description": "Setup Table: Freight Terms"
+    },
+    "insideSalespersonId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The salesperson assigned to this customer, by IAM account ID."
+    },
+    "defaultShipFrom": {
+      "type": "string",
+      "description": "Screen: Building List"
+    },
+    "freightBillTo": {
+      "type": "boolean",
+      "description": "If true, this is a valid address for freight billing."
+    },
+    "freightBillToAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The customer address to be used for freight billing."
+    },
+    "soldTo": {
+      "type": "boolean"
+    },
+    "dunsNo": {
+      "type": "string"
+    },
+    "commercialInvoiceVatNo": {
+      "type": "string"
+    },
+    "template": {
+      "type": "boolean",
+      "description": "Only one address can be used as the address template."
+    },
+    "incoTerms": {
+      "type": "string"
+    },
+    "negotiatedPlace": {
+      "type": "string"
+    },
+    "backOrder": {
+      "type": "string",
+      "description": "Setup Table: Back_Order"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "status",
+    "type",
+    "businessType",
+    "code"
+  ],
+  "$defs": {
+    "UpdateCustomerFinancialsDTO": {
+      "type": "object",
+      "description": "The customer financial model for updating.",
+      "properties": {
+        "maxDaysOutstanding": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "terms": {
+          "type": "string",
+          "description": "Setup Table: Terms"
+        },
+        "requestedTerms": {
+          "type": "string",
+          "description": "Setup Table: Terms"
+        },
+        "creditLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "salesTaxExempt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "creditHold": {
+          "type": "boolean"
+        },
+        "creditStatus": {
+          "type": "string",
+          "description": "Setup Table: Credit Status"
+        },
+        "creditRating": {
+          "type": "string",
+          "description": "Setup Table: Credit Rating"
+        },
+        "creditReviewDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "creditNote": {
+          "type": "string"
+        },
+        "invoiceDelivery": {
+          "type": "string",
+          "description": "Setup Table: Invoice Delivery. The default value is &quot;Mail/Print Invoice&quot;."
+        },
+        "salesTaxExemptNo": {
+          "type": "string"
+        },
+        "billingSeparation": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "invoiceLineReference": {
+          "type": "string",
+          "description": "The customer's invoices will reference one of the following options: Part No, Release No, Customer Order No"
+        },
+        "taxIdNo": {
+          "type": "string"
+        },
+        "retroactivePricing": {
+          "type": "boolean"
+        },
+        "governmentIssuedTaxNo": {
+          "type": "string"
+        },
+        "invoicePo": {
+          "type": "string",
+          "description": "The invoice PO will reference of the following options: Release No or Customer Release No."
+        }
+      }
+    }
+  }
+}

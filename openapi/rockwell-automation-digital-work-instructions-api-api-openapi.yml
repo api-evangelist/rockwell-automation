@@ -1,0 +1,1888 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Digital Work…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Digital Work Instructions API
+  description: The Digital Work Instructions API provides endpoints for managing and retrieving process groups, process steps, and reporting on process step execution information for digital work instructions.
+paths:
+  /work-instructions/v1/process-groups:
+    post:
+      operationId: createProcessGroup
+      summary: Create Process Group
+      tags:
+      - Digital Work Instructions API
+      description: Creates a process group.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProcessGroupRequestDto'
+      responses:
+        '201':
+          description: The process group was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessGroupResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/create-process-group
+    get:
+      operationId: listProcessGroups
+      summary: List Process Groups
+      tags:
+      - Digital Work Instructions API
+      description: Lists process groups.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A value indicating whether the process group is active.
+      - name: partOperationIds
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: An array of zero or more part operation IDs to filter the process groups by.
+      responses:
+        '200':
+          description: The search executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessGroupResponseDto'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/list-process-groups
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}/install-bom:
+    post:
+      operationId: createProcessStepInstallBomComponents
+      summary: Create Process Step Install BOM Components
+      tags:
+      - Digital Work Instructions API
+      description: Adds Install BOM components to a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProcessStepInstallBomsRequestDto'
+      responses:
+        '201':
+          description: The process step Install BOM components were created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepInstallBomResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/create-process-step-install-bom-components
+    delete:
+      operationId: deleteProcessStepInstallBomComponents
+      summary: Delete Process Step Install BOM Components
+      tags:
+      - Digital Work Instructions API
+      description: Deletes Install BOM components from a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteProcessStepInstallBomsRequestDto'
+      responses:
+        '200':
+          description: The process step Install BOM components were deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepInstallBomResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step, process group, or install BOM components were not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/delete-process-step-install-bom-components
+    get:
+      operationId: listProcessStepInstallBomComponents
+      summary: List Process Step Install BOM Components
+      tags:
+      - Digital Work Instructions API
+      description: Lists the Install BOM components for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step Install BOM components were retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepInstallBomResponseDto'
+        '404':
+          description: The process step or process group was not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/list-process-step-install-bom-components
+    put:
+      operationId: updateProcessStepInstallBomComponents
+      summary: Update Process Step Install BOM Components
+      tags:
+      - Digital Work Instructions API
+      description: Updates Install BOM components for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessStepInstallBomsRequestDto'
+      responses:
+        '200':
+          description: The process step Install BOM components were updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepInstallBomResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step, process group, or install BOM components were not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-step-install-bom-components
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps:
+    post:
+      operationId: createProcessStep
+      summary: Create Process Step
+      tags:
+      - Digital Work Instructions API
+      description: Creates a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProcessStepRequestDto'
+      responses:
+        '201':
+          description: The process step was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/create-process-step
+    get:
+      operationId: listProcessSteps
+      summary: List Process Steps
+      tags:
+      - Digital Work Instructions API
+      description: Lists process steps by process group ID.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The process step type (defined by the action assigned to the step). Acceptable values are &quot;Checksheet&quot;, &quot;Informational&quot;, &quot;InstallBOM&quot;, &quot;ToolComponent&quot;, and &quot;ValidateComponent&quot;.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A value indicating whether the process step is active.
+      responses:
+        '200':
+          description: The search executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepResponseDto'
+        '404':
+          description: The process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/list-process-steps
+  /work-instructions/v1/process-groups/{id}:
+    delete:
+      operationId: deleteProcessGroup
+      summary: Delete Process Group
+      tags:
+      - Digital Work Instructions API
+      description: Deletes a process group.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      responses:
+        '200':
+          description: The process group was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessGroupResponseDto'
+        '404':
+          description: The process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/delete-process-group
+    get:
+      operationId: getProcessGroup
+      summary: Get Process Group
+      tags:
+      - Digital Work Instructions API
+      description: Retrieves a process group by ID.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      responses:
+        '200':
+          description: The process group was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessGroupResponseDto'
+        '404':
+          description: The process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-group
+    patch:
+      operationId: updateProcessGroup
+      summary: Update Process Group
+      tags:
+      - Digital Work Instructions API
+      description: Updates a process group.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessGroupRequestDto'
+      responses:
+        '200':
+          description: The process group was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessGroupResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-group
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}/tool-component/tools:
+    delete:
+      operationId: deleteProcessStepTools
+      summary: Delete Process Step Tools
+      tags:
+      - Digital Work Instructions API
+      description: Deletes tools from a process step's Tool Component configuration.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteProcessStepToolsRequestDto'
+      responses:
+        '200':
+          description: The tools were deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepToolComponentResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step, process group, or tools were not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/delete-process-step-tools
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}:
+    delete:
+      operationId: deleteProcessStep
+      summary: Delete Process Step
+      tags:
+      - Digital Work Instructions API
+      description: Deletes a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepResponseDto'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/delete-process-step
+    get:
+      operationId: getProcessStep
+      summary: Get Process Step
+      tags:
+      - Digital Work Instructions API
+      description: Retrieves a process step by process group ID.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepResponseDto'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-step
+    patch:
+      operationId: updateProcessStep
+      summary: Update Process Step
+      tags:
+      - Digital Work Instructions API
+      description: Updates a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessStepRequestDto'
+      responses:
+        '200':
+          description: The process step was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-step
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}/checksheet:
+    get:
+      operationId: getProcessStepChecksheet
+      summary: Get Process Step Checksheet
+      tags:
+      - Digital Work Instructions API
+      description: Retrieves the checksheet configuration for a process step by group and step ID.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step checksheet was retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepChecksheetResponseDto'
+        '404':
+          description: The process step or process group was not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-step-checksheet
+    put:
+      operationId: updateProcessStepChecksheet
+      summary: Update Process Step Checksheet
+      tags:
+      - Digital Work Instructions API
+      description: Replaces the checksheet configuration for a process step by group and step ID.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessStepChecksheetRequestDto'
+      responses:
+        '200':
+          description: The process step checksheet was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepChecksheetResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-step-checksheet
+  /work-instructions/v1/reports/process-step-evaluation-status-report:
+    get:
+      operationId: getProcessStepEvaluationStatusReport
+      summary: Get Process Step Evaluation Status Report
+      tags:
+      - Digital Work Instructions API
+      description: 'Exactly one of the following selection modes is required (selection modes are mutually exclusive):
+
+
+        jobInUseOnControlPanel=true
+
+        Both jobCompletionDateStart and jobCompletionDateEnd in YYYY-MM-DD format
+
+        jobId
+
+
+        The timeRemaining field is returned only when jobInUseOnControlPanel=true.'
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: jobInUseOnControlPanel
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A value indicating whether to return rows for jobs currently in use on the Control Panel.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the job.
+      - name: jobCompletionDateStart
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The inclusive start of the job completion date range.
+      - name: jobCompletionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The inclusive end of the job completion date range.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the part.
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the operation.
+      - name: workcenterGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The workcenter group.
+      - name: workcenterId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the workcenter.
+      - name: deviation
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The deviation filter for process step duration. Possible values are 0 (no filter; returns all results), -1 (under time; actual duration is less than expected duration), 1 (over time; actual duration is greater than expected duration), and values greater than 1 (over by a multiplier; actual duration exceeds expected duration * deviation).
+      - name: processStepStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The process step status filter that controls which steps are returned based on their completion state. Possible values are 0 (All), 1 (Incomplete), and 2 (In Progress).
+      - name: processGroupsOnly
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: A value indicating whether to restrict the report to process group level rows only.
+      responses:
+        '200':
+          description: The report executed successfully. Returns an empty array if no rows match the criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepsReportResponseDto'
+        '400':
+          description: The request does not satisfy a valid selection mode, combines more than one selection mode, or supplies invalid parameter values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-step-evaluation-status-report
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}/tool-component:
+    get:
+      operationId: getProcessStepToolComponent
+      summary: Get Process Step Tool Component
+      tags:
+      - Digital Work Instructions API
+      description: Retrieves the Tool Component configuration for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step's Tool Component configuration was retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepToolComponentResponseDto'
+        '404':
+          description: The process step or process group was not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-step-tool-component
+    put:
+      operationId: updateProcessStepToolComponent
+      summary: Update Process Step Tool Component
+      tags:
+      - Digital Work Instructions API
+      description: Replaces the Tool Component configuration for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessStepToolComponentRequestDto'
+      responses:
+        '200':
+          description: The process step's Tool Component configuration was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepToolComponentResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-step-tool-component
+  /work-instructions/v1/process-groups/{processGroupId}/process-steps/{processStepId}/validate-component:
+    get:
+      operationId: getProcessStepValidateComponent
+      summary: Get Process Step Validate Component
+      tags:
+      - Digital Work Instructions API
+      description: Retrieves the Validate Component configuration for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      responses:
+        '200':
+          description: The process step's Validate Component configuration was retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepValidateComponentResponseDto'
+        '404':
+          description: The process step or process group was not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/get-process-step-validate-component
+    put:
+      operationId: updateProcessStepValidateComponent
+      summary: Update Process Step Validate Component
+      tags:
+      - Digital Work Instructions API
+      description: Replaces the Validate Component configuration for a process step.
+      x-beta: true
+      x-beta-end-date: '2026-12-31T00:00:00'
+      parameters:
+      - name: processGroupId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process group.
+      - name: processStepId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the process step.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessStepValidateComponentRequestDto'
+      responses:
+        '200':
+          description: The process step's component validation configuration was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessStepValidateComponentResponseDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The process step or process group was not found.
+      x-source: https://developers.plex.com/api/documentation/digital-work-instructions-api/update-process-step-validate-component
+components:
+  schemas:
+    ProcessStepResponseDto:
+      type: object
+      description: A response object containing the data that defines a process step.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the process step.
+          example: 00000000-0000-0000-0000-000000000000
+        processGroupId:
+          type: string
+          format: uuid
+          description: The unique identifier for the process group.
+          example: 00000000-0000-0000-0000-000000000000
+        processStepType:
+          type: string
+          description: 'The process step type (defined by the action assigned to the step). Possible values: &quot;Informational&quot;, &quot;Checksheet&quot;, &quot;InstallBOM&quot;, &quot;ToolComponent&quot;, &quot;ValidateComponent&quot;.'
+          example: string
+        description:
+          type: string
+          description: The process step instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process step.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process step is active.
+          example: false
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessStepId:
+          type: string
+          format: uuid
+          description: The identifier of the process step that this process step depends on.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process step will be visible on the Control Panel.
+          example: false
+        createdById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that created the process step.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that last modified the process step.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step was last modified.
+          example: '2026-10-20T12:03:02Z'
+        recordActivityType:
+          type: string
+          description: 'Defines how activity is recorded against a process step. Possible values: &quot;N/A&quot;, &quot;Start/Complete&quot;, &quot;Complete&quot;.'
+          example: string
+        checksheet:
+          $ref: '#/components/schemas/ProcessStepChecksheetResponseDto'
+        validateComponent:
+          $ref: '#/components/schemas/ProcessStepValidateComponentResponseDto'
+        toolComponent:
+          $ref: '#/components/schemas/ProcessStepToolComponentResponseDto'
+        installBom:
+          $ref: '#/components/schemas/ProcessStepInstallBomResponseDto'
+    UpdateProcessStepToolComponentRequestDto:
+      type: object
+      description: The request object containing the data required to update Tool Component configuration for a process step.
+      properties:
+        bomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the BOM component. Required when creating a new Tool Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: integer
+          format: int32
+          description: The quantity of the process step's BOM component that the tool is used with.
+          example: 0
+        retries:
+          type: integer
+          format: int32
+          description: The number of retries allowed for the component.
+          example: 0
+        storeInChecksheet:
+          type: boolean
+          description: A value indicating whether to store collected specification data in a checksheet.
+          example: false
+        tools:
+          type: array
+          description: A list of Tool Component configurations for the process step.
+          items:
+            type: object
+            description: A request object containing the data that defines a process step's Tool Component configuration.
+            properties: {}
+        processStepToolId:
+          type: string
+          description: The unique identifier for the tool specified in the process step's Tool Component configuration. Use for updating existing tools.
+          example: string
+        toolNo:
+          type: string
+          description: The tool number. Required for adding new tools to the Tool Component configuration. This value cannot be changed after creation.
+          example: string
+        toolVerify:
+          type: boolean
+          description: A value indicating whether tool verification is required.
+          example: false
+        controlPlanId:
+          type: string
+          format: uuid
+          description: The unique identifier for the associated control plan.
+          example: 00000000-0000-0000-0000-000000000000
+        inspectionMode:
+          type: string
+          description: The associated control plan's inspection mode.
+          example: string
+      required:
+      - quantity
+      - retries
+      - toolNo
+    UpdateProcessStepRequestDto:
+      type: object
+      description: A request object containing the data required to update a process step.
+      properties:
+        description:
+          type: string
+          description: The process step instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities. In the format of &quot;hh:mm:ss&quot; or &quot;d.hh:mm:ss&quot;.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process step.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process step is active.
+          example: false
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessStepId:
+          type: string
+          format: uuid
+          description: The identifier of the process step that this process step depends on. That process step must have the same parent process group and a lower sequence number. Omit to retain the current value or set to null to clear it.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process step will be visible on the Control Panel.
+          example: false
+        recordActivityType:
+          type: string
+          description: Defines how activity is recorded against a process step. Accepted values are &quot;Complete&quot;, &quot;N/A&quot;, and &quot;Start/Complete&quot; when the process step type is &quot;Informational&quot; or &quot;Start/Complete&quot; for all other process step types.
+          example: string
+    ProcessStepToolComponentResponseDto:
+      type: object
+      description: A response object containing data that defines a process step's Tool Component configuration.
+      properties:
+        bomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the BOM component.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: integer
+          format: int32
+          description: The quantity of the process step's BOM component that the tool is used with.
+          example: 0
+        retries:
+          type: integer
+          format: int32
+          description: The number of retries allowed for the component.
+          example: 0
+        storeInChecksheet:
+          type: boolean
+          description: A value indicating whether to store collected specification data in a checksheet.
+          example: false
+        tools:
+          type: array
+          description: The tool configuration for the BOM component. A component can have multiple tools associated with it.
+          items:
+            type: object
+            description: The response object containing the data that defines a process step's Tool Component configuration.
+            properties: {}
+        createdById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that created the process step's Tool Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step's Tool Component configuration was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that last modified the process step's Tool Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step's Tool Component configuration was last modified.
+          example: '2026-10-20T12:03:02Z'
+    UpdateProcessGroupRequestDto:
+      type: object
+      description: A request object containing the data required to update a process group.
+      properties:
+        description:
+          type: string
+          description: The process group instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities. In the format of &quot;hh:mm:ss&quot; or &quot;d.hh:mm:ss&quot;.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process group.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process group is active.
+          example: false
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessGroupId:
+          type: string
+          format: uuid
+          description: The identifier of the process group that this process group depends on. That process group must have a lower sequence number. Omit to retain the current value or set to null to clear it.
+          example: 00000000-0000-0000-0000-000000000000
+        hideUntilDependency:
+          type: boolean
+          description: A value indicating whether to hide the process group instruction until the dependent step is completed.
+          example: false
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process group will be visible on the Control Panel.
+          example: false
+    DeleteProcessStepToolsRequestDto:
+      type: object
+      description: The request object containing the data required to delete a list of tools associated with the process step.
+      properties:
+        tools:
+          type: array
+          description: The list of tools associated with the process step to delete.
+          items:
+            type: object
+            description: The request object containing the data required to delete a tool associated with a process step.
+            properties: {}
+        processStepToolId:
+          type: string
+          description: The unique identifier for the tool associated with the process step.
+          example: string
+      required:
+      - tools
+      - processStepToolId
+    AddProcessStepInstallBomsRequestDto:
+      type: object
+      description: The request object containing the data required to add an Install BOM and its component parts to a process step.
+      properties:
+        bom:
+          type: array
+          description: The list of component parts that comprise the Install BOM.
+          items:
+            type: object
+            description: The request object containing the data required to add component parts to an Install BOM.
+            properties: {}
+        bomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the BOM component.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterId:
+          type: string
+          format: uuid
+          description: The workcenter ID used to identify a source position for the BOM component.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterSourcePositionOrdinal:
+          type: integer
+          format: int32
+          description: The workcenter source position ordinal that identifies the component's position.
+          example: 0
+        sortOrder:
+          type: integer
+          format: int32
+          description: The component part's sort order within the Install BOM.
+          example: 0
+        quantity:
+          type: number
+          format: double
+          description: The component quantity to use for the Install BOM.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: The minimum component quantity to use for the Install BOM. Used with operations that have the Variable BOM flag enabled.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: The maximum component quantity to use for the Install BOM. Used with operations that have the Variable BOM flag enabled.
+          example: 0.1
+      required:
+      - bom
+      - bomId
+    ScannedValuesDto:
+      type: object
+      description: A model containing the data that defines the scanned values captured by a Validate Component process step.
+      properties:
+        scannedPart:
+          type: string
+          description: The scanned part number.
+          example: string
+        scannedSerial:
+          type: string
+          description: The scanned container serial number.
+          example: string
+        scannedLot:
+          type: string
+          description: The scanned lot number.
+          example: string
+        scannedPiece:
+          type: string
+          description: The scanned piece.
+          example: string
+    ProcessStepValidateComponentResponseDto:
+      type: object
+      description: The response object containing the data that defines a process step's Validate Component configuration.
+      properties:
+        bomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the BOM that drives Validate Component behavior.
+          example: 00000000-0000-0000-0000-000000000000
+        partNoVerify:
+          type: boolean
+          description: A value indicating whether the part number should be verified.
+          example: false
+        partNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The part number verification sort order.
+          example: 0
+        serialNoVerify:
+          type: boolean
+          description: A value indicating whether the container serial number should be verified.
+          example: false
+        serialNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The container serial number verification sort order.
+          example: 0
+        lotNoVerify:
+          type: boolean
+          description: A value indicating whether the lot number should be verified.
+          example: false
+        lotNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The lot number verification sort order.
+          example: 0
+        pieceSerialNoVerify:
+          type: boolean
+          description: A value indicating whether the piece serial number should be verified.
+          example: false
+        pieceSerialNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The piece serial number verification sort order.
+          example: 0
+        scanStorePieceSerialNo:
+          type: boolean
+          description: A value indicating whether the scanned piece serial number should be stored.
+          example: false
+        scanStorePieceSerialNoSortOrder:
+          type: integer
+          format: int32
+          description: The scan-and-store piece serial number sort order.
+          example: 0
+        pieceQuantity:
+          type: integer
+          format: int32
+          description: The required piece quantity.
+          example: 0
+        createdById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that created the process step's Validate Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step's Validate Component configuration was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that last modified the process step's Validate Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step's Validate Component configuration was last modified.
+          example: '2026-10-20T12:03:02Z'
+    AddProcessGroupRequestDto:
+      type: object
+      description: The request object containing the data required to create a process group.
+      properties:
+        description:
+          type: string
+          description: The process group instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities. In the format of &quot;hh:mm:ss&quot; or &quot;d.hh:mm:ss&quot;.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process group.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process group is active.
+          example: false
+        instructionObject:
+          type: string
+          description: The instruction object type. Accepted values are &quot;Part Operation&quot; and &quot;Job Container&quot;. This value cannot be changed after creation.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The part operation ID. This value cannot be changed after creation.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterStatusType:
+          type: string
+          description: The workcenter status type based on the process group's specified Associated Timing Status. Accepted values are &quot;Production&quot; and &quot;Setup&quot;. This value cannot be changed after creation.
+          example: string
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessGroupId:
+          type: string
+          format: uuid
+          description: The identifier of the process group that this process group depends on. That process group must have a lower sequence number.
+          example: 00000000-0000-0000-0000-000000000000
+        hideUntilDependency:
+          type: boolean
+          description: A value indicating whether to hide the process group instruction until the dependent step is completed.
+          example: false
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process group will be visible on the Control Panel.
+          example: false
+      required:
+      - description
+      - active
+      - instructionObject
+      - partOperationId
+      - workcenterStatusType
+      - sequenceNo
+    ProcessStepInstallBomResponseDto:
+      type: object
+      description: A response object containing a list of components in a process step's Install BOM.
+      properties:
+        bom:
+          type: array
+          description: A list of BOM components to install for the process step.
+          items:
+            type: object
+            description: A response object containing the data that defines a process step's Install BOM component.
+            properties: {}
+    ProcessGroupResponseDto:
+      type: object
+      description: A response object containing data that defines a process group.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the process group.
+          example: 00000000-0000-0000-0000-000000000000
+        description:
+          type: string
+          description: The process group instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process group.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process group is active.
+          example: false
+        instructionObject:
+          type: string
+          description: 'The instruction object type. Possible values: &quot;Part Operation&quot; or &quot;Job Container&quot;.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The part operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+        workcenterStatusType:
+          type: string
+          description: 'The workcenter status type based on the process group''s specified Associated Timing Status. Possible values: &quot;Production&quot; or &quot;Setup&quot;.'
+          example: string
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessGroupId:
+          type: string
+          format: uuid
+          description: The identifier of the process group that this process group depends on.
+          example: 00000000-0000-0000-0000-000000000000
+        hideUntilDependency:
+          type: boolean
+          description: A value indicating whether to hide the process group instruction until the dependent step is completed.
+          example: false
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process group will be visible on the Control Panel.
+          example: false
+        createdById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that created the process group.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process group was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The unique identifier for the user that last modified the process group.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process group was last modified.
+          example: '2026-10-20T12:03:02Z'
+    ToolDeviceProcessStepReportDto:
+      type: object
+      description: A model containing the data that defines tool-device details for a Tool Component process step.
+      properties:
+        timingDetails:
+          type: array
+          description: One or more sets of timing details for the tool-device.
+          items:
+            type: object
+            description: The timing and audit details for the execution of a process step using tool-devices.
+            properties: {}
+        inputParameters:
+          type: array
+          description: One or more input parameters for the tool-device.
+          items:
+            type: object
+            description: A model containing the data that defines a tool-device's input parameter.
+            properties: {}
+        outputDetails:
+          type: array
+          description: One or more sets of output details for the tool-device.
+          items:
+            type: object
+            description: A model containing the data that defines tool-device output details.
+            properties: {}
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    ProcessStepChecksheetResponseDto:
+      type: object
+      description: A response object containing data that defines a process step's checksheet configuration.
+      properties:
+        controlPlanId:
+          type: string
+          format: uuid
+          description: The unique identifier for the control plan associated with the process step.
+          example: 00000000-0000-0000-0000-000000000000
+        inspectionMode:
+          type: string
+          description: The inspection mode.
+          example: string
+    DeleteProcessStepInstallBomsRequestDto:
+      type: object
+      description: The request object containing the data required to delete an Install BOM and its component parts.
+      properties:
+        bom:
+          type: array
+          description: The list of component parts that comprise the Install BOM.
+          items:
+            type: object
+            description: The request object containing the data required to delete a component part from an Install BOM.
+            properties: {}
+        installBomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the component part in the Install BOM.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - bom
+      - installBomId
+    UpdateProcessStepChecksheetRequestDto:
+      type: object
+      description: A request object containing the data required to update the checksheet configuration for a process step.
+      properties:
+        controlPlanId:
+          type: string
+          format: uuid
+          description: The control plan identifier. Set to null to clear the checksheet (along with InspectionMode).
+          example: 00000000-0000-0000-0000-000000000000
+        inspectionMode:
+          type: string
+          description: The inspection mode. Set to null or empty string to clear the checksheet (along with ControlPlanId).
+          example: string
+    UpdateProcessStepValidateComponentRequestDto:
+      type: object
+      description: The request object containing the data required to update a process step's Validate Component configuration.
+      properties:
+        bomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the BOM that drives Validate Component behavior. Required when creating a new Validate Component configuration.
+          example: 00000000-0000-0000-0000-000000000000
+        partNoVerify:
+          type: boolean
+          description: A value indicating whether the part number should be verified.
+          example: false
+        partNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The part number verification sort order.
+          example: 0
+        serialNoVerify:
+          type: boolean
+          description: A value indicating whether the container serial number should be verified. For use with non-serialized component parts.
+          example: false
+        serialNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The container serial number verification sort order. For use with non-serialized component parts.
+          example: 0
+        lotNoVerify:
+          type: boolean
+          description: A value indicating whether the lot number should be verified. For use with component parts that have lot tracking enabled.
+          example: false
+        lotNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The lot number verification sort order. For use with component parts that have lot tracking enabled.
+          example: 0
+        pieceSerialNoVerify:
+          type: boolean
+          description: A value indicating whether the piece serial number should be verified. For use with serialized component parts. Not compatible with the ScanStorePieceSerialNo flag.
+          example: false
+        pieceSerialNoVerifySortOrder:
+          type: integer
+          format: int32
+          description: The piece serial number verification sort order. For use with serialized component parts.
+          example: 0
+        scanStorePieceSerialNo:
+          type: boolean
+          description: A value indicating whether the scanned piece serial number should be stored. For use with serialized component parts. Not compatible with the PieceSerialNoVerify flag.
+          example: false
+        scanStorePieceSerialNoSortOrder:
+          type: integer
+          format: int32
+          description: The scan-and-store piece serial number sort order. For use with serialized component parts.
+          example: 0
+        pieceQuantity:
+          type: integer
+          format: int32
+          description: The required piece quantity. For use in serialized component parts. Required when either PieceSerialNoVerify or ScanStorePieceSerialNo is enabled.
+          example: 0
+      required:
+      - bomId
+    AddProcessStepRequestDto:
+      type: object
+      description: The request object containing the data required to add a process step.
+      properties:
+        processStepType:
+          type: string
+          description: The process step type (defined by the action assigned to the step). Accepted values are &quot;Checksheet&quot;, &quot;Informational&quot;, &quot;InstallBOM&quot;, &quot;ToolComponent&quot;, and &quot;ValidateComponent&quot; when the process group has a workcenter status type of &quot;Production&quot;. Otherwise, values are limited to &quot;Checksheet&quot; and &quot;Informational&quot;. This value cannot be changed after creation.
+          example: string
+        description:
+          type: string
+          description: The process step instruction title.
+          example: string
+        expectedDurationTimeSpan:
+          type: string
+          format: date-span
+          description: The expected time to perform the process step activities. In the format of &quot;hh:mm:ss&quot; or &quot;d.hh:mm:ss&quot;.
+          example: string
+        instruction:
+          type: string
+          description: The work instruction content for the process step.
+          example: string
+        active:
+          type: boolean
+          description: A value indicating whether the process step is active.
+          example: false
+        sequenceNo:
+          type: integer
+          format: int32
+          description: The sequence number.
+          example: 0
+        dependsOnProcessStepId:
+          type: string
+          format: uuid
+          description: The identifier of the process step that this process step depends on. That process step must have the same parent process group and a lower sequence number.
+          example: 00000000-0000-0000-0000-000000000000
+        controlPanelVisible:
+          type: boolean
+          description: A value indicating whether this process step will be visible on the Control Panel.
+          example: false
+        recordActivityType:
+          type: string
+          description: Defines how activity is recorded against a process step. Accepted values are &quot;Complete&quot;, &quot;N/A&quot;, and &quot;Start/Complete&quot; when the process step type is &quot;Informational&quot; or &quot;Start/Complete&quot; for all other process step types.
+          example: string
+      required:
+      - processStepType
+      - description
+      - active
+      - sequenceNo
+      - recordActivityType
+    UpdateProcessStepInstallBomsRequestDto:
+      type: object
+      description: The request object containing the data required to update an Install BOM and its component parts.
+      properties:
+        bom:
+          type: array
+          description: The list of component parts that comprise the Install BOM.
+          items:
+            type: object
+            description: A request object containing the data required to update a process step's Install BOM.
+            properties: {}
+        installBomId:
+          type: string
+          format: uuid
+          description: The unique identifier for the Install BOM component.
+          example: 00000000-0000-0000-0000-000000000000
+        sortOrder:
+          type: integer
+          format: int32
+          description: The component part's sort order within the Install BOM.
+          example: 0
+        quantity:
+          type: number
+          format: double
+          description: The component quantity to use for the Install BOM.
+          example: 0.1
+        minimumQuantity:
+          type: number
+          format: double
+          description: The minimum component quantity to use for the Install BOM. Used with operations that have the Variable BOM flag enabled.
+          example: 0.1
+        maximumQuantity:
+          type: number
+          format: double
+          description: The maximum component quantity to use for the Install BOM. Used with operations that have the Variable BOM flag enabled.
+          example: 0.1
+      required:
+      - bom
+      - installBomId
+    ProcessStepsReportResponseDto:
+      type: object
+      description: A response object containing the data that defines a row in a process step report.
+      properties:
+        jobNo:
+          type: string
+          description: The job number.
+          example: string
+        partNo:
+          type: string
+          description: The part number.
+          example: string
+        operationNo:
+          type: string
+          description: The operation number.
+          example: string
+        operation:
+          type: string
+          description: The operation code.
+          example: string
+        workcenter:
+          type: string
+          description: The workcenter where the process step is performed.
+          example: string
+        serialNo:
+          type: string
+          description: The container serial number.
+          example: string
+        processGroup:
+          type: string
+          description: The process group name.
+          example: string
+        processStep:
+          type: string
+          description: The process step name.
+          example: string
+        processGroupStepStatus:
+          type: string
+          description: The status of the process group or process step.
+          example: string
+        action:
+          type: string
+          description: 'The action assigned to the process step. Possible values: &quot;Informational&quot;, &quot;Checksheet&quot;, &quot;InstallBOM&quot;, &quot;ToolComponent&quot;, &quot;ValidateComponent&quot;.'
+          example: string
+        startedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step was started.
+          example: '2026-10-20T12:03:03Z'
+        startedBy:
+          type: string
+          description: The user that started the process step.
+          example: string
+        completedDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the process step was completed.
+          example: '2026-10-20T12:03:03Z'
+        completedBy:
+          type: string
+          description: The user that completed the process step.
+          example: string
+        plannedDuration:
+          type: string
+          format: date-span
+          description: The planned duration for the process step.
+          example: string
+        actualDuration:
+          type: string
+          format: date-span
+          description: The actual duration of the process step.
+          example: string
+        deviation:
+          type: string
+          description: The deviation for the process step's duration.
+          example: string
+        timeRemaining:
+          type: string
+          format: date-span
+          description: The remaining time for in-use jobs. This value is only present when filtering by jobs in use on the Control Panel.
+          example: string
+        toolDeviceProcessStepReport:
+          $ref: '#/components/schemas/ToolDeviceProcessStepReportDto'
+        scannedValues:
+          $ref: '#/components/schemas/ScannedValuesDto'
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

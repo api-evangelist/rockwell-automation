@@ -1,0 +1,881 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Parts API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Parts API
+  description: The Parts API is used to manage part master data.
+paths:
+  /mdm/v2/parts:
+    post:
+      operationId: createPartV2
+      summary: Create Part
+      tags:
+      - Parts API
+      description: Create a new part.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartDTO'
+      responses:
+        '201':
+          description: The part resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/parts-api/create-part
+    get:
+      operationId: listPartsV2
+      summary: List Parts
+      tags:
+      - Parts API
+      description: List parts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of part IDs.
+      - name: number
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The part number.
+      - name: revision
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The part revision.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The part type. Setup Table: Part_Type.'
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The status of the part. Setup Table: Part_Status.'
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The part source, which represents the origin of the part. Setup Table: Part_Source.'
+      - name: productType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The part''s product type. Setup Table: Part_Product_Type.'
+      - name: allergens
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Allergen(s) defined on the part. Setup Table: Allergen. Allergen values are only returned when the HACCP module or the Storage Validation module is enabled.'
+      - name: storageConditions
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'The storage condition(s) defined on the part. Setup Table: Storage_Condition. Storage condition values are only returned when the Storage Validation module is enabled.'
+      - name: createdDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date on which the record was added.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date on which the record was added.
+      - name: modifiedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date on which the record was last modified.
+      - name: modifiedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date on which the record was last modified.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+      x-source: https://developers.plex.com/api/documentation/parts-api/list-parts
+  /mdm/v1/parts:
+    post:
+      operationId: createPartV1
+      summary: Create Part
+      tags:
+      - Parts API
+      description: Create a new part.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartDTO'
+      responses:
+        '201':
+          description: The Part resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/parts-api/create-part
+    get:
+      operationId: listPartsV1
+      summary: List Parts
+      tags:
+      - Parts API
+      description: List parts by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of Part Resource IDs.
+      - name: number
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: revision
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Part_Type'
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Part_Status'
+      - name: source
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Part_Source'
+      - name: productType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Part_Product_Type'
+      - name: allergens
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Allergen. HACCP Module must be enabled.'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+      x-source: https://developers.plex.com/api/documentation/parts-api/list-parts
+  /mdm/v2/parts/{id}:
+    delete:
+      operationId: deletePartV2
+      summary: Delete Part
+      tags:
+      - Parts API
+      description: Delete a part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the part.
+      responses:
+        '200':
+          description: The part resource was successfully deleted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/delete-part
+    get:
+      operationId: getPartV2
+      summary: Get Part
+      tags:
+      - Parts API
+      description: Retrieve a part by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the part.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/get-part
+    put:
+      operationId: updatePartV2
+      summary: Update Part
+      tags:
+      - Parts API
+      description: Update a part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The unique identifier for the part.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartDTO'
+      responses:
+        '200':
+          description: The part resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/update-part
+  /mdm/v1/parts/{id}:
+    delete:
+      operationId: deletePartV1
+      summary: Delete Part
+      tags:
+      - Parts API
+      description: Delete a part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The Part resource was successfully deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/delete-part
+    get:
+      operationId: getPartV1
+      summary: Get Part
+      tags:
+      - Parts API
+      description: Retrieve a part by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/get-part
+    put:
+      operationId: updatePartV1
+      summary: Update Part
+      tags:
+      - Parts API
+      description: Update a part.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartDTO'
+      responses:
+        '200':
+          description: The Part resource was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/parts-api/update-part
+  /mdm/v2/parts/sync:
+    post:
+      operationId: syncPartsV2
+      summary: Sync Parts
+      tags:
+      - Parts API
+      description: Sync a set of parts from another system. This operation performs create and update logic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncPartDTO'
+      responses:
+        '202':
+          description: The Sync Parts command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/parts-api/sync-parts
+  /mdm/v1/parts/sync:
+    post:
+      operationId: syncPartsV1
+      summary: Sync Parts
+      tags:
+      - Parts API
+      description: Sync a set of parts from another system. This operation performs create and update logic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncPartDTO'
+      responses:
+        '202':
+          description: The Sync Parts command was accepted for processing.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/parts-api/sync-parts
+components:
+  schemas:
+    UpdatePartDTO:
+      type: object
+      description: The part model containing the data required to update a part.
+      properties:
+        number:
+          type: string
+          description: The part number.
+          example: string
+        name:
+          type: string
+          description: The part name.
+          example: string
+        revision:
+          type: string
+          description: The part revision.
+          example: string
+        description:
+          type: string
+          description: The description of the part.
+          example: string
+        type:
+          type: string
+          description: 'The part type. Setup Table: Part_Type.'
+          example: string
+        group:
+          type: string
+          description: 'The part group. Setup Table: Part_Group.'
+          example: string
+        source:
+          type: string
+          description: 'The part source, which represents the origin of the part. Setup Table: Part_Source.'
+          example: string
+        productType:
+          type: string
+          description: 'The part''s product type. Setup Table: Part_Product_Type.'
+          example: string
+        status:
+          type: string
+          description: 'The status of the part. Setup Table: Part_Status.'
+          example: string
+        note:
+          type: string
+          description: A note about the part.
+          example: string
+        leadTimeDays:
+          type: integer
+          format: int32
+          description: The number of days in advance to schedule orders for the part.
+          example: 0
+        buildingCode:
+          type: string
+          description: 'The main building where the part is located. Application: Buildings.'
+          example: string
+        allergens:
+          type: array
+          description: 'Allergen(s) defined on the part. Setup Table: Allergen. Allergen values are only returned when the HACCP module or the Storage Validation module is enabled.'
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: 'The storage condition(s) defined on the part. Setup Table: Storage_Condition. Storage condition values are only returned when the Storage Validation module is enabled.'
+          items:
+            type: string
+        serialize:
+          type: boolean
+          description: Tracks container serial numbers.
+          example: false
+        lotRequired:
+          type: boolean
+          description: Determines whether lot tracking is required for this part. When true, the part is included in lot management and must have a valid lot format. When false or omitted, lot tracking is not required for the part.
+          example: false
+        lotFormat:
+          type: string
+          description: Determines the format of automatically generated lot numbers. A lot format is composed of an ordered sequence of tokens, each resolving to a runtime value derived from contextual information such as dates, identifiers, sequences, etc.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: Determines whether Bill of Materials (BOM) substitutions are permitted for this part. When true, substitute components can be used in place of this part on a BOM. When false, substitutions are not allowed and the exact part must be used.
+          example: false
+        eunRequired:
+          type: boolean
+          description: Determines whether the End Unit Number (EUN) tracking is required for this part. When true, the system enforces the EUN assignment for inventory and production transactions involving this part, enabling end to end unit level traceability. Once enabled for a part, it cannot be disabled.
+          example: false
+      required:
+      - number
+      - type
+      - status
+    SyncPartDTO:
+      type: object
+      description: The part model containing the data required to sync parts from another system.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a part. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The part number.
+          example: string
+        name:
+          type: string
+          description: The part name.
+          example: string
+        revision:
+          type: string
+          description: The part revision.
+          example: string
+        description:
+          type: string
+          description: The description of the part.
+          example: string
+        type:
+          type: string
+          description: 'The part type. Setup Table: Part_Type.'
+          example: string
+        group:
+          type: string
+          description: 'The part group. Setup Table: Part_Group.'
+          example: string
+        source:
+          type: string
+          description: 'The part source, which represents the origin of the part. Setup Table: Part_Source.'
+          example: string
+        productType:
+          type: string
+          description: 'The part''s product type. Setup Table: Part_Product_Type.'
+          example: string
+        status:
+          type: string
+          description: 'The status of the part. Setup Table: Part_Status.'
+          example: string
+        note:
+          type: string
+          description: A note about the part.
+          example: string
+        leadTimeDays:
+          type: integer
+          format: int32
+          description: The number of days in advance to schedule orders for the part.
+          example: 0
+        buildingCode:
+          type: string
+          description: 'The main building where the part is located. Application: Buildings.'
+          example: string
+        allergens:
+          type: array
+          description: 'Allergen(s) defined on the part. Setup Table: Allergen. Allergen values are only returned when the HACCP module or the Storage Validation module is enabled.'
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: 'The storage condition(s) defined on the part. Setup Table: Storage_Condition. Storage condition values are only returned when the Storage Validation module is enabled.'
+          items:
+            type: string
+        serialize:
+          type: boolean
+          description: Tracks container serial numbers.
+          example: false
+        lotRequired:
+          type: boolean
+          description: Determines whether lot tracking is required for this part. When true, the part is included in lot management and must have a valid lot format. When false or omitted, lot tracking is not required for the part.
+          example: false
+        lotFormat:
+          type: string
+          description: Determines the format of automatically generated lot numbers. A lot format is composed of an ordered sequence of tokens, each resolving to a runtime value derived from contextual information such as dates, identifiers, sequences, etc.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: Determines whether Bill of Materials (BOM) substitutions are permitted for this part. When true, substitute components can be used in place of this part on a BOM. When false, substitutions are not allowed and the exact part must be used.
+          example: false
+        eunRequired:
+          type: boolean
+          description: Determines whether the End Unit Number (EUN) tracking is required for this part. When true, the system enforces the EUN assignment for inventory and production transactions involving this part, enabling end to end unit level traceability. Once enabled for a part, it cannot be disabled.
+          example: false
+      required:
+      - number
+      - type
+      - status
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    PartDTO:
+      type: object
+      description: The all-inclusive domain model for a part.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a part.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The part number.
+          example: string
+        name:
+          type: string
+          description: The part name.
+          example: string
+        revision:
+          type: string
+          description: The part revision.
+          example: string
+        description:
+          type: string
+          description: The description of the part.
+          example: string
+        type:
+          type: string
+          description: 'The part type. Setup Table: Part_Type.'
+          example: string
+        group:
+          type: string
+          description: 'The part group. Setup Table: Part_Group.'
+          example: string
+        source:
+          type: string
+          description: 'The part source, which represents the origin of the part. Setup Table: Part_Source.'
+          example: string
+        productType:
+          type: string
+          description: 'The part''s product type. Setup Table: Part_Product_Type.'
+          example: string
+        status:
+          type: string
+          description: 'The status of the part. Setup Table: Part_Status.'
+          example: string
+        note:
+          type: string
+          description: A note about the part.
+          example: string
+        leadTimeDays:
+          type: number
+          format: double
+          description: The number of days in advance to schedule orders for the part.
+          example: 0.1
+        buildingCode:
+          type: string
+          description: 'The main building where the part is located. Application: Buildings.'
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who created the part record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the part record was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who last modified the part record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the part record was last modified.
+          example: '2026-10-20T12:03:13Z'
+        allergens:
+          type: array
+          description: 'Allergen(s) defined on the part. Setup Table: Allergen. Allergen values are only returned when the HACCP module or the Storage Validation module is enabled.'
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: 'The storage condition(s) defined on the part. Setup Table: Storage_Condition. Storage condition values are only returned when the Storage Validation module is enabled.'
+          items:
+            type: string
+        serialize:
+          type: boolean
+          description: Tracks container serial numbers.
+          example: false
+        lotRequired:
+          type: boolean
+          description: Determines whether lot tracking is required for this part. When true, the part is included in lot management and must have a valid lot format. When false or omitted, lot tracking is not required for the part.
+          example: false
+        lotFormat:
+          type: string
+          description: Determines the format of automatically generated lot numbers. A lot format is composed of an ordered sequence of tokens, each resolving to a runtime value derived from contextual information such as dates, identifiers, sequences, etc.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: Determines whether Bill of Materials (BOM) substitutions are permitted for this part. When true, substitute components can be used in place of this part on a BOM. When false, substitutions are not allowed and the exact part must be used.
+          example: false
+        eunRequired:
+          type: boolean
+          description: Determines whether the End Unit Number (EUN) tracking is required for this part. When true, the system enforces the EUN assignment for inventory and production transactions involving this part, enabling end to end unit level traceability. Once enabled for a part, it cannot be disabled.
+          example: false
+    CreatePartDTO:
+      type: object
+      description: The part model containing the data required to create a part.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for a part. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        number:
+          type: string
+          description: The part number.
+          example: string
+        name:
+          type: string
+          description: The part name.
+          example: string
+        revision:
+          type: string
+          description: The part revision.
+          example: string
+        description:
+          type: string
+          description: The description of the part.
+          example: string
+        type:
+          type: string
+          description: 'The part type. Setup Table: Part_Type.'
+          example: string
+        group:
+          type: string
+          description: 'The part group. Setup Table: Part_Group.'
+          example: string
+        source:
+          type: string
+          description: 'The part source, which represents the origin of the part. Setup Table: Part_Source.'
+          example: string
+        productType:
+          type: string
+          description: 'The part''s product type. Setup Table: Part_Product_Type.'
+          example: string
+        status:
+          type: string
+          description: 'The status of the part. Setup Table: Part_Status.'
+          example: string
+        note:
+          type: string
+          description: A note about the part.
+          example: string
+        leadTimeDays:
+          type: integer
+          format: int32
+          description: The number of days in advance to schedule orders for the part.
+          example: 0
+        buildingCode:
+          type: string
+          description: 'The main building where the part is located. Application: Buildings.'
+          example: string
+        allergens:
+          type: array
+          description: 'Allergen(s) defined on the part. Setup Table: Allergen. Allergen values are only returned when the HACCP module or the Storage Validation module is enabled.'
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: 'The storage condition(s) defined on the part. Setup Table: Storage_Condition. Storage condition values are only returned when the Storage Validation module is enabled.'
+          items:
+            type: string
+        serialize:
+          type: boolean
+          description: Tracks container serial numbers.
+          example: false
+        lotRequired:
+          type: boolean
+          description: Determines whether lot tracking is required for this part. When true, the part is included in lot management and must have a valid lot format. When false or omitted, lot tracking is not required for the part.
+          example: false
+        lotFormat:
+          type: string
+          description: Determines the format of automatically generated lot numbers. A lot format is composed of an ordered sequence of tokens, each resolving to a runtime value derived from contextual information such as dates, identifiers, sequences, etc.
+          example: string
+        bomSubstitutionAllow:
+          type: boolean
+          description: Determines whether Bill of Materials (BOM) substitutions are permitted for this part. When true, substitute components can be used in place of this part on a BOM. When false, substitutions are not allowed and the exact part must be used.
+          example: false
+        eunRequired:
+          type: boolean
+          description: Determines whether the End Unit Number (EUN) tracking is required for this part. When true, the system enforces the EUN assignment for inventory and production transactions involving this part, enabling end to end unit level traceability. Once enabled for a part, it cannot be disabled.
+          example: false
+      required:
+      - number
+      - type
+      - status
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

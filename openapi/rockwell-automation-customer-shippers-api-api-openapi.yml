@@ -1,0 +1,1476 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Customer Shippers API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Customer Shippers API
+  description: The Customer Shippers API is used to manage customer shipper data.
+paths:
+  /shipping/v1-beta1/customer-shippers:
+    post:
+      operationId: createShipper
+      summary: Create Shipper
+      tags:
+      - Customer Shippers API
+      description: Creates a customer shipper.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShipperDto'
+      responses:
+        '201':
+          description: The Shipper was added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipperDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/create-shipper
+  /shipping/v1/customer-shippers/{shipperId}/lines/{lineId}:
+    get:
+      operationId: getCustomerShipperLine
+      summary: Get Customer Shipper Line
+      tags:
+      - Customer Shippers API
+      description: Retrieve a customer shipper line by ID.
+      parameters:
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper record.
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper line.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineDto'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/get-customer-shipper-line
+  /shipping/v1/customer-shippers/{id}:
+    get:
+      operationId: getCustomerShipper
+      summary: Get Customer Shipper
+      tags:
+      - Customer Shippers API
+      description: Retrieve a customer shipper by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipperDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/get-customer-shipper
+  /shipping/v1/customer-shippers/{id}/lines/{lineId}/containers:
+    get:
+      operationId: listCustomerShipperLineContainers
+      summary: List Customer Shipper Line Containers
+      tags:
+      - Customer Shippers API
+      description: List customer shipper line containers by query parameters.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper record.
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper line record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineContainerDto'
+        '404':
+          description: The shipper line resource was not found.
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/list-customer-shipper-line-containers
+  /shipping/v1/customer-shippers/{id}/lines/{lineId}/releases:
+    get:
+      operationId: listCustomerShipperLineReleases
+      summary: List Customer Shipper Line Releases
+      tags:
+      - Customer Shippers API
+      description: List customer shipper line releases by query parameters.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper record.
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper line record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineReleaseDto'
+        '404':
+          description: The shipper line resource was not found.
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/list-customer-shipper-line-releases
+  /shipping/v1/customer-shippers/{shipperId}/lines:
+    get:
+      operationId: listCustomerShipperLines
+      summary: List Customer Shipper Lines
+      tags:
+      - Customer Shippers API
+      description: List customer shipper lines by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: One or more customer shipper line IDs.
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the customer shipper record.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/list-customer-shipper-lines
+  /shipping/v1/customer-shippers:
+    get:
+      operationId: listCustomerShippers
+      summary: List Customer Shippers
+      tags:
+      - Customer Shippers API
+      description: List customer shippers by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: One or more customer shipper line IDs.
+      - name: shipperNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The shipper number associated with a given shipment.
+      - name: customerId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the customer that is associated with the shipper.
+      - name: customerAddressId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the customer address that is associated with the shipper.
+      - name: shipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The date on which the shipper was shipped.
+      - name: shipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The date on which the shipper was shipped.
+      - name: shippedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who shipped the shipper.
+      - name: carrierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The supplier ID that is flagged as the carrier on this shipment.
+      - name: freightTerms
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The shipper's status.
+      - name: trackingNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The tracking number, often provided by a carrier, that is specified on the shipper.
+      - name: trailerNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+      - name: scheduledShipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return shipper records that were scheduled to ship during a specified period of time.
+      - name: scheduledShipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return shipper records that were scheduled to ship during a specified period of time.
+      - name: createdById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who created the record.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return shipper records that were created during a specified period of time.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return shipper records that were created during a specified period of time.
+      - name: modifiedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who last modified the record.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return shipper records that were last modified within a specified period of time.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return shipper records that were last modified within a specified period of time.
+      - name: truckId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the truck associated with the shipper.
+      - name: expediteReason
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The reason for expedited shipping as specified on the shipper.
+      - name: expediteDepartment
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The department that authorized or required an expedited shipment.
+      - name: expediteAuthorizedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who authorized the expedited shipping.
+      - name: shipFromCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The building code from which the shipper was shipped.
+      - name: truckArrivalTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: This field has been deprecated. Use TruckArrivalTimeOfDayBegin.
+      - name: truckArrivalTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: This field has been deprecated. Use TruckArrivalTimeOfDayEnd.
+      - name: printedById
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the user who printed the record.
+      - name: printedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return records that were printed within a specified period of time.
+      - name: printedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return records that were printed within a specified period of time.
+      - name: pickListPrintedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date used to return pick list records that were printed within a specified period of time.
+      - name: pickListPrintedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date used to return pick list records that were printed within a specified period of time.
+      - name: truckArrivalTimeOfDayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: time
+          example: string
+        description: The beginning time of day used to return truck records that arrived within a specified period of time.
+      - name: truckArrivalTimeOfDayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: time
+          example: string
+        description: The beginning time of day used to return truck records that arrived within a specified period of time.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipperDto'
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/list-customer-shippers
+  /shipping/v1-beta1/customer-shippers/{shipperId}/lines/{lineId}/load-container:
+    post:
+      operationId: loadContainer
+      summary: Load Container
+      tags:
+      - Customer Shippers API
+      description: Load a container to a shipper line.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The shipper id.
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The line id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoadContainerDto'
+      responses:
+        '200':
+          description: The container was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerShippingDetailsDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/load-container
+  /shipping/v1-beta1/customer-shippers/{shipperId}/lines/{lineId}/load-fifo:
+    post:
+      operationId: loadShipperLineFifo
+      summary: Load Shipper Line FIFO
+      tags:
+      - Customer Shippers API
+      description: Loads containers to a shipper line in FIFO order.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the shipper.
+      - name: lineId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the shipper line.
+      responses:
+        '200':
+          description: The shipper line was loaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/load-shipper-line-fifo
+  /shipping/v1-beta1/customer-shippers/{id}/schedule-releases:
+    post:
+      operationId: scheduleReleases
+      summary: Schedule Releases
+      tags:
+      - Customer Shippers API
+      description: Schedules a list of releases.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the customer shipper to schedule releases against.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleReleaseDto'
+      responses:
+        '200':
+          description: The release was scheduled successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleReleaseResponseDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/schedule-releases
+  /shipping/v1-beta1/customer-shippers/{shipperId}/ship:
+    post:
+      operationId: shipShipper
+      summary: Ship Shipper
+      tags:
+      - Customer Shippers API
+      description: Ships a customer shipper.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: shipperId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the shipper being shipped.
+      responses:
+        '200':
+          description: The shipper was shipped successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipperDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/ship-shipper
+  /shipping/v1-beta1/customer-shippers/{id}:
+    put:
+      operationId: updateShipper
+      summary: Update Shipper
+      tags:
+      - Customer Shippers API
+      description: Update a customer shipper.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of customer shipper to be update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShipperDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipperDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customer-shippers-api/update-shipper
+components:
+  schemas:
+    CreateShipperDto:
+      type: object
+      description: The shipper model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperNumber:
+          type: string
+          description: The shipper number.
+          example: string
+        customerId:
+          type: string
+          format: uuid
+          description: The customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        carrierId:
+          type: string
+          format: uuid
+          description: The carrier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: The shipper's freight terms.
+          example: string
+        status:
+          type: string
+          description: The shipper status.
+          example: string
+        trackingNumber:
+          type: string
+          description: The shipper tracking number.
+          example: string
+        trailerNumber:
+          type: string
+          description: The shipper trailer number.
+          example: string
+        scheduledShipDate:
+          type: string
+          format: date-time
+          description: The scheduled ship date.
+          example: '2026-10-20T12:03:02Z'
+        shipperNote:
+          type: string
+          description: A note to print on the shipper and the bill of lading.
+          example: string
+        truckId:
+          type: string
+          format: uuid
+          description: The truck ID.
+          example: 00000000-0000-0000-0000-000000000000
+        expediteNote:
+          type: string
+          description: The expedite note.
+          example: string
+        expediteReason:
+          type: string
+          description: The expedite reason.
+          example: string
+        expediteDepartmentCode:
+          type: string
+          description: The department code that authorized the expedite.
+          example: string
+        expediteAdditionalCost:
+          type: number
+          format: double
+          description: Additional cost due to expedited shipping.
+          example: 0.1
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ship from code.
+          example: 00000000-0000-0000-0000-000000000000
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The truck arrival time. Use format hh:mm:ss.
+          example: string
+        freightAmount:
+          type: number
+          format: double
+          description: The freight amount.
+          example: 0.1
+        bolNote:
+          type: string
+          description: The bill of lading note.
+          example: string
+        note:
+          type: string
+          description: An internal note.
+          example: string
+        customsExporter:
+          type: string
+          description: The customs exporter.
+          example: string
+        deliveryDate:
+          type: string
+          format: date-time
+          description: The delivery date.
+          example: '2026-10-20T12:03:02Z'
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        chargeAmount:
+          type: number
+          format: double
+          description: The charge amount for the shipper.
+          example: 0.1
+        masterBolNumber:
+          type: string
+          description: The master bill of lading (BOL) number.
+          example: string
+        pallets:
+          type: integer
+          format: int32
+          description: The number of pallets on the shipper.
+          example: 0
+        premiumTransAuth:
+          type: string
+          description: The number specified in the shipper's Premium Trans Auth field (used for AETC numbers on expedited shipments).
+          example: string
+        truckConfirmation:
+          type: string
+          description: The truck confirmation.
+          example: string
+        truckCalledDate:
+          type: string
+          format: date
+          description: The truck called date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        grossWeightOverride:
+          type: number
+          format: double
+          description: The gross weight override.
+          example: 0.1
+        mrn:
+          type: string
+          description: The movement reference number (MRN) specified on the shipper.
+          example: string
+        mrnDate:
+          type: string
+          format: date
+          description: The movement reference number (MRN) date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        mrnType:
+          type: string
+          description: The MRN type.
+          example: string
+        routingAuthorizationNumber:
+          type: string
+          description: The routing authorization number.
+          example: string
+      required:
+      - shipperNumber
+      - customerId
+      - customerAddressId
+      - freightTerms
+      - status
+    ShipperDto:
+      type: object
+      description: The shipper model exposed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperNumber:
+          type: string
+          description: The shipper number associated with a given shipment.
+          example: string
+        customerId:
+          type: string
+          format: uuid
+          description: The ID of the customer that is associated with the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        customerAddressId:
+          type: string
+          format: uuid
+          description: The ID of the customer address that is associated with the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        shipDate:
+          type: string
+          format: date-time
+          description: The date on which the shipper was shipped.
+          example: '2026-10-20T12:03:02Z'
+        shippedById:
+          type: string
+          format: uuid
+          description: The ID of the user who shipped the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        carrierId:
+          type: string
+          format: uuid
+          description: The supplier ID that is flagged as the carrier on the shipment.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: Terms of the freight payment; for example, COD, Collect, or Prepaid.
+          example: string
+        status:
+          type: string
+          description: The status of the shipper.
+          example: string
+        trackingNumber:
+          type: string
+          description: The tracking number, often provided by a carrier, related to a specific shipment.
+          example: string
+        trailerNumber:
+          type: string
+          description: The trailer number associated with the physical trailer that a specific shipment was shipped on.
+          example: string
+        note:
+          type: string
+          description: An internal note on the shipper.
+          example: string
+        scheduledShipDate:
+          type: string
+          format: date-time
+          description: The date on which the shipper is scheduled to ship.
+          example: '2026-10-20T12:03:02Z'
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:02Z'
+        shipperNote:
+          type: string
+          description: A note to print on the shipper and the bill of lading (BOL).
+          example: string
+        truckId:
+          type: string
+          format: uuid
+          description: The ID of the truck associated with the shipper.
+          example: 00000000-0000-0000-0000-000000000000
+        expediteNote:
+          type: string
+          description: Notes related to expedited shipping.
+          example: string
+        expediteReason:
+          type: string
+          description: The reason for expedited shipping as specified on the shipper.
+          example: string
+        expediteDepartment:
+          type: string
+          description: The department that authorized or required an expedited shipment.
+          example: string
+        expediteAuthorizedById:
+          type: string
+          format: uuid
+          description: The ID of the user who authorized the expedited shipping.
+          example: 00000000-0000-0000-0000-000000000000
+        expediteAdditionalCost:
+          type: number
+          format: double
+          description: Additional cost due to expedited shipping.
+          example: 0.1
+        shipFromCode:
+          type: string
+          description: The building code from which the shipper was shipped.
+          example: string
+        truckArrivalTime:
+          type: string
+          format: date-time
+          description: This field has been deprecated. Use TruckArrivalTimeOfDay.
+          example: '2026-10-20T12:03:02Z'
+        printedById:
+          type: string
+          format: uuid
+          description: The ID of the user who printed the record.
+          example: 00000000-0000-0000-0000-000000000000
+        printedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was printed.
+          example: '2026-10-20T12:03:02Z'
+        freightAmount:
+          type: number
+          format: double
+          description: Freight amount is the freight cost associated with the shipment.
+          example: 0.1
+        bolNote:
+          type: string
+          description: The bill of lading (BOL) note on the shipper.
+          example: string
+        customsExporter:
+          type: string
+          description: The customs exporter specified on the shipper.
+          example: string
+        deliveryDateTime:
+          type: string
+          format: date-time
+          description: The delivery date on the shipper.
+          example: '2026-10-20T12:03:02Z'
+        dropshipSupplierCode:
+          type: string
+          description: The dropship supplier code.
+          example: string
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperChargeAmount:
+          type: number
+          format: double
+          description: The charge amount specified on the shipper.
+          example: 0.1
+        masterBolNo:
+          type: string
+          description: The master bill of lading (BOL) number.
+          example: string
+        pallets:
+          type: integer
+          format: int32
+          description: The number of pallets on the shipper.
+          example: 0
+        premiumTransAuth:
+          type: string
+          description: The number specified in the shipper's Premium Trans Auth field (used for AETC numbers on expedited shipments).
+          example: string
+        truckConfirmation:
+          type: string
+          description: The truck confirmation number.
+          example: string
+        truckCalledDate:
+          type: string
+          format: date
+          description: The truck called date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        grossWeightOverride:
+          type: number
+          format: double
+          description: The gross weight override.
+          example: 0.1
+        mrn:
+          type: string
+          description: The Movement Reference Number (MRN) specified on the shipper.
+          example: string
+        mrnDate:
+          type: string
+          format: date
+          description: The movement reference number (MRN) date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        mrnType:
+          type: string
+          description: The movement reference number (MRN) type.
+          example: string
+        routingAuthorizationNumber:
+          type: string
+          description: The routing authorization number.
+          example: string
+        shipperWeight:
+          type: number
+          format: double
+          description: The shipper weight.
+          example: 0.1
+        pickListPrintedDateTime:
+          type: string
+          format: date-time
+          description: The date on which the pick list was printed.
+          example: '2026-10-20T12:03:02Z'
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The truck arrival time. Use format hh:mm:ss.
+          example: string
+    LineReleaseDto:
+      type: object
+      description: The shipper line release model exposed.
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+          description: The ID of the shipping order release that is associated with the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+    LineContainerDto:
+      type: object
+      description: The shipper line container model exposed.
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+          description: The ID of the release associated with the container on the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        serialNumber:
+          type: string
+          description: The serial number of the inventory container assigned to the shipper line.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The part quantity of the container that was loaded to the shipper line.
+          example: 0.1
+        loadedDate:
+          type: string
+          format: date-time
+          description: The date on which the inventory container was loaded to the shipper line.
+          example: '2026-10-20T12:03:02Z'
+    ScheduleReleaseResponseDto:
+      type: object
+      description: The Schedule Release Response DTO.
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the release
+          example: 00000000-0000-0000-0000-000000000000
+        shipperId:
+          type: string
+          format: uuid
+          description: A unique identifier for the shipper
+          example: 00000000-0000-0000-0000-000000000000
+        shipperLineId:
+          type: string
+          format: uuid
+          description: A unique identifier for the shipper line
+          example: 00000000-0000-0000-0000-000000000000
+    LineDto:
+      type: object
+      description: The shipper line model exposed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the shipper line. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        shipperId:
+          type: string
+          format: uuid
+          description: The ID of the shipper associated with this shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the Part Number associated with the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The part quantity on the shipper line.
+          example: 0.1
+        releaseId:
+          type: string
+          format: uuid
+          description: The ID of the release on the specified shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        price:
+          type: number
+          format: double
+          description: The shipping order unit price assigned to the shipper line.
+          example: 0.1
+        customerPartId:
+          type: string
+          format: uuid
+          description: The ID of the customer part on the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        priceId:
+          type: string
+          format: uuid
+          description: The ID of the price used on the shipper line.
+          example: 00000000-0000-0000-0000-000000000000
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the shipper line.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the shipper line.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The tare weight of the shipper line.
+          example: 0.1
+        shipperLineNote:
+          type: string
+          description: The note on the shipper line.
+          example: string
+        packingComplete:
+          type: boolean
+          description: Indicates if packing is complete for the shipper line.
+          example: false
+        conversion:
+          type: number
+          format: double
+          description: The unit conversion used on the shipper line.
+          example: 0.1
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    ScheduleReleaseDto:
+      type: object
+      description: The Schedule Release DTO.
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the release.
+          example: 00000000-0000-0000-0000-000000000000
+        forceNewLine:
+          type: boolean
+          description: A boolean indicating whether or not to force the creation of a new shipper line.
+          example: false
+      required:
+      - releaseId
+    ContainerShippingDetailsDto:
+      type: object
+      description: The container shipping details model.
+      properties:
+        serialNo:
+          type: string
+          description: The container's serial number.
+          example: string
+        containerType:
+          type: string
+          description: The type of container.
+          example: string
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the container.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the container.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The tare weight of the container.
+          example: 0.1
+        weightUnit:
+          type: string
+          description: The weight unit of the container.
+          example: string
+        cubeHeight:
+          type: number
+          format: double
+          description: The cube height of the container.
+          example: 0.1
+        cubeLength:
+          type: number
+          format: double
+          description: The cube length of the container.
+          example: 0.1
+        cubeWidth:
+          type: number
+          format: double
+          description: The cube width of the container.
+          example: 0.1
+        dimensionUnit:
+          type: string
+          description: The dimension unit used for the container.
+          example: string
+        commodityCode:
+          type: string
+          description: The commodity code associated with the container.
+          example: string
+        harmonizedTariffCode:
+          type: string
+          description: The harmonized tariff code associated with the container.
+          example: string
+        hazardous:
+          type: boolean
+          description: Indicates whether the container contents are hazardous or not.
+          example: false
+        freightClassification:
+          type: string
+          description: The freight classification associated with the container.
+          example: string
+        weightClassification:
+          type: string
+          description: The weight classification associated with the container.
+          example: string
+        masterUnitNo:
+          type: string
+          description: The master unit number associated with the container.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit ID.
+          example: 00000000-0000-0000-0000-000000000000
+    LoadContainerDto:
+      type: object
+      description: The query parameters for shipper line resources.
+      properties:
+        serialNo:
+          type: string
+          description: The serial number of the inventory container assigned to the shipper line.
+          example: string
+    UpdateShipperDto:
+      type: object
+      description: The shipper model exposed for updating records.
+      properties:
+        carrierId:
+          type: string
+          format: uuid
+          description: The carrier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: The freight terms.
+          example: string
+        status:
+          type: string
+          description: The shipper status.
+          example: string
+        shipperNumber:
+          type: string
+          description: The shipper number.
+          example: string
+        trackingNumber:
+          type: string
+          description: The shipper tracking number.
+          example: string
+        trailerNumber:
+          type: string
+          description: The shipper trailer number.
+          example: string
+        scheduledShipDate:
+          type: string
+          format: date-time
+          description: The scheduled ship date.
+          example: '2026-10-20T12:03:02Z'
+        shipperNote:
+          type: string
+          description: A note to print on the shipper and the bill of lading.
+          example: string
+        truckId:
+          type: string
+          format: uuid
+          description: The truck ID.
+          example: 00000000-0000-0000-0000-000000000000
+        expediteNote:
+          type: string
+          description: The expedite note.
+          example: string
+        expediteReason:
+          type: string
+          description: The expedite reason.
+          example: string
+        expediteDepartmentCode:
+          type: string
+          description: The department for the expedite.
+          example: string
+        expediteAdditionalCost:
+          type: number
+          format: double
+          description: The expedite additional cost.
+          example: 0.1
+        shipFromId:
+          type: string
+          format: uuid
+          description: The building ID from which the shipper was shipped.
+          example: 00000000-0000-0000-0000-000000000000
+        truckArrivalTimeOfDay:
+          type: string
+          format: time
+          description: The truck arrival time. Use format hh:mm:ss.
+          example: string
+        freightAmount:
+          type: number
+          format: double
+          description: The freight amount.
+          example: 0.1
+        bolNote:
+          type: string
+          description: The bill of lading note.
+          example: string
+        customsExporter:
+          type: string
+          description: The customs exporter.
+          example: string
+        deliveryDate:
+          type: string
+          format: date-time
+          description: The delivery date.
+          example: '2026-10-20T12:03:02Z'
+        dropshipSupplierId:
+          type: string
+          format: uuid
+          description: The dropship supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        chargeAmount:
+          type: number
+          format: double
+          description: The charge amount for the shipper.
+          example: 0.1
+        masterBolNumber:
+          type: string
+          description: The master bill of lading number.
+          example: string
+        pallets:
+          type: integer
+          format: int32
+          description: The number of pallets on the shipper.
+          example: 0
+        premiumTransAuth:
+          type: string
+          description: The number specified in the shipper's Premium Trans Auth field (used for AETC numbers on expedited shipments).
+          example: string
+        truckConfirmation:
+          type: string
+          description: The truck confirmation.
+          example: string
+        truckCalledDate:
+          type: string
+          format: date
+          description: The truck called date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        grossWeightOverride:
+          type: number
+          format: double
+          description: The gross weight override.
+          example: 0.1
+        mrn:
+          type: string
+          description: The movement reference number (MRN) specified on the shipper.
+          example: string
+        mrnDate:
+          type: string
+          format: date
+          description: The movement reference number (MRN) date. Use format YYYY-MM-DD.
+          example: 10/20/2026 00:00:00
+        mrnType:
+          type: string
+          description: The movement reference number (MRN) type.
+          example: string
+        routingAuthorizationNumber:
+          type: string
+          description: The routing authorization number.
+          example: string
+      required:
+      - freightTerms
+      - status
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

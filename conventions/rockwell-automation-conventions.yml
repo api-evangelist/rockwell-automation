@@ -1,0 +1,45 @@
+generated: '2026-10-20'
+method: searched
+source: https://developers.plex.com/getstarted
+api: Plex Connect API
+auth:
+  style: api-key header X-Plex-Connect-Api-Key
+  see: authentication/rockwell-automation-authentication.yml
+tenancy:
+  headers: [X-Plex-Connect-Tenant-Id, X-Plex-Connect-Customer-Id]
+url_structure: https://[tier.]connect.plex.com/{collection}/{version}/{resource}[/{resource id}]?[filters]
+versioning:
+  style: path segment (v1, v2) per collection
+  evidence: https://developers.plex.com/getstarted
+idempotency:
+  coverage: none
+  note: No Idempotency-Key header or replay protection is documented in the Get Started guide or the operation documents.
+pagination:
+  style: none-documented
+  note: List operations filter by query parameters (date ranges such as createdDateBegin/createdDateEnd, status, active); no page/limit/cursor convention is documented.
+filtering:
+  list_params: Multiple values for a list query parameter are passed by repeating the parameter (?Id=value1&Id=value2).
+dates:
+  format: YYYY-MM-DDThh:mm:ss.fffffffZ
+  note: UTC or UTC+Offset; dates without times and times without a time zone are not supported.
+errors:
+  envelope: '{"code": ..., "message": ...}'
+  see: errors/rockwell-automation-problem-types.yml
+rate_limits:
+  see: rate-limits/rockwell-automation-rate-limits.yml
+  signaling: not documented
+reversibility:
+  status: documented
+  note: The contract carries reversal operations (cancel and delete) but the docs state no window within which they apply.
+  operations:
+  - surface: production jobs
+    reversal: cancelJob
+  - surface: purchase order releases
+    reversal: cancelRelease
+  - surface: purchase order release batches
+    reversal: cancelReleaseBatch
+  - surface: transfer orders
+    reversal: cancelTransferOrder
+  - surface: AP invoice receipt links
+    reversal: unlinkReceiptsFromApInvoice
+  window: null

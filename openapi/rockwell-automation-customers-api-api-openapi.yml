@@ -1,0 +1,2311 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Customers API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Customers API
+  description: The Customers API is used to manage customer master data, including financial information and addresses.
+paths:
+  /mdm/v1/customers/{customerId}/addresses:
+    post:
+      operationId: createCustomerAddress
+      summary: Create Customer Address
+      tags:
+      - Customers API
+      description: Create a new customer address.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerAddressDTO'
+      responses:
+        '201':
+          description: The CustomerAddress resources were successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customers-api/create-customer-address
+    get:
+      operationId: listCustomerAddresses
+      summary: List Customer Addresses
+      tags:
+      - Customers API
+      description: Get customer addresses by query parameters.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of CustomerAddress Resource Ids.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: quoteTo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this address may be used for customer quotes.
+      - name: shipTo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this address may be used for customer shipping.
+      - name: billTo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this address may be used for customer invoices.
+      - name: remitTo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this address may be used for remittance.
+      - name: thirdPartyShipTo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this is a valid third-party shipping address.
+      - name: pool
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location.
+      - name: oldCustomerNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date and time to use for records that were last modified within a time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date and time to use for records that were last modified within a time frame.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressDTO'
+      x-source: https://developers.plex.com/api/documentation/customers-api/list-customer-addresses
+  /mdm/v1/customers:
+    post:
+      operationId: createCustomer
+      summary: Create Customer
+      tags:
+      - Customers API
+      description: Create a new customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerDTO'
+      responses:
+        '201':
+          description: The Customer resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customers-api/create-customer
+    get:
+      operationId: listCustomers
+      summary: List Customers
+      tags:
+      - Customers API
+      description: List customers by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A list of customer IDs.
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Customer Status'
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Customer Type'
+      - name: otherCustomerCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: rating
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Customer Rating'
+      - name: industries
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Industries'
+      - name: region
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Screen: Region List'
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Customer Category'
+      - name: class
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Customer Class'
+      - name: catalog
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Screen: Catalogs'
+      - name: assignedToId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The sales person assigned to this customer, by IAM Account ID.
+      - name: assignedTo2Id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The sales person assigned to this customer, by IAM Account ID.
+      - name: assignedTo3Id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The sales person assigned to this customer, by IAM Account ID.
+      - name: assignedToGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: contactResourceID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The  Contact_Id of the sales person assigned to this Customer.
+      - name: trackingNoOnWeighScaleRequired
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+      - name: estimatedAnnualSales
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The beginning date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        description: The ending date on which the record was last modified.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+      x-source: https://developers.plex.com/api/documentation/customers-api/list-customers
+  /mdm/v1/customers/{id}/deactivate:
+    post:
+      operationId: deactivateCustomer
+      summary: Deactivate Customer
+      tags:
+      - Customers API
+      description: Deactivates a customer by changing it's Customer Status to Deleted.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+        '200':
+          description: The query executed successfully.
+      x-source: https://developers.plex.com/api/documentation/customers-api/deactivate-customer
+  /mdm/v1/customers/{customerId}/addresses/{addressId}:
+    delete:
+      operationId: deleteCustomerAddress
+      summary: Delete Customer Address
+      tags:
+      - Customers API
+      description: Deletes a customer address.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customers-api/delete-customer-address
+    get:
+      operationId: getCustomerAddress
+      summary: Get Customer Address
+      tags:
+      - Customers API
+      description: Retrieve a customer address by ID.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressDTO'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/customers-api/get-customer-address
+    put:
+      operationId: updateCustomerAddress
+      summary: Update Customer Address
+      tags:
+      - Customers API
+      description: Update a customer address.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerAddressDTO'
+      responses:
+        '200':
+          description: The customer address was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customers-api/update-customer-address
+  /mdm/v1/customers/{customerId}/addresses/{addressId}/edi-details:
+    get:
+      operationId: getCustomerAddressesEdiDetails
+      summary: Get Customer Addresses EDI Details
+      tags:
+      - Customers API
+      description: Get customer address EDI details.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressEdiDTO'
+      x-source: https://developers.plex.com/api/documentation/customers-api/get-customer-addresses-edi-details
+    put:
+      operationId: updateCustomerAddressEdiDetails
+      summary: Update Customer Address EDI Details
+      tags:
+      - Customers API
+      description: Update a Customer Address EDI Details.
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer address ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerAddressEdiDTO'
+      responses:
+        '200':
+          description: The customer address EDI details were updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddressEdiDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customers-api/update-customer-address-edi-details
+  /mdm/v1/customers/{id}/financials:
+    get:
+      operationId: getCustomerFinancials
+      summary: Get Customer Financials
+      tags:
+      - Customers API
+      description: Retrieve customer financial information by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerFinancialsDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customers-api/get-customer-financials
+    put:
+      operationId: updateCustomerFinancials
+      summary: Update Customer Financials
+      tags:
+      - Customers API
+      description: Update the financial information for a customer.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerFinancialsDTO'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerFinancialsDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/customers-api/update-customer-financials
+  /mdm/v1/customers/{id}:
+    get:
+      operationId: getCustomer
+      summary: Get Customer
+      tags:
+      - Customers API
+      description: Retrieve a customer by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+        '404':
+          description: The customer does not exist.
+      x-source: https://developers.plex.com/api/documentation/customers-api/get-customer
+    put:
+      operationId: updateCustomer
+      summary: Update Customer
+      tags:
+      - Customers API
+      description: Update a customer.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The customer ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDTO'
+      responses:
+        '200':
+          description: The Customer resources were updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/customers-api/update-customer
+  /mdm/v1/customers/sync:
+    post:
+      operationId: syncCustomers
+      summary: Sync Customers
+      tags:
+      - Customers API
+      description: Sync a set of customers from another system. This operation creates customers that do not exist in Plex and updates existing customers. This information includes customers addresses and customer financials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncCustomerDTO'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '200':
+          description: The query executed successfully.
+      x-source: https://developers.plex.com/api/documentation/customers-api/sync-customers
+components:
+  schemas:
+    UpdateCustomerAddressEdiDTO:
+      type: object
+      description: The customer address EDI details model for updating.
+      properties:
+        plantCode:
+          type: string
+          example: string
+        ultimateDestinationCode:
+          type: string
+          example: string
+        defaultDockCode:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        billToCode:
+          type: string
+          example: string
+        invoiceShipToCode:
+          type: string
+          example: string
+        routeCode:
+          type: string
+          example: string
+        poolCode:
+          type: string
+          example: string
+        warehouseCode:
+          type: string
+          example: string
+        functionalGroupCode:
+          type: string
+          example: string
+        lineFeed:
+          type: string
+          example: string
+        primaryMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        invoiceMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        billAndHoldMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        createInvoice:
+          type: boolean
+          example: false
+        suppressAsn:
+          type: boolean
+          example: false
+        suppressEdiLoad:
+          type: boolean
+          example: false
+        ignoreAccums:
+          type: boolean
+          example: false
+        serviceShipment:
+          type: boolean
+          example: false
+        shipTime:
+          type: integer
+          format: int32
+          example: 0
+        shipTimeUnit:
+          type: string
+          example: string
+    CustomerAddressDTO:
+      type: object
+      description: The all-inclusive domain model for a [object Object].
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        quoteTo:
+          type: boolean
+          description: If true, this address may be used for customer quotes.
+          example: false
+        shipTo:
+          type: boolean
+          description: If true, this address may be used for customer shipping.
+          example: false
+        billTo:
+          type: boolean
+          description: If true, this address may be used for customer invoices.
+          example: false
+        billToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for customer billing.
+          example: 00000000-0000-0000-0000-000000000000
+        remitTo:
+          type: boolean
+          description: If true, this address may be used for remittance.
+          example: false
+        thirdPartyShipTo:
+          type: boolean
+          description: If true, this is a valid third-party shipping address.
+          example: false
+        thirdPartyShipToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for third-party shipping.
+          example: 00000000-0000-0000-0000-000000000000
+        pool:
+          type: boolean
+          description: If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location.
+          example: false
+        poolAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for pooling.
+          example: 00000000-0000-0000-0000-000000000000
+        oldCustomerNo:
+          type: string
+          example: string
+        active:
+          type: boolean
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        country:
+          type: string
+          example: string
+        region:
+          type: string
+          description: 'Screen: Region List'
+          example: string
+        county:
+          type: string
+          example: string
+        shippingInstructions:
+          type: string
+          example: string
+        ignoreTransitOnWeekends:
+          type: boolean
+          example: false
+        transportationLeadTime:
+          type: integer
+          format: int32
+          example: 0
+        defaultCarrierIds:
+          type: array
+          description: A list of Default Carriers, by Supplier ID.
+          items:
+            type: string
+            format: uuid
+        truckType:
+          type: string
+          description: 'Screen: Truck Types'
+          example: string
+        salesTaxExempt:
+          type: boolean
+          example: false
+        salespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        statementAddressId:
+          type: string
+          format: uuid
+          description: The address to which statements should be sent, if this address is a valid Billing address.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: 'Setup Table: Freight Terms'
+          example: string
+        insideSalespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        defaultShipFrom:
+          type: string
+          description: 'Screen: Building List'
+          example: string
+        freightBillTo:
+          type: boolean
+          description: If true, this is a valid address for freight billing.
+          example: false
+        freightBillToAddressId:
+          type: string
+          format: uuid
+          description: The customer address to be used for freight billing.
+          example: 00000000-0000-0000-0000-000000000000
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        soldTo:
+          type: boolean
+          example: false
+        dunsNo:
+          type: string
+          example: string
+        commercialInvoiceVatNo:
+          type: string
+          example: string
+        terms:
+          type: string
+          example: string
+        template:
+          type: boolean
+          description: Only one address can be used as the address template.
+          example: false
+        incoTerms:
+          type: string
+          example: string
+        negotiatedPlace:
+          type: string
+          example: string
+        backOrder:
+          type: string
+          description: 'Setup Table: Back_Order'
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: IAM Account ID
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+    UpdateCustomerFinancialsDTO:
+      type: object
+      description: The customer financial model for updating.
+      properties:
+        maxDaysOutstanding:
+          type: integer
+          format: int32
+          example: 0
+        currencyCode:
+          type: string
+          example: string
+        terms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        requestedTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        creditLimit:
+          type: number
+          format: double
+          example: 0.1
+        salesTaxExempt:
+          type: integer
+          format: int32
+          example: 0
+        creditHold:
+          type: boolean
+          example: false
+        creditStatus:
+          type: string
+          description: 'Setup Table: Credit Status'
+          example: string
+        creditRating:
+          type: string
+          description: 'Setup Table: Credit Rating'
+          example: string
+        creditReviewDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        creditNote:
+          type: string
+          example: string
+        invoiceDelivery:
+          type: string
+          description: 'Setup Table: Invoice Delivery. The default value is &quot;Mail/Print Invoice&quot;.'
+          example: string
+        salesTaxExemptNo:
+          type: string
+          example: string
+        billingSeparation:
+          type: integer
+          format: int32
+          example: 0
+        invoiceLineReference:
+          type: string
+          description: 'The customer''s invoices will reference one of the following options: Part No, Release No, Customer Order No'
+          example: string
+        taxIdNo:
+          type: string
+          example: string
+        retroactivePricing:
+          type: boolean
+          example: false
+        governmentIssuedTaxNo:
+          type: string
+          example: string
+        invoicePo:
+          type: string
+          description: 'The invoice PO will reference of the following options: Release No or Customer Release No.'
+          example: string
+    CustomerFinancialsDTO:
+      type: object
+      description: The domain model for Customer Financials.
+      properties:
+        maxDaysOutstanding:
+          type: integer
+          format: int32
+          example: 0
+        currencyCode:
+          type: string
+          example: string
+        terms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        requestedTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        creditLimit:
+          type: number
+          format: double
+          example: 0.1
+        salesTaxExempt:
+          type: integer
+          format: int32
+          example: 0
+        creditHold:
+          type: boolean
+          example: false
+        creditStatus:
+          type: string
+          description: 'Setup Table: Credit Status'
+          example: string
+        creditRating:
+          type: string
+          description: 'Setup Table: Credit Rating'
+          example: string
+        creditReviewDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        creditNote:
+          type: string
+          example: string
+        invoiceDelivery:
+          type: string
+          description: 'Setup Table: Invoice Delivery. The default value is &quot;Mail/Print Invoice&quot;.'
+          example: string
+        salesTaxExemptNo:
+          type: string
+          example: string
+        billingSeparation:
+          type: integer
+          format: int32
+          example: 0
+        invoiceLineReference:
+          type: string
+          description: 'The customer''s invoices will reference one of the following options: Part No, Release No, Customer Order No'
+          example: string
+        taxIdNo:
+          type: string
+          example: string
+        retroactivePricing:
+          type: boolean
+          example: false
+        governmentIssuedTaxNo:
+          type: string
+          example: string
+        invoicePo:
+          type: string
+          example: string
+    CreateCustomerDTO:
+      type: object
+      description: The customer model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer.  This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: A short name for a customer.
+          example: string
+        name:
+          type: string
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Customer Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Customer Type'
+          example: string
+        note:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        otherCustomerCode:
+          type: string
+          example: string
+        rating:
+          type: string
+          description: 'Setup Table: Customer Rating'
+          example: string
+        industries:
+          type: array
+          description: 'Setup Table: Industries'
+          items:
+            type: string
+        defaultCarrierIds:
+          type: array
+          description: A carrier is a Supplier Resource with a Supplier Type of Carrier.
+          items:
+            type: string
+            format: uuid
+        region:
+          type: string
+          description: 'Screen: Region List'
+          example: string
+        businessType:
+          type: string
+          description: 'Setup Table: Business Type'
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Customer Category'
+          example: string
+        class:
+          type: string
+          description: 'Setup Table: Customer Class'
+          example: string
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        assignedToId:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo2Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo3Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToGroup:
+          type: string
+          example: string
+        contactResourceId:
+          type: string
+          format: uuid
+          description: The Contact_Id of the sales person assigned to this Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        annualSalesMillions:
+          type: number
+          format: double
+          example: 0.1
+        estimatedEmployees:
+          type: string
+          example: string
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        trackingNoOnWeighScaleRequired:
+          type: boolean
+          example: false
+        multipleOrdersPerShipper:
+          type: boolean
+          example: false
+        estimatedAnnualSales:
+          type: string
+          example: string
+        newShipperPerReleaseNo:
+          type: boolean
+          example: false
+        defaultBackOrder:
+          type: string
+          description: 'Setup Table: Back Order'
+          example: string
+      required:
+      - code
+      - name
+      - status
+      - type
+      - businessType
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateCustomerDTO:
+      type: object
+      description: The customer model exposed for updating.
+      properties:
+        code:
+          type: string
+          description: A short name for a customer.
+          example: string
+        name:
+          type: string
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Customer Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Customer Type'
+          example: string
+        note:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        otherCustomerCode:
+          type: string
+          example: string
+        rating:
+          type: string
+          description: 'Setup Table: Customer Rating'
+          example: string
+        industries:
+          type: array
+          description: 'Setup Table: Industries'
+          items:
+            type: string
+        defaultCarrierIds:
+          type: array
+          description: A carrier is a Supplier Resource with a Supplier Type of Carrier.
+          items:
+            type: string
+            format: uuid
+        region:
+          type: string
+          description: 'Screen: Region List'
+          example: string
+        businessType:
+          type: string
+          description: 'Setup Table: Business Type'
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Customer Category'
+          example: string
+        class:
+          type: string
+          description: 'Setup Table: Customer Class'
+          example: string
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        assignedToId:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo2Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo3Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToGroup:
+          type: string
+          example: string
+        contactResourceId:
+          type: string
+          format: uuid
+          description: The  Contact_Id of the sales person assigned to this Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        annualSalesMillions:
+          type: number
+          format: double
+          example: 0.1
+        estimatedEmployees:
+          type: string
+          example: string
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        trackingNoOnWeighScaleRequired:
+          type: boolean
+          example: false
+        multipleOrdersPerShipper:
+          type: boolean
+          example: false
+        estimatedAnnualSales:
+          type: string
+          example: string
+        newShipperPerReleaseNo:
+          type: boolean
+          example: false
+        defaultBackOrder:
+          type: string
+          description: 'Setup Table: Back Order'
+          example: string
+      required:
+      - code
+      - name
+    SyncCustomerDTO:
+      type: object
+      description: The full Customer Resource structure
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Customer Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Customer Type'
+          example: string
+        note:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        otherCustomerCode:
+          type: string
+          example: string
+        rating:
+          type: string
+          description: 'Setup Table: Customer Rating'
+          example: string
+        industries:
+          type: array
+          description: 'Setup Table: Industries'
+          items:
+            type: string
+        defaultCarrierIds:
+          type: array
+          description: A list of Default Carriers, by Supplier ID.
+          items:
+            type: string
+            format: uuid
+        region:
+          type: string
+          example: string
+        businessType:
+          type: string
+          description: 'Setup Table: Business Type'
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Customer Category'
+          example: string
+        class:
+          type: string
+          description: 'Setup Table: Customer Class'
+          example: string
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        assignedToId:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo2Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo3Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToGroup:
+          type: string
+          example: string
+        contactResourceId:
+          type: string
+          format: uuid
+          description: The Contact_Id of the sales person assigned to this Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        annualSalesMillions:
+          type: number
+          format: double
+          example: 0.1
+        estimatedEmployees:
+          type: string
+          example: string
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        trackingNoOnWeighScaleRequired:
+          type: boolean
+          example: false
+        multipleOrdersPerShipper:
+          type: boolean
+          example: false
+        estimatedAnnualSales:
+          type: string
+          example: string
+        newShipperPerReleaseNo:
+          type: boolean
+          example: false
+        defaultBackOrder:
+          type: string
+          description: 'Setup Table: Back Order'
+          example: string
+        financials:
+          $ref: '#/components/schemas/UpdateCustomerFinancialsDTO'
+        addresses:
+          type: array
+          description: 'The customer''s sub-resources: customer addresses'
+          items:
+            type: object
+            description: The CustomerAddress model exposed for adding.
+            properties: {}
+        maxDaysOutstanding:
+          type: integer
+          format: int32
+          example: 0
+        currencyCode:
+          type: string
+          example: string
+        terms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        requestedTerms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        creditLimit:
+          type: number
+          format: double
+          example: 0.1
+        salesTaxExempt:
+          type: boolean
+          example: false
+        creditHold:
+          type: boolean
+          example: false
+        creditStatus:
+          type: string
+          description: 'Setup Table: Credit Status'
+          example: string
+        creditRating:
+          type: string
+          description: 'Setup Table: Credit Rating'
+          example: string
+        creditReviewDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        creditNote:
+          type: string
+          example: string
+        invoiceDelivery:
+          type: string
+          description: 'Setup Table: Invoice Delivery. The default value is &quot;Mail/Print Invoice&quot;.'
+          example: string
+        salesTaxExemptNo:
+          type: string
+          example: string
+        billingSeparation:
+          type: integer
+          format: int32
+          example: 0
+        invoiceLineReference:
+          type: string
+          description: 'The customer''s invoices will reference one of the following options: Part No, Release No, Customer Order No'
+          example: string
+        taxIdNo:
+          type: string
+          example: string
+        retroactivePricing:
+          type: boolean
+          example: false
+        governmentIssuedTaxNo:
+          type: string
+          example: string
+        invoicePo:
+          type: string
+          description: 'The invoice PO will reference of the following options: Release No or Customer Release No.'
+          example: string
+        quoteTo:
+          type: boolean
+          description: If true, this address may be used for customer quotes.
+          example: false
+        shipTo:
+          type: boolean
+          description: If true, this address may be used for customer shipping.
+          example: false
+        billTo:
+          type: boolean
+          description: If true, this address may be used for customer invoices.
+          example: false
+        billToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for customer billing.
+          example: 00000000-0000-0000-0000-000000000000
+        remitTo:
+          type: boolean
+          description: If true, this address may be used for remittance.
+          example: false
+        thirdPartyShipTo:
+          type: boolean
+          description: If true, this is a valid third-party shipping address.
+          example: false
+        thirdPartyShipToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for third-party shipping.
+          example: 00000000-0000-0000-0000-000000000000
+        pool:
+          type: boolean
+          description: If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location.
+          example: false
+        poolAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for pooling.
+          example: 00000000-0000-0000-0000-000000000000
+        oldCustomerNo:
+          type: string
+          example: string
+        active:
+          type: boolean
+          example: false
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        country:
+          type: string
+          example: string
+        county:
+          type: string
+          example: string
+        shippingInstructions:
+          type: string
+          example: string
+        ignoreTransitOnWeekends:
+          type: boolean
+          example: false
+        transportationLeadTime:
+          type: integer
+          format: int32
+          example: 0
+        truckType:
+          type: string
+          description: 'Screen: Truck Types'
+          example: string
+        salespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        statementAddressId:
+          type: string
+          format: uuid
+          description: The address to which statements should be sent, if this address is a valid Billing address.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: 'Setup Table: Freight Terms'
+          example: string
+        insideSalespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        defaultShipFrom:
+          type: string
+          description: 'Screen: Building List'
+          example: string
+        freightBillTo:
+          type: boolean
+          description: If true, this is a valid address for freight billing.
+          example: false
+        freightBillToAddressId:
+          type: string
+          format: uuid
+          description: The customer address to be used for freight billing.
+          example: 00000000-0000-0000-0000-000000000000
+        soldTo:
+          type: boolean
+          example: false
+        dunsNo:
+          type: string
+          example: string
+        commercialInvoiceVatNo:
+          type: string
+          example: string
+        template:
+          type: boolean
+          description: Only one address can be used as the address template.
+          example: false
+        incoTerms:
+          type: string
+          example: string
+        negotiatedPlace:
+          type: string
+          example: string
+        backOrder:
+          type: string
+          description: 'Setup Table: Back_Order'
+          example: string
+      required:
+      - code
+      - name
+      - status
+      - type
+      - businessType
+      - code
+    CustomerAddressEdiDTO:
+      type: object
+      description: The all-inclusive domain model for a customer address EDI Object.
+      properties:
+        plantCode:
+          type: string
+          example: string
+        ultimateDestinationCode:
+          type: string
+          example: string
+        defaultDockCode:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        billToCode:
+          type: string
+          example: string
+        invoiceShipToCode:
+          type: string
+          example: string
+        routeCode:
+          type: string
+          example: string
+        poolCode:
+          type: string
+          example: string
+        warehouseCode:
+          type: string
+          example: string
+        functionalGroupCode:
+          type: string
+          example: string
+        lineFeed:
+          type: string
+          example: string
+        primaryMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        invoiceMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        billAndHoldMailboxId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        createInvoice:
+          type: boolean
+          example: false
+        suppressAsn:
+          type: boolean
+          example: false
+        suppressEdiLoad:
+          type: boolean
+          example: false
+        ignoreAccums:
+          type: boolean
+          example: false
+        serviceShipment:
+          type: boolean
+          example: false
+        shipTime:
+          type: integer
+          format: int32
+          example: 0
+        shipTimeUnit:
+          type: string
+          example: string
+    CreateCustomerAddressDTO:
+      type: object
+      description: The CustomerAddress model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer Address. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        quoteTo:
+          type: boolean
+          description: If true, this address may be used for customer quotes.
+          example: false
+        shipTo:
+          type: boolean
+          description: If true, this address may be used for customer shipping.
+          example: false
+        billTo:
+          type: boolean
+          description: If true, this address may be used for customer invoices.
+          example: false
+        billToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for customer billing.
+          example: 00000000-0000-0000-0000-000000000000
+        remitTo:
+          type: boolean
+          description: If true, this address may be used for remittance.
+          example: false
+        thirdPartyShipTo:
+          type: boolean
+          description: If true, this is a valid third-party shipping address.
+          example: false
+        thirdPartyShipToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for third-party shipping.
+          example: 00000000-0000-0000-0000-000000000000
+        pool:
+          type: boolean
+          description: If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location.
+          example: false
+        poolAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for pooling.
+          example: 00000000-0000-0000-0000-000000000000
+        oldCustomerNo:
+          type: string
+          example: string
+        active:
+          type: boolean
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        country:
+          type: string
+          example: string
+        region:
+          type: string
+          example: string
+        county:
+          type: string
+          example: string
+        shippingInstructions:
+          type: string
+          example: string
+        ignoreTransitOnWeekends:
+          type: boolean
+          example: false
+        transportationLeadTime:
+          type: integer
+          format: int32
+          example: 0
+        defaultCarrierIds:
+          type: array
+          description: A list of Default Carriers, by Supplier ID.
+          items:
+            type: string
+            format: uuid
+        truckType:
+          type: string
+          description: 'Screen: Truck Types'
+          example: string
+        salesTaxExempt:
+          type: boolean
+          example: false
+        salespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        statementAddressId:
+          type: string
+          format: uuid
+          description: The address to which statements should be sent, if this address is a valid Billing address.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: 'Setup Table: Freight Terms'
+          example: string
+        insideSalespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        defaultShipFrom:
+          type: string
+          description: 'Screen: Building List'
+          example: string
+        freightBillTo:
+          type: boolean
+          description: If true, this is a valid address for freight billing.
+          example: false
+        freightBillToAddressId:
+          type: string
+          format: uuid
+          description: The customer address to be used for freight billing.
+          example: 00000000-0000-0000-0000-000000000000
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        soldTo:
+          type: boolean
+          example: false
+        dunsNo:
+          type: string
+          example: string
+        commercialInvoiceVatNo:
+          type: string
+          example: string
+        terms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        template:
+          type: boolean
+          description: Only one address can be used as the address template.
+          example: false
+        incoTerms:
+          type: string
+          example: string
+        negotiatedPlace:
+          type: string
+          example: string
+        backOrder:
+          type: string
+          description: 'Setup Table: Back_Order'
+          example: string
+      required:
+      - code
+    UpdateCustomerAddressDTO:
+      type: object
+      description: The CustomerAddress model exposed for updating.
+      properties:
+        code:
+          type: string
+          example: string
+        note:
+          type: string
+          example: string
+        quoteTo:
+          type: boolean
+          description: If true, this address may be used for customer quotes.
+          example: false
+        shipTo:
+          type: boolean
+          description: If true, this address may be used for customer shipping.
+          example: false
+        billTo:
+          type: boolean
+          description: If true, this address may be used for customer invoices.
+          example: false
+        billToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for customer billing.
+          example: 00000000-0000-0000-0000-000000000000
+        remitTo:
+          type: boolean
+          description: If true, this address may be used for remittance.
+          example: false
+        thirdPartyShipTo:
+          type: boolean
+          description: If true, this is a valid third-party shipping address.
+          example: false
+        thirdPartyShipToAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for third-party shipping.
+          example: 00000000-0000-0000-0000-000000000000
+        pool:
+          type: boolean
+          description: If true, this is a valid pool address. A pool is a location used to organize shipments and routes the shippers to the Ship To location.
+          example: false
+        poolAddressId:
+          type: string
+          format: uuid
+          description: The customer address ID to be used for pooling.
+          example: 00000000-0000-0000-0000-000000000000
+        oldCustomerNo:
+          type: string
+          example: string
+        active:
+          type: boolean
+          example: false
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        name:
+          type: string
+          example: string
+        address:
+          type: string
+          example: string
+        city:
+          type: string
+          example: string
+        state:
+          type: string
+          example: string
+        zip:
+          type: string
+          example: string
+        country:
+          type: string
+          example: string
+        region:
+          type: string
+          description: 'Screen: Region List'
+          example: string
+        county:
+          type: string
+          example: string
+        shippingInstructions:
+          type: string
+          example: string
+        ignoreTransitOnWeekends:
+          type: boolean
+          example: false
+        transportationLeadTime:
+          type: integer
+          format: int32
+          example: 0
+        defaultCarrierIds:
+          type: array
+          description: A list of Default Carriers, by Supplier ID.
+          items:
+            type: string
+            format: uuid
+        truckType:
+          type: string
+          description: 'Screen: Truck Types'
+          example: string
+        salesTaxExempt:
+          type: boolean
+          example: false
+        salespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        statementAddressId:
+          type: string
+          format: uuid
+          description: The address to which statements should be sent, if this address is a valid Billing address.
+          example: 00000000-0000-0000-0000-000000000000
+        freightTerms:
+          type: string
+          description: 'Setup Table: Freight Terms'
+          example: string
+        insideSalespersonId:
+          type: string
+          format: uuid
+          description: The salesperson assigned to this customer, by IAM account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        defaultShipFrom:
+          type: string
+          description: 'Screen: Building List'
+          example: string
+        freightBillTo:
+          type: boolean
+          description: If true, this is a valid address for freight billing.
+          example: false
+        freightBillToAddressId:
+          type: string
+          format: uuid
+          description: The customer address to be used for freight billing.
+          example: 00000000-0000-0000-0000-000000000000
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        soldTo:
+          type: boolean
+          example: false
+        dunsNo:
+          type: string
+          example: string
+        commercialInvoiceVatNo:
+          type: string
+          example: string
+        terms:
+          type: string
+          description: 'Setup Table: Terms'
+          example: string
+        template:
+          type: boolean
+          description: Only one address can be used as the address template.
+          example: false
+        incoTerms:
+          type: string
+          example: string
+        negotiatedPlace:
+          type: string
+          example: string
+        backOrder:
+          type: string
+          description: 'Setup Table: Back_Order'
+          example: string
+    CustomerDTO:
+      type: object
+      description: The all-inclusive domain model for a Customer.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Customer.  This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          description: A short name for a customer.
+          example: string
+        name:
+          type: string
+          example: string
+        status:
+          type: string
+          description: 'Setup Table: Customer Status'
+          example: string
+        type:
+          type: string
+          description: 'Setup Table: Customer Type'
+          example: string
+        note:
+          type: string
+          example: string
+        supplierCode:
+          type: string
+          example: string
+        otherCustomerCode:
+          type: string
+          example: string
+        rating:
+          type: string
+          description: 'Setup Table: Customer Rating'
+          example: string
+        industries:
+          type: array
+          description: 'Setup Table: Industries'
+          items:
+            type: string
+        defaultCarrierIds:
+          type: array
+          description: A carrier is a Supplier Resource with a Supplier Type of Carrier.
+          items:
+            type: string
+            format: uuid
+        region:
+          type: string
+          description: 'Screen List: Region List'
+          example: string
+        businessType:
+          type: string
+          description: 'Setup Table: Business Type'
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Customer Category'
+          example: string
+        class:
+          type: string
+          description: 'Setup Table: Customer Class'
+          example: string
+        catalog:
+          type: string
+          description: 'Screen: Catalogs'
+          example: string
+        assignedToId:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo2Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedTo3Id:
+          type: string
+          format: uuid
+          description: The sales person assigned to this customer, by IAM Account ID.
+          example: 00000000-0000-0000-0000-000000000000
+        assignedToGroup:
+          type: string
+          example: string
+        contactResourceId:
+          type: string
+          format: uuid
+          description: The  Contact_Id of the sales person assigned to this Customer.
+          example: 00000000-0000-0000-0000-000000000000
+        annualSalesMillions:
+          type: number
+          format: double
+          example: 0.1
+        estimatedEmployees:
+          type: string
+          example: string
+        phone:
+          type: string
+          example: string
+        fax:
+          type: string
+          example: string
+        email:
+          type: string
+          example: string
+        trackingNoOnWeighScaleRequired:
+          type: boolean
+          example: false
+        multipleOrdersPerShipper:
+          type: boolean
+          example: false
+        estimatedAnnualSales:
+          type: string
+          example: string
+        newShipperPerReleaseNo:
+          type: boolean
+          example: false
+        defaultBackOrder:
+          type: string
+          description: 'Setup Table: Back Order'
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: IAM Account Id
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:02Z'
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

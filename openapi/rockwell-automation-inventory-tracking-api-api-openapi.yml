@@ -1,0 +1,400 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Inventory Tracking API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Inventory Tracking API
+  description: The Inventory Tracking API is used to manage Inventory Data.
+paths:
+  /inventory-tracking/v1/containers/{serialNumber}:
+    get:
+      operationId: getContainerBySerialNumber
+      summary: Get Container By Serial Number
+      tags:
+      - Inventory Tracking API
+      description: Retrieve a container record based on the specified serial number.
+      parameters:
+      - name: serialNumber
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The container serial number.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerDto'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-tracking-api/get-container-by-serial-number
+  /inventory-tracking/v1/master-units/{id}:
+    get:
+      operationId: getMasterUnit
+      summary: Get Master Unit
+      tags:
+      - Inventory Tracking API
+      description: Retrieve a master unit record based on the specified ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the master unit.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMasterUnitResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/inventory-tracking-api/get-master-unit
+  /inventory-tracking/v1/master-units:
+    get:
+      operationId: listMasterUnits
+      summary: List Master Units
+      tags:
+      - Inventory Tracking API
+      description: Retrieve a master unit records.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMasterUnitRequest'
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMasterUnitResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-tracking-api/list-master-units
+  /inventory-tracking/v1/containers/{serialNo}/rfid:
+    put:
+      operationId: updateContainerRfid
+      summary: Update Container RFID
+      tags:
+      - Inventory Tracking API
+      description: Update container rfid based on specified serial number.
+      parameters:
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The container serial no.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContainerRFIDRequest'
+      responses:
+        '200':
+          description: The container rfid was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerDto'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/inventory-tracking-api/update-container-rfid
+  /inventory-tracking/v1/master-units/{id}/rfid:
+    put:
+      operationId: updateMasterUnitRfid
+      summary: Update Master Unit RFID
+      tags:
+      - Inventory Tracking API
+      description: Update master unit rfid details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier of the master unit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMasterUnitRFIDRequest'
+      responses:
+        '200':
+          description: The master unit rfid details was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMasterUnitResponse'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/inventory-tracking-api/update-master-unit-rfid
+components:
+  schemas:
+    ContainerDto:
+      type: object
+      description: The Container model.
+      properties:
+        serialNumber:
+          type: string
+          description: The serial number of the container. 25 characters max.
+          example: string
+        status:
+          type: string
+          description: The container's status.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part that was produced.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The part number associated to the &quot;partId&quot; that was produced. Acceptable part number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Part numbers cannot use question marks (?) or ampersands. Other characters may cause issues.
+          example: string
+        partRevision:
+          type: string
+          description: The part revision of the &quot;partId&quot;. A revision represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: 'The part number and revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long. Format: {partNumber}{part rev separator}{revision}.'
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: The operation number of the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code associated to the &quot;partOperationId&quot;. 30 characters max.
+          example: string
+        location:
+          type: string
+          description: The container's location.
+          example: string
+        jobNumber:
+          type: string
+          description: The unique job number. 20 characters max.
+          example: string
+        jobId:
+          type: string
+          format: uuid
+          description: The ID of the production job that production was recorded against. Note that a production job is not necessary to record production. Another scheduling method such as Kanban may have been used.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The container type of the container's.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The container's part quantity.
+          example: 0.1
+        active:
+          type: boolean
+          description: The container's active status (active or inactive).
+          example: false
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the container record was added.
+          example: '2026-10-20T12:03:12Z'
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the container record was updated.
+          example: '2026-10-20T12:03:12Z'
+        quantityUnit:
+          type: string
+          description: The unit used for the container quantity, as defined on the operation.
+          example: string
+        grossWeight:
+          type: number
+          format: double
+          description: The container's gross weight.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The container's net weight.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The container's tare weight.
+          example: 0.1
+        trackingNumber:
+          type: string
+          description: The tracking number of the container. 50 characters max.
+          example: string
+        heatNumber:
+          type: string
+          description: The heat number of the heat. 30 characters max.
+          example: string
+        lotNumber:
+          type: string
+          description: The unique lot number. 25 characters max.
+          example: string
+        masterUnitNo:
+          type: string
+          description: The master unit number of the master unit. 10 characters max.
+          example: string
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The master unit resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        lotId:
+          type: string
+          format: uuid
+          description: The lot resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        heatCode:
+          type: string
+          description: The heat code of the heat. 50 characters max.
+          example: string
+        heatId:
+          type: string
+          format: uuid
+          description: The material heat resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        shelfDateTime:
+          type: string
+          format: date-time
+          description: The shelf life date of the container.
+          example: '2026-10-20T12:03:12Z'
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: The date a lot was manufactured, either in Plex or by a supplier or subcontractor.
+          example: '2026-10-20T12:03:12Z'
+        bestByDateTime:
+          type: string
+          format: date-time
+          description: The best-by date which represents the last date for consumption of products in a lot by consumers.
+          example: '2026-10-20T12:03:12Z'
+        useByDateTime:
+          type: string
+          format: date-time
+          description: The last date to use a lot for production.
+          example: '2026-10-20T12:03:12Z'
+        sellByDateTime:
+          type: string
+          format: date-time
+          description: The last date for the sale of a product in a lot to consumers.
+          example: '2026-10-20T12:03:12Z'
+        rfid:
+          type: string
+          description: The RFID of the container. Maximum length is 64 characters.
+          example: string
+    GetMasterUnitResponse:
+      type: object
+      description: The Get Master Unit Response.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the master unit.
+          example: 00000000-0000-0000-0000-000000000000
+        masterUnitNo:
+          type: string
+          description: The master unit number of the master unit.
+          example: string
+        active:
+          type: boolean
+          description: Indicates whether the master unit is active.
+          example: false
+        rfid:
+          type: string
+          description: The RFID of the master unit.
+          example: string
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    GetMasterUnitRequest:
+      type: object
+      description: The Get Master Unit Request.
+      properties:
+        ids:
+          type: array
+          description: The list of master unit IDs.
+          items:
+            type: string
+            format: uuid
+        masterUnitNo:
+          type: string
+          description: The master unit number of the master unit.
+          example: string
+    UpdateContainerRFIDRequest:
+      type: object
+      description: The Update Container RFID Request.
+      properties:
+        rfid:
+          type: string
+          description: The container RFID.
+          example: string
+    UpdateMasterUnitRFIDRequest:
+      type: object
+      description: The Update Master Unit RFID Request.
+      properties:
+        rfid:
+          type: string
+          description: The master unit RFID.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

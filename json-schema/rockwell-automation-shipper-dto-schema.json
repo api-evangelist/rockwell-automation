@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/rockwell-automation/main/json-schema/rockwell-automation-shipper-dto-schema.json",
+  "title": "ShipperDto",
+  "description": "The shipper model exposed.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/rockwell-automation-plex-openapi.yml#/components/schemas/ShipperDto",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier for the shipper."
+    },
+    "shipperNumber": {
+      "type": "string",
+      "description": "The shipper number associated with a given shipment."
+    },
+    "customerId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the customer that is associated with the shipper."
+    },
+    "customerAddressId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the customer address that is associated with the shipper."
+    },
+    "shipDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the shipper was shipped."
+    },
+    "shippedById": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who shipped the shipper."
+    },
+    "carrierId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The supplier ID that is flagged as the carrier on the shipment."
+    },
+    "freightTerms": {
+      "type": "string",
+      "description": "Terms of the freight payment; for example, COD, Collect, or Prepaid."
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the shipper."
+    },
+    "trackingNumber": {
+      "type": "string",
+      "description": "The tracking number, often provided by a carrier, related to a specific shipment."
+    },
+    "trailerNumber": {
+      "type": "string",
+      "description": "The trailer number associated with the physical trailer that a specific shipment was shipped on."
+    },
+    "note": {
+      "type": "string",
+      "description": "An internal note on the shipper."
+    },
+    "scheduledShipDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the shipper is scheduled to ship."
+    },
+    "createdById": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who created the record."
+    },
+    "createdDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the record was created."
+    },
+    "modifiedById": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who last modified the record."
+    },
+    "modifiedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the record was last modified."
+    },
+    "shipperNote": {
+      "type": "string",
+      "description": "A note to print on the shipper and the bill of lading (BOL)."
+    },
+    "truckId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the truck associated with the shipper."
+    },
+    "expediteNote": {
+      "type": "string",
+      "description": "Notes related to expedited shipping."
+    },
+    "expediteReason": {
+      "type": "string",
+      "description": "The reason for expedited shipping as specified on the shipper."
+    },
+    "expediteDepartment": {
+      "type": "string",
+      "description": "The department that authorized or required an expedited shipment."
+    },
+    "expediteAuthorizedById": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who authorized the expedited shipping."
+    },
+    "expediteAdditionalCost": {
+      "type": "number",
+      "format": "double",
+      "description": "Additional cost due to expedited shipping."
+    },
+    "shipFromCode": {
+      "type": "string",
+      "description": "The building code from which the shipper was shipped."
+    },
+    "truckArrivalTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "This field has been deprecated. Use TruckArrivalTimeOfDay."
+    },
+    "printedById": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who printed the record."
+    },
+    "printedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the record was printed."
+    },
+    "freightAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Freight amount is the freight cost associated with the shipment."
+    },
+    "bolNote": {
+      "type": "string",
+      "description": "The bill of lading (BOL) note on the shipper."
+    },
+    "customsExporter": {
+      "type": "string",
+      "description": "The customs exporter specified on the shipper."
+    },
+    "deliveryDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The delivery date on the shipper."
+    },
+    "dropshipSupplierCode": {
+      "type": "string",
+      "description": "The dropship supplier code."
+    },
+    "dropshipSupplierId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The dropship supplier ID."
+    },
+    "shipperChargeAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "The charge amount specified on the shipper."
+    },
+    "masterBolNo": {
+      "type": "string",
+      "description": "The master bill of lading (BOL) number."
+    },
+    "pallets": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The number of pallets on the shipper."
+    },
+    "premiumTransAuth": {
+      "type": "string",
+      "description": "The number specified in the shipper's Premium Trans Auth field (used for AETC numbers on expedited shipments)."
+    },
+    "truckConfirmation": {
+      "type": "string",
+      "description": "The truck confirmation number."
+    },
+    "truckCalledDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The truck called date. Use format YYYY-MM-DD."
+    },
+    "grossWeightOverride": {
+      "type": "number",
+      "format": "double",
+      "description": "The gross weight override."
+    },
+    "mrn": {
+      "type": "string",
+      "description": "The Movement Reference Number (MRN) specified on the shipper."
+    },
+    "mrnDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The movement reference number (MRN) date. Use format YYYY-MM-DD."
+    },
+    "mrnType": {
+      "type": "string",
+      "description": "The movement reference number (MRN) type."
+    },
+    "routingAuthorizationNumber": {
+      "type": "string",
+      "description": "The routing authorization number."
+    },
+    "shipperWeight": {
+      "type": "number",
+      "format": "double",
+      "description": "The shipper weight."
+    },
+    "pickListPrintedDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the pick list was printed."
+    },
+    "truckArrivalTimeOfDay": {
+      "type": "string",
+      "format": "time",
+      "description": "The truck arrival time. Use format hh:mm:ss."
+    }
+  }
+}

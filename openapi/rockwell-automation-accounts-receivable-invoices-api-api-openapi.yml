@@ -1,0 +1,822 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Accounts Receivable…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Accounts Receivable Invoices API
+  description: The Accounts Receivable Invoices API is used to retrieve Accounts Receivable invoices, Accounts Receivable invoice lines, and Accounts Receivable invoice tax data.
+paths:
+  /accounting/v1/ar-invoices:
+    post:
+      operationId: createArInvoice
+      summary: Create AR Invoice
+      tags:
+      - Accounts Receivable Invoices API
+      description: Add an AR invoice.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAccountsReceivableInvoiceDto'
+      responses:
+        '201':
+          description: The record was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableInvoiceDto'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-invoices-api/create-ar-invoice
+    get:
+      operationId: listArInvoices
+      summary: List AR Invoices
+      tags:
+      - Accounts Receivable Invoices API
+      description: 'Disclaimer: The APIs are designed to maintain optimal performance with a limit of 1,000 invoices per call (depending on the number of distribution lines per invoice). To avoid timeout errors, you can apply relevant filters to retrieve a more specific response.'
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the AR invoice.
+      - name: invoiceNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AR invoice number.
+      - name: periodDisplayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The beginning date used to return AR invoice records during a period.
+      - name: periodDisplayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The end date used to return AR invoice records during a period.
+      - name: transactionDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AR transaction records during a period.
+      - name: transactionDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AR transaction records during a period.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AR invoices created within a time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AR invoices created within a time frame.
+      - name: booked
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that an AR invoice has a booked status.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The beginning date used to return AR invoices modified within a time frame.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:01Z'
+        description: The end date used to return AR invoices modified within a time frame.
+      - name: customerCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AR invoice customer code.
+      - name: customerPONo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AR invoice customer purchase order number.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The AR invoice status.
+      - name: paid
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: 'Specify whether or not the AR invoices in your query results have been paid by entering one of the following: 0 - Unpaid invoices only, 1 - Fully paid invoices only, 2 - Partially paid invoices only, 3 - All invoices.'
+      - name: void
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Specify that the AR invoice is void.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableInvoiceDto'
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-invoices-api/list-ar-invoices
+  /accounting/v1/ar-invoices/{id}:
+    get:
+      operationId: getArInvoice
+      summary: Get AR Invoice
+      tags:
+      - Accounts Receivable Invoices API
+      description: Retrieve an AR invoice by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Accounts Receivable invoice ID.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableInvoiceDto'
+        '404':
+          description: Resource not found.
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-invoices-api/get-ar-invoice
+    put:
+      operationId: updateArInvoice
+      summary: Update AR Invoice
+      tags:
+      - Accounts Receivable Invoices API
+      description: Update an AR invoice.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountsReceivableInvoiceDto'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsReceivableInvoiceDto'
+        '404':
+          description: Resource not found.
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/accounts-receivable-invoices-api/update-ar-invoice
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateAccountsReceivableInvoiceDto:
+      type: object
+      properties:
+        customerId:
+          type: string
+          format: uuid
+          description: The AR customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerCode:
+          type: string
+          description: The AR customer code, typically an abbreviated name for the customer.
+          example: string
+        customerBillToId:
+          type: string
+          format: uuid
+          description: The AR customer bill to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerBillToCode:
+          type: string
+          description: The AR customer bill to address code.
+          example: string
+        customerShipToId:
+          type: string
+          format: uuid
+          description: The AR customer ship to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerShipToCode:
+          type: string
+          description: The AR customer ship to address code.
+          example: string
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AR invoice is recorded.
+          example: string
+        invoiceDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was created.
+          example: '2026-10-20T12:03:01Z'
+        currencyCode:
+          type: string
+          description: The AR invoice currency code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AR invoice exchange rate.
+          example: 0.1
+        terms:
+          type: string
+          description: The AR terms.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AR invoice due date.
+          example: '2026-10-20T12:03:01Z'
+        invoiceNote:
+          type: string
+          description: A note added to an AR invoice.
+          example: string
+        internalNote:
+          type: string
+          description: An internal note added to an AR invoice.
+          example: string
+        invoiceStatus:
+          type: string
+          description: The AR invoice status.
+          example: string
+        governmentIssuedNumber:
+          type: string
+          description: The AR invoice government issued number.
+          example: string
+        poId:
+          type: string
+          format: uuid
+          description: The AR invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        poNumber:
+          type: string
+          description: The AR invoice purchase order number.
+          example: string
+        pastDueReasonCode:
+          type: string
+          description: The AR invoice past due reason code.
+          example: string
+        lines:
+          type: array
+          description: A list of AR lines.
+          items:
+            type: object
+            properties: {}
+        lineId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AR invoice line item.
+          example: 00000000-0000-0000-0000-000000000000
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AR invoice line account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The AR invoice line account number.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The AR invoice line part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The AR invoice line part number.
+          example: string
+        description:
+          type: string
+          description: A description of the AR invoice line.
+          example: string
+        referenceNo:
+          type: string
+          description: The AR invoice line reference number.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: The AR invoice line unit price.
+          example: 0.1
+        quantity:
+          type: number
+          format: double
+          description: The AR invoice line quantity.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: The accounting job that the AR invoice line is a part of, if applicable.
+          example: string
+        itemTaxCode:
+          type: string
+          description: The AR invoice item tax code.
+          example: string
+        taxCodes:
+          type: array
+          description: The list of AR taxes.
+          items:
+            type: string
+    AddAccountsReceivableInvoiceDto:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+          description: The AR invoice number.
+          example: string
+        customerId:
+          type: string
+          format: uuid
+          description: The AR customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerCode:
+          type: string
+          description: The AR customer code, typically an abbreviated name for the customer.
+          example: string
+        customerBillToId:
+          type: string
+          format: uuid
+          description: The AR customer bill to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerBillToCode:
+          type: string
+          description: The AR customer bill to address code.
+          example: string
+        customerShipToId:
+          type: string
+          format: uuid
+          description: The AR customer ship to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerShipToCode:
+          type: string
+          description: The AR customer ship to address.
+          example: string
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AR invoice is recorded.
+          example: string
+        invoiceDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was created.
+          example: '2026-10-20T12:03:01Z'
+        currencyCode:
+          type: string
+          description: The AR invoice currency code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AR invoice exchange rate.
+          example: 0.1
+        terms:
+          type: string
+          description: The AR terms.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AR invoice due date.
+          example: '2026-10-20T12:03:01Z'
+        invoiceNote:
+          type: string
+          description: A note added to an AR invoice.
+          example: string
+        internalNote:
+          type: string
+          description: An internal note added to an AR invoice.
+          example: string
+        invoiceStatus:
+          type: string
+          description: The AR invoice status.
+          example: string
+        governmentIssuedNumber:
+          type: string
+          description: The AR invoice government issued number.
+          example: string
+        type:
+          type: string
+          description: The AR invoice type.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which an AR invoice was created.
+          example: '2026-10-20T12:03:01Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was modified.
+          example: '2026-10-20T12:03:01Z'
+        poId:
+          type: string
+          format: uuid
+          description: The AR invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        poNumber:
+          type: string
+          description: The AR invoice purchase order number.
+          example: string
+        creditMemo:
+          type: boolean
+          description: Specify an AR invoice credit memo.
+          example: false
+        lines:
+          type: array
+          description: A list of AR invoice lines.
+          items:
+            type: object
+            properties: {}
+        lineId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AR Invoice Line Item. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        accountId:
+          type: string
+          format: uuid
+          description: A unique identifier for the AR invoice line account.
+          example: 00000000-0000-0000-0000-000000000000
+        accountNumber:
+          type: string
+          description: The AR invoice line account number.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The AR invoice line part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The AR invoice line part number.
+          example: string
+        description:
+          type: string
+          description: A description of the AR invoice line.
+          example: string
+        referenceNo:
+          type: string
+          description: The AR invoice line reference number.
+          example: string
+        unitPrice:
+          type: number
+          format: double
+          description: The AR invoice line unit price.
+          example: 0.1
+        quantity:
+          type: number
+          format: double
+          description: The AR invoice line quantity.
+          example: 0.1
+        accountingJobNumber:
+          type: string
+          description: The accounting job that the AR invoice line is a part of, if applicable.
+          example: string
+        customerShipperId:
+          type: string
+          format: uuid
+          description: The AR invoice line Customer Shipper ID.
+          example: 00000000-0000-0000-0000-000000000000
+        itemTaxCode:
+          type: string
+          description: The AR invoice item tax code.
+          example: string
+        taxCodes:
+          type: array
+          description: The list of AR taxes.
+          items:
+            type: string
+      required:
+      - invoiceNumber
+      - periodDisplay
+      - currencyCode
+      - terms
+      - lines
+      - description
+    AccountsReceivableInvoiceDto:
+      type: object
+      description: The Accounts Receivable Invoice model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The AR invoice ID.
+          example: 00000000-0000-0000-0000-000000000000
+        invoiceNumber:
+          type: string
+          description: The AR invoice number.
+          example: string
+        creditMemo:
+          type: integer
+          format: int32
+          description: Specify an AR invoice credit memo.
+          example: 0
+        customerId:
+          type: string
+          format: uuid
+          description: The AR customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerCode:
+          type: string
+          description: The AR customer code, typically an abbreviated name for the customer.
+          example: string
+        customerBillToId:
+          type: string
+          format: uuid
+          description: The AR customer bill to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerBillToCode:
+          type: string
+          description: The AR customer bill to address code.
+          example: string
+        customerShipToId:
+          type: string
+          format: uuid
+          description: The AR customer ship to address ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerShipToCode:
+          type: string
+          description: The AR customer ship to address.
+          example: string
+        customerOrderNos:
+          type: string
+          description: The AR customer order numbers.
+          example: string
+        customerPONo:
+          type: string
+          description: The AR customer purchase order number.
+          example: string
+        buildingCode:
+          type: string
+          description: The code used to look up the building resource.
+          example: string
+        periodDisplay:
+          type: string
+          description: The period in which an AR invoice is recorded.
+          example: string
+        transactionDate:
+          type: string
+          format: date-time
+          description: The date on which an AR transaction was recorded.
+          example: '2026-10-20T12:03:01Z'
+        currencyCode:
+          type: string
+          description: The AR invoice currency code.
+          example: string
+        exchangeRate:
+          type: number
+          format: double
+          description: The AR invoice exchange rate.
+          example: 0.1
+        terms:
+          type: string
+          description: The AR terms.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The AR invoice due date.
+          example: '2026-10-20T12:03:01Z'
+        invoiceNote:
+          type: string
+          description: A note added to an AR invoice.
+          example: string
+        internalNote:
+          type: string
+          description: An internal note added to an AR invoice.
+          example: string
+        voucherNumber:
+          type: string
+          description: The AR invoice voucher number.
+          example: string
+        status:
+          type: string
+          description: The AR invoice status.
+          example: string
+        governmentIssuedNumber:
+          type: string
+          description: The AR invoice government issued number.
+          example: string
+        type:
+          type: string
+          description: The AR invoice type.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was created.
+          example: '2026-10-20T12:03:01Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was modified.
+          example: '2026-10-20T12:03:01Z'
+        taxableDate:
+          type: string
+          format: date-time
+          description: The date the AR invoice tax was calculated.
+          example: '2026-10-20T12:03:01Z'
+        amount:
+          type: number
+          format: double
+          description: The AR invoice amount.
+          example: 0.1
+        currencyAmount:
+          type: number
+          format: double
+          description: The AR invoice currency amount.
+          example: 0.1
+        paid:
+          type: boolean
+          description: Specify that an AR invoice has been paid.
+          example: false
+        paidDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice was paid.
+          example: '2026-10-20T12:03:01Z'
+        expectedPayDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice payment is due.
+          example: '2026-10-20T12:03:01Z'
+        paidPeriod:
+          type: string
+          description: The period in which an AR invoice was paid.
+          example: string
+        discount:
+          type: number
+          format: double
+          description: The discount applicable to an AR invoice.
+          example: 0.1
+        discountDueDate:
+          type: string
+          format: date-time
+          description: The date an AR invoice discount is due.
+          example: '2026-10-20T12:03:01Z'
+        balance:
+          type: number
+          format: double
+          description: The AR invoice balance.
+          example: 0.1
+        currencyBalance:
+          type: number
+          format: double
+          description: The AR invoice currency balance.
+          example: 0.1
+        void:
+          type: boolean
+          description: Specify that an AR invoice has been voided.
+          example: false
+        consolidatedLinkId:
+          type: string
+          format: uuid
+          description: The consolidated AR invoice ID.
+          example: 00000000-0000-0000-0000-000000000000
+        booked:
+          type: boolean
+          description: Specify that an AR invoice has a booked status.
+          example: false
+        referenceNo:
+          type: string
+          description: The AR invoice reference number.
+          example: string
+        shipperNo:
+          type: string
+          description: The AR invoice shipper number.
+          example: string
+        poNumber:
+          type: string
+          description: The AR invoice purchase order number.
+          example: string
+        poId:
+          type: string
+          format: uuid
+          description: The AR invoice purchase order ID.
+          example: 00000000-0000-0000-0000-000000000000
+        lines:
+          type: array
+          description: A list of AR invoice lines.
+          items:
+            type: object
+            description: The Accounts Receivable Invoice Line model.
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

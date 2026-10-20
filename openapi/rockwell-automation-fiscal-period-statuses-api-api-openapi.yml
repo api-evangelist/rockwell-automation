@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Fiscal Period Statuses…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Fiscal Period Statuses API
+  description: The Fiscal Period Statuses API is used to retrieve Fiscal Period Status data.
+paths:
+  /accounting/v1/fiscal-period-statuses:
+    get:
+      operationId: listFiscalPeriodStatuses
+      summary: List Fiscal Period Statuses
+      tags:
+      - Fiscal Period Statuses API
+      description: List fiscal period statuses based on specified parameters.
+      parameters:
+      - name: periodDisplayBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The starting period used to return fiscal period status records.
+      - name: periodDisplayEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The ending period used to return fiscal period status records.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FiscalPeriodStatusDto'
+      x-source: https://developers.plex.com/api/documentation/fiscal-period-statuses-api/list-fiscal-period-statuses
+components:
+  schemas:
+    FiscalPeriodStatusDto:
+      type: object
+      description: The Fiscal Period Status model.
+      properties:
+        fiscalYear:
+          type: string
+          description: Fiscal Year.
+          example: string
+        periodDisplay:
+          type: string
+          description: Fiscal Period.
+          example: string
+        beginDate:
+          type: string
+          format: date-time
+          description: The calendar start date of a fiscal period.
+          example: '2026-10-20T12:03:12Z'
+        endDate:
+          type: string
+          format: date-time
+          description: The calendar end date of a fiscal period.
+          example: '2026-10-20T12:03:12Z'
+        periodStatus:
+          type: string
+          description: 'Period status.
+
+            Open - Transactions can be posted in open periods.
+
+            Soft Closed - Transactions can be viewed, and posted/modified by users with access permissions.
+
+            Closed - The period has ended. Transactions cannot be posted.'
+          example: string
+        yearStatus:
+          type: string
+          description: 'Fiscal year status.
+
+            Open - The fiscal year is open. Transactions can be posted in open periods.
+
+            Closed - The fiscal year has ended. Transactions cannot be posted to fiscal year periods.'
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

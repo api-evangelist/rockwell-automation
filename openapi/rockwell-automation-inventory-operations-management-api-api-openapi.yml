@@ -1,0 +1,2539 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Inventory Operations…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Inventory Operations Management API
+  description: 'Manage and monitor inventory of purchased components, WIP, and Finished Goods.
+
+    Disclaimer: This API contains a mixture of stable and beta endpoints. Some endpoints have been recently added as a part of a limited beta release for our community to test and review documentation. Beta endpoints have limited support duration and may be subject to change. We''re very interested in your feedback, which you can provide here: Plex-API-Beta@Plex.com.'
+paths:
+  /inventory/v1-beta1/inventory-control/adjust-supply-items:
+    post:
+      operationId: adjustSupplyItems
+      summary: Adjust Supply Items
+      tags:
+      - Inventory Operations Management API
+      description: Apply adjustments to a set of supply items.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupplyAdjustmentRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/adjust-supply-items
+  /inventory/v1/inventory-receiving/receipts/{receiptId}/lots:
+    post:
+      operationId: createInventoryReceiptLot
+      summary: Create Inventory Receipt Lot
+      tags:
+      - Inventory Operations Management API
+      description: Creates a new lot for an inventory receipt.
+      parameters:
+      - name: receiptId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The inventory receipt ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReceiptLotRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptLot'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/create-inventory-receipt-lot
+    get:
+      operationId: listInventoryReceiptLots
+      summary: List Inventory Receipt Lots
+      tags:
+      - Inventory Operations Management API
+      description: Lists lots associated with an inventory receipt.
+      parameters:
+      - name: receiptId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The inventory receipt ID.
+      - name: lotNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Search by Lot Number.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Search by Part ID.
+      - name: supplierLotNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Search by supplier lot number.
+      - name: beginManufacturedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: Search by Manufactured Date begin date.
+      - name: endManufacturedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: Search by Manufactured Date end date.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptLot'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-inventory-receipt-lots
+  /inventory/v1/inventory-receiving/receipts:
+    post:
+      operationId: createInventoryReceipt
+      summary: Create Inventory Receipt
+      tags:
+      - Inventory Operations Management API
+      description: Create a new Inventory Receipt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReceiptRequest'
+      responses:
+        '201':
+          description: The Receipt resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/create-inventory-receipt
+    get:
+      operationId: listInventoryReceipts
+      summary: List Inventory Receipts
+      tags:
+      - Inventory Operations Management API
+      description: List Inventory Receipts by query parameters.
+      parameters:
+      - name: externalReceiptCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The external receipt code.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The part ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-inventory-receipts
+  /inventory/v1/inventory-shipping/shipments:
+    post:
+      operationId: createInventoryShipment
+      summary: Create Inventory Shipment
+      tags:
+      - Inventory Operations Management API
+      description: Create a new inventory shipment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInventoryShipment'
+      responses:
+        '201':
+          description: The Inventory Shipment resource was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/create-inventory-shipment
+    get:
+      operationId: listInventoryShipments
+      summary: List Inventory Shipments
+      tags:
+      - Inventory Operations Management API
+      description: List inventory shipments and filter by query parameters.
+      parameters:
+      - name: externalShipmentCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 character max. The external inventory shipment code. This code is not provided by Plex and is distinct from the shipment ID.
+      - name: shipmentStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The inventory shipment status. Valid statuses include &quot;Unstaged&quot;, &quot;Staged&quot;, and &quot;Shipped&quot;.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-inventory-shipments
+  /inventory/v1/inventory-tracking/containers/{serialNo}:
+    get:
+      operationId: getContainer
+      summary: Get Container
+      tags:
+      - Inventory Operations Management API
+      description: Gets an active container by serialNo.
+      parameters:
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: Serial Number to search for.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActiveContainer'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-container
+  /inventory/v1/inventory-receiving/receipts/{receiptId}/lots/{lotId}:
+    get:
+      operationId: getInventoryReceiptLot
+      summary: Get Inventory Receipt Lot
+      tags:
+      - Inventory Operations Management API
+      description: Retrieves an inventory receipt lot by ID.
+      parameters:
+      - name: receiptId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The inventory receipt ID.
+      - name: lotId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The lot ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptLot'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-inventory-receipt-lot
+  /inventory/v1/inventory-receiving/receipts/{id}:
+    get:
+      operationId: getInventoryReceipt
+      summary: Get Inventory Receipt
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve an Inventory Receipt by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The inventory receipt ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receipt'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-inventory-receipt
+  /inventory/v1/inventory-shipping/shipments/{id}:
+    get:
+      operationId: getInventoryShipment
+      summary: Get Inventory Shipment
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve inventory shipment by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-inventory-shipment
+  /inventory/v1/inventory-tracking/lots/{lotId}:
+    get:
+      operationId: getLot
+      summary: Get Lot
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve information of a specific lot by its Lot ID.
+      parameters:
+      - name: lotId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The UUID assigned to a lot.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lot'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-lot
+  /inventory/v1/inventory-definitions/parts/{partId}:
+    get:
+      operationId: getPart
+      summary: Get Part
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve information of a specific part by its UUID.
+      parameters:
+      - name: partId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The UUID assigned to a part.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryPart'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-part
+  /inventory/v1/inventory-definitions/supply-items/{id}:
+    get:
+      operationId: getSupplyItem
+      summary: Get Supply Item
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve a Supply Item by Resource ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Supply Item Resource ID.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplyItem'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/get-supply-item
+  /inventory/v2/inventory-history/container-adjustments:
+    get:
+      operationId: listContainerAdjustmentsV2
+      summary: List Container Adjustments
+      tags:
+      - Inventory Operations Management API
+      description: List container inventory adjustment entries, including all adjustment types (Add Existing Inventory, RF Retire, PC Retire, and manual adjustments), with expanded filter parameters.
+      parameters:
+      - name: serialNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The serial number of the container that was adjusted. 25 characters maximum.
+      - name: beginDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when container adjustment transactions are to be retrieved.
+      - name: endDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time until when container adjustment transactions are to be retrieved.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part ID.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part Operation ID.
+      - name: adjustmentReason
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Setup table &quot;Adjustment_Reason&quot;. The Adjustment Reason setup table lists the acceptable reasons for inventory changes. 50 characters maximum.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The location ID of the container that was adjusted.
+      - name: materialCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The material code of the container that was adjusted. 50 characters maximum.
+      - name: supplyId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The supply item ID of the container that was adjusted.
+      - name: containerStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The container status of the container that was adjusted. 50 characters maximum.
+      - name: lastAction
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma-separated list of last action values of the container that was adjusted (e.g. &quot;Adjust,Scrap&quot;).
+      - name: updatedBy
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The user ID of the last update of the container that was adjusted.
+      - name: jobId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The job ID of the container that was adjusted.
+      - name: partBuildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The building ID for the part of the container that was adjusted.
+      - name: buildingId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The building ID of the container that was adjusted.
+      - name: statusChange
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Indicates if the last adjustment included a status change.
+      - name: costDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time used for costing that inventory or transaction.
+      - name: costModel
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The cost model of the container that was adjusted. 50 characters maximum.
+      - name: planningGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The planning group of the container that was adjusted. 20 characters maximum.
+      - name: quantityCostImpactOnly
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The change impacts the inventory quantity and therefore the cost/valuation.
+      - name: plannerId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The planner ID of the container that was adjusted.
+      - name: partGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The part group of the container's part that was adjusted. 50 characters maximum.
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerAdjustment'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-container-adjustments
+  /inventory/v1/inventory-history/container-adjustments:
+    get:
+      operationId: listContainerAdjustmentsV1
+      summary: List Container Adjustments
+      tags:
+      - Inventory Operations Management API
+      description: List manual container inventory adjustment entries. This API returns results similar to the Inventory Adjustments application. See Knowledge Center MES API documentation for more details.
+      parameters:
+      - name: serialNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 25 characters max. The serial number of the container that was adjusted.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when container adjustment transactions are to be retrieved.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time until when container adjustment transactions are to be retrieved.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part ID.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part Operation ID.
+      - name: adjustmentCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Adjustment Reason&quot; (part.dbo.adjustment_reason). The Adjustment Reason setup table lists the acceptable reasons for inventory changes.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The location ID of the container that was adjusted.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerAdjustment'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-container-adjustments
+  /inventory/v1/inventory-history/container-location-moves:
+    get:
+      operationId: listContainerLocationMoves
+      summary: List Container Location Moves
+      tags:
+      - Inventory Operations Management API
+      description: List of container location moves entries.
+      parameters:
+      - name: serialNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 25 characters max. The serial number of the container that was changed.
+      - name: beginDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when container change transactions are to be retrieved.
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time until when container change transactions are to be retrieved.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part ID.
+      - name: partOperationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The container's Part Operation ID.
+      - name: partType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Type&quot; (part.dbo.Part_Type). Subclassification for the part. Examples include flange, fastener, gears, crown wheels, clutch hubs, body panels, gear shafts.
+      - name: partGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Group&quot; (part.dbo.Part_Group). Subclassification for the part.
+      - name: partSource
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Source&quot; (part.dbo.Part_Source). Categorize where the parts are from, purchased or made in house. The field is not tied to purchasing for lookups or searches.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The location ID of the container that was changed.
+      - name: movedFromLocationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The prior location ID of the container before it was changed.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerLocationMoves'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-container-location-moves
+  /inventory/v1/inventory-tracking/containers:
+    get:
+      operationId: listContainers
+      summary: List Containers
+      tags:
+      - Inventory Operations Management API
+      description: Gets active containers.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the part.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID associated with the inventory location.
+      - name: masterUnitId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the master unit associated with the container.
+      - name: lotId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The lot ID associated with the container.
+      - name: eun
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The EUN associated with the container.
+      - name: inventoryType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The list of inventory types.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActiveContainer'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-containers
+  /inventory/v1/inventory-definitions/locations:
+    get:
+      operationId: listLocations
+      summary: List Locations
+      tags:
+      - Inventory Operations Management API
+      description: List locations by query parameters.
+      parameters:
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Location ID.
+      - name: locationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Location Code.
+      - name: locationTypeFlag
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The Location Type Flag.
+      - name: tankSilo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Boolean indicating whether the results should be filtered to only return tank/silo results.
+      - name: allergens
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of allergen names associated with the location.
+      - name: storageConditions
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of storage condition names associated with the location.
+      - name: allergenExclusions
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of allergen exclusions associated with the location.
+      - name: storageConditionExclusions
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: List of storage condition exclusions associated with the location.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Filter by active flag. When true, returns only active locations.
+      - name: cycleGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Filter by Cycle Inventory Group Name.
+      - name: building
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Filter by Building Name.
+      - name: locationGroup
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Filter by Location Group.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-locations
+  /inventory/v1/inventory-tracking/lots:
+    get:
+      operationId: listLots
+      summary: List Lots
+      tags:
+      - Inventory Operations Management API
+      description: Gets usage dates and other information about the lots.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The part ID.
+      - name: partNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 100 characters max. A short code or number to call the part.
+      - name: partRevision
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 8 characters max. The container's Part Revision.
+      - name: lotNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 25 characters max. A short code or number to call the lot.
+      - name: supplierID
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The supplier ID.
+      - name: beginManufacturedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when lots were manufactured are to be retrieved.
+      - name: endManufacturedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time up to when lots were manufactured are to be retrieved.
+      - name: beginBestByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time up to when lots are best by are to be retrieved.
+      - name: endBestByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time up to when lots are best by are to be retrieved.
+      - name: beginSellByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when lots can be sold by are to be retrieved.
+      - name: endSellByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time up to when lots can be sold by are to be retrieved.
+      - name: beginUseByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time from when lots can be used by are to be retrieved.
+      - name: endUseByDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The date and time up to when lots can be used by are to be retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lot'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-lots
+  /inventory/v1/inventory-definitions/parts:
+    get:
+      operationId: listParts
+      summary: List Parts
+      tags:
+      - Inventory Operations Management API
+      description: Retrieve list of parts and their information.
+      parameters:
+      - name: partNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 100 characters max. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+      - name: partRevision
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 8 characters max. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+      - name: partType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Source&quot; (part.dbo.Part_Status). Subclassification for the part. Examples include flange, fastener, gears, crown wheels, clutch hubs, body panels, gear shafts.
+      - name: partSource
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Status&quot; (part.dbo.Part_Status). Categorize where the parts are from, purchased or made in house. The field is not tied to purchasing for lookups or searches.
+      - name: partStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 50 characters max. Setup table &quot;Part Status&quot; (part.dbo.Part_Status)The part status indicates the life cycle phase of the part.
+      - name: beginCreatedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date and time from when the parts were created are to be retrieved.
+      - name: endCreatedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date and time from when the parts were created are to be retrieved.
+      - name: beginUpdatedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The beginning date and time from when the parts were last updated are to be retrieved.
+      - name: endUpdatedDateTime
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The end date and time from when the parts were last updated are to be retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryPart'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-parts
+  /inventory/v1/inventory-definitions/scrap-reasons:
+    get:
+      operationId: listScrapReasons
+      summary: List Scrap Reasons
+      tags:
+      - Inventory Operations Management API
+      description: List scrap reasons.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScrapReason'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-scrap-reasons
+  /inventory/v1-beta1/inventory-history/item-adjustments:
+    get:
+      operationId: listSupplyItemAdjustments
+      summary: List Supply Item Adjustments
+      tags:
+      - Inventory Operations Management API
+      description: List Item Adjustment by query parameters.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: itemId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Inventory History Item Resource ID.
+      - name: locationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Location ID.
+      - name: beginDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The Item Adjustment begin date.
+      - name: endDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:12Z'
+        description: The Item Adjustment end date.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemAdjustment'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-supply-item-adjustments
+  /inventory/v1/inventory-definitions/supply-items:
+    get:
+      operationId: listSupplyItems
+      summary: List Supply Items
+      tags:
+      - Inventory Operations Management API
+      description: List Supply Items by query parameters.
+      parameters:
+      - name: supplyItemNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A short identifier for the Supply Item.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Indicates the Supply Item type, such as office supplies or shop supplies.
+
+          Setup Table: Item Type'
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Setup Table: Supply Category'
+      - name: group
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'A supply group, used to categorize Supply Items, such as Electrical, Mechanical, Office Supplies.
+
+          Setup Table: Item Group'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplyItem'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/list-supply-items
+  /inventory/v1/inventory-receiving/receipts/{id}/receive:
+    post:
+      operationId: receiveInventoryContainers
+      summary: Receive Inventory Containers
+      tags:
+      - Inventory Operations Management API
+      description: Receive inventory containers against a particular receipt.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The inventory receipt ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReceiptInventoryRequest'
+      responses:
+        '202':
+          description: The request was accepted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/receive-inventory-containers
+  /inventory/v1/inventory-control/containers/{serialNo}/retire:
+    post:
+      operationId: retireContainer
+      summary: Retire Container
+      tags:
+      - Inventory Operations Management API
+      description: Retires an Inventory Container.
+      parameters:
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The container serial no.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetireContainerRequest'
+      responses:
+        '204':
+          description: The command executed successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Container not found.
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/retire-container
+  /inventory/v1/inventory-control/containers/{serialNo}/scrap:
+    post:
+      operationId: scrapContainer
+      summary: Scrap Container
+      tags:
+      - Inventory Operations Management API
+      description: Scraps an Inventory Container by Serial No.
+      parameters:
+      - name: serialNo
+        in: path
+        required: true
+        schema:
+          type: string
+          example: string
+        description: The container serial no.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScrapContainerRequest'
+      responses:
+        '204':
+          description: The command executed successfully.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Container not found.
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/scrap-container
+  /inventory/v1-beta1/inventory-shipping/shipments/{id}/ship:
+    post:
+      operationId: shipInventory
+      summary: Ship Inventory
+      tags:
+      - Inventory Operations Management API
+      description: Ships the staged inventory shipment containers and updates the shipment status to "Shipped".
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/ship-inventory
+  /inventory/v1-beta1/inventory-shipping/shipments/{id}/stage:
+    post:
+      operationId: stageInventory
+      summary: Stage Inventory
+      tags:
+      - Inventory Operations Management API
+      description: Stages the inventory shipment containers and updates the shipment status to "Staged".
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StageInventoryRequest'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/stage-inventory
+  /inventory/v1/inventory-definitions/locations/sync:
+    post:
+      operationId: syncLocation
+      summary: Sync Location
+      tags:
+      - Inventory Operations Management API
+      description: 'This endpoint adds or updates location details. If the provided LocationId is empty or omitted, a new location is created. Otherwise, the existing location is updated.
+
+        Validation logic:
+
+
+        Module check (7116): If storage validation data (allergens/storage conditions) is provided, the Storage Validation module must be enabled.
+
+        Customer Setting check: If storage conditions or storage condition exclusions are provided, the "Storage Information Display" customer setting must be enabled (allergens are not subject to this check).
+
+        Conflict checks: Cannot provide both allergens and allergen exclusions, or both storage conditions and storage condition exclusions.
+
+        Storage Requirement check: If storage validation data is provided, the Location Type must have the Storage_Requirement flag enabled.
+
+        Name validation: Allergen and storage condition names must exist in their respective master tables.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncLocationDTO'
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncLocationDTO'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/sync-location
+  /inventory/v1-beta1/inventory-shipping/shipments/{id}/unship:
+    post:
+      operationId: unshipInventory
+      summary: Unship Inventory
+      tags:
+      - Inventory Operations Management API
+      description: Unships the inventory shipment containers and updates the shipment status to "Staged".
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/unship-inventory
+  /inventory/v1-beta1/inventory-shipping/shipments/{id}/unstage:
+    post:
+      operationId: unstageInventory
+      summary: Unstage Inventory
+      tags:
+      - Inventory Operations Management API
+      description: Unstages the inventory shipment containers and updates the shipment status to "Unstaged".
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnstageRequest'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryShipment'
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/inventory-operations-management-api/unstage-inventory
+components:
+  schemas:
+    ContainerAdjustment:
+      type: object
+      description: In Plex, container adjustments are inventory changes made outside of standard receiving, shipping, and production activities, such as cycle counts or manual updates to the container quantity itself.
+      properties:
+        adjustmentDateTime:
+          type: string
+          format: date-time
+          description: The date and time when an inventory adjustment was made.
+          example: '2026-10-20T12:03:12Z'
+        serialNo:
+          type: string
+          description: The serial number of the container that was adjusted. 25 characters maximum.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The delta quantity that was adjusted. This value could be a positive number (inventory quantity increased) or a negative number (inventory quantity decreased). Decimal, (19,5) maximum characters.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The delta net weight that was adjusted. This value could be a positive number (weight increased) or a negative number (weight decreased). Decimal, (19,5) maximum characters.
+          example: 0.1
+        adjustmentCode:
+          type: string
+          description: Setup table &quot;Adjustment Reason&quot; (part.dbo.adjustment_reason). The Adjustment Reason setup table lists the acceptable reasons for inventory changes. 50 characters maximum.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The container's Part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: The container's Part Number. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues. 100 characters maximum.
+          example: string
+        revision:
+          type: string
+          description: The container's Part Revision. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR). 8 characters maximum.
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. The container's Part Number Revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The container's Part Operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: The container's Operation Code. 10 characters maximum.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The container's Operation Number (sequence order). 30 characters maximum.
+          example: 0
+        location:
+          type: string
+          description: The Location Code of the container that was adjusted. 50 characters maximum.
+          example: string
+        locationId:
+          type: string
+          format: uuid
+          description: The location ID of the container that was adjusted.
+          example: 00000000-0000-0000-0000-000000000000
+        jobNumber:
+          type: string
+          description: The Job associated to the container adjustment.
+          example: string
+        standardCost:
+          type: number
+          format: double
+          description: The standard cost per unit from the requested cost model. Decimal, (19,5) maximum characters.
+          example: 0.1
+        extendedCost:
+          type: number
+          format: double
+          description: The total cost impact of the adjustment (quantity x standard cost). Decimal, (19,6) maximum characters.
+          example: 0.1
+    InventoryShipment:
+      type: object
+      description: The inventory shipment.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The Inventory Shipment Resource ID.
+          example: 00000000-0000-0000-0000-000000000000
+        externalShipmentCode:
+          type: string
+          description: 50 character max. The external inventory shipment code. This code is not provided by Plex and is distinct from the shipment ID.
+          example: string
+        shipmentStatus:
+          type: string
+          description: The inventory shipment status. Valid statuses include &quot;Unstaged&quot;, &quot;Staged&quot;, and &quot;Shipped&quot;.
+          example: string
+        containers:
+          type: array
+          description: The containers associated with the inventory shipment.
+          items:
+            type: object
+            description: The container associated with the inventory shipment.
+            properties: {}
+        createdById:
+          type: string
+          format: uuid
+          description: UUID V4 format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX. The tenant ID used to create this inventory shipment.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: Date/Time Format YYYY-MM-DDThh:mm:ss.fffffffZ The date and time when an inventory shipment was made. See &quot;Dates and Times&quot; in the Get Started section of the Plex Developer Portal (APIs &gt; Get Started).
+          example: '2026-10-20T12:03:12Z'
+    ReceiptInventoryRequest:
+      type: object
+      description: The Receipt Inventory.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: The part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The inventory quantity.
+          example: 0.1
+        locationId:
+          type: string
+          format: uuid
+          description: The location ID.
+          example: 00000000-0000-0000-0000-000000000000
+        externalSerialNumber:
+          type: string
+          description: External container serial number, used to override automatic serial generation.
+          example: string
+        trackingNumber:
+          type: string
+          description: The container tracking number.
+          example: string
+        lotId:
+          type: string
+          format: uuid
+          description: The lot ID.
+          example: 00000000-0000-0000-0000-000000000000
+        eun:
+          type: string
+          description: 40 character max. The container's end unit number.
+          example: string
+        beginManufacturerDateTime:
+          type: string
+          format: date-time
+          description: The start manufactured date of the container.
+          example: '2026-10-20T12:03:12Z'
+        endManufacturerDateTime:
+          type: string
+          format: date-time
+          description: The end manufactured date of the container.
+          example: '2026-10-20T12:03:12Z'
+        containerStatus:
+          type: string
+          description: The status of the container, can be either Receiving or OK. If not provided default is Receiving.
+          example: string
+      required:
+      - partId
+      - quantity
+    ContainerLocationMoves:
+      type: object
+      description: The container location moves.
+      properties:
+        adjustmentDate:
+          type: string
+          format: date-time
+          description: The date and time when an inventory adjustment was made.
+          example: '2026-10-20T12:03:12Z'
+        serialNo:
+          type: string
+          description: 25 characters max. The serial number of the container that was changed.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: Decimal, (19,5) max characters. The delta quantity that was changed. This value could be a positive number (inventory quantity increased) or a negative number (inventory quantity decreased).
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: Decimal, (19,5) max characters. The delta net weight that was changed. This value could be a positive number (weight increased) or a negative number (weight decreased).
+          example: 0.1
+        adjustmentCode:
+          type: string
+          description: 50 characters max. Setup table &quot;Adjustment Reason&quot; (part.dbo.adjustment_reason). The Adjustment Reason setup table lists the acceptable reasons for inventory changes.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The container's Part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: 100 characters max. The container's Part Number. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: 8 characters max. The container's Part Revision. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. The container's Part Number Revision formatted with separator. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The container's Part Operation ID.
+          example: 00000000-0000-0000-0000-000000000000
+        operationCode:
+          type: string
+          description: 10 characters max. The container's Operation Code.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: 30 characters max. The container's Operation Number (sequence order).
+          example: 0
+        location:
+          type: string
+          description: 50 characters max. The Location Code of the container that was changed.
+          example: string
+        locationId:
+          type: string
+          format: uuid
+          description: The location ID of the container that was changed.
+          example: 00000000-0000-0000-0000-000000000000
+        movedFromLocation:
+          type: string
+          description: 50 characters max. The prior Location Code of the container that was changed.
+          example: string
+        movedFromLocationId:
+          type: string
+          format: uuid
+          description: The prior location ID of the container that was changed.
+          example: 00000000-0000-0000-0000-000000000000
+    UnstageRequest:
+      type: object
+      description: The request to unstage the inventory shipment.
+      properties:
+        serialNos:
+          type: array
+          description: 25 characters max. The serial numbers of the containers to be Unstaged.
+          items:
+            type: string
+      required:
+      - serialNos
+    ScrapContainerRequest:
+      type: object
+      description: The Scrap Container Request.
+      properties:
+        scrapReason:
+          type: string
+          description: The scrap reason.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The scrap quantity.
+          example: 0.1
+        note:
+          type: string
+          description: The scrap note.
+          example: string
+      required:
+      - scrapReason
+      - quantity
+    StageInventoryRequest:
+      type: object
+      description: The request to stage the inventory shipment.
+      properties:
+        serialNos:
+          type: array
+          description: 25 characters max. The serial numbers of the containers to be Staged.
+          items:
+            type: string
+      required:
+      - serialNos
+    ItemAdjustment:
+      type: object
+      description: The Item Adjustment Model
+      properties:
+        adjustmentDate:
+          type: string
+          format: date-time
+          description: The Item Adjustment Date.
+          example: '2026-10-20T12:03:12Z'
+        itemId:
+          type: string
+          format: uuid
+          description: The unique identifier for the Item Adjustment.
+          example: 00000000-0000-0000-0000-000000000000
+        itemNo:
+          type: string
+          description: The Item No.
+          example: string
+        location:
+          type: string
+          description: The Location of the Item Adjustment.
+          example: string
+        locationId:
+          type: string
+          format: uuid
+          description: The unique identifier for the Location.
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The Item Adjustment Quantity.
+          example: 0.1
+        transactionType:
+          type: string
+          description: The Transaction Type for the Item Adjustment.
+          example: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+    SupplyAdjustmentRequest:
+      type: object
+      description: The Supply Adjustment Request
+      properties:
+        adjustmentType:
+          type: string
+          description: The Adjustment Transaction Type
+          example: string
+        adjustments:
+          type: array
+          description: The Adjustments
+          items:
+            type: object
+            description: A Supply Adjustment
+            properties: {}
+        itemId:
+          type: string
+          format: uuid
+          description: The Item Resource Id
+          example: 00000000-0000-0000-0000-000000000000
+        locationId:
+          type: string
+          format: uuid
+          description: The Location Resource Id
+          example: 00000000-0000-0000-0000-000000000000
+        quantity:
+          type: number
+          format: double
+          description: The Adjusted Quantity
+          example: 0.1
+      required:
+      - adjustmentType
+      - adjustments
+      - itemId
+      - locationId
+    Lot:
+      type: object
+      description: Datastructure to represent lot usage date information
+      properties:
+        lotNumber:
+          type: string
+          description: 25 characters max. The unique lot number.
+          example: string
+        supplierLotNumber:
+          type: string
+          description: 25 character max. The lot number provided by the supplier. Will be &quot;null&quot; if customer owns the lot.
+          example: string
+        customerLotNumber:
+          type: string
+          description: 25 character max. The lot number of the lot provided by the customer. Will be &quot;null&quot; if supplier owns the lot.
+          example: string
+        lotPartConformant:
+          type: boolean
+          description: Boolean flag to indicate if the PCN has lot attribute management enabled.
+          example: false
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: Manufactured date of the lot.
+          example: '2026-10-20T12:03:12Z'
+        sellByDateTime:
+          type: string
+          format: date-time
+          description: Date by which the lot can be sold.
+          example: '2026-10-20T12:03:12Z'
+        useByDateTime:
+          type: string
+          format: date-time
+          description: Date by which the lot can be used.
+          example: '2026-10-20T12:03:12Z'
+        bestByDateTime:
+          type: string
+          format: date-time
+          description: Date by which the lot is considered best to be used.
+          example: '2026-10-20T12:03:12Z'
+        quantity:
+          type: number
+          format: double
+          description: Decimal, (18,3) Total quantity contained in all the containers that are present in the lot.
+          example: 0.1
+        containerCount:
+          type: integer
+          format: int64
+          description: Number of containers that are associated with the lot.
+          example: 0
+        partId:
+          type: string
+          format: uuid
+          description: The part ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        id:
+          type: string
+          format: uuid
+          description: The Lot ID.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierId:
+          type: string
+          format: uuid
+          description: The Supplier ID.
+          example: 00000000-0000-0000-0000-000000000000
+        customerId:
+          type: string
+          format: uuid
+          description: The Customer ID.
+          example: 00000000-0000-0000-0000-000000000000
+        partRevision:
+          type: string
+          description: 8 characters max. The container's Part Revision.
+          example: string
+    SupplyItem:
+      type: object
+      description: The Supply Item model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Supply Item.
+          example: 00000000-0000-0000-0000-000000000000
+        supplyItemNumber:
+          type: string
+          description: A short identifier for the Supply Item.
+          example: string
+        type:
+          type: string
+          description: 'Indicates the Supply Item type, such as office supplies or shop supplies.
+
+            Setup Table: Item Type'
+          example: string
+        category:
+          type: string
+          description: 'Setup Table: Supply Category'
+          example: string
+        group:
+          type: string
+          description: 'A supply group, used to categorize Supply Items, such as Electrical, Mechanical, Office Supplies.
+
+            Setup Table: Item Group'
+          example: string
+        description:
+          type: string
+          description: Text description of the Supply Item.
+          example: string
+        inventoryUnit:
+          type: string
+          description: The unit of measure for the Supply Item.
+          example: string
+    Location:
+      type: object
+      description: The Location.
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: The Location ID.
+          example: 00000000-0000-0000-0000-000000000000
+        locationCode:
+          type: string
+          description: The Location Code.
+          example: string
+        buildingName:
+          type: string
+          description: The Building Name.
+          example: string
+        buildingCode:
+          type: string
+          description: The Building Code.
+          example: string
+        locationType:
+          type: string
+          description: The Location Type.
+          example: string
+        inventoryLocation:
+          type: boolean
+          description: Boolean flag to indicate whether the Location type is of Inventory or not.
+          example: false
+        supplyLocation:
+          type: boolean
+          description: Boolean flag to indicate whether the Location type is of Supply Location or not.
+          example: false
+        tankSilo:
+          type: boolean
+          description: Boolean flag to indicate whether the workcenter is a Tank/Silo.
+          example: false
+        allergens:
+          type: array
+          description: List of allergens associated with the location.
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: List of storage conditions associated with the location.
+          items:
+            type: string
+        allergenExclusions:
+          type: array
+          description: List of allergen exclusions associated with the location.
+          items:
+            type: string
+        storageConditionExclusions:
+          type: array
+          description: List of storage condition exclusions associated with the location.
+          items:
+            type: string
+        storageSections:
+          type: array
+          description: List of storage sections associated with the location.
+          items:
+            type: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who last modified the location record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the location record was last modified.
+          example: '2026-10-20T12:03:12Z'
+    ActiveContainer:
+      type: object
+      description: A Plex container containing active inventory.
+      properties:
+        serialNo:
+          type: string
+          description: The serial number associated with the container.
+          example: string
+        partId:
+          type: string
+          format: uuid
+          description: The ID of the part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNo:
+          type: string
+          description: The part number associated to the &quot;partId&quot; that is produced. Acceptable part number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Part numbers cannot use question marks or ampersands. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: The part revision associated with the container. 8 characters max.
+          example: string
+        partNoRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting.
+          example: string
+        partName:
+          type: string
+          description: The name of the part.
+          example: string
+        partOperationId:
+          type: string
+          format: uuid
+          description: The ID of the part operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNo:
+          type: integer
+          format: int32
+          description: The operation number associated with the part operation.
+          example: 0
+        operationCode:
+          type: string
+          description: The operation code associated with the &quot;partOperationId&quot;. 30 characters max.
+          example: string
+        containerStatus:
+          type: string
+          description: The status of the container.
+          example: string
+        locationId:
+          type: string
+          format: uuid
+          description: The ID of location.
+          example: 00000000-0000-0000-0000-000000000000
+        location:
+          type: string
+          description: The location name associated with the &quot;locationId&quot;.
+          example: string
+        quantity:
+          type: number
+          format: double
+          description: The container quantity value.
+          example: 0.1
+        quantityInventoryUnit:
+          type: string
+          description: The unit of measure associated with the container quantity.
+          example: string
+        grossWeight:
+          type: number
+          format: double
+          description: The gross weight of the container.
+          example: 0.1
+        netWeight:
+          type: number
+          format: double
+          description: The net weight of the container.
+          example: 0.1
+        tareWeight:
+          type: number
+          format: double
+          description: The tare weight of the container.
+          example: 0.1
+        containerType:
+          type: string
+          description: The container type.
+          example: string
+        trackingNo:
+          type: string
+          description: The tracking number associated with the container.
+          example: string
+        addDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the container was added to the system.
+          example: '2026-10-20T12:03:12Z'
+        updateDateTime:
+          type: string
+          format: date-time
+          description: The date and time when the container was last updated.
+          example: '2026-10-20T12:03:12Z'
+        containerShelfDateTime:
+          type: string
+          format: date-time
+          description: The container shelf date.
+          example: '2026-10-20T12:03:12Z'
+        masterUnitId:
+          type: string
+          format: uuid
+          description: The ID of the master unit associated with the container.
+          example: 00000000-0000-0000-0000-000000000000
+        masterUnitNo:
+          type: string
+          description: The unit number associated with the &quot;masterUnitId&quot;.
+          example: string
+        lotId:
+          type: string
+          format: uuid
+          description: The lot ID associated with the container.
+          example: 00000000-0000-0000-0000-000000000000
+        lotNo:
+          type: string
+          description: The unique lot number for the container. 25 characters max.
+          example: string
+        heatId:
+          type: string
+          format: uuid
+          description: The ID associated with the heat.
+          example: 00000000-0000-0000-0000-000000000000
+        heatCode:
+          type: string
+          description: The heat code associated with the &quot;heatId&quot;.
+          example: string
+        heatNo:
+          type: string
+          description: The heat number associated with the &quot;heatId&quot;.
+          example: string
+        eun:
+          type: string
+          description: The EUN associated with the container.
+          example: string
+        inventoryType:
+          type: string
+          description: The Inventory Type associated with the container.
+          example: string
+    ScrapReason:
+      type: object
+      description: A Scrap Reason
+      properties:
+        reason:
+          type: string
+          description: 50 characters max. Setup table &quot;Scrap Reason&quot;.
+          example: string
+    Receipt:
+      type: object
+      description: The Inventory Receipt.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the inventory receipt.
+          example: 00000000-0000-0000-0000-000000000000
+        externalReceiptCode:
+          type: string
+          description: The Tracking Number for the Inventory Receipt.
+          example: string
+        receivedContainers:
+          type: array
+          description: List of received containers associated to the receipt.
+          items:
+            type: object
+            description: Inventory receipt container details
+            properties: {}
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+        supplierCode:
+          type: string
+          description: The supplier code of the supplier. 25 characters max.
+          example: string
+      required:
+      - externalReceiptCode
+    CreateReceiptLotRequest:
+      type: object
+      description: Create inventory receipt lot request.
+      properties:
+        supplierLotNumber:
+          type: string
+          description: The Supplier Lot Number.
+          example: string
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: The manufactured date.
+          example: '2026-10-20T12:03:12Z'
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier of a part to associate with the lot.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - supplierLotNumber
+      - manufacturedDateTime
+      - partId
+    RetireContainerRequest:
+      type: object
+      description: The Retire Container Request.
+      properties:
+        note:
+          type: string
+          description: The retire note.
+          example: string
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    InventoryPart:
+      type: object
+      description: A part in Plex is any purchased or manufactured component, assembly, or finished good.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: The UUID assigned to a part.
+          example: 00000000-0000-0000-0000-000000000000
+        partNumber:
+          type: string
+          description: 100 characters max. A short code or number to call the part. This value shows up throughout the system, so use something others will recognize. Acceptable Part Number characters include uppercase and lowercase letters (A-Z), numbers (0-9), and special characters such as dashes (-), underscores ( _ ), and spaces. Other characters may cause issues.
+          example: string
+        revision:
+          type: string
+          description: 8 characters max. A revision level represents a change or modification to a part or part drawing that is usually initiated through an engineering change request (ECR).
+          example: string
+        partNumberRevision:
+          type: string
+          description: Format {partNumber}{part rev separator}{revision}. If a part number has a revision, Plex will return the part number and the revision separated by the Part Rev Separator setting. A Part Rev Separator can be up to 5 characters long.
+          example: string
+        type:
+          type: string
+          description: 50 characters max. Setup table &quot;Part Type&quot; (part.dbo.Part_Type). Subclassification for the part. Examples include flange, fastener, gears, crown wheels, clutch hubs, body panels, gear shafts.
+          example: string
+        source:
+          type: string
+          description: 50 characters max. Setup table &quot;Part Source&quot; (part.dbo.Part_Source). Categorize where the parts are from, purchased or made in house. The field is not tied to purchasing for lookups or searches.
+          example: string
+        status:
+          type: string
+          description: 50 characters max. Setup table &quot;Part Status&quot; (part.dbo.Part_Status)The part status indicates the life cycle phase of the part.
+          example: string
+        lotRequired:
+          type: boolean
+          description: Boolean flag to indicate whether lot required is enabled for this part.
+          example: false
+    ReceiptLot:
+      type: object
+      description: A lot associated with an inventory receipt.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the lot.
+          example: 00000000-0000-0000-0000-000000000000
+        lotNumber:
+          type: string
+          description: The lot number.
+          example: string
+        supplierLotNumber:
+          type: string
+          description: The supplier lot number.
+          example: string
+        manufacturedDateTime:
+          type: string
+          format: date-time
+          description: The manufactured date of the lot.
+          example: '2026-10-20T12:03:12Z'
+        partId:
+          type: string
+          format: uuid
+          description: The part ID associated with the lot.
+          example: 00000000-0000-0000-0000-000000000000
+    CreateReceiptRequest:
+      type: object
+      description: The Create Inventory Receipt Request.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the inventory receipt.
+          example: 00000000-0000-0000-0000-000000000000
+        externalReceiptCode:
+          type: string
+          description: The Tracking Number for the Inventory Receipt.
+          example: string
+        supplierId:
+          type: string
+          format: uuid
+          description: The ID of the supplier.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - externalReceiptCode
+    SyncLocationDTO:
+      type: object
+      description: DTO for the Sync Location (add or update) request and response.
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: The Location ID. Empty or omitted for new locations.
+          example: 00000000-0000-0000-0000-000000000000
+        name:
+          type: string
+          description: The Location Name. Required when creating a new location (LocationId is empty). Ignored when updating an existing location.
+          example: string
+        locationType:
+          type: string
+          description: The Location Type.
+          example: string
+        buildingCode:
+          type: string
+          description: The Building Code.
+          example: string
+        active:
+          type: boolean
+          description: Indicates whether the location is active (in use) or inactive (retired). Defaults to true when creating a new location. Omit this field during updates to preserve the existing value. Deactivation is rejected when active containers exist at the location.
+          example: false
+        tankSilo:
+          type: boolean
+          description: Indicates whether the location is associated with a Tank/Silo. Setting this to true adds the location to Tank; setting to false removes it. Cannot be changed when Tank Lot Log or Sanitization Event records exist for this location.
+          example: false
+        allergens:
+          type: array
+          description: List of allergens associated with the location.
+          items:
+            type: string
+        storageConditions:
+          type: array
+          description: List of storage conditions associated with the location.
+          items:
+            type: string
+        allergenExclusions:
+          type: array
+          description: List of allergen exclusions associated with the location.
+          items:
+            type: string
+        storageConditionExclusions:
+          type: array
+          description: List of storage condition exclusions associated with the location.
+          items:
+            type: string
+        modifiedById:
+          type: string
+          format: uuid
+          description: The Modified By ID (output only).
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The Modified Date Time (output only).
+          example: '2026-10-20T12:03:12Z'
+        storageAttributeMessage:
+          type: string
+          description: Provides an informational message about storage attribute synchronization (output only). This field is populated when storage attributes (allergens/storage conditions) could not be synced, typically due to active containers or storage sections attached to the location.
+          example: string
+    CreateInventoryShipment:
+      type: object
+      properties:
+        externalShipmentCode:
+          type: string
+          description: The external inventory shipment code. This code is not provided by Plex and is distinct from the shipment ID. 50 character max.
+          example: string
+      required:
+      - externalShipmentCode
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

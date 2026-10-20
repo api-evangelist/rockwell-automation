@@ -1,0 +1,1042 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Process Routings API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Process Routings API
+  description: The Process Routings API is used to manage part operations.
+paths:
+  /mdm/v1/part-operations:
+    post:
+      operationId: createPartOperation
+      summary: Create Part Operation
+      tags:
+      - Process Routings API
+      description: Create a new part operation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartOperationDTO'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartOperationDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/create-part-operation
+    get:
+      operationId: listPartOperations
+      summary: List Part Operations
+      tags:
+      - Process Routings API
+      description: List part operations by query parameters.
+      parameters:
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier to a part.
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier to an operation.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: If the routing is activated for use in production.
+      - name: subOperation
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Refers to if the operation is encapsulated within another operation.
+      - name: operationNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: The order this operation is executed in, usually added in increments of 10 to leave room for inserting additional operations.
+      - name: createdDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date and time used to return records created within a time frame.
+      - name: createdDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date and time used to return records created within a time frame.
+      - name: modifiedDateTimeBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The beginning date and time used to return records modified within a time frame. Records that have never been modified are evaluated against the date and time they were created.
+      - name: modifiedDateTimeEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: The end date and time used to return records modified within a time frame. Records that have never been modified are evaluated against the date and time they were created.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartOperationListItemDTO'
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/list-part-operations
+  /mdm/v1/part-operations/{id}/deactivate:
+    put:
+      operationId: deactivatePartOperation
+      summary: Deactivate Part Operation
+      tags:
+      - Process Routings API
+      description: Deactivate a part operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/deactivate-part-operation
+  /mdm/v1/part-operations/{id}/notes:
+    get:
+      operationId: getNote
+      summary: Get Note
+      tags:
+      - Process Routings API
+      description: Get a part operation note.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-note
+    put:
+      operationId: updateNote
+      summary: Update Note
+      tags:
+      - Process Routings API
+      description: Update a part operation note.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoteDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-note
+  /mdm/v1/operations/{id}:
+    get:
+      operationId: getOperation
+      summary: Get Operation
+      tags:
+      - Process Routings API
+      description: Retrieve an operation by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The operation ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDTO'
+        '400':
+          description: Bad Request
+        '404':
+          description: The operation does not exist.
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-operation
+  /mdm/v1/part-operations/{id}/description:
+    get:
+      operationId: getPartOperationDescription
+      summary: Get Part Operation Description
+      tags:
+      - Process Routings API
+      description: Get a part operation description.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescriptionDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-part-operation-description
+    put:
+      operationId: updatePartOperationDescription
+      summary: Update Part Operation Description
+      tags:
+      - Process Routings API
+      description: Update a part operation description.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDescriptionDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescriptionDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-part-operation-description
+  /mdm/v1/part-operations/{id}:
+    get:
+      operationId: getPartOperation
+      summary: Get Part Operation
+      tags:
+      - Process Routings API
+      description: Retrieve a part operation by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartOperationDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-part-operation
+    put:
+      operationId: updatePartOperation
+      summary: Update Part Operation
+      tags:
+      - Process Routings API
+      description: Update a part operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartOperationDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartOperationDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-part-operation
+  /mdm/v1/part-operations/{id}/production-details:
+    get:
+      operationId: getProductionDetails
+      summary: Get Production Details
+      tags:
+      - Process Routings API
+      description: Get part operation production details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-production-details
+    put:
+      operationId: updateProductionDetails
+      summary: Update Production Details
+      tags:
+      - Process Routings API
+      description: Update part operation production details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductionDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-production-details
+  /mdm/v1/part-operations/{id}/scheduling-details:
+    get:
+      operationId: getSchedulingDetails
+      summary: Get Scheduling Details
+      tags:
+      - Process Routings API
+      description: Retrieve part operation scheduling details.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulingDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-scheduling-details
+    put:
+      operationId: updateSchedulingDetails
+      summary: Update Scheduling Details
+      tags:
+      - Process Routings API
+      description: Update part operation scheduling info.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSchedulingDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulingDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-scheduling-details
+  /mdm/v1/part-operations/{id}/storage-details:
+    get:
+      operationId: getStorageDetails
+      summary: Get Storage Details
+      tags:
+      - Process Routings API
+      description: Retrieve storage details for a part operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageDTO'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/get-storage-details
+    put:
+      operationId: updateStorageDetails
+      summary: Update Storage Details
+      tags:
+      - Process Routings API
+      description: Update part operation storage info.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStorageDTO'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/update-storage-details
+  /mdm/v1/operations:
+    get:
+      operationId: listOperations
+      summary: List Operations
+      tags:
+      - Process Routings API
+      description: List operations by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: inventoryType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDTO'
+      x-source: https://developers.plex.com/api/documentation/process-routings-api/list-operations
+components:
+  schemas:
+    StorageDTO:
+      type: object
+      description: The container storage detail for a Part Operation.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier to a Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        labelFormat:
+          type: string
+          description: The format that is printed for the container's label.
+          example: string
+        masterLabel:
+          type: string
+          description: The master label to be printed for this Part Operation.
+          example: string
+        standardQuantity:
+          type: number
+          format: double
+          description: Standard pack size for the Part Operation.
+          example: 0.1
+    UpdateProductionDTO:
+      type: object
+      description: Model for Part Operation production updates
+      properties:
+        multiple:
+          type: integer
+          format: int32
+          description: Multiple for Part Operation production.
+          example: 0
+        numberOfStrokes:
+          type: number
+          format: double
+          description: Number of Strokes for Part Operation production.
+          example: 0.1
+        repetitions:
+          type: integer
+          format: int32
+          description: Repetitions for Part Operation production.
+          example: 0
+      required:
+      - multiple
+      - numberOfStrokes
+      - repetitions
+    UpdatePartOperationDTO:
+      type: object
+      description: Properties to be set when updating a Part Operation
+      properties:
+        operationId:
+          type: string
+          format: uuid
+          description: A unique identifier to an operation.
+          example: 00000000-0000-0000-0000-000000000000
+        operationNumber:
+          type: integer
+          format: int32
+          description: The order this operation is executed in, usually added in increments of 10 to leave room for inserting additional operations.
+          example: 0
+        multiple:
+          type: integer
+          format: int32
+          description: The operation multiple.
+          example: 0
+        subOperation:
+          type: boolean
+          description: Refers to if the operation is encapsulated within another operation.
+          example: false
+        shippable:
+          type: boolean
+          description: If shipping is allowed for operation on this Part Operation. The part should have at least one shippable operation. If not, MRP calculations are impacted.
+          example: false
+        netWeight:
+          type: number
+          format: double
+          description: The part weight per inventory unit at this operation. This is used in calculations for valuing inventory, standard costing, and shipping documents for subcontract WIP operations.
+          example: 0.1
+        type:
+          type: string
+          description: The part operation type.
+          example: string
+      required:
+      - operationId
+      - operationNumber
+      - multiple
+      - type
+    SchedulingDTO:
+      type: object
+      description: The model for Part Operation Scheduling.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        scrapPercentage:
+          type: number
+          format: double
+          description: The scrap percentage for the Part Operation.
+          example: 0.1
+        operatorScrapPercentage:
+          type: number
+          format: double
+          description: The Operator Scrap percentage for the Part Operation.
+          example: 0.1
+        fixedRunTimeHours:
+          type: number
+          format: double
+          description: Fixed Runtime Houses for the Part Operation.
+          example: 0.1
+        delayBeforeHours:
+          type: number
+          format: double
+          description: Delay before hours for the Part Operation.
+          example: 0.1
+        delayAfterHours:
+          type: number
+          format: double
+          description: Delay after house for the Part Operation.
+          example: 0.1
+        delayReason:
+          type: string
+          description: Delay reason for the Part Operation.
+          example: string
+        overlapPercentage:
+          type: number
+          format: double
+          description: Overlap percentage for the Part Operation.
+          example: 0.1
+        overlapQuantity:
+          type: integer
+          format: int32
+          description: Overlap Quantity for the Part Operation.
+          example: 0
+    DescriptionDTO:
+      type: object
+      description: Model for Part Operation description
+      properties:
+        description:
+          type: string
+          description: The description of the part operation.
+          example: string
+      required:
+      - description
+    UpdateSchedulingDTO:
+      type: object
+      description: Modle for Part Operation scheduling updates.
+      properties:
+        scrapPercentage:
+          type: number
+          format: double
+          description: Scrap percentage of the Part Operation.
+          example: 0.1
+        operatorScrapPercentage:
+          type: number
+          format: double
+          description: Operator Scrap Percentage of the Part Operation.
+          example: 0.1
+        fixedRunTimeHours:
+          type: number
+          format: double
+          description: Fixed run time hours of the Part Operation.
+          example: 0.1
+        delayBeforeHours:
+          type: number
+          format: double
+          description: Delay before hours of the Part Operation.
+          example: 0.1
+        delayAfterHours:
+          type: number
+          format: double
+          description: Delay after hours of the Part Operation.
+          example: 0.1
+        delayReason:
+          type: string
+          description: Delay reason of the Part Operation.
+          example: string
+        overlapPercentage:
+          type: number
+          format: double
+          description: Overlap percentage of the Part Operation.
+          example: 0.1
+        overlapQuantity:
+          type: integer
+          format: int32
+          description: Overlap quantity of the Part Operation.
+          example: 0
+      required:
+      - delayReason
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    NoteDTO:
+      type: object
+      description: Model for Part Operation notes
+      properties:
+        note:
+          type: string
+          description: Note for Part Operation.
+          example: string
+        otherNote:
+          type: string
+          description: Other note for Part Operation.
+          example: string
+      required:
+      - note
+      - otherNote
+    UpdateStorageDTO:
+      type: object
+      description: The container storage detail for a Part Operation.
+      properties:
+        standardQuantity:
+          type: number
+          format: double
+          description: Standard pack size for the Part Operation.
+          example: 0.1
+      required:
+      - standardQuantity
+    CreatePartOperationDTO:
+      type: object
+      description: A single operation in a part operation routing.
+      properties:
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier to a part.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: A unique identifier to an operation.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The Part Operation type.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The order this operation is executed in, usually added in increments of 10 to leave room for inserting additional operations.
+          example: 0
+        subOperation:
+          type: boolean
+          description: Refers to if the operation is encapsulated within another operation.
+          example: false
+        shippable:
+          type: boolean
+          description: If shipping is allowed for operation on this routing. The part should have at least one shippable operation. If not, MRP calculations are impacted.
+          example: false
+        netWeight:
+          type: number
+          format: double
+          description: The part weight per inventory unit at this operation. This is used in calculations for valuing inventory, standard costing, and shipping documents for subcontract WIP operations.
+          example: 0.1
+        standardQuantity:
+          type: number
+          format: double
+          description: Standard pack size for the process routing.
+          example: 0.1
+      required:
+      - partId
+      - operationId
+      - type
+      - operationNumber
+    OperationDTO:
+      type: object
+      description: The all-inclusive domain model for a Operation.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        code:
+          type: string
+          example: string
+        type:
+          type: string
+          example: string
+        inventoryType:
+          type: string
+          example: string
+    PartOperationDTO:
+      type: object
+      description: A single operation in a part operation routing.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier to a Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier to a part.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: A unique identifier to an operation.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The routing type.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The order this operation is executed in, usually added in increments of 10 to leave room for inserting additional operations.
+          example: 0
+        active:
+          type: boolean
+          description: If the Part Operation is activated for use in production.
+          example: false
+        subOperation:
+          type: boolean
+          description: Refers to if the operation is encapsulated within another operation.
+          example: false
+        shippable:
+          type: boolean
+          description: If shipping is allowed for operation on this Part Operation. The part should have at least one shippable operation. If not, MRP calculations are impacted.
+          example: false
+        multiple:
+          type: integer
+          format: int32
+          description: The number of output parts each input part produces. Used primarily for non-BOM operations where one part results in multiples of the next operation.
+          example: 0
+        netWeight:
+          type: number
+          format: double
+          description: The part weight per inventory unit at this operation. This is used in calculations for valuing inventory, standard costing, and shipping documents for subcontract WIP operations.
+          example: 0.1
+    PartOperationListItemDTO:
+      type: object
+      description: A single operation in a part operation routing, as returned by the List Part Operations endpoint.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier to a Part Operation.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: A unique identifier to a part.
+          example: 00000000-0000-0000-0000-000000000000
+        operationId:
+          type: string
+          format: uuid
+          description: A unique identifier to an operation.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The routing type.
+          example: string
+        operationNumber:
+          type: integer
+          format: int32
+          description: The order this operation is executed in, usually added in increments of 10 to leave room for inserting additional operations.
+          example: 0
+        active:
+          type: boolean
+          description: If the Part Operation is activated for use in production.
+          example: false
+        subOperation:
+          type: boolean
+          description: Refers to if the operation is encapsulated within another operation.
+          example: false
+        shippable:
+          type: boolean
+          description: If shipping is allowed for operation on this Part Operation. The part should have at least one shippable operation. If not, MRP calculations are impacted.
+          example: false
+        multiple:
+          type: integer
+          format: int32
+          description: The number of output parts each input part produces. Used primarily for non-BOM operations where one part results in multiples of the next operation.
+          example: 0
+        netWeight:
+          type: number
+          format: double
+          description: The part weight per inventory unit at this operation. This is used in calculations for valuing inventory, standard costing, and shipping documents for subcontract WIP operations.
+          example: 0.1
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the record was created.
+          example: '2026-10-20T12:03:14Z'
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the record was last modified. Defaults to the created timestamp when the record has never been modified.
+          example: '2026-10-20T12:03:14Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The IAM account ID of the user who last modified this record. Defaults to the created user when the record has never been modified.
+          example: 00000000-0000-0000-0000-000000000000
+    UpdateDescriptionDTO:
+      type: object
+      description: Model for Part Operation description
+      properties:
+        description:
+          type: string
+          description: The description of the Part Operation.
+          example: string
+      required:
+      - description
+    ProductionDTO:
+      type: object
+      description: Model for Part Operation production
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique ID for Part Operation production.
+          example: 00000000-0000-0000-0000-000000000000
+        multiple:
+          type: integer
+          format: int32
+          description: Multiple for Part Operation production.
+          example: 0
+        numberOfStrokes:
+          type: number
+          format: double
+          description: Number of Strokes for Part Operation production.
+          example: 0.1
+        repetitions:
+          type: integer
+          format: int32
+          description: Repetitions for Part Operation production.
+          example: 0
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

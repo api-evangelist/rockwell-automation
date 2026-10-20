@@ -1,0 +1,25 @@
+generated: '2026-10-20'
+method: searched
+source: https://developers.plex.com/getstarted
+docs: https://developers.plex.com/getstarted
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: PlexConnectApiKey
+  type: apiKey
+  in: header
+  parameter: X-Plex-Connect-Api-Key
+  description: 'All Plex API requests require a valid subscription key header. The request header X-Plex-Connect-Api-Key is a subscription key that provides access to the API. Keys are the Consumer Key of an app created under My Apps in the Plex Developer Portal; a developer portal account requires Plex IAM activation via a support ticket.'
+  sources:
+  - openapi/rockwell-automation-plex-openapi.yml
+  - https://developers.plex.com/getstarted
+context_headers:
+- name: X-Plex-Connect-Tenant-Id
+  description: Execute the request for a tenant other than your default tenant (value is a tenant ID).
+- name: X-Plex-Connect-Customer-Id
+  description: Execute the request for a different tenant (value is a PCN).
+key_management_docs: https://developers.plex.com/best-practices
+note: The glossary states "Currently, all of our APIs support 2-legged Oauth. 3-legged support is coming soon." but the request-header section documents only the X-Plex-Connect-Api-Key header.

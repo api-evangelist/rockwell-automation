@@ -1,0 +1,915 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Plex APM API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Plex APM API
+  description: The 'Plex APM API' is used to fetch equipment(assets) and parameters(tags) data from Plex APM(IIoT).
+paths:
+  /cm/exhaust/v1/assets:
+    get:
+      operationId: getAssetList
+      summary: Get Asset List
+      tags:
+      - Plex APM API
+      description: Returns list of assets(equipments) configured in Plex APM.
+      parameters:
+      - name: enabled
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: True/False and it accepts either one. In case you want to fetch all assets keep this parameter blank.
+      - name: assetNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset names for which Asset records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: assetCodes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset codes for which status records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: assetSerialNumbers
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset Serial Numbers for which assets records are required. Complete match is required. Invalid Asset Serial Numbers will be ignored and no records will be returned for them.
+      - name: descriptions
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Descriptions for which Asset records are required. Complete match is required.
+      - name: gatewayIds
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Gateway Ids for which Asset records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: gatewayNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Gateway Names for which Asset records are required. Complete match is required. Invalid Gateway Names will be ignored and no records will be returned for them.
+      - name: fiixSiteNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Fiix Site Names for which Asset records are required. Complete match is required. Invalid Fiix Site Names will be ignored and no records will be returned for them.
+      - name: fiixAssetNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Fiix Asset Names for which Asset records are required. Complete match is required. Invalid Fiix Asset Names will be ignored and no records will be returned for them.
+      - name: plexMaintenanceEquipmentIds
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Plex Maintenance EquipmentIds for which Asset records are required. Complete match is required. Invalid Plex Maintenance EquipmentIds will be ignored and no records will be returned for them.
+      - name: assetBridgeAttributeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset Bridge Attribute Name for which Asset records are required. Complete match is required. Invalid Asset Bridge Attribute Name will be ignored and no records will be returned for them.
+      - name: bridgeAttributeValues
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Bridge Attribute Values for which Asset records are required. Complete match is required. Invalid Bridge Attribute Values will be ignored and no records will be returned for them.
+      - name: assetAttributeName
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset Attribute Name for which Asset records are required. Complete match is required. Invalid Asset Attribute Name will be ignored and no records will be returned for them.
+      - name: assetAttributeValues
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset Attribute Values for which Asset records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetRequest'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-asset-list
+  /cm/exhaust/v1/asset-data-points:
+    get:
+      operationId: getAssetNumericalData
+      summary: Get Asset Numerical Data
+      tags:
+      - Plex APM API
+      description: Returns the numerical data for an asset based on the query parameters.
+      parameters:
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'Start datetime for the query. Valid format: YYYY-MM-DDThh:mm:ss.fffffffZ'
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'End datetime for the query. Valid format: YYYY-MM-DDThh:mm:ss.fffffffZ'
+      - name: assetCodes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset codes for which status records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which status records are required. Complete match is required. Invalid tag names will be ignored and no records will be returned for them.
+      - name: daysOfTheWeek
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Comma separated list of Days of the week to include in the result. Valid values: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday'
+      - name: periodStartTime
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Start period of the results to be returned in HH:mm:ss format. Should be used along with periodEndTime. Example- '08:00:00'
+      - name: periodEndTime
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: End period of the results to be returned in HH:mm:ss format. Should be used along with periodStartTime. Example- '16:00:00'
+      - name: quality
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Event quality for which status records are required. Valid values are Good/Bad
+      - name: _sortOrder
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Sort order of status records by timestamp. Valid values: asc/desc. Default: desc'
+      - name: _limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: Top N records to return. Do not pass or pass 0 to return maximum allowed records (100,000)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDataDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-asset-numerical-data
+  /cm/exhaust/v1/asset-statuses:
+    get:
+      operationId: getAssetStatuses
+      summary: Get Asset Statuses
+      tags:
+      - Plex APM API
+      description: Returns the asset statuses based on the query parameters.
+      parameters:
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'Start datetime for the query. Valid format: YYYY-MM-DDThh:mm:ss.fffffffZ'
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'End datetime for the query. Valid format: YYYY-MM-DDThh:mm:ss.fffffffZ'
+      - name: assetCodes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset codes for which status records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which status records are required. Complete match is required. Invalid tag names will be ignored and no records will be returned for them.
+      - name: daysOfTheWeek
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Comma separated list of Days of the week to include in the result. Valid values: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday'
+      - name: periodStartTime
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Start period of the results to be returned in HH:mm:ss format. Should be used along with periodEndTime. Example- '08:00:00'
+      - name: periodEndTime
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: End period of the results to be returned in HH:mm:ss format. Should be used along with periodStartTime. Example- '16:00:00'
+      - name: eventTypes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Event Types for which status records are required. Passing &quot;Problem or Abnormal&quot; will return &quot;High Problem/Abnormal&quot; and &quot;Low Problem/Abnormal&quot; as well. Valid values are Problem, Abnormal, Action Required, Maintenance, InCycle, Idle, Off, Other
+      - name: eventStates
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Event States for which status records are required. Valid values are True/ False. Example- 'True,False'
+      - name: quality
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Event quality for which status records are required. Valid values are Good/Bad
+      - name: _sortOrder
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: 'Sort order of status records by timestamp. Valid values: asc/desc. Default: desc'
+      - name: _limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: Top N records to return. Do not pass or pass 0 to return maximum allowed records (100,000)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetStatusDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-asset-statuses
+  /cm/exhaust/v1/event/asset/elapsed-time:
+    get:
+      operationId: getElapsedTimeByAssets
+      summary: Get Elapsed Time By Assets
+      tags:
+      - Plex APM API
+      description: Returns event elapsed time grouped by assets based on asset code and tag name parameters within the provided time range. Optionally, event types can be provided to further filter the response. Maximum data points fetched has a limit of 100000 data points for the given time range.
+      parameters:
+      - name: startDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'Start date-time for the query. The valid date-time in UTC format is: YYYY-MM-DDThh:mm:ss.fffffffZ. Future date-time is not allowed.'
+      - name: endDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'End date-time for the query. The valid date-time in UTC format is: YYYY-MM-DDThh:mm:ss.fffffffZ. Future date-time is not allowed.'
+      - name: assetCodes
+        in: query
+        required: true
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of asset codes for which event elapsed time records are required. Complete match is required. Asset codes are case-sensitive. An error response will be given when provided asset codes are invalid.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which event elapsed time records are required. Complete match is required. Tag names are case-sensitive. An error response will be given when provided tag names are invalid.
+      - name: eventTypes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of event Types for which event elapsed time records are required. Valid values are Problem, Abnormal, Action Required, Maintenance, InCycle, Idle, Off and Other.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElapsedTimeAssetResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-elapsed-time-by-assets
+  /cm/exhaust/v1/event/tag/elapsed-time:
+    get:
+      operationId: getElapsedTimeByTags
+      summary: Get Elapsed Time By Tags
+      tags:
+      - Plex APM API
+      description: Returns event elapsed time grouped by tags based on asset code and tag name parameters within the provided time range. Optionally, event types can be provided to further filter the response. Maximum data points fetched has a limit of 100000 data points for the given time range.
+      parameters:
+      - name: startDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'Start date-time for the query. The valid date-time in UTC format is: YYYY-MM-DDThh:mm:ss.fffffffZ. Future date-time is not allowed.'
+      - name: endDateTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'End date-time for the query. The valid date-time in UTC format is: YYYY-MM-DDThh:mm:ss.fffffffZ. Future date-time is not allowed.'
+      - name: assetCodes
+        in: query
+        required: true
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of asset codes for which event elapsed time records are required. Complete match is required. Asset codes are case-sensitive. An error response will be given when provided asset codes are invalid.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which event elapsed time records are required. Complete match is required. Tag names are case-sensitive. An error response will be given when provided tag names are invalid.
+      - name: eventTypes
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of event Types for which event elapsed time records are required. Valid values are Problem, Abnormal, Action Required, Maintenance, InCycle, Idle, Off and Other.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElapsedTimeTagResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-elapsed-time-by-tags
+  /cm/exhaust/v1/tags/values/latest:
+    get:
+      operationId: getLatestTagValue
+      summary: Get Latest Tag Value
+      tags:
+      - Plex APM API
+      description: Returns the latest values of tag data for an asset/equipment based on the query parameters.
+      parameters:
+      - name: assetCodes
+        in: query
+        required: true
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset codes for which status records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: assetNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset names for which Asset records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: gatewayNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Gateway Names for which Asset records are required. Complete match is required. Invalid Gateway Names will be ignored and no records will be returned for them.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which status records are required. Complete match is required. Invalid tag names will be ignored and no records will be returned for them.
+      - name: tagAlias
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag alias for which latest tag records are required. Complete match is required. Invalid tag alias will be ignored and no records will be returned for them.
+      - name: streamNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Stream Names for which latest tag records are required. Complete match is required. Invalid Stream Names will be ignored and no records will be returned for them.
+      - name: dataTypeNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of DataType Names for which latest tag records are required. Complete match is required. Invalid DataType Names will be ignored and no records will be returned for them.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestTagDataResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-latest-tag-value
+  /cm/exhaust/v1/tags/values/{specificTime}:
+    get:
+      operationId: getTagValueAtSpecifiedTime
+      summary: Get Tag Value At Specified Time
+      tags:
+      - Plex APM API
+      description: Returns latest values of tag data for an asset/equipment at a specified time based on query parameters.
+      parameters:
+      - name: specificTime
+        in: path
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:14Z'
+        description: 'Valid format: YYYY-MM-DDThh:mm:ssZ'
+      - name: assetCodes
+        in: query
+        required: true
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset codes for which status records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: assetNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Asset names for which Asset records are required. Complete match is required. Invalid asset codes will be ignored and no records will be returned for them.
+      - name: gatewayNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Gateway Names for which Asset records are required. Complete match is required. Invalid Gateway Names will be ignored and no records will be returned for them.
+      - name: tagNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag names for which status records are required. Complete match is required. Invalid tag names will be ignored and no records will be returned for them.
+      - name: tagAlias
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of tag alias for which latest tag records are required. Complete match is required. Invalid tag alias will be ignored and no records will be returned for them.
+      - name: streamNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of Stream Names for which latest tag records are required. Complete match is required. Invalid Stream Names will be ignored and no records will be returned for them.
+      - name: dataTypeNames
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Comma separated list of DataType Names for which latest tag records are required. Complete match is required. Invalid DataType Names will be ignored and no records will be returned for them.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestTagDataResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found.
+      x-source: https://developers.plex.com/api/documentation/plex-apm-api/get-tag-value-at-specified-time
+components:
+  schemas:
+    AssetDataDTO:
+      type: object
+      properties:
+        receivedISOTimestamp:
+          type: string
+          format: date-time
+          description: ISO Timestamp of the data
+          example: '2020-01-01T12:30:00+00:00'
+        receivedUnixTimestamp:
+          type: integer
+          format: int64
+          description: 13 digit UNIX timestamp of the data
+          example: 1577836800000
+        source:
+          type: string
+          description: Source of the data.
+          example: Gateway Name
+        gatewayId:
+          type: string
+          description: Gateway Identifier
+          example: 14cec83f-0b7a-43a5-acff-4fa98d606918
+        asset:
+          type: string
+          description: If the asset has a name, the name is returned else the asset code is returned
+          example: Asset Name
+        tagName:
+          type: string
+          description: Tag Name
+          example: Tag Name
+        tagAlias:
+          type: string
+          description: Tag Alias
+          example: Tag Alias
+        value:
+          type: number
+          format: double
+          description: Value. NaN if not a valid number
+          example: -1.79
+        quality:
+          type: string
+          description: Quality of the data - Good/Bad
+          example: Bad
+    ErrorResponse:
+      type: object
+      properties:
+        httpStatusCode:
+          type: integer
+          format: int32
+          example: 0
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+    LatestTagDataResponse:
+      type: object
+      properties:
+        assetNames:
+          type: string
+          description: Asset Name.
+          example: Extrudeuse
+        assetCodes:
+          type: string
+          description: Asset Code.
+          example: EM-1
+        gatewayNames:
+          type: string
+          description: Gateway Name.
+          example: Extruder GW
+        gatewayId:
+          type: string
+          description: Gateway Id
+          example: a9a68bff-b6ed-47ad-b130-a991dd7278ce
+        value:
+          type: string
+          example: '20'
+        tagNames:
+          type: string
+          description: Tag Name
+          example: Warehouse.Temperature
+        tagAlias:
+          type: string
+          description: Tag Alias
+          example: Warehouse.Temperature
+        quality:
+          type: string
+          description: Quality
+          example: 'True'
+        severity:
+          type: string
+          description: Severity
+          example: Low
+        streamType:
+          type: string
+          description: Stream Type
+          example: Continuous
+        dataTypeNames:
+          type: string
+          description: DataType Names
+          example: Numerical
+        receivedISOTimestamp:
+          type: string
+          description: Received ISO Timestamp
+          example: '2022-08-24T06:46:16.501Z'
+        unitName:
+          type: string
+          description: Unit Name
+          example: Temperature
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    AssetRequest:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Returns true if the asset is currently marked as active
+          example: true
+        assetNames:
+          type: string
+          description: Asset Names.
+          example: TurretCNC_Asset
+        assetCodes:
+          type: string
+          description: Asset Codes.
+          example: TurretCNC_Asset
+        assetSerialNumber:
+          type: string
+          description: The serial number of a physical asset
+          example: TurretCNC_Asset
+        assetDescription:
+          type: string
+          description: Descriptions
+          example: TurretCNC_Asset
+        gatewayName:
+          type: string
+          description: Gateway Names
+          example: TurretGateway
+        gatewayId:
+          type: string
+          description: GatewayIds
+          example: d8bedb27-eadb-424b-a400-0dd22372d405
+        fiixSiteName:
+          type: string
+          description: Fiix Site Names
+          example: UK
+        fiixAssetName:
+          type: string
+          description: Fiix Asset Names
+          example: BoringMac
+        plexMaintenanceEquipmentId:
+          type: string
+          description: Plex Maintenance Equipment Ids
+          example: TurretCNC
+        bridgeAttributes:
+          type: string
+          description: Asset Bridge Attribute Name
+          example: '{"pmc Workcenter": "Oven - IoT"}'
+        attributes:
+          type: string
+          description: Asset Attribute Name
+          example: '[ { "asset Type": ["Engine Lathe","Baking Machine"], "brand": ["Brand X","Amada"], "location": [], "manufacturer": [], "model Number": [], "sub-location": ["East"], "zone": [] }]'
+    ElapsedTimeAssetResponse:
+      type: object
+      description: Elapsed time results grouped by assets
+      properties:
+        assetCode:
+          type: string
+          description: Asset code
+          example: AssetCode01
+        results:
+          type: array
+          items:
+            type: object
+            properties: {}
+    AssetStatusDTO:
+      type: object
+      properties:
+        receivedISOTimestamp:
+          type: string
+          format: date-time
+          description: ISO Timestamp of the event
+          example: '2020-01-01T12:30:00+00:00'
+        receivedUnixTimestamp:
+          type: integer
+          format: int64
+          description: 13 digit UNIX timestamp of the event
+          example: 1577836800000
+        source:
+          type: string
+          description: Source of the event. &quot;Complex Event Processor&quot; in case of events generated by CEP
+          example: Gateway Name
+        gatewayId:
+          type: string
+          description: Gateway Identifier. In case of events generated by Complex Event Processor, this will be the gateway identifier of the gateway that sent the numerical data which caused the event.
+          example: 14cec83f-0b7a-43a5-acff-4fa98d606918
+        asset:
+          type: string
+          description: If the asset has a name, the name is returned else the asset code is returned
+          example: Asset Name
+        tagName:
+          type: string
+          description: Tag Name
+          example: Tag Name
+        tagAlias:
+          type: string
+          description: Tag Alias
+          example: Tag Alias
+        eventType:
+          type: string
+          description: Event Type - Problem, Abnormal etc.
+          example: Problem
+        state:
+          type: string
+          description: State of the event - True/False
+          example: 'True'
+        eventReason:
+          type: string
+          description: Event Reason
+          example: Power Failure
+        severity:
+          type: string
+          description: Severity of the event. High, Medium etc
+          example: High
+        quality:
+          type: string
+          description: Quality of the event - Good/Bad
+          example: Bad
+    ElapsedTimeTagResponse:
+      type: object
+      description: Elapsed time results grouped by tags
+      properties:
+        tagName:
+          type: string
+          description: Tag Name
+          example: TagName01
+        results:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

@@ -1,0 +1,952 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Purchase Order Releases…
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Purchase Order Releases API
+  description: The Purchase Order Releases API is used to retrieve and modify purchase order releases.
+paths:
+  /purchasing/v1/releases/{id}/cancel:
+    post:
+      operationId: cancelRelease
+      summary: Cancel Release
+      tags:
+      - Purchase Order Releases API
+      description: Cancel a Release.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release Resource Id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseCancelDto'
+      responses:
+        '200':
+          description: The supplied release was successfully cancelled.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/cancel-release
+  /purchasing/v2-beta1/releases:
+    post:
+      operationId: createReleaseV2-BETA1
+      summary: Create Release
+      tags:
+      - Purchase Order Releases API
+      description: Create a Release.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReleaseDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/create-release
+    get:
+      operationId: listReleasesV2-BETA1
+      summary: List Releases
+      tags:
+      - Purchase Order Releases API
+      description: List Releases by query parameters.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of Release IDs.
+      - name: pOLineItemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Purchase Order Line Item ID.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: releaseDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+      - name: releaseDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+      - name: dueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date of the Release.
+      - name: dueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date of the Release.
+      - name: releaseLineNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: Release Line Number.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The List of Part IDs associated with the Line item.
+      - name: originalDueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: Original Due Date of the Release.
+      - name: originalDueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: Original Due Date of the Release.
+      - name: pOId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: List Purchase Order ID.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: releaseAuthorizationNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Release Authorization Number
+      - name: operationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/list-releases
+  /purchasing/v1/releases:
+    post:
+      operationId: createReleaseV1
+      summary: Create Release
+      tags:
+      - Purchase Order Releases API
+      description: Create a Release.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReleaseDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/create-release
+    get:
+      operationId: listReleasesV1
+      summary: List Releases
+      tags:
+      - Purchase Order Releases API
+      description: List Releases by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A List of Release IDs.
+      - name: pOLineItemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Purchase Order Line Item ID.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: releaseDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+      - name: releaseDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+      - name: dueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date of the Release.
+      - name: dueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The Due Date of the Release.
+      - name: releaseLineNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 0
+        description: Release Line Number.
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was created.
+      - name: modifiedDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: modifiedDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: The date on which the record was last modified.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The List of Part IDs associated with the Line item.
+      - name: originalDueDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: Original Due Date of the Release.
+      - name: originalDueDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:17Z'
+        description: Original Due Date of the Release.
+      - name: pOId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: List Purchase Order ID.
+      - name: supplierId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - name: releaseAuthorizationNumber
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: Release Authorization Number
+      - name: operationCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/list-releases
+  /purchasing/v3/releases/create:
+    post:
+      operationId: createReleases
+      summary: Create Releases
+      tags:
+      - Purchase Order Releases API
+      description: Creating releases, to be inserted at once.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReleaseDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/create-releases
+  /purchasing/v1/releases/{id}:
+    delete:
+      operationId: deleteRelease
+      summary: Delete Release
+      tags:
+      - Purchase Order Releases API
+      description: Delete a Release.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The Release resource was successfully deleted.
+        '400':
+          description: A validation error has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/delete-release
+    get:
+      operationId: getReleaseV1
+      summary: Get Release
+      tags:
+      - Purchase Order Releases API
+      description: Retrieve a Release by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/get-release
+    put:
+      operationId: updateReleaseV1
+      summary: Update Release
+      tags:
+      - Purchase Order Releases API
+      description: Update a Release.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release Resource ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReleaseDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/update-release
+  /purchasing/v2-beta1/releases/{id}:
+    get:
+      operationId: getReleaseV2-BETA1
+      summary: Get Release
+      tags:
+      - Purchase Order Releases API
+      description: Retrieve a Release by ID.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/get-release
+    put:
+      operationId: updateReleaseV2-BETA1
+      summary: Update Release
+      tags:
+      - Purchase Order Releases API
+      description: Update a Release.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The Release Resource ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReleaseDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/update-release
+  /purchasing/v1/release-statuses:
+    get:
+      operationId: listReleaseStatuses
+      summary: List Release Statuses
+      tags:
+      - Purchase Order Releases API
+      description: List Release Status Records based on Release Status properties.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: A List of Release Status Names.
+      - name: includeInMrp
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: IncludeInMrp Flag
+      - name: default
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Default Flag
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Active Flag
+      - name: cancelled
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Cancelled Flag
+      - name: received
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Received Flag
+      - name: partial
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Partial Flag
+      - name: forecast
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Forecast Flag
+      - name: planStatus
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: PlanStatus Flag
+      - name: mrpAutoChange
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: MrpAutoChange Flag
+      - name: open
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: Open Flag
+      - name: immediateStatus
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: ImmediateStatus Flag
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseStatusDto'
+      x-source: https://developers.plex.com/api/documentation/purchase-order-releases-api/list-release-statuses
+components:
+  schemas:
+    UpdateReleaseDto:
+      type: object
+      description: The Release model exposed for updating.
+      properties:
+        status:
+          type: string
+          description: The status of the release. If no value is provided for the status, it will be determined based on the firm and planned days by the values provided in this request or in the Approved Supplier record associated with the PO line item.
+          example: string
+        dueDate:
+          type: string
+          format: date-time
+          description: The Due Date of the Release.
+          example: '2026-10-20T12:03:17Z'
+        quantity:
+          type: number
+          format: double
+          description: Release Quantity.
+          example: 0.1
+        type:
+          type: string
+          description: Release Type.
+          example: string
+        note:
+          type: string
+          description: Release Note.
+          example: string
+        poShipTo:
+          type: string
+          description: Purchase Order Ship To.
+          example: string
+        firmDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a firm status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        planDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a planned status.
+
+            Any value provided in this parameter will override any Approved Supplier record associated with the PO line item.'
+          example: 0
+        forecastDays:
+          type: integer
+          format: int32
+          description: 'The maximum number of days in which to create releases with a forecast status.
+
+            Provide a value in this parameter to limit the created releases (the Approved Supplier record is not used to limit the number of Forecast Days for releases).'
+          example: 0
+      required:
+      - dueDate
+      - quantity
+    ReleaseCancelDto:
+      type: object
+      description: The Release Cancel model
+      properties:
+        status:
+          type: string
+          description: The Release_Status
+          example: string
+      required:
+      - status
+    CreateReleaseDto:
+      type: object
+      description: The Sequenced Release model exposed for adding.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - salesReleaseId
+      - kitId
+    ReleaseStatusDto:
+      type: object
+      description: The Release Status model.
+      properties:
+        name:
+          type: string
+          description: A unique identifier for the Release Status.
+          example: string
+        includeInMrp:
+          type: boolean
+          description: IncludeInMrp Flag
+          example: false
+        default:
+          type: boolean
+          description: Default Flag
+          example: false
+        active:
+          type: boolean
+          description: Active Flag
+          example: false
+        cancelled:
+          type: boolean
+          description: Cancelled Flag
+          example: false
+        received:
+          type: boolean
+          description: Received Flag
+          example: false
+        partial:
+          type: boolean
+          description: Partial Flag
+          example: false
+        forecast:
+          type: boolean
+          description: Forecast Flag
+          example: false
+        planStatus:
+          type: boolean
+          description: PlanStatus Flag
+          example: false
+        mrpAutoChange:
+          type: boolean
+          description: MrpAutoChange Flag
+          example: false
+        open:
+          type: boolean
+          description: Open Flag
+          example: false
+        immediateStatus:
+          type: boolean
+          description: ImmediateStatus Flag
+          example: false
+    ReleaseDto:
+      type: object
+      description: The Sequenced Release model.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the sequenced release.
+          example: 00000000-0000-0000-0000-000000000000
+        salesReleaseNumber:
+          type: string
+          description: The sales release number.
+          example: string
+        releaseStatus:
+          type: string
+          description: The status assigned to the sequenced release.
+          example: string
+        salesReleaseId:
+          type: string
+          format: uuid
+          description: A unique identifier for the sales release.
+          example: 00000000-0000-0000-0000-000000000000
+        kitId:
+          type: string
+          format: uuid
+          description: A unique identifier for the kit.
+          example: 00000000-0000-0000-0000-000000000000
+        kitName:
+          type: string
+          description: The kit name.
+          example: string
+        createdById:
+          type: string
+          format: uuid
+          description: The user account ID that created the release.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was created.
+          example: '2026-10-20T12:03:13Z'
+        modifiedById:
+          type: string
+          format: uuid
+          description: The user account ID that last modified the release record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release record was modified.
+          example: '2026-10-20T12:03:13Z'
+        packedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who packed the release.
+          example: 00000000-0000-0000-0000-000000000000
+        packedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was packed.
+          example: '2026-10-20T12:03:13Z'
+        unPackedById:
+          type: string
+          format: uuid
+          description: The account ID of the user who unpacked the release.
+          example: 00000000-0000-0000-0000-000000000000
+        unPackedDateTime:
+          type: string
+          format: date-time
+          description: The date and time on which the release was unpacked.
+          example: '2026-10-20T12:03:13Z'
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

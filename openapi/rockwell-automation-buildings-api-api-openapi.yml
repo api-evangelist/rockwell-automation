@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Buildings API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Buildings API
+  description: The Building API is used to manage building data.
+paths:
+  /mdm/v1/buildings/{id}:
+    get:
+      operationId: getBuilding
+      summary: Get Building
+      tags:
+      - Buildings API
+      description: Retrieve a building by ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the building.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildingDto'
+        '404':
+          description: The resource does not exist.
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/buildings-api/get-building
+  /mdm/v1/buildings:
+    get:
+      operationId: listBuildings
+      summary: List Buildings
+      tags:
+      - Buildings API
+      description: List buildings by query parameters.
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the building.
+      - name: buildingCode
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The building code.
+      - name: buildingType
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The building type.
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The name of the building.
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+          example: false
+        description: The active status of the building.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildingDto'
+        '400':
+          description: A validation error has occurred.
+      x-source: https://developers.plex.com/api/documentation/buildings-api/list-buildings
+components:
+  schemas:
+    BuildingDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the building.
+          example: 00000000-0000-0000-0000-000000000000
+        buildingCode:
+          type: string
+          description: The building code.
+          example: string
+        buildingType:
+          type: string
+          description: The building type.
+          example: string
+        name:
+          type: string
+          description: The name of the building.
+          example: string
+        oldBuildingCode:
+          type: string
+          description: The old building code.
+          example: string
+        active:
+          type: boolean
+          description: The active status of the building.
+          example: false
+        address:
+          type: string
+          description: The building's street address.
+          example: string
+        city:
+          type: string
+          description: The city in which the building is located.
+          example: string
+        state:
+          type: string
+          description: The state in which the building is located.
+          example: string
+        country:
+          type: string
+          description: The country in which the building is located.
+          example: string
+        zipCode:
+          type: string
+          description: The building's zip code (postal code).
+          example: string
+        phone:
+          type: string
+          description: The building's phone number.
+          example: string
+        fax:
+          type: string
+          description: The building's fax number.
+          example: string
+        dunsNo:
+          type: string
+          description: The building's DUNS number.
+          example: string
+        taxId:
+          type: string
+          description: The tax ID associated with the building.
+          example: string
+        vatRegistrationNo:
+          type: string
+          description: The VAT (value-added tax) registration number associated with the building.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'

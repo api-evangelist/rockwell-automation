@@ -1,0 +1,523 @@
+openapi: 3.2.0
+info:
+  title: Plex (Rockwell Automation) Connect Transfer Orders API
+  version: '2026-10-20'
+  description: Plex Smart Manufacturing Platform REST APIs, converted mechanically from the structured operation documents the Plex Developer Portal (developers.plex.com, a Rockwell Automation property) serves at /api/documentation/{api}/{operation}. No operations were authored by hand.
+  x-generated-from: provider-documentation-json
+  x-source: https://developers.plex.com/api/documentation/info
+servers:
+- url: https://connect.plex.com
+  description: Production
+- url: https://test.connect.plex.com
+  description: Test (from https://developers.plex.com/api/sandbox/url)
+security:
+- PlexConnectApiKey: []
+tags:
+- name: Transfer Orders API
+  description: The Transfer Orders API is used to manage transfer order data.
+paths:
+  /shipping/v1-beta1/transfer-orders/{id}/cancel:
+    post:
+      operationId: cancelTransferOrder
+      summary: Cancel Transfer Order
+      tags:
+      - Transfer Orders API
+      description: Cancel a transfer order.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The id of transfer order to be cancelled.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOrderDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/transfer-orders-api/cancel-transfer-order
+  /shipping/v1-beta1/transfer-orders:
+    post:
+      operationId: createTransferOrder
+      summary: Create Transfer Order
+      tags:
+      - Transfer Orders API
+      description: Create a transfer order.
+      x-beta: true
+      x-beta-end-date: null
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransferOrderDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOrderDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+      x-source: https://developers.plex.com/api/documentation/transfer-orders-api/create-transfer-order
+    get:
+      operationId: listTransferOrders
+      summary: List Transfer Orders
+      tags:
+      - Transfer Orders API
+      description: List Transfer Orders by query parameters.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: createdDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The beginning date used to return orders that were created within a time frame.
+      - name: createdDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The end date used to return orders that were created within a time frame.
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: A unique identifier for the transfer order.
+      - name: lotId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the lot allowed on the transfer order.
+      - name: partId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID for a part.
+      - name: requiredShipDateBegin
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The beginning date used to return orders that were placed within a time frame.
+      - name: requiredShipDateEnd
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2026-10-20T12:03:18Z'
+        description: The end date used to return orders that were placed within a time frame.
+      - name: shipFromId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the building from which the order will ship.
+      - name: shipToId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID of the building the order will ship to.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The transfer order status.
+      - name: supplyItemId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The ID for a supply item.
+      - name: transferOrderNo
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The internal order number generated by Plex that corresponds to a given transfer order.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          example: string
+        description: The transfer order type.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOrderDto'
+      x-source: https://developers.plex.com/api/documentation/transfer-orders-api/list-transfer-orders
+  /shipping/v1-beta1/transfer-orders/{id}:
+    get:
+      operationId: getTransferOrder
+      summary: Get Transfer Order
+      tags:
+      - Transfer Orders API
+      description: Retrieve a transfer order by ID.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: Transfer order ID.
+      responses:
+        '200':
+          description: The query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOrderDto'
+        '404':
+          description: The resource does not exist.
+      x-source: https://developers.plex.com/api/documentation/transfer-orders-api/get-transfer-order
+    put:
+      operationId: updateTransferOrder
+      summary: Update Transfer Order
+      tags:
+      - Transfer Orders API
+      description: Update a transfer order.
+      x-beta: true
+      x-beta-end-date: null
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        description: The id of transfer order to be updated.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransferOrderDto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferOrderDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResponse'
+        '404':
+          description: Not Found
+      x-source: https://developers.plex.com/api/documentation/transfer-orders-api/update-transfer-order
+components:
+  schemas:
+    ValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: string
+        message:
+          type: string
+          example: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties: {}
+    UpdateTransferOrderDto:
+      type: object
+      description: Update transfer order.
+      properties:
+        description:
+          type: string
+          description: The transfer order description.
+          example: string
+        fromLocationId:
+          type: string
+          format: uuid
+          description: The ID of the location the supply item will ship from.
+          example: 00000000-0000-0000-0000-000000000000
+        lotId:
+          type: string
+          format: uuid
+          description: The ID of the lot allowed on the transfer order.
+          example: 00000000-0000-0000-0000-000000000000
+        orderQuantity:
+          type: number
+          format: double
+          description: The quantity for the transfer order.
+          example: 0.1
+        operationId:
+          type: string
+          format: uuid
+          description: The ID of the operation the part must be in to satisfy the transfer order.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: The ID for a part.
+          example: 00000000-0000-0000-0000-000000000000
+        requiredShipDate:
+          type: string
+          format: date-time
+          description: The date the transfer order is required to ship by.
+          example: '2026-10-20T12:03:18Z'
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ID of the building the order will ship from.
+          example: 00000000-0000-0000-0000-000000000000
+        shipToId:
+          type: string
+          format: uuid
+          description: The ID of the building the order will ship to.
+          example: 00000000-0000-0000-0000-000000000000
+        supplyItemId:
+          type: string
+          format: uuid
+          description: The ID for a supply item.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The transfer order type.
+          example: string
+      required:
+      - orderQuantity
+      - shipFromId
+      - shipToId
+      - type
+    CreateTransferOrderDto:
+      type: object
+      description: Create transfer order.
+      properties:
+        description:
+          type: string
+          description: The transfer order description.
+          example: string
+        fromLocationId:
+          type: string
+          format: uuid
+          description: The ID of the location the supply item will ship from.
+          example: 00000000-0000-0000-0000-000000000000
+        lotId:
+          type: string
+          format: uuid
+          description: The ID of the lot allowed on the transfer order.
+          example: 00000000-0000-0000-0000-000000000000
+        orderQuantity:
+          type: number
+          format: double
+          description: The quantity for the transfer order.
+          example: 0.1
+        operationId:
+          type: string
+          format: uuid
+          description: The ID of the operation the part must be in to satisfy the transfer order.
+          example: 00000000-0000-0000-0000-000000000000
+        partId:
+          type: string
+          format: uuid
+          description: The ID for a part.
+          example: 00000000-0000-0000-0000-000000000000
+        requiredShipDate:
+          type: string
+          format: date-time
+          description: The date the transfer order is required to ship by.
+          example: '2026-10-20T12:03:18Z'
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ID of the building the order will ship from.
+          example: 00000000-0000-0000-0000-000000000000
+        shipToId:
+          type: string
+          format: uuid
+          description: The ID of the building the order will ship to.
+          example: 00000000-0000-0000-0000-000000000000
+        supplyItemId:
+          type: string
+          format: uuid
+          description: The ID for a supply item.
+          example: 00000000-0000-0000-0000-000000000000
+        type:
+          type: string
+          description: The transfer order type.
+          example: string
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the transfer order. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+      required:
+      - orderQuantity
+      - shipFromId
+      - shipToId
+      - type
+    TransferOrderDto:
+      type: object
+      description: The Transfer Order.
+      properties:
+        createdByAccountId:
+          type: string
+          format: uuid
+          description: The ID of the user who created the record.
+          example: 00000000-0000-0000-0000-000000000000
+        createdDate:
+          type: string
+          format: date-time
+          description: The date on which the record was created.
+          example: '2026-10-20T12:03:18Z'
+        description:
+          type: string
+          description: The description of the transfer order.
+          example: string
+        fromLocationId:
+          type: string
+          format: uuid
+          description: The ID for a supply item location.
+          example: 00000000-0000-0000-0000-000000000000
+        id:
+          type: string
+          format: uuid
+          description: A unique identifier for the transfer order. This will be automatically generated if omitted from the request.
+          example: 00000000-0000-0000-0000-000000000000
+        intransitShippers:
+          type: array
+          description: A list of in-transit shippers for the transfer order.
+          items:
+            type: object
+            properties: {}
+        lotId:
+          type: string
+          format: uuid
+          description: The ID of the lot allowed on the transfer order.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedByAccountId:
+          type: string
+          format: uuid
+          description: The ID of the user who last modified the record.
+          example: 00000000-0000-0000-0000-000000000000
+        modifiedDate:
+          type: string
+          format: date-time
+          description: The date on which the record was last modified.
+          example: '2026-10-20T12:03:18Z'
+        operationId:
+          type: string
+          format: uuid
+          description: The ID of the part's operation.
+          example: 00000000-0000-0000-0000-000000000000
+        orderQuantity:
+          type: number
+          format: double
+          description: The quantity on the transfer order.
+          example: 0.1
+        partId:
+          type: string
+          format: uuid
+          description: The ID for a part.
+          example: 00000000-0000-0000-0000-000000000000
+        requiredShipDate:
+          type: string
+          format: date-time
+          description: The date the transfer order is required to ship by.
+          example: '2026-10-20T12:03:18Z'
+        scheduledQuantity:
+          type: number
+          format: double
+          description: The quantity on the transfer order that has already been scheduled to an interplant shipper.
+          example: 0.1
+        shipFromId:
+          type: string
+          format: uuid
+          description: The ID of the building from which the order will ship.
+          example: 00000000-0000-0000-0000-000000000000
+        shippedQuantity:
+          type: number
+          format: double
+          description: The quantity on the transfer order that has already been shipped on an interplant shipper.
+          example: 0.1
+        shipToId:
+          type: string
+          format: uuid
+          description: The ID of the building the order will ship to.
+          example: 00000000-0000-0000-0000-000000000000
+        status:
+          type: string
+          description: The transfer order status.
+          example: string
+        supplyItemId:
+          type: string
+          format: uuid
+          description: The ID for a supply item.
+          example: 00000000-0000-0000-0000-000000000000
+        transferOrderNo:
+          type: string
+          description: The internal order number generated by Plex that corresponds to a given transfer order.
+          example: string
+        type:
+          type: string
+          description: The transfer order type.
+          example: string
+  securitySchemes:
+    PlexConnectApiKey:
+      type: apiKey
+      in: header
+      name: X-Plex-Connect-Api-Key
+      description: 'Subscription key (Consumer Key of an app created in the Plex Developer Portal). Source: https://developers.plex.com/getstarted'
