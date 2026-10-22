@@ -22,6 +22,9 @@ checked:
 - https://monid.ai/tools/rockwell-automation
 - https://n8n.io/integrations/rockwell-automation/
 - https://zapier.com/apps/rockwell-automation/integrations
+- https://api.first.org/data/v1/teams
+- https://raw.githubusercontent.com/CVEProject/cve-website/dev/src/assets/data/CNAsList.json
+- https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
 summary: null
 marketplace_apps: []
 edges:
@@ -144,4 +147,41 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-industrial-robotics.py
   first_seen: '2026-10-15'
+- partner_name: CVE Program (CVE Numbering Authorities)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.cve.org/PartnerInformation/ListofPartners/partner/Rockwell
+  category: Vulnerability disclosure (CVE Numbering Authority)
+  contract_reference:
+    register: CVE Program CNA list (github.com/CVEProject/cve-website CNAsList.json @ 239d3d9b68e0)
+    standard: CVE Program CNA Operational Rules (CVE Numbering Authority)
+    spec_file: null
+    role: cve-numbering-authority
+    registered_name: Rockwell Automation
+    matched_domain: rockwellautomation.com
+    matched_by: domain+name-among-holders
+    cna_id: CNA-2022-0028
+    cna_short_name: Rockwell
+    cna_types:
+    - Vendor
+    cna_roles:
+    - CNA
+    scope: All Rockwell Automation products.
+    top_level_root: Cybersecurity and Infrastructure Security Agency (CISA)
+    root: Cybersecurity and Infrastructure Security Agency (CISA) Industrial Control Systems (ICS)
+    security_advisories:
+    - https://www.rockwellautomation.com/en-us/trust-center/security-advisories.html
+    disclosure_policy:
+    - https://www.rockwellautomation.com/en-us/company/about-us/legal-notices/vulnerability-policy.html..html
+    country: USA
+    signal_note: listing as a CVE Numbering Authority = participation (a public commitment to assign CVE IDs and
+      publish advisories for its scope); never a count of CVEs
+    detected_by: sweep-vulnerability-disclosure-cna.py
+    detected: '2026-10-22'
+  detected_by: sweep-vulnerability-disclosure-cna.py
+  first_seen: '2026-10-22'
 templates: []
