@@ -56,6 +56,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/rockwell-automation-capability-edges.yml
+  name: Rockwell Automation Business Capability Map
 - type: Security
   url: https://engage.rockwellautomation.com/HigherLogic/Security/SAML/localSAMLLoginService.aspx?ReturnUrl=https%3a%2f%2fengage.rockwellautomation.com%2fhome
 - type: AgentSkill
