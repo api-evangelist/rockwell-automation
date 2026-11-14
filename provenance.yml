@@ -11,14 +11,26 @@ artifacts:
   capabilities/rockwell-automation-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   conformance/rockwell-automation-conformance.yml:
     method: derived
     evidence: declared in the artifact
   conventions/rockwell-automation-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-license/rockwell-automation-data-license.yml:
+    method: harvested
+    evidence: declared in the artifact
   data-model/rockwell-automation-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/rockwell-automation-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/rockwell-automation-problem-types.yml:
     method: searched
@@ -35,6 +47,9 @@ artifacts:
   heartbeat/2026-11-06.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/rockwell-automation-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -47,16 +62,148 @@ artifacts:
   json-ld/rockwell-automation-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/rockwell-automation-accounts-payable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-accounts-payable-invoice-receipts-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-accounts-payable-payment-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-accounts-receivable-deposit-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-accounts-receivable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-activity-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-add-accounts-payable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-add-accounts-receivable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-add-activity-request-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-add-activity-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-add-bom-component-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/rockwell-automation-add-checksheet-dto-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/rockwell-automation-add-part-specification-dto-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/rockwell-automation-approved-supplier-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-approved-supplier-edi-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-approved-supplier-mrp-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-bom-component-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-building-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-chart-of-account-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-contact-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-create-chart-of-account-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-create-contact-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-create-customer-part-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-create-truck-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-custom-object-data-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-custom-object-field-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-custom-object-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-custom-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-custom-object-search-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-customer-part-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-either-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-field-definition-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-field-type-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-field-values-search-body-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-checksheet-type-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-control-plan-line-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-control-plan-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-control-plan-type-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-deviation-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-get-deviation-status-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-list-activities-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/rockwell-automation-plex-order-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/rockwell-automation-price-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-process-group-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/rockwell-automation-process-specification-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-process-step-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-process-step-validate-component-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-process-steps-report-response-dto-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/rockwell-automation-shipper-dto-schema.json:
@@ -65,7 +212,55 @@ artifacts:
   json-schema/rockwell-automation-specification-dto-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/rockwell-automation-standard-object-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-standard-object-record-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-standard-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-sync-chart-of-account-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-sync-contact-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/rockwell-automation-sync-customer-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-sync-customer-part-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-truck-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-accounts-payable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-accounts-receivable-invoice-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-activity-request-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-activity-response-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-bom-component-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-chart-of-account-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-contact-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-customer-part-dto-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/rockwell-automation-update-truck-dto-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-structure/rockwell-automation-plex-structure.json:
@@ -74,7 +269,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -138,6 +333,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   llms/rockwell-automation-llms-provenance.yml:
@@ -431,6 +629,9 @@ artifacts:
     evidence: declared in the artifact
   sla/rockwell-automation-sla.yml:
     method: generated
+    evidence: declared in the artifact
+  terms/rockwell-automation-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   vendors/rockwell-automation-vendors.yml:
     method: unknown
